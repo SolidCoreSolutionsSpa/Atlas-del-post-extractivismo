@@ -1,0 +1,64 @@
+@define-mixin focus-ring {
+  outline: 2px solid var(--token-primary);
+  outline-offset: 2px;
+}
+
+:root {
+  color-scheme: light dark;
+  --token-background: rgb(248 250 252);
+  --token-surface: rgb(255 255 255);
+  --token-primary: rgb(52 120 246);
+  --token-primary-strong: rgb(34 88 192);
+  --token-body: rgb(17 24 39);
+  --token-muted: rgb(100 116 139);
+  --token-divider: rgb(226 232 240);
+}
+
+@theme {
+  --color-token-background: var(--token-background);
+  --color-token-surface: var(--token-surface);
+  --color-token-primary: var(--token-primary);
+  --color-token-primary-strong: var(--token-primary-strong);
+  --color-token-body: var(--token-body);
+  --color-token-muted: var(--token-muted);
+  --color-token-divider: var(--token-divider);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --token-background: rgb(15 23 42);
+    --token-surface: rgb(30 41 59);
+    --token-primary: rgb(96 165 250);
+    --token-primary-strong: rgb(59 130 246);
+    --token-body: rgb(226 232 240);
+    --token-muted: rgb(148 163 184);
+    --token-divider: rgb(71 85 105);
+  }
+}
+
+body {
+  background-color: var(--token-background);
+  color: var(--token-body);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes pulse-soft {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}

@@ -1,0 +1,215 @@
+import { useEffect, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import clsx from 'clsx'
+
+import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
+import {
+  InteractiveMap,
+  MapIconHotspot,
+} from '../../shared/ui/InteractiveMap'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { atlasContent } from '../../shared/data/atlasContent'
+import { EscenasService } from '../services/escenasService'
+import { inMemoryEscenasRepository } from '../repo/escenasRepository'
+
+const iconByCategory = {
+  biotic: '/img/icono_biotico.svg',
+  anthropic: '/img/icono_antropico.svg',
+  physical: '/img/icono_fisico.svg',
+}
+
+const detailVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 140, damping: 18 },
+  },
+}
+
+const zoneIndex = new Map(atlasContent.zones.map((zone) => [zone.id, zone]))
+const caseIndex = new Map(
+  atlasContent.caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
+)
+const elementIndex = new Map(
+  atlasContent.elements.map((element) => [element.id, element]),
+)
+
+export function EscenaDetailPage() {
+  const { sceneId } = useParams()
+  const zoomNavigate = useZoomNavigation()
+  const service = useMemo(
+    () =>
+      new EscenasService({
+        escenasRepository: inMemoryEscenasRepository,
+      }),
+    [],
+  )
+
+  const [scene, setScene] = useState(null)
+  const [status, setStatus] = useState('loading')
+
+  useEffect(() => {
+    let isMounted = true
+    async function load() {
+      setStatus('loading')
+      const data = await service.getById(sceneId)
+      if (isMounted) {
+        setScene(data)
+        setStatus(data ? 'ready' : 'empty')
+      }
+    }
+    load()
+    return () => {
+      isMounted = false
+    }
+  }, [sceneId, service])
+
+  const zone = scene ? zoneIndex.get(scene.zoneId) : null
+  const caseStudy = zone ? caseIndex.get(zone.caseId) : null
+
+  const breadcrumbItems = [
+    { label: 'Inicio', to: '/' },
+    { label: 'Casos de extractivismo, escala global', to: '/casos-de-estudio' },
+  ]
+  if (caseStudy) {
+    breadcrumbItems.push({
+      label: caseStudy.title,
+      to: `/casos-de-estudio/${caseStudy.id}`,
+    })
+  }
+  if (zone) {
+    breadcrumbItems.push({ label: zone.name, to: `/zonas/${zone.id}` })
+  }
+  breadcrumbItems.push({ label: scene ? scene.name : 'Escena' })
+
+  if (status === 'loading') {
+    return (
+      <motion.section
+        className="relative min-h-screen"
+        initial="hidden"
+        animate="visible"
+        variants={detailVariants}
+      >
+        <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+        <div className="absolute inset-0 bg-token-divider" />
+      </motion.section>
+    )
+  }
+
+  if (!scene) {
+    return (
+      <motion.section
+        className="mx-auto flex w-[92%] max-w-4xl flex-col gap-6 pb-16"
+        initial="hidden"
+        animate="visible"
+        variants={detailVariants}
+      >
+        <Breadcrumbs items={breadcrumbItems} />
+        <div className="mt-20 rounded-3xl border border-token-divider bg-token-surface p-8 shadow-sm">
+          <h2 className="text-2xl font-semibold text-token-primary">
+            Escena no encontrada
+          </h2>
+          <p className="mt-2 text-sm text-token-muted">
+            Regresa a la zona para seleccionar otra escena disponible.
+          </p>
+          <button
+            type="button"
+            onClick={(event) => {
+              const rect = event.currentTarget.getBoundingClientRect()
+              const origin = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              }
+              zoomNavigate(zone ? `/zonas/${zone.id}` : '/casos-de-estudio', {
+                origin,
+              })
+            }}
+            className="mt-6 inline-flex items-center rounded-full bg-token-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-token-primary-strong"
+          >
+            Volver a la zona
+          </button>
+        </div>
+      </motion.section>
+    )
+  }
+
+  const elements = atlasContent.elements.filter((element) => element.sceneId === scene.id)
+
+  return (
+    <motion.section
+      className={clsx('relative min-h-screen overflow-hidden bg-[#050b1d] text-white')}
+      initial="hidden"
+      animate="visible"
+      variants={detailVariants}
+    >
+      <InteractiveMap
+        imageSrc={scene.map.image}
+        imageAlt={`Mapa de la escena ${scene.name}`}
+        intensity={20}
+        className="h-[calc(100vh-2rem)]"
+      >
+        {scene.map.hotspots.map((hotspot) => (
+          <MapIconHotspot
+            key={hotspot.id}
+            left={hotspot.left}
+            top={hotspot.top}
+            label={hotspot.label}
+            iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
+            iconAlt={hotspot.category ?? 'Hotspot'}
+            pulsate={hotspot.pulsate}
+            onClick={(event) => {
+              if (!hotspot.elementId) return
+              const rect = event.currentTarget.getBoundingClientRect()
+              const origin = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              }
+              zoomNavigate(`/elementos/${hotspot.elementId}`, { origin })
+            }}
+          />
+        ))}
+      </InteractiveMap>
+
+      <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+
+      <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end gap-3 text-right">
+        <h1
+          className="text-3xl font-semibold text-white sm:text-4xl"
+          style={{ fontFamily: '"Baskervville", serif' }}
+        >
+          {scene.name}
+        </h1>
+        <p className="text-base leading-relaxed text-white/80">
+          Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura.
+        </p>
+      </div>
+
+      <div className="pointer-events-auto absolute bottom-16 right-12 flex max-w-sm flex-col items-end gap-3 rounded-[2rem] bg-white/90 p-6 text-token-body shadow-xl backdrop-blur">
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-token-muted">
+          Elementos vinculados
+        </p>
+        <div className="flex flex-wrap justify-end gap-2">
+          {elements.map((element) => (
+            <button
+              key={element.id}
+              type="button"
+              onClick={(event) => {
+                const rect = event.currentTarget.getBoundingClientRect()
+                const origin = {
+                  x: rect.left + rect.width / 2,
+                  y: rect.top + rect.height / 2,
+                }
+                zoomNavigate(`/elementos/${element.id}`, { origin })
+              }}
+              className="rounded-full border border-token-divider px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-token-muted transition hover:border-token-primary hover:text-token-primary"
+            >
+              {element.name}
+            </button>
+          ))}
+        </div>
+      </div>
+    </motion.section>
+  )
+}
