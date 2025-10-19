@@ -28,7 +28,7 @@ export function CaseStudiesListPage() {
 
   return (
     <motion.section
-      className="relative min-h-screen overflow-hidden bg-[#f5f7fb]"
+      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#f5f7fb] px-6 py-0"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
@@ -37,7 +37,9 @@ export function CaseStudiesListPage() {
         imageSrc={mapImage}
         imageAlt="Mapa global de casos de estudio"
         intensity={18}
-        className="h-[calc(100vh-2rem)]"
+        frame={false}
+        className="min-h-[24rem] h-screen max-h-screen w-full"
+        imageClassName="h-full max-h-full min-h-full w-auto min-w-[120%]"
       >
         {isLoading
           ? null
@@ -65,7 +67,7 @@ export function CaseStudiesListPage() {
       </InteractiveMap>
 
       <Breadcrumbs
-        className="absolute left-10 top-28"
+        className="absolute left-10 top-24 sm:top-28"
         items={[
           { label: 'Inicio', to: '/' },
           { label: 'Casos de extractivismo, escala global' },

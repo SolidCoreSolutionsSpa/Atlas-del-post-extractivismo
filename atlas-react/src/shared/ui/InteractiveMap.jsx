@@ -32,6 +32,8 @@ export function InteractiveMap({
   imageAlt,
   intensity = 20,
   className,
+  imageClassName,
+  frame = true,
   children,
 }) {
   const containerRef = useRef(null)
@@ -76,7 +78,10 @@ export function InteractiveMap({
         onMouseMove={handlePointerMove}
         onMouseLeave={handlePointerLeave}
         className={clsx(
-          'relative flex h-full w-full items-center justify-center overflow-hidden rounded-[2.5rem]',
+          'relative flex h-full w-full items-center justify-center',
+          frame
+            ? 'overflow-hidden rounded-[2.5rem]'
+            : 'overflow-visible',
           className,
         )}
       >
@@ -84,7 +89,10 @@ export function InteractiveMap({
           <motion.img
             src={imageSrc}
             alt={imageAlt}
-            className="pointer-events-none max-h-full w-full object-contain object-center"
+            className={clsx(
+              'pointer-events-none max-h-full w-full object-contain object-center',
+              imageClassName,
+            )}
             style={{
               translateX: translateXPx,
               translateY: translateYPx,
