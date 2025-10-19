@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { SectionHeader } from '../../shared/design/components/SectionHeader'
 import { Button } from '../../shared/design/components/Button'
 import { TagChip } from '../../shared/ui/TagChip'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 
 const listVariants = {

@@ -40,6 +40,8 @@ export function InteractiveMap({
 
   const springX = useSpring(x, { stiffness: 120, damping: 16 })
   const springY = useSpring(y, { stiffness: 120, damping: 16 })
+  const translateXPx = useTransform(springX, (value) => `${value}px`)
+  const translateYPx = useTransform(springY, (value) => `${value}px`)
 
   const handlePointerMove = useCallback(
     (event) => {
@@ -65,6 +67,8 @@ export function InteractiveMap({
     [springX, springY],
   )
 
+  const hasImage = typeof imageSrc === 'string' && imageSrc.length > 0
+
   return (
     <MapParallaxContext.Provider value={contextValue}>
       <div
@@ -72,20 +76,24 @@ export function InteractiveMap({
         onMouseMove={handlePointerMove}
         onMouseLeave={handlePointerLeave}
         className={clsx(
-          'relative h-full w-full overflow-hidden rounded-[2.5rem] bg-black/5',
+          'relative flex h-full w-full items-center justify-center overflow-hidden rounded-[2.5rem]',
           className,
         )}
       >
-        <motion.img
-          src={imageSrc}
-          alt={imageAlt}
-          className="pointer-events-none h-full w-full object-cover"
-          style={{
-            translateX: useTransform(springX, (value) => `${value}px`),
-            translateY: useTransform(springY, (value) => `${value}px`),
-          }}
-          loading="lazy"
-        />
+        {hasImage ? (
+          <motion.img
+            src={imageSrc}
+            alt={imageAlt}
+            className="pointer-events-none max-h-full w-full object-contain object-center"
+            style={{
+              translateX: translateXPx,
+              translateY: translateYPx,
+            }}
+            loading="lazy"
+          />
+        ) : (
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#eef3fa] via-[#dbe3ef] to-[#cbd6e7]" />
+        )}
         <div className="absolute inset-0">
           {children}
         </div>

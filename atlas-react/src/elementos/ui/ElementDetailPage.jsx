@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { TagChip } from '../../shared/ui/TagChip'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'

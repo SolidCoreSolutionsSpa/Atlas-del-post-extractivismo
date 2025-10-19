@@ -7,7 +7,7 @@ import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'

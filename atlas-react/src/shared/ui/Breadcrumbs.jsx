@@ -1,4 +1,4 @@
-import { useZoomNavigation } from '../hooks/useZoomNavigation'
+import { useZoomNavigation } from '../hooks/useZoomNavigation.jsx'
 
 export function Breadcrumbs({ items, className }) {
   const zoomNavigate = useZoomNavigation()

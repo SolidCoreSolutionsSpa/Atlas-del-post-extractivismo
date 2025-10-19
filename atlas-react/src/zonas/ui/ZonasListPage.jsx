@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 import { SectionHeader } from '../../shared/design/components/SectionHeader'
 import { Button } from '../../shared/design/components/Button'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useZonasState } from '../hooks/useZonasState'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'

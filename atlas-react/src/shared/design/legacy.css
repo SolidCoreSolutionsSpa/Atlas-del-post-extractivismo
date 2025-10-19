@@ -12,8 +12,9 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 90%;
+  width: 100%;
   padding: 25px 5vw;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,10 +122,12 @@ html, body {
 }
 
 .imagen-mapa {
-  height: 105%;
-  width: auto;
+  height: 100%;
+  width: 100%;
   display: block;
   pointer-events: none;
+  object-fit: cover;
+  object-position: center;
 }
 
 .overlay-puntos {

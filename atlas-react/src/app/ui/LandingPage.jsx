@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
-import { motion, useAnimationControls } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/atlasContent'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 
 const hero = atlasContent.hero
 const PARALLAX_FACTOR = 20
 
 export function LandingPage() {
   const zoomNavigate = useZoomNavigation()
-  const controls = useAnimationControls()
   const [isAnimating, setIsAnimating] = useState(false)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
 
@@ -34,7 +33,7 @@ export function LandingPage() {
     }
   }, [])
 
-  const handleEnter = async (event) => {
+  const handleEnter = (event) => {
     if (isAnimating) {
       return
     }
@@ -45,12 +44,10 @@ export function LandingPage() {
       y: rect.top + rect.height / 2,
     }
 
-    await controls.start({
-      scale: 1.02,
-      transition: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
-    })
-    setIsAnimating(false)
     zoomNavigate('/casos-de-estudio', { origin })
+    window.setTimeout(() => {
+      setIsAnimating(false)
+    }, 750)
   }
 
   return (
@@ -61,7 +58,7 @@ export function LandingPage() {
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="contenedor">
-        <motion.div animate={controls} id="contenido">
+        <motion.div id="contenido">
           <h1>{hero.title.toUpperCase()}</h1>
           <h2>{hero.subtitle}</h2>
           <p>{hero.description}</p>

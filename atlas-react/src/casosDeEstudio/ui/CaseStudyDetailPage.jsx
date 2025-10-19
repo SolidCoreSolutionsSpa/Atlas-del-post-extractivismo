@@ -8,7 +8,7 @@ import {
   InteractiveMap,
   MapDecoration,
 } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation'
+import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
