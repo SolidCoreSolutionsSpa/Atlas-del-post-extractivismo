@@ -68,7 +68,7 @@ export function CaseStudiesListPage() {
       </InteractiveMap>
 
       <Breadcrumbs
-        className="absolute left-10 top-24 sm:top-28"
+        className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
         items={[
           { label: 'Inicio', to: '/' },
           { label: 'Casos de extractivismo, escala global' },

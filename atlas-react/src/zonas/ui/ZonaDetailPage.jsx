@@ -86,7 +86,10 @@ export function ZonaDetailPage() {
         animate="visible"
         variants={detailVariants}
       >
-        <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+        <Breadcrumbs
+          className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
+          items={breadcrumbItems}
+        />
         <div className="absolute inset-0 bg-token-divider" />
       </motion.section>
     )
@@ -165,7 +168,10 @@ export function ZonaDetailPage() {
         ))}
       </InteractiveMap>
 
-      <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+      <Breadcrumbs
+        className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
+        items={breadcrumbItems}
+      />
     </motion.section>
   )
 }

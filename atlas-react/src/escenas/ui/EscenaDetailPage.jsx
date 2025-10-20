@@ -92,7 +92,10 @@ export function EscenaDetailPage() {
         animate="visible"
         variants={detailVariants}
       >
-        <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+        <Breadcrumbs
+          className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
+          items={breadcrumbItems}
+        />
         <div className="absolute inset-0 bg-token-divider" />
       </motion.section>
     )
@@ -172,7 +175,10 @@ export function EscenaDetailPage() {
         ))}
       </InteractiveMap>
 
-      <Breadcrumbs className="absolute left-10 top-28" items={breadcrumbItems} />
+      <Breadcrumbs
+        className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
+        items={breadcrumbItems}
+      />
 
       <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end gap-3 text-right">
         <h1

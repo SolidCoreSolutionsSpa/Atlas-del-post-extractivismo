@@ -64,6 +64,8 @@ export function InteractiveMap({
   frame = true,
   contentPosition = 'center',
   overfill = 1,
+  backdropGradient = 'linear-gradient(180deg, rgba(236, 242, 250, 0.95), rgba(236, 242, 250, 0.85))',
+  backdropBlur = 28,
   children,
 }) {
   const contenedorRef = useRef(null)
@@ -153,11 +155,7 @@ export function InteractiveMap({
   )
 
   const hayImagen = typeof imageSrc === 'string' && imageSrc.length > 0
-  const shouldRenderBackdrop =
-    hayImagen &&
-    layout &&
-    (layout.width < layout.containerWidth - 1 ||
-      layout.height < layout.containerHeight - 1)
+  const shouldRenderBackdrop = hayImagen
 
   const clasesPosicion =
     contentPosition === 'top-left'
@@ -173,31 +171,44 @@ export function InteractiveMap({
         onPointerMove={manejarPointerMove}
         onPointerLeave={manejarPointerLeave}
         className={clsx(
-          'relative flex h-full w-full bg-[#f9fafc]',
+          'relative flex h-full w-full',
           clasesPosicion,
           frame ? 'overflow-hidden rounded-[2.5rem]' : 'overflow-visible',
+          !hayImagen && 'bg-[#f9fafc]',
           className,
         )}
       >
-        {shouldRenderBackdrop && hayImagen && layout && (
-          <motion.div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 -z-10"
-            style={{
-              translateX: backdropTranslateX,
-              translateY: backdropTranslateY,
-              scale: 1.18,
-              opacity: 0.9,
-              backgroundImage: `url(${imageSrc})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              filter: 'blur(48px) brightness(1.05)',
-            }}
-          />
+        {shouldRenderBackdrop && (
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <motion.div
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 w-[200vw] -translate-x-1/2 transform-gpu"
+              style={{
+                translateX: backdropTranslateX,
+                translateY: backdropTranslateY,
+                height: '200vh',
+                backgroundImage: backdropGradient,
+                backgroundSize: 'cover',
+              }}
+            />
+            <motion.img
+              src={imageSrc}
+              alt=""
+              aria-hidden="true"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 object-cover"
+              style={{
+                translateX: backdropTranslateX,
+                translateY: backdropTranslateY,
+                width: '200vw',
+                height: '200vh',
+                filter: `blur(${backdropBlur}px) saturate(1.25) brightness(1.05)`,
+                opacity: 0.9,
+              }}
+            />
+          </div>
         )}
 
-        {/* Fondo o degradado mientras no hay imagen */}
+        {/* Fondo sólido cuando no hay imagen */}
         {!hayImagen && (
           <div className="pointer-events-none absolute inset-0 bg-[#f9fafc]" />
         )}
@@ -388,6 +399,7 @@ export function MapDecoration({
     </motion.div>
   )
 }
+
 
 
 

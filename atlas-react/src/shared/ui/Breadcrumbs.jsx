@@ -1,3 +1,5 @@
+import clsx from 'clsx'
+
 import { useZoomNavigation } from '../hooks/useZoomNavigation.jsx'
 
 export function Breadcrumbs({ items, className }) {
@@ -9,12 +11,10 @@ export function Breadcrumbs({ items, className }) {
 
   return (
     <nav
-      className={[
-        'inline-flex flex-wrap items-center gap-2 rounded-full bg-white/90 px-5 py-3 text-xs font-medium uppercase tracking-[0.3em] text-token-muted shadow-lg backdrop-blur',
+      className={clsx(
+        'inline-flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-1 rounded-full bg-white/85 px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-token-muted shadow-md backdrop-blur-sm leading-none sm:flex-nowrap sm:gap-1.5 sm:px-4 sm:py-2 sm:text-[0.7rem] sm:tracking-[0.22em] md:px-4 md:py-2.5 md:text-[0.75rem] lg:gap-2 lg:px-5 lg:py-3 lg:text-xs lg:tracking-[0.28em]',
         className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
+      )}
     >
       {items.map((item, index) => (
         <BreadcrumbItem
