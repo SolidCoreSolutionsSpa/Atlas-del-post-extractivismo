@@ -5,7 +5,10 @@
 @import './shared/design/legacy.css';
 
 @layer base {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
@@ -13,7 +16,7 @@
     min-height: 100vh;
     line-height: 1.5;
     font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: white;
+    background-color: var(--token-background, #f9fafc);
   }
 
   #root {

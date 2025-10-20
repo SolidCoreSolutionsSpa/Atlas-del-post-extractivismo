@@ -13,7 +13,7 @@ export function RootLayout({ children }) {
   usePrefersReducedMotion()
 
   return (
-    <div className="min-h-screen bg-white text-token-body">
+    <div className="min-h-screen bg-[#f9fafc] text-token-body">
       <nav id="navbar">
         <div className="nav-left">
           <Link to="/">LOGO</Link>

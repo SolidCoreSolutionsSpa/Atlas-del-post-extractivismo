@@ -3,8 +3,10 @@ import {
   createContext,
   useCallback,
   useContext,
+  useLayoutEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react'
 import {
   motion,
@@ -15,16 +17,43 @@ import {
 
 const MapParallaxContext = createContext(null)
 
-function useParallaxTransforms(factor = 1) {
+function useMapContext() {
   const context = useContext(MapParallaxContext)
-  if (!context) {
-    throw new Error('Map components must be rendered inside <InteractiveMap>')
-  }
+  if (!context) throw new Error('Map components must be rendered inside <InteractiveMap>')
+  return context
+}
 
-  const translateX = useTransform(context.x, (value) => value * factor)
-  const translateY = useTransform(context.y, (value) => value * factor)
-
+function useParallaxTransforms(factor = 0) {
+  const { motionX, motionY } = useMapContext()
+  const translateX = useTransform(motionX, (value) => value * factor)
+  const translateY = useTransform(motionY, (value) => value * factor)
   return { translateX, translateY }
+}
+
+function useMapLayout() {
+  const { layout } = useMapContext()
+  return layout
+}
+
+function useMapCoordinates(left, top) {
+  const layout = useMapLayout()
+  return useMemo(() => {
+    if (!layout || layout.width <= 0 || layout.height <= 0) return { left, top }
+    return {
+      left: resolveCoordinate(left, layout.width),
+      top: resolveCoordinate(top, layout.height),
+    }
+  }, [layout, left, top])
+}
+
+function resolveCoordinate(value, tamaño) {
+  if (typeof value === 'number') return value
+  if (typeof value === 'string') {
+    const limpio = value.trim()
+    const num = Number.parseFloat(limpio)
+    if (Number.isFinite(num)) return limpio.endsWith('%') ? (num / 100) * tamaño : num
+  }
+  return 0
 }
 
 export function InteractiveMap({
@@ -32,79 +61,196 @@ export function InteractiveMap({
   imageAlt,
   intensity = 20,
   className,
-  imageClassName,
   frame = true,
+  contentPosition = 'center',
+  overfill = 1,
   children,
 }) {
-  const containerRef = useRef(null)
-  const x = useMotionValue(0)
-  const y = useMotionValue(0)
+  const contenedorRef = useRef(null)
 
-  const springX = useSpring(x, { stiffness: 120, damping: 16 })
-  const springY = useSpring(y, { stiffness: 120, damping: 16 })
+  // Parallax
+  const motionX = useMotionValue(0)
+  const motionY = useMotionValue(0)
+
+  // Natural image dimensions and computed object-contain layout
+  const [naturalSize, setNaturalSize] = useState({ width: 0, height: 0 })
+  const [layout, setLayout] = useState(null)
+
+  // Springs
+  const springX = useSpring(motionX, { stiffness: 120, damping: 16 })
+  const springY = useSpring(motionY, { stiffness: 120, damping: 16 })
   const translateXPx = useTransform(springX, (value) => `${value}px`)
   const translateYPx = useTransform(springY, (value) => `${value}px`)
+  const backdropTranslateX = useTransform(springX, (value) => value * 0.25)
+  const backdropTranslateY = useTransform(springY, (value) => value * 0.25)
 
-  const handlePointerMove = useCallback(
-    (event) => {
-      const rect = containerRef.current?.getBoundingClientRect()
+  const manejarPointerMove = useCallback(
+    (evento) => {
+      const rect = contenedorRef.current?.getBoundingClientRect()
       if (!rect) return
-
-      const offsetX = (event.clientX - rect.left) / rect.width - 0.5
-      const offsetY = (event.clientY - rect.top) / rect.height - 0.5
-
-      x.set(-offsetX * intensity)
-      y.set(-offsetY * intensity)
+      const offsetRelX = (evento.clientX - rect.left) / rect.width - 0.5
+      const offsetRelY = (evento.clientY - rect.top) / rect.height - 0.5
+      motionX.set(-offsetRelX * intensity)
+      motionY.set(-offsetRelY * intensity)
     },
-    [intensity, x, y],
+    [intensity, motionX, motionY],
   )
 
-  const handlePointerLeave = useCallback(() => {
-    x.set(0)
-    y.set(0)
-  }, [x, y])
+  const manejarPointerLeave = useCallback(() => {
+    motionX.set(0)
+    motionY.set(0)
+  }, [motionX, motionY])
 
-  const contextValue = useMemo(
-    () => ({ x: springX, y: springY }),
-    [springX, springY],
+  const applyLayout = useCallback(
+    (size = naturalSize) => {
+      const container = contenedorRef.current
+      if (!container || !size.width || !size.height) return
+
+      const containerWidth = container.clientWidth
+      const containerHeight = container.clientHeight
+
+      const scale = Math.min(
+        (containerWidth * overfill) / size.width,
+        containerHeight / size.height,
+      )
+
+      const visibleWidth = size.width * scale
+      const visibleHeight = size.height * scale
+
+      setLayout({
+        offsetX: (containerWidth - visibleWidth) / 2,
+        offsetY: (containerHeight - visibleHeight) / 2,
+        width: visibleWidth,
+        height: visibleHeight,
+        containerWidth,
+        containerHeight,
+      })
+    },
+    [naturalSize, overfill],
   )
 
-  const hasImage = typeof imageSrc === 'string' && imageSrc.length > 0
+  useLayoutEffect(() => {
+    const scheduleUpdate = () => requestAnimationFrame(() => applyLayout())
+    scheduleUpdate()
+
+    const ResizeObserverImpl = typeof window !== 'undefined' ? window.ResizeObserver : undefined
+    const observador =
+      ResizeObserverImpl && contenedorRef.current
+        ? new ResizeObserverImpl(scheduleUpdate)
+        : null
+
+    observador?.observe(contenedorRef.current)
+    window.addEventListener('resize', scheduleUpdate)
+    return () => {
+      observador?.disconnect()
+      window.removeEventListener('resize', scheduleUpdate)
+    }
+  }, [applyLayout])
+
+  const valueContexto = useMemo(
+    () => ({ motionX: springX, motionY: springY, layout }),
+    [springX, springY, layout],
+  )
+
+  const hayImagen = typeof imageSrc === 'string' && imageSrc.length > 0
+  const shouldRenderBackdrop =
+    hayImagen &&
+    layout &&
+    (layout.width < layout.containerWidth - 1 ||
+      layout.height < layout.containerHeight - 1)
+
+  const clasesPosicion =
+    contentPosition === 'top-left'
+      ? 'items-start justify-start'
+      : contentPosition === 'top-center'
+        ? 'items-start justify-center'
+        : 'items-center justify-center'
 
   return (
-    <MapParallaxContext.Provider value={contextValue}>
+    <MapParallaxContext.Provider value={valueContexto}>
       <div
-        ref={containerRef}
-        onMouseMove={handlePointerMove}
-        onMouseLeave={handlePointerLeave}
+        ref={contenedorRef}
+        onPointerMove={manejarPointerMove}
+        onPointerLeave={manejarPointerLeave}
         className={clsx(
-          'relative flex h-full w-full items-center justify-center',
-          frame
-            ? 'overflow-hidden rounded-[2.5rem]'
-            : 'overflow-visible',
+          'relative flex h-full w-full bg-[#f9fafc]',
+          clasesPosicion,
+          frame ? 'overflow-hidden rounded-[2.5rem]' : 'overflow-visible',
           className,
         )}
       >
-        {hasImage ? (
-          <motion.img
-            src={imageSrc}
-            alt={imageAlt}
-            className={clsx(
-              'pointer-events-none max-h-full w-full object-contain object-center',
-              imageClassName,
-            )}
+        {shouldRenderBackdrop && hayImagen && layout && (
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 -z-10"
             style={{
+              translateX: backdropTranslateX,
+              translateY: backdropTranslateY,
+              scale: 1.18,
+              opacity: 0.9,
+              backgroundImage: `url(${imageSrc})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              filter: 'blur(48px) brightness(1.05)',
+            }}
+          />
+        )}
+
+        {/* Fondo o degradado mientras no hay imagen */}
+        {!hayImagen && (
+          <div className="pointer-events-none absolute inset-0 bg-[#f9fafc]" />
+        )}
+
+        {/* FRAME: coincide EXACTO con la imagen visible y SE MUEVE junto a ella */}
+        {hayImagen && layout && (
+          <motion.div
+            className="absolute"
+            style={{
+              left: `${layout.offsetX}px`,
+              top: `${layout.offsetY}px`,
+              width: `${layout.width}px`,
+              height: `${layout.height}px`,
               translateX: translateXPx,
               translateY: translateYPx,
             }}
-            loading="lazy"
-          />
-        ) : (
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#eef3fa] via-[#dbe3ef] to-[#cbd6e7]" />
+          >
+            <img
+              src={imageSrc}
+              alt={imageAlt}
+              onLoad={(e) => {
+                const nextSize = {
+                  width: e.currentTarget.naturalWidth,
+                  height: e.currentTarget.naturalHeight,
+                }
+                setNaturalSize(nextSize)
+                requestAnimationFrame(() => applyLayout(nextSize))
+              }}
+              className="pointer-events-none h-full w-full object-contain object-center"
+              loading="lazy"
+            />
+            {/* Los hijos (marcadores) quedan posicionados RELATIVOS a este marco */}
+            {children}
+          </motion.div>
         )}
-        <div className="absolute inset-0">
-          {children}
-        </div>
+
+        {/* Carga inicial: montamos la imagen oculta para obtener naturalSize y disparar layout una sola vez */}
+        {hayImagen && !layout && (
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            onLoad={(e) => {
+              const nextSize = {
+                width: e.currentTarget.naturalWidth,
+                height: e.currentTarget.naturalHeight,
+              }
+              setNaturalSize(nextSize)
+              requestAnimationFrame(() => applyLayout(nextSize))
+            }}
+            className="invisible h-0 w-0"
+            aria-hidden
+          />
+        )}
       </div>
     </MapParallaxContext.Provider>
   )
@@ -116,13 +262,14 @@ export function MapMarker({
   label,
   onClick,
   tone = 'danger',
-  factor = 0.4,
+  factor = 0, // por defecto ANCLADO al marco/imagen
   pulsate = false,
   children,
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
+  const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
 
-  const baseColor =
+  const colorBase =
     tone === 'danger'
       ? 'bg-red-500 hover:bg-red-600'
       : tone === 'primary'
@@ -132,16 +279,16 @@ export function MapMarker({
   return (
     <motion.button
       type="button"
-      onClick={(event) => {
+      onClick={(evento) => {
         if (onClick) {
-          event.preventDefault()
-          event.stopPropagation()
-          onClick(event)
+          evento.preventDefault()
+          evento.stopPropagation()
+          onClick(evento)
         }
       }}
       style={{
-        left,
-        top,
+        left: leftResuelto,
+        top: topResuelto,
         translateX,
         translateY,
       }}
@@ -152,7 +299,7 @@ export function MapMarker({
       <span
         className={clsx(
           'pointer-events-auto block h-full w-full rounded-full transition',
-          baseColor,
+          colorBase,
           pulsate && 'animate-[pulse-soft_2.5s_ease-in-out_infinite]',
         )}
       />
@@ -171,24 +318,25 @@ export function MapIconHotspot({
   iconSrc,
   iconAlt,
   onClick,
-  factor = 0.3,
+  factor = 0.2, // por defecto leve “flotado” sobre el marco
   pulsate = true,
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
+  const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
 
   return (
     <motion.button
       type="button"
-      onClick={(event) => {
+      onClick={(evento) => {
         if (onClick) {
-          event.preventDefault()
-          event.stopPropagation()
-          onClick(event)
+          evento.preventDefault()
+          evento.stopPropagation()
+          onClick(evento)
         }
       }}
       style={{
-        left,
-        top,
+        left: leftResuelto,
+        top: topResuelto,
         translateX,
         translateY,
       }}
@@ -215,20 +363,16 @@ export function MapDecoration({
   top,
   imageSrc,
   imageAlt,
-  factor = 0.2,
+  factor = 0.1,
   widthClass = 'w-28',
   className,
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
+  const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
 
   return (
     <motion.div
-      style={{
-        left,
-        top,
-        translateX,
-        translateY,
-      }}
+      style={{ left: leftResuelto, top: topResuelto, translateX, translateY }}
       className="absolute -translate-x-1/2 -translate-y-1/2"
     >
       <img
@@ -244,3 +388,12 @@ export function MapDecoration({
     </motion.div>
   )
 }
+
+
+
+
+
+
+
+
+

@@ -38,8 +38,9 @@ export function CaseStudiesListPage() {
         imageAlt="Mapa global de casos de estudio"
         intensity={18}
         frame={false}
+        contentPosition="top-center"
+        overfill={1.3}
         className="min-h-[24rem] h-screen max-h-screen w-full"
-        imageClassName="h-full max-h-full min-h-full w-auto min-w-[120%]"
       >
         {isLoading
           ? null

@@ -19,7 +19,7 @@ export const atlasContent = {
           {
             id: 'punto-choapa',
             left: '68.9%',
-            top: '84%',
+            top: '80%',
             label: 'Provincia de Choapa, Coquimbo, Chile',
             zoneId: null,
           },

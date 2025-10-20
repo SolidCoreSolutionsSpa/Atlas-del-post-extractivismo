@@ -5,7 +5,7 @@
 
 :root {
   color-scheme: light dark;
-  --token-background: rgb(248 250 252);
+  --token-background: rgb(249 250 252);
   --token-surface: rgb(255 255 255);
   --token-primary: rgb(52 120 246);
   --token-primary-strong: rgb(34 88 192);
@@ -53,10 +53,12 @@ a {
     opacity: 0.6;
     transform: scale(0.95);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.1);
   }
+
   100% {
     opacity: 0.6;
     transform: scale(0.95);
