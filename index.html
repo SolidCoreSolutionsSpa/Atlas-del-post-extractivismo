@@ -11,7 +11,9 @@
 <body>
   <nav id="navbar">
     <div class="nav-left">
-  <a href="index.html">LOGO</a>
+<a href="index.html">
+<img src="img/LOGONEGRO.png" alt="Logo Atlas" class="logo-img">
+  </a>
 </div>
   <div class="nav-right">
     <a href="#">Sobre el proyecto</a>
@@ -24,15 +26,47 @@
   <div class="contenedor">
     <div id="contenido">
   <h1>ATLAS DEL (POST) EXTRACTIVISMO</h1>
-  <h2>Paisajes y dinámicas del extractivismo (prototipo)</h2>
+  <h2>Entre norte y sur global</h2>
   <p>
-    Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por el extractivismo, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.
+    Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.
   </p>
-  <button id="ingresarBtn">INGRESAR</button>
+ <!-- Nuevo texto guía -->
+  <p class="instruccion">SELECCIONA UN PUNTO DEL MAPA PARA COMENZAR</p>
 </div>
     <div class="mapa-wrapper">
-      <img src="img/paisajehome.webp" class="imagen-mapa" alt="Mapa" />
-      
+      <img src="img/GLOBAL HOME AZUL NEGRO-100.jpg" class="imagen-mapa" alt="Mapa" />
+       
+ <div class="overlay-puntos">
+      <!-- Ejemplos: cambia left/top y data-url según tu caso -->
+      <button id="congo-btn" class="radar-point radar-blue" style="left: 29.5%; top: 44.7%;" aria-label="Caso Congo">
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="core"></span>
+      </button>
+
+      <button id="indonesia-btn" class="radar-point radar-yellow" style="left: 35.7%; top: 45%;" aria-label="Caso Indonesia" >
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="core"></span>
+      </button>
+
+       <button id="charleroi-btn" class="radar-point radar-black" style="left: 27.5%; top: 36%;" aria-label="Caso Charleroi"  data-bg="img/mapa-global-de-carbon-T.jpg">
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="core"></span>
+      </button>
+
+      <button class="radar-point" id="choapa-btn" style="left: 29.5%; top: 68%;" aria-label="Caso Choapa" data-url="provinciachoapa.html"  data-bg="img/mapa-global-de-carbon-T.jpg"> >
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="ring"></span>
+        <span class="core"></span>
+      </button>
+    </div>
+
     </div>
   </div>
 
