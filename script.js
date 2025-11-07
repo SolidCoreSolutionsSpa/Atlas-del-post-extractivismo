@@ -36,17 +36,53 @@ if (volver) {
 
 // === REDIRECCIONES A OTRAS VISTAS (solo si NO hay ficha) ===
 const redirecciones = {
-  
+  // --- Escenas generales ---
   'punto-puerto': 'puertopresente.html',
   'punto-perturbacion': 'perturbacionaerea.html',
   'punto-choapa': 'provinciachoapa.html',
+
+  // --- Escenario aéreo ---
   'punto-jilguero': 'jilguero.html',
   'punto-jote': 'jote.html',
   'punto-bosques': 'eucalipto.html',
   'punto-luminaria': 'luminaria.html',
-  'punto-cables':'electricidad.html',
-  'punto-diuca':'diuca.html',
-  'punto-succión':'succionpordesalacion.html',
+  'punto-cables': 'electricidad.html',
+  'punto-diuca': 'diuca.html',
+
+  // --- Escenario costero (Puerto Punta Chungo / Isla Huevos / Laguna Conchalí) ---
+ 
+ 'punto-succión': 'succionpordesalacion.html',
+  'punto-succion': 'succion.html',
+  'punto-grua': 'barcogrua.html',
+  'punto-garuma': 'garuma.html',
+  'punto-ictioplancton': 'ictioplancton.html',
+  'punto-pluma': 'plumasalina.html',
+  'punto-isla': 'ruidosubmarino.html',
+  'punto-laguna': 'santuario.html',
+  'punto-descarga': 'descarga.html',
+  'punto-sardina': 'sardina.html',
+  'punto-tagua': 'tagua.html',
+  'punto-cisne': 'cisne.html',
+  'punto-mpsant': 'mpsant.html',
+  'punto-puya': 'puya.html',
+  'punto-cactus': 'cactus.html',
+  'punto-vegetacion': 'vegetacion.html',
+  'punto-cuervo': 'cuervo.html',
+  'punto-patojergon': 'patojergon.html',
+  'punto-patocuchara': 'patocuchara.html',
+
+  // --- Nuevos puntos bióticos (Isla Huevos / ecosistema marino) ---
+  'punto-ruido': 'ruido.html', // Ruido del puerto
+  'punto-pinguino': 'pinguino.html', // Pingüino de Humboldt
+  'punto-chungungo': 'chungungo.html',
+  'punto-loco': 'loco.html',
+  'punto-anchoveta': 'anchoveta.html',
+  'punto-merluza': 'merluza.html',
+  'punto-erizo': 'erizo.html', // Erizo rojo
+  'punto-delfin': 'delfin.html', // Delfín nariz de botella
+  'punto-chilensis': 'chilensis.html', // Helcogrammoides chilensis
+  'punto-yunco': 'yunco.html',
+  'punto-lagartozapallar': 'lagartozapallar.html'
 };
 
 Object.entries(redirecciones).forEach(([id, url]) => {
@@ -345,7 +381,7 @@ configurarHoverLugar({
   id: 'charleroi-btn',
   color: '#1a1a1a',
   texto: 'KOLWEZI – CONGO (PROXIMAMENTE)',
-  descripcion: 'En Charleroi, los paisajes postindustriales dialogan con la memoria minera europea y su vínculo con el cobre sudamericano.',
+  descripcion: 'El carbón en la decada de los 90 era lider mundial en bélgica, hoy en día, charleroi es un territorio post extractivista no se q mas',
   imagen: 'img/mapa-global-de-carbon-T.jpg'
 });
 configurarHoverLugar({
