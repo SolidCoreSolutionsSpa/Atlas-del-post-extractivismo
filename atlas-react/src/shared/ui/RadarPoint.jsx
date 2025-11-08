@@ -70,8 +70,8 @@ export function RadarPoint({
     }
 
     return {
-      scale: [0.1, 1],
-      opacity: [0.9, 0.4, 0.2],
+      scale: [0.1, 1, 1],
+      opacity: [0.9, 0.3, 0],
       borderWidth: ['3px', '2px', '1px'],
     }
   }, [prefersReducedMotion])
@@ -83,6 +83,7 @@ export function RadarPoint({
       ease: 'easeOut',
       repeat: Infinity,
       repeatType: 'loop',
+      repeatDelay: 0.3,
     }
   }, [isHovered])
 
