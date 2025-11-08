@@ -158,22 +158,36 @@ export function LandingPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={transition}
     >
-      <div className="contenedor">
-        {/* Contenido posicionado arriba-derecha como en el HTML original */}
+      <div className="
+        flex flex-col
+        lg:flex-row lg:justify-center lg:items-center lg:w-[102vw] lg:h-[98vh]
+      ">
+        {/* Contenido responsivo: arriba en móvil, derecha en desktop */}
         <motion.div
           id="contenido"
-          style={{
-            position: 'absolute',
-            top: '47%',
-            left: '75%',
-            transform: 'translate(-50%, -50%)',
-            width: '30%',
-            textAlign: 'left',
-            zIndex: 50,
-          }}
+          className="
+            relative z-50 mx-auto px-6 py-8 text-left
+            w-full max-w-2xl
+            lg:absolute lg:left-[75%] lg:top-[47%] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:w-[35%] lg:max-w-none lg:px-0 lg:py-0
+            xl:w-[30%]
+          "
         >
-          <h1>{hero.title.toUpperCase()}</h1>
-          <h2>{hero.subtitle}</h2>
+          <h1 className="
+            font-['Baskervville'] text-3xl font-normal text-gray-900 mb-2
+            sm:text-4xl
+            lg:text-[2.2rem]
+            xl:text-[2.7rem]
+          ">
+            {hero.title.toUpperCase()}
+          </h1>
+          <h2 className="
+            font-['Inter'] text-lg font-normal text-gray-500 mb-6
+            sm:text-xl
+            lg:text-[1.1rem] lg:mb-8
+            xl:text-[1.3rem] xl:mb-10
+          ">
+            {hero.subtitle}
+          </h2>
 
           {/* Descripción con transición */}
           <AnimatePresence mode="wait">
@@ -183,6 +197,12 @@ export function LandingPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
+              className="
+                max-w-full text-sm leading-relaxed
+                sm:text-base
+                lg:text-[0.95rem]
+                xl:text-base
+              "
             >
               {currentDescription}
             </motion.p>
@@ -191,7 +211,13 @@ export function LandingPage() {
           {/* Instrucción con transición */}
           <AnimatePresence mode="wait">
             <motion.p
-              className="instruccion"
+              className="
+                instruccion text-center font-semibold tracking-wide mt-6 opacity-85
+                text-xs
+                sm:text-sm
+                lg:text-[0.85rem] lg:mt-8
+                xl:text-[0.9rem]
+              "
               key={`instruction-${hoveredTerritory || 'default'}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -199,11 +225,6 @@ export function LandingPage() {
               transition={{ duration: 0.3 }}
               style={{
                 color: currentInstructionColor,
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                letterSpacing: '0.15em',
-                textAlign: 'center',
-                marginTop: '2rem',
               }}
             >
               {currentInstruction}
@@ -211,12 +232,18 @@ export function LandingPage() {
           </AnimatePresence>
         </motion.div>
 
-        <div className="mapa-wrapper">
+        <div className="
+          relative flex-1 min-h-[60vh]
+          lg:h-screen lg:flex-none
+        ">
           {/* Imagen de fondo con crossfade */}
           <motion.img
             src={currentImage}
             alt="Mapa global"
-            className="imagen-mapa"
+            className="
+              w-full h-full object-cover
+              lg:h-[105%] lg:w-auto lg:object-contain
+            "
             animate={{
               opacity: isFading ? 0 : 1,
               transform: `translate(${offset.x}px, ${offset.y}px)`,
