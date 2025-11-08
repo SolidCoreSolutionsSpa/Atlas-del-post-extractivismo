@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/atlasContent'
@@ -71,6 +71,9 @@ export function LandingPage() {
   )
   const [isImageFading, setIsImageFading] = useState(false)
 
+  // Ref para cancelar timeout anterior
+  const fadeTimeoutRef = useRef(null)
+
   // Texto e instrucción
   const defaultDescription = hero.description
   const defaultInstruction = 'SELECCIONA UN PUNTO DEL MAPA PARA COMENZAR'
@@ -87,12 +90,19 @@ export function LandingPage() {
     ? territoriesConfig[hoveredTerritory].color
     : '#555'
 
-  // Precarga de imágenes al montar el componente
+  // Precarga de imágenes al montar el componente y cleanup
   useEffect(() => {
     Object.values(territoriesConfig).forEach((territory) => {
       const img = new Image()
       img.src = territory.backgroundImage
     })
+
+    // Cleanup: cancelar timeout si el componente se desmonta
+    return () => {
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current)
+      }
+    }
   }, [])
 
   // Parallax
@@ -151,15 +161,19 @@ export function LandingPage() {
 
   // Función para cambiar imagen con fade suave (similar al original HTML)
   const swapImageSmooth = (newSrc) => {
-    if (isImageFading) return // Prevenir cambios durante fade
+    // Cancelar timeout anterior si existe
+    if (fadeTimeoutRef.current) {
+      clearTimeout(fadeTimeoutRef.current)
+    }
 
     setIsImageFading(true)
 
     // Fade out, cambiar src, fade in
-    setTimeout(() => {
+    fadeTimeoutRef.current = setTimeout(() => {
       setCurrentBackgroundImage(newSrc)
       requestAnimationFrame(() => {
         setIsImageFading(false)
+        fadeTimeoutRef.current = null
       })
     }, 300) // Duración del fade-out
   }
