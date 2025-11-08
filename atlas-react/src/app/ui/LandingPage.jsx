@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/atlasContent'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useImageCrossfade } from '../../shared/hooks/useImageCrossfade'
+import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
 import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
 
@@ -61,18 +63,20 @@ export function LandingPage() {
   const zoomNavigate = useZoomNavigation()
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
-  const [pointOffset, setPointOffset] = useState({ x: 0, y: 0 })
+
+  // Hook de crossfade de imágenes
+  const { currentImage, isFading, swapImage } = useImageCrossfade(
+    hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
+  )
+
+  // Hook de parallax
+  const { offset, pointOffset } = useParallax({
+    intensity: PARALLAX_FACTOR,
+    enabled: !prefersReducedMotion,
+  })
 
   // Estado del sistema de hover
   const [hoveredTerritory, setHoveredTerritory] = useState(null)
-  const [currentBackgroundImage, setCurrentBackgroundImage] = useState(
-    hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
-  )
-  const [isImageFading, setIsImageFading] = useState(false)
-
-  // Ref para cancelar timeout anterior
-  const fadeTimeoutRef = useRef(null)
 
   // Texto e instrucción
   const defaultDescription = hero.description
@@ -90,53 +94,13 @@ export function LandingPage() {
     ? territoriesConfig[hoveredTerritory].color
     : '#555'
 
-  // Precarga de imágenes al montar el componente y cleanup
+  // Precarga de imágenes al montar el componente
   useEffect(() => {
     Object.values(territoriesConfig).forEach((territory) => {
       const img = new Image()
       img.src = territory.backgroundImage
     })
-
-    // Cleanup: cancelar timeout si el componente se desmonta
-    return () => {
-      if (fadeTimeoutRef.current) {
-        clearTimeout(fadeTimeoutRef.current)
-      }
-    }
   }, [])
-
-  // Parallax
-  useEffect(() => {
-    // Skip parallax if user prefers reduced motion
-    if (prefersReducedMotion) {
-      return
-    }
-
-    function handleMouseMove(event) {
-      const { innerWidth, innerHeight } = window
-      const offsetX = 0.5 - event.clientX / innerWidth
-      const offsetY = 0.5 - event.clientY / innerHeight
-
-      // Parallax para la imagen de fondo
-      setOffset({ x: offsetX * PARALLAX_FACTOR, y: offsetY * PARALLAX_FACTOR })
-
-      // Parallax para los puntos (mitad de intensidad que la imagen)
-      setPointOffset({ x: offsetX * (PARALLAX_FACTOR / 2), y: offsetY * (PARALLAX_FACTOR / 2) })
-    }
-
-    function handleMouseLeave() {
-      setOffset({ x: 0, y: 0 })
-      setPointOffset({ x: 0, y: 0 })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseleave', handleMouseLeave)
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseleave', handleMouseLeave)
-    }
-  }, [prefersReducedMotion])
 
   // Sistema de crossfade de imágenes
   const handleTerritoryHover = (territoryKey) => {
@@ -144,38 +108,13 @@ export function LandingPage() {
       // Mouse leave - volver a imagen original
       setHoveredTerritory(null)
       const originalImage = hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
-      if (currentBackgroundImage !== originalImage) {
-        swapImageSmooth(originalImage)
-      }
+      swapImage(originalImage)
       return
     }
 
     const territory = territoriesConfig[territoryKey]
     setHoveredTerritory(territoryKey)
-
-    // Solo cambiar si es diferente
-    if (currentBackgroundImage !== territory.backgroundImage) {
-      swapImageSmooth(territory.backgroundImage)
-    }
-  }
-
-  // Función para cambiar imagen con fade suave (similar al original HTML)
-  const swapImageSmooth = (newSrc) => {
-    // Cancelar timeout anterior si existe
-    if (fadeTimeoutRef.current) {
-      clearTimeout(fadeTimeoutRef.current)
-    }
-
-    setIsImageFading(true)
-
-    // Fade out, cambiar src, fade in
-    fadeTimeoutRef.current = setTimeout(() => {
-      setCurrentBackgroundImage(newSrc)
-      requestAnimationFrame(() => {
-        setIsImageFading(false)
-        fadeTimeoutRef.current = null
-      })
-    }, 300) // Duración del fade-out
+    swapImage(territory.backgroundImage)
   }
 
   // Click handler para navegación
@@ -275,11 +214,11 @@ export function LandingPage() {
         <div className="mapa-wrapper">
           {/* Imagen de fondo con crossfade */}
           <motion.img
-            src={currentBackgroundImage}
+            src={currentImage}
             alt="Mapa global"
             className="imagen-mapa"
             animate={{
-              opacity: isImageFading ? 0 : 1,
+              opacity: isFading ? 0 : 1,
               transform: `translate(${offset.x}px, ${offset.y}px)`,
             }}
             transition={{ opacity: { duration: 0.3 }, transform: { duration: 0 } }}
