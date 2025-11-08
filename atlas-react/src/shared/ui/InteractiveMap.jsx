@@ -15,6 +15,8 @@ import {
   useTransform,
 } from 'framer-motion'
 
+import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
+
 const MapParallaxContext = createContext(null)
 
 function useMapContext() {
@@ -69,6 +71,7 @@ export function InteractiveMap({
   children,
 }) {
   const contenedorRef = useRef(null)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   // Parallax
   const motionX = useMotionValue(0)
@@ -78,9 +81,12 @@ export function InteractiveMap({
   const [naturalSize, setNaturalSize] = useState({ width: 0, height: 0 })
   const [layout, setLayout] = useState(null)
 
-  // Springs
-  const springX = useSpring(motionX, { stiffness: 120, damping: 16 })
-  const springY = useSpring(motionY, { stiffness: 120, damping: 16 })
+  // Springs - disable animation if user prefers reduced motion
+  const springConfig = prefersReducedMotion
+    ? { stiffness: 500, damping: 50 }
+    : { stiffness: 120, damping: 16 }
+  const springX = useSpring(motionX, springConfig)
+  const springY = useSpring(motionY, springConfig)
   const translateXPx = useTransform(springX, (value) => `${value}px`)
   const translateYPx = useTransform(springY, (value) => `${value}px`)
   const backdropTranslateX = useTransform(springX, (value) => value * 0.25)
@@ -88,6 +94,9 @@ export function InteractiveMap({
 
   const manejarPointerMove = useCallback(
     (evento) => {
+      // Skip parallax if user prefers reduced motion
+      if (prefersReducedMotion) return
+
       const rect = contenedorRef.current?.getBoundingClientRect()
       if (!rect) return
       const offsetRelX = (evento.clientX - rect.left) / rect.width - 0.5
@@ -95,7 +104,7 @@ export function InteractiveMap({
       motionX.set(-offsetRelX * intensity)
       motionY.set(-offsetRelY * intensity)
     },
-    [intensity, motionX, motionY],
+    [intensity, motionX, motionY, prefersReducedMotion],
   )
 
   const manejarPointerLeave = useCallback(() => {
@@ -314,7 +323,7 @@ export function MapMarker({
           pulsate && 'animate-[pulse-soft_2.5s_ease-in-out_infinite]',
         )}
       />
-      <span className="pointer-events-none absolute -bottom-10 left-1/2 w-max -translate-x-1/2 rounded-full bg-black/85 px-3 py-1 text-xs font-medium text-white opacity-0 shadow group-hover:opacity-100">
+      <span className="pointer-events-none absolute -bottom-10 left-1/2 w-max -translate-x-1/2 bg-black/80 px-4 py-1.5 text-xs font-normal text-white opacity-0 shadow transition-opacity group-hover:opacity-100" style={{ borderRadius: '50px' }}>
         {label}
       </span>
       {children}
@@ -362,7 +371,7 @@ export function MapIconHotspot({
         )}
         loading="lazy"
       />
-      <span className="pointer-events-none rounded-full bg-black/85 px-3 py-1 text-xs font-medium text-white opacity-0 shadow group-hover:opacity-100">
+      <span className="pointer-events-none bg-black/80 px-4 py-1.5 text-xs font-normal text-white opacity-0 shadow transition-opacity group-hover:opacity-100" style={{ borderRadius: '50px' }}>
         {label}
       </span>
     </motion.button>

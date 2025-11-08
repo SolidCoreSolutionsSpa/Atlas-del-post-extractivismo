@@ -19,6 +19,34 @@ const filterIcons = {
   physical: '/img/icono_fisico.svg',
 }
 
+// Parallax factors differentiated by category
+function getParallaxFactor(category) {
+  switch (category) {
+    case 'biotic':
+      return 0.15 // Ligero
+    case 'anthropic':
+      return 0.25 // Medio
+    case 'physical':
+      return 0.35 // Más notorio
+    default:
+      return 0.2
+  }
+}
+
+// Custom sizes for specific decorations
+function getSizeClass(decorationId) {
+  const sizes = {
+    'paisaje-islahuevo': 'w-32 lg:w-48',
+    'paisaje-conchali': 'w-28 lg:w-40',
+    'paisaje-glaciares': 'w-36 lg:w-52',
+    'paisaje-salmuera': 'w-28 lg:w-40',
+    'paisaje-perturbacion': 'w-32 lg:w-44',
+    'paisaje-caimanes': 'w-30 lg:w-42',
+    'paisaje-quebrada': 'w-28 lg:w-40',
+  }
+  return sizes[decorationId] || 'w-28 lg:w-40'
+}
+
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
@@ -141,8 +169,8 @@ export function CaseStudyDetailPage() {
             top={item.top}
             imageSrc={item.image}
             imageAlt={item.alt}
-            factor={0.25}
-            widthClass="w-28 lg:w-40"
+            factor={getParallaxFactor(item.category)}
+            widthClass={getSizeClass(item.id)}
             className={clsx(
               'shadow-xl',
               activeFilter && activeFilter !== item.category

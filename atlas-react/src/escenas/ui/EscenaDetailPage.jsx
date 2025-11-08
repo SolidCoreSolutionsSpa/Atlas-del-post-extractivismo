@@ -9,6 +9,7 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useTheme } from '../../shared/hooks/useTheme'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
@@ -39,6 +40,7 @@ const elementIndex = new Map(
 export function EscenaDetailPage() {
   const { sceneId } = useParams()
   const zoomNavigate = useZoomNavigation()
+  const { setTheme } = useTheme()
   const service = useMemo(
     () =>
       new EscenasService({
@@ -65,6 +67,20 @@ export function EscenaDetailPage() {
       isMounted = false
     }
   }, [sceneId, service])
+
+  // Apply theme based on scene data
+  useEffect(() => {
+    if (scene && scene.theme === 'night') {
+      setTheme('night')
+    } else if (scene) {
+      setTheme('light')
+    }
+
+    // Cleanup: reset to light theme when unmounting
+    return () => {
+      setTheme('light')
+    }
+  }, [scene, setTheme])
 
   const zone = scene ? zoneIndex.get(scene.zoneId) : null
   const caseStudy = zone ? caseIndex.get(zone.caseId) : null

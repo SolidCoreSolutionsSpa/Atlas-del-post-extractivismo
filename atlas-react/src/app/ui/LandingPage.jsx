@@ -3,16 +3,23 @@ import { motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/atlasContent'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
 
 const hero = atlasContent.hero
 const PARALLAX_FACTOR = 20
 
 export function LandingPage() {
   const zoomNavigate = useZoomNavigation()
+  const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
+    // Skip parallax if user prefers reduced motion
+    if (prefersReducedMotion) {
+      return
+    }
+
     function handleMouseMove(event) {
       const { innerWidth, innerHeight } = window
       const offsetX = 0.5 - event.clientX / innerWidth
@@ -31,7 +38,7 @@ export function LandingPage() {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [])
+  }, [prefersReducedMotion])
 
   const handleEnter = (event) => {
     if (isAnimating) {
@@ -50,12 +57,16 @@ export function LandingPage() {
     }, 750)
   }
 
+  const transition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }
+
   return (
     <motion.section
       className="relative min-h-screen overflow-hidden bg-white"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={transition}
     >
       <div className="contenedor">
         <motion.div id="contenido">

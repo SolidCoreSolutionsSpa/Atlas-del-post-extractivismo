@@ -64,3 +64,30 @@ a {
     transform: scale(0.95);
   }
 }
+
+/* Night theme styles */
+body.theme-night {
+  background: rgb(10, 5, 56);
+}
+
+body.theme-night #navbar a {
+  color: #ffffff;
+}
+
+body.theme-night #navbar a:hover {
+  color: #dddddd;
+}
+
+body.theme-night .nav-left a {
+  color: #ffffff;
+}
+
+/* Night theme - radar points */
+body.theme-night .radar-point .ring {
+  border-color: #ffb23b;
+}
+
+body.theme-night .radar-point .core {
+  background: #ffb23b;
+  box-shadow: 0 0 0 2px rgba(10,5,56,.6) inset, 0 0 0 1px #ffb23b;
+}

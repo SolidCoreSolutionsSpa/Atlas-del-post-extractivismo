@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router-dom'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
+import { useTheme } from '../hooks/useTheme'
 
 const navPlaceholders = [
   { label: 'Sobre el proyecto' },
@@ -11,12 +12,17 @@ const navPlaceholders = [
 
 export function RootLayout({ children }) {
   usePrefersReducedMotion()
+  const { theme } = useTheme()
+
+  const logoSrc = theme === 'night' ? '/img/LOGONEGROB.png' : '/img/LOGONEGRO.png'
 
   return (
     <div className="min-h-screen bg-[#f9fafc] text-token-body">
       <nav id="navbar">
         <div className="nav-left">
-          <Link to="/">LOGO</Link>
+          <Link to="/">
+            <img src={logoSrc} alt="Atlas del Post-Extractivismo" className="h-8" />
+          </Link>
         </div>
         <div className="nav-right ml-auto flex items-center gap-[30px]">
           {navPlaceholders.map((item) => (
