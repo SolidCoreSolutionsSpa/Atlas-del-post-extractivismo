@@ -74,34 +74,70 @@ html, body {
   z-index: 50;
 }
 
+/* Responsive positioning y scaling del texto */
+@media (max-width: 1400px) {
+  #contenido {
+    left: 73%;
+    width: 28%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #contenido {
+    left: 71%;
+    width: 26%;
+  }
+}
+
+@media (max-width: 1024px) {
+  #contenido {
+    left: 70%;
+    width: 25%;
+  }
+}
+
+@media (max-width: 900px) {
+  #contenido {
+    left: 68%;
+    width: 24%;
+  }
+}
+
+@media (max-width: 768px) {
+  #contenido {
+    left: 65%;
+    width: 28%;
+  }
+}
+
 #contenido h1 {
   line-height: 1.18;
   font-family: "Baskervville", serif;
-  font-size: 2.7rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.7rem);
   font-weight: normal;
   color: #111;
-  margin-bottom: 10px;
+  margin-bottom: clamp(6px, 1vw, 10px);
 }
 
 #contenido h2 {
   font-family: "Inter", sans-serif;
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 1.8vw, 1.3rem);
   font-weight: 400;
   color: #919191;
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 4vw, 40px);
 }
 
 #contenido p {
   max-width: 900px;
   margin: 0 auto 20px auto;
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
   line-height: 1.5;
   color: #1f1f1f;
 }
 
 #ingresarBtn {
-  padding: 12px 24px;
-  font-size: 1rem;
+  padding: clamp(8px, 1.5vw, 12px) clamp(16px, 3vw, 24px);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
   background-color: #7b9cc6;
   color: white;
   border: none;
@@ -115,6 +151,24 @@ html, body {
 
 #ingresarBtn:hover {
   background-color: #6b8ab2;
+}
+
+/* Texto de instrucción */
+.instruccion {
+  font-size: clamp(0.7rem, 1.4vw, 1.05rem);
+  color: #555;
+  letter-spacing: 0.3px;
+  margin-top: clamp(15px, 3vw, 25px);
+  font-weight: 700;
+  transition: color 0.4s ease, transform 0.4s ease, opacity 0.6s ease, font-weight 0.3s ease;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.instruccion:hover {
+  color: #000000;
+  transform: scale(1.02);
+  opacity: 1;
 }
 
 .mapa-wrapper {

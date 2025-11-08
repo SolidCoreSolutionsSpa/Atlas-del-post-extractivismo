@@ -159,37 +159,10 @@ export function LandingPage() {
       transition={transition}
     >
       <div className="contenedor">
-        {/* Contenido a la derecha con tamaños responsivos */}
-        <motion.div
-          id="contenido"
-          className="
-            w-[42%] px-3
-            sm:w-[40%] sm:px-4
-            md:w-[36%] md:px-0
-            lg:w-[33%]
-            xl:w-[30%]
-          "
-        >
-          <h1 className="
-            font-['Baskervville'] font-normal text-gray-900 leading-tight
-            text-lg mb-1
-            sm:text-xl sm:mb-1.5
-            md:text-2xl md:mb-2
-            lg:text-3xl lg:mb-2.5
-            xl:text-[2.7rem]
-          ">
-            {hero.title.toUpperCase()}
-          </h1>
-          <h2 className="
-            font-['Inter'] font-normal text-gray-500
-            text-xs mb-3
-            sm:text-sm sm:mb-4
-            md:text-base md:mb-5
-            lg:text-lg lg:mb-6
-            xl:text-[1.3rem] xl:mb-10
-          ">
-            {hero.subtitle}
-          </h2>
+        {/* Contenido a la derecha */}
+        <motion.div id="contenido">
+          <h1>{hero.title.toUpperCase()}</h1>
+          <h2>{hero.subtitle}</h2>
 
           {/* Descripción con transición */}
           <AnimatePresence mode="wait">
@@ -199,14 +172,6 @@ export function LandingPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="
-                max-w-full leading-relaxed
-                text-[0.65rem]
-                sm:text-xs
-                md:text-sm
-                lg:text-base
-                xl:text-base
-              "
             >
               {currentDescription}
             </motion.p>
@@ -215,14 +180,7 @@ export function LandingPage() {
           {/* Instrucción con transición */}
           <AnimatePresence mode="wait">
             <motion.p
-              className="
-                instruccion text-center font-semibold tracking-wide opacity-85
-                text-[0.55rem] mt-3
-                sm:text-[0.65rem] sm:mt-4
-                md:text-xs md:mt-5
-                lg:text-sm lg:mt-6
-                xl:text-[0.9rem] xl:mt-8
-              "
+              className="instruccion"
               key={`instruction-${hoveredTerritory || 'default'}`}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
