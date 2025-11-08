@@ -196,7 +196,7 @@ export function ElementDetailPage() {
               Recomendaciones preliminares
             </h2>
             <p className="mt-1 text-sm text-token-muted">
-              Basadas en la estrategia de coincidencia por tags (>= 1 tag en
+              Basadas en la estrategia de coincidencia por tags (&gt;= 1 tag en
               comun). Este contrato consumira `/api/elements/:id/recommendations`
               desde Pages Functions y D1.
             </p>

@@ -151,6 +151,66 @@ export const atlasContent = {
         },
       },
     },
+    {
+      id: 'congo',
+      name: 'Kolwezi – Congo',
+      location: 'Kolwezi, República Democrática del Congo',
+      summary:
+        'Ciudad minera que enfrenta tensiones entre la extracción de cobalto, la degradación ambiental y la rápida urbanización, dejando rastros de minas expuestas, escombreras y sitios abandonados.',
+      globalMap: {
+        image: '/img/mapa-global-de-cobalto-T.jpg',
+        points: [
+          {
+            id: 'punto-congo',
+            left: '29.5%',
+            top: '44.7%',
+            label: 'Kolwezi, República Democrática del Congo',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
+    },
+    {
+      id: 'indonesia',
+      name: 'Sumatera Utara – Indonesia',
+      location: 'Sumatera Utara, Indonesia',
+      summary:
+        'Una de las regiones de aceite de palma más productivas del mundo, configurando un paisaje de extracción agroindustrial donde los ciclos de siembra desplazan comunidades y consolidan monocultivos.',
+      globalMap: {
+        image: '/img/mapa-global-de-aceite-T.jpg',
+        points: [
+          {
+            id: 'punto-indonesia',
+            left: '35.7%',
+            top: '45%',
+            label: 'Sumatera Utara, Indonesia',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
+    },
+    {
+      id: 'charleroi',
+      name: 'Charleroi – Bélgica',
+      location: 'Charleroi, Bélgica',
+      summary:
+        'Territorio post-extractivista donde el carbón fue líder mundial en los 90. Hoy enfrenta la transición entre patrimonio industrial y reconversión económica y social.',
+      globalMap: {
+        image: '/img/mapa-global-de-carbon-T.jpg',
+        points: [
+          {
+            id: 'punto-charleroi',
+            left: '27.5%',
+            top: '36%',
+            label: 'Charleroi, Bélgica',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
+    },
   ],
   zones: [
     {
