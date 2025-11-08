@@ -33,6 +33,11 @@ const colorVariants = {
  * @param {string} props.top - Posición top (%, px)
  * @param {string} props.label - Texto accesible (aria-label)
  * @param {Function} props.onClick - Callback al hacer clic
+ * @param {Function} props.onMouseEnter - Callback al entrar con el mouse
+ * @param {Function} props.onMouseLeave - Callback al salir con el mouse
+ * @param {Function} props.onFocus - Callback al recibir focus
+ * @param {Function} props.onBlur - Callback al perder focus
+ * @param {Object} props.parallaxOffset - Offset de parallax { x, y }
  * @param {string} props.variant - Variante de color: 'default' | 'blue' | 'yellow' | 'black'
  * @param {string} props.state - Estado visual: 'visible' | 'hidden' | 'soft'
  * @param {boolean} props.isHovered - Si está en hover (acelera animación)
@@ -42,6 +47,11 @@ export function RadarPoint({
   top,
   label,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  parallaxOffset = { x: 0, y: 0 },
   variant = 'default',
   state = 'visible',
   isHovered = false,
@@ -94,6 +104,10 @@ export function RadarPoint({
           onClick(event)
         }
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onFocus={onFocus}
+      onBlur={onBlur}
       aria-label={label}
       className="group absolute bg-transparent p-0 outline-none transition-opacity duration-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
       style={{
@@ -102,7 +116,7 @@ export function RadarPoint({
         width: '9vw',
         minWidth: '80px',
         aspectRatio: '1',
-        transform: 'translate(-50%, -50%)',
+        transform: `translate(calc(-50% + ${parallaxOffset.x}px), calc(-50% + ${parallaxOffset.y}px))`,
         cursor: state === 'hidden' ? 'default' : 'pointer',
         pointerEvents,
         opacity: containerOpacity,

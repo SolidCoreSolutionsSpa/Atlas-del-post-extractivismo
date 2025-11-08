@@ -62,13 +62,14 @@ export function LandingPage() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const [pointOffset, setPointOffset] = useState({ x: 0, y: 0 })
 
   // Estado del sistema de hover
   const [hoveredTerritory, setHoveredTerritory] = useState(null)
   const [currentBackgroundImage, setCurrentBackgroundImage] = useState(
     hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
   )
-  const [isFading, setIsFading] = useState(false)
+  const [isImageFading, setIsImageFading] = useState(false)
 
   // Texto e instrucción
   const defaultDescription = hero.description
@@ -105,11 +106,17 @@ export function LandingPage() {
       const { innerWidth, innerHeight } = window
       const offsetX = 0.5 - event.clientX / innerWidth
       const offsetY = 0.5 - event.clientY / innerHeight
+
+      // Parallax para la imagen de fondo
       setOffset({ x: offsetX * PARALLAX_FACTOR, y: offsetY * PARALLAX_FACTOR })
+
+      // Parallax para los puntos (mitad de intensidad que la imagen)
+      setPointOffset({ x: offsetX * (PARALLAX_FACTOR / 2), y: offsetY * (PARALLAX_FACTOR / 2) })
     }
 
     function handleMouseLeave() {
       setOffset({ x: 0, y: 0 })
+      setPointOffset({ x: 0, y: 0 })
     }
 
     window.addEventListener('mousemove', handleMouseMove)
@@ -126,26 +133,33 @@ export function LandingPage() {
     if (!territoryKey) {
       // Mouse leave - volver a imagen original
       setHoveredTerritory(null)
-      swapImage(hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg')
+      const originalImage = hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
+      if (currentBackgroundImage !== originalImage) {
+        swapImageSmooth(originalImage)
+      }
       return
     }
 
     const territory = territoriesConfig[territoryKey]
     setHoveredTerritory(territoryKey)
-    swapImage(territory.backgroundImage)
+
+    // Solo cambiar si es diferente
+    if (currentBackgroundImage !== territory.backgroundImage) {
+      swapImageSmooth(territory.backgroundImage)
+    }
   }
 
-  const swapImage = (nextSrc) => {
-    if (currentBackgroundImage === nextSrc || isFading) return
+  // Función para cambiar imagen con fade suave (similar al original HTML)
+  const swapImageSmooth = (newSrc) => {
+    if (isImageFading) return // Prevenir cambios durante fade
 
-    setIsFading(true)
+    setIsImageFading(true)
 
-    // Esperar a que termine el fade-out antes de cambiar la imagen
+    // Fade out, cambiar src, fade in
     setTimeout(() => {
-      setCurrentBackgroundImage(nextSrc)
-      // Pequeño delay para el fade-in
+      setCurrentBackgroundImage(newSrc)
       requestAnimationFrame(() => {
-        setIsFading(false)
+        setIsImageFading(false)
       })
     }, 300) // Duración del fade-out
   }
@@ -246,43 +260,36 @@ export function LandingPage() {
 
         <div className="mapa-wrapper">
           {/* Imagen de fondo con crossfade */}
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={currentBackgroundImage}
-              src={currentBackgroundImage}
-              alt="Mapa global"
-              className="imagen-mapa"
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                transform: `translate(${offset.x}px, ${offset.y}px)`,
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              loading="lazy"
-            />
-          </AnimatePresence>
+          <motion.img
+            src={currentBackgroundImage}
+            alt="Mapa global"
+            className="imagen-mapa"
+            animate={{
+              opacity: isImageFading ? 0 : 1,
+              transform: `translate(${offset.x}px, ${offset.y}px)`,
+            }}
+            transition={{ opacity: { duration: 0.3 }, transform: { duration: 0 } }}
+            loading="lazy"
+          />
 
           {/* Overlay con puntos radar */}
           <div className="overlay-puntos">
             {Object.entries(territoriesConfig).map(([key, territory]) => (
-              <div
+              <RadarPoint
                 key={territory.id}
+                left={territory.position.left}
+                top={territory.position.top}
+                label={territory.name}
+                variant={territory.variant}
+                state={getPointState(key)}
+                isHovered={hoveredTerritory === key}
+                parallaxOffset={pointOffset}
+                onClick={(event) => handleTerritoryClick(key, event)}
                 onMouseEnter={() => handleTerritoryHover(key)}
                 onMouseLeave={() => handleTerritoryHover(null)}
                 onFocus={() => handleTerritoryHover(key)}
                 onBlur={() => handleTerritoryHover(null)}
-              >
-                <RadarPoint
-                  left={territory.position.left}
-                  top={territory.position.top}
-                  label={territory.name}
-                  variant={territory.variant}
-                  state={getPointState(key)}
-                  isHovered={hoveredTerritory === key}
-                  onClick={(event) => handleTerritoryClick(key, event)}
-                />
-              </div>
+              />
             ))}
           </div>
         </div>
