@@ -1,10 +1,10 @@
 export const atlasContent = {
   hero: {
     title: 'Atlas del (Post) Extractivismo',
-    subtitle: 'Paisajes y dinamicas del extractivismo (prototipo)',
+    subtitle: 'Entre norte y sur global',
     description:
-      'Explora esta plataforma digital, recorre paisajes y dinamicas marcadas por el extractivismo y descubre como estas practicas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.',
-    image: '/img/paisajehome.webp',
+      'Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.',
+    image: '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
   },
   caseStudies: [
     {

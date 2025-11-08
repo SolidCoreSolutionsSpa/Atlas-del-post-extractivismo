@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import clsx from 'clsx'
 
 import { atlasContent } from '../../shared/data/atlasContent'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
@@ -11,7 +10,7 @@ const PARALLAX_FACTOR = 20
 
 // Configuración de territorios para el hover system
 const territoriesConfig = {
-  'choapa': {
+  choapa: {
     id: 'choapa-btn',
     name: 'PROVINCIA DE CHOAPA, COQUIMBO, CHILE',
     description:
@@ -22,7 +21,7 @@ const territoriesConfig = {
     position: { left: '29.5%', top: '68%' },
     navigateTo: '/casos-de-estudio/provincia-choapa',
   },
-  'congo': {
+  congo: {
     id: 'congo-btn',
     name: 'KOLWEZI – CONGO',
     description:
@@ -33,7 +32,7 @@ const territoriesConfig = {
     position: { left: '29.5%', top: '44.7%' },
     navigateTo: null, // Próximamente
   },
-  'indonesia': {
+  indonesia: {
     id: 'indonesia-btn',
     name: 'SUMATERA UTARA – INDONESIA',
     description:
@@ -44,7 +43,7 @@ const territoriesConfig = {
     position: { left: '35.7%', top: '45%' },
     navigateTo: null, // Próximamente
   },
-  'charleroi': {
+  charleroi: {
     id: 'charleroi-btn',
     name: 'CHARLEROI – BÉLGICA (PRÓXIMAMENTE)',
     description:
@@ -183,40 +182,56 @@ export function LandingPage() {
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <div className="contenedor">
-        <motion.div id="contenido">
+        {/* Contenido posicionado arriba-derecha como en el HTML original */}
+        <motion.div
+          id="contenido"
+          style={{
+            position: 'absolute',
+            top: '47%',
+            left: '75%',
+            transform: 'translate(-50%, -50%)',
+            width: '30%',
+            textAlign: 'left',
+            zIndex: 50,
+          }}
+        >
           <h1>{hero.title.toUpperCase()}</h1>
           <h2>{hero.subtitle}</h2>
 
           {/* Descripción con transición */}
-          <motion.p
-            key={hoveredTerritory || 'default'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {currentDescription}
-          </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={hoveredTerritory || 'default'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {currentDescription}
+            </motion.p>
+          </AnimatePresence>
 
           {/* Instrucción con transición */}
-          <motion.p
-            className="instruccion"
-            key={`instruction-${hoveredTerritory || 'default'}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            style={{
-              color: currentInstructionColor,
-              fontWeight: 600,
-              fontSize: '0.9rem',
-              letterSpacing: '0.15em',
-              textAlign: 'center',
-              marginTop: '2rem',
-            }}
-          >
-            {currentInstruction}
-          </motion.p>
+          <AnimatePresence mode="wait">
+            <motion.p
+              className="instruccion"
+              key={`instruction-${hoveredTerritory || 'default'}`}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                color: currentInstructionColor,
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                letterSpacing: '0.15em',
+                textAlign: 'center',
+                marginTop: '2rem',
+              }}
+            >
+              {currentInstruction}
+            </motion.p>
+          </AnimatePresence>
         </motion.div>
 
         <div className="mapa-wrapper">
