@@ -114,38 +114,38 @@ html, body {
 
 /* 320px landscape - máxima compactación */
 @media (max-width: 320px) and (orientation: landscape) and (max-height: 500px) {
-  #contenido {
-    top: 50%;
-    width: 26%;
-    max-height: 60vh;
-    overflow-y: visible;
+  .contenedor #contenido {
+    top: 50% !important;
+    width: 26% !important;
+    max-height: 60vh !important;
+    overflow-y: visible !important;
   }
 
-  #contenido h1 {
-    font-size: 0.38rem !important;
+  .contenedor #contenido h1 {
+    font-size: 0.28rem !important;
+    margin-bottom: 0px !important;
+    line-height: 0.85 !important;
+  }
+
+  .contenedor #contenido h2 {
+    font-size: 0.19rem !important;
     margin-bottom: 1px !important;
-    line-height: 0.88 !important;
   }
 
-  #contenido h2 {
-    font-size: 0.25rem !important;
-    margin-bottom: 1px !important;
+  .contenedor #contenido p {
+    font-size: 0.18rem !important;
+    margin-bottom: 0px !important;
+    line-height: 1.05 !important;
   }
 
-  #contenido p {
-    font-size: 0.23rem !important;
-    margin-bottom: 1px !important;
-    line-height: 1.08 !important;
-  }
-
-  .instruccion {
-    font-size: 0.22rem !important;
+  .contenedor #contenido p.instruccion {
+    font-size: 0.17rem !important;
     margin-top: 1px !important;
   }
 
-  #ingresarBtn {
-    padding: 2px 5px !important;
-    font-size: 0.24rem !important;
+  .contenedor #contenido #ingresarBtn {
+    padding: 1px 4px !important;
+    font-size: 0.19rem !important;
   }
 }
 
