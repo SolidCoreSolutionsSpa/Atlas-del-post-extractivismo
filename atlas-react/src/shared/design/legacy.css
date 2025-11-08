@@ -122,30 +122,30 @@ html, body {
   }
 
   .contenedor #contenido h1 {
-    font-size: 0.28rem !important;
-    margin-bottom: 0px !important;
-    line-height: 0.85 !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 2px !important;
+    line-height: 0.95 !important;
   }
 
   .contenedor #contenido h2 {
-    font-size: 0.19rem !important;
-    margin-bottom: 1px !important;
+    font-size: 0.55rem !important;
+    margin-bottom: 2px !important;
   }
 
   .contenedor #contenido p {
-    font-size: 0.18rem !important;
-    margin-bottom: 0px !important;
-    line-height: 1.05 !important;
+    font-size: 0.52rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.12 !important;
   }
 
   .contenedor #contenido p.instruccion {
-    font-size: 0.17rem !important;
-    margin-top: 1px !important;
+    font-size: 0.5rem !important;
+    margin-top: 2px !important;
   }
 
   .contenedor #contenido #ingresarBtn {
-    padding: 1px 4px !important;
-    font-size: 0.19rem !important;
+    padding: 3px 7px !important;
+    font-size: 0.52rem !important;
   }
 }
 
