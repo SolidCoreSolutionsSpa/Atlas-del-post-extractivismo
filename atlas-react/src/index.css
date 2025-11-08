@@ -1,6 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=Inter:wght@400;500;700&display=swap");
 @import 'tailwindcss';
 
+@theme {
+  --animate-rotate-clockwise: rotateClockwise 10s linear infinite;
+
+  @keyframes rotateClockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
 @import './shared/design/tokens.css';
 @import './shared/design/legacy.css';
 

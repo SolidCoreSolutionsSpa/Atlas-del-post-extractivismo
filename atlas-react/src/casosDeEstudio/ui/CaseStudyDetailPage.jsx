@@ -8,16 +8,13 @@ import {
   InteractiveMap,
   MapDecoration,
 } from '../../shared/ui/InteractiveMap'
+import { CircleHotspot } from '../../shared/ui/CircleHotspot'
+import { RotatingHotspot } from '../../shared/ui/RotatingHotspot'
+import { FilterPanel } from './FilterPanel'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
-
-const filterIcons = {
-  biotic: '/img/icono_biotico.svg',
-  anthropic: '/img/icono_antropico.svg',
-  physical: '/img/icono_fisico.svg',
-}
 
 // Parallax factors differentiated by category
 function getParallaxFactor(category) {
@@ -149,6 +146,27 @@ export function CaseStudyDetailPage() {
 
   const { detailMap } = caseStudy
 
+  if (!detailMap) {
+    return (
+      <motion.section
+        className="mx-auto flex w-[92%] max-w-4xl flex-col gap-6 pb-16"
+        initial="hidden"
+        animate="visible"
+        variants={detailVariants}
+      >
+        <Breadcrumbs items={breadcrumbItems} />
+        <div className="mt-20 rounded-3xl border border-token-divider bg-token-surface p-8 shadow-sm">
+          <h2 className="text-2xl font-semibold text-token-primary">
+            Mapa detallado no disponible
+          </h2>
+          <p className="mt-2 text-sm text-token-muted">
+            Este caso de estudio aún no tiene un mapa detallado configurado.
+          </p>
+        </div>
+      </motion.section>
+    )
+  }
+
   return (
     <motion.section
       className="relative min-h-screen overflow-hidden bg-white"
@@ -156,48 +174,34 @@ export function CaseStudyDetailPage() {
       animate="visible"
       variants={detailVariants}
     >
-      <InteractiveMap
-        imageSrc={detailMap.image}
-        imageAlt={`Mapa de ${caseStudy.title}`}
-        intensity={24}
-        className="h-[calc(100vh-2rem)]"
-      >
-        {detailMap.decorations.map((item) => (
-          <MapDecoration
-            key={item.id}
-            left={item.left}
-            top={item.top}
-            imageSrc={item.image}
-            imageAlt={item.alt}
-            factor={getParallaxFactor(item.category)}
-            widthClass={getSizeClass(item.id)}
-            className={clsx(
-              'shadow-xl',
-              activeFilter && activeFilter !== item.category
-                ? 'opacity-30'
-                : 'opacity-95',
-            )}
-          />
-        ))}
-        {detailMap.hotspots.map((spot) => (
-          <CircleHotspot
-            key={spot.id}
-            left={spot.left}
-            top={spot.top}
-            label={spot.label}
-            active={activeFilter ? activeFilter === spot.category : true}
-            onSelect={(event) => {
-              if (!spot.zoneId) return
-              const rect = event.currentTarget.getBoundingClientRect()
-              const origin = {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2,
-              }
-              zoomNavigate(`/zonas/${spot.zoneId}`, { origin })
-            }}
-          />
-        ))}
-      </InteractiveMap>
+      {/* Mapa con hotspots giratorios */}
+      <div className="relative h-screen w-full overflow-hidden">
+        <img
+          src={detailMap.image}
+          className="absolute inset-0 h-full w-full object-cover"
+          alt={`Mapa de ${caseStudy.title}`}
+        />
+        <div className="absolute inset-0">
+          {detailMap.hotspots.map((spot) => (
+            <RotatingHotspot
+              key={spot.id}
+              left={spot.left}
+              top={spot.top}
+              label={spot.label}
+              active={!activeFilter || activeFilter === spot.category}
+              onSelect={(event) => {
+                if (!spot.zoneId) return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const origin = {
+                  x: rect.left + rect.width / 2,
+                  y: rect.top + rect.height / 2,
+                }
+                zoomNavigate(`/zonas/${spot.zoneId}`, { origin })
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
       <Breadcrumbs
         className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
@@ -219,47 +223,11 @@ export function CaseStudyDetailPage() {
         </p>
       </div>
 
-      <div className="pointer-events-auto absolute bottom-16 left-16 flex items-center gap-4 rounded-[2rem] bg-white/90 px-6 py-4 shadow-xl backdrop-blur">
-        {Object.entries(detailMap.filterDescriptions).map(([category, info]) => (
-          <button
-            key={category}
-            type="button"
-            onMouseEnter={() => setActiveFilter(category)}
-            onFocus={() => setActiveFilter(category)}
-            onMouseLeave={() => setActiveFilter(null)}
-            onBlur={() => setActiveFilter(null)}
-            className={clsx(
-              'flex flex-col items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] transition',
-              activeFilter === category
-                ? 'text-token-primary'
-                : 'text-token-muted hover:text-token-primary',
-            )}
-          >
-            <span className="flex h-12 w-12 items-center justify-center rounded-full border border-token-divider bg-white shadow">
-              <img src={filterIcons[category]} alt="" className="h-6 w-6" loading="lazy" />
-            </span>
-            {info.title.split(' ')[1]}
-          </button>
-        ))}
-      </div>
+      <FilterPanel
+        filterDescriptions={detailMap.filterDescriptions}
+        activeFilter={activeFilter}
+        onFilterChange={setActiveFilter}
+      />
     </motion.section>
-  )
-}
-
-function CircleHotspot({ left, top, label, active, onSelect }) {
-  return (
-    <motion.button
-      type="button"
-      onClick={(event) => { if (onSelect) { event.preventDefault(); event.stopPropagation(); onSelect(event); } }}
-      style={{ left, top }}
-      className={clsx(
-        'absolute flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border border-dashed border-white/80 transition',
-        active ? 'opacity-100' : 'opacity-30',
-      )}
-    >
-      <span className="pointer-events-none rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-token-primary shadow">
-        {label}
-      </span>
-    </motion.button>
   )
 }

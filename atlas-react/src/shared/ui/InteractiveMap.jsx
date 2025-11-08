@@ -17,9 +17,9 @@ import {
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 
-const MapParallaxContext = createContext(null)
+export const MapParallaxContext = createContext(null)
 
-function useMapContext() {
+export function useMapContext() {
   const context = useContext(MapParallaxContext)
   if (!context) throw new Error('Map components must be rendered inside <InteractiveMap>')
   return context
