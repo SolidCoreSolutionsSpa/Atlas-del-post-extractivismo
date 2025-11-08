@@ -196,38 +196,40 @@ export function LandingPage() {
         </motion.div>
 
         <div className="mapa-wrapper">
-          {/* Imagen de fondo con crossfade */}
-          <motion.img
-            src={currentImage}
-            alt="Mapa global"
-            className="imagen-mapa"
-            animate={{
-              opacity: isFading ? 0 : 1,
-              transform: `translate(${offset.x}px, ${offset.y}px)`,
-            }}
-            transition={{ opacity: { duration: 0.3 }, transform: { duration: 0 } }}
-            loading="lazy"
-          />
+          <div className="mapa-container">
+            {/* Imagen de fondo con crossfade */}
+            <motion.img
+              src={currentImage}
+              alt="Mapa global"
+              className="imagen-mapa"
+              animate={{
+                opacity: isFading ? 0 : 1,
+                transform: `translate(${offset.x}px, ${offset.y}px)`,
+              }}
+              transition={{ opacity: { duration: 0.3 }, transform: { duration: 0 } }}
+              loading="lazy"
+            />
 
-          {/* Overlay con puntos radar */}
-          <div className="overlay-puntos">
-            {Object.entries(territoriesConfig).map(([key, territory]) => (
-              <RadarPoint
-                key={territory.id}
-                left={territory.position.left}
-                top={territory.position.top}
-                label={territory.name}
-                variant={territory.variant}
-                state={getPointState(key)}
-                isHovered={hoveredTerritory === key}
-                parallaxOffset={pointOffset}
-                onClick={(event) => handleTerritoryClick(key, event)}
-                onMouseEnter={() => handleTerritoryHover(key)}
-                onMouseLeave={() => handleTerritoryHover(null)}
-                onFocus={() => handleTerritoryHover(key)}
-                onBlur={() => handleTerritoryHover(null)}
-              />
-            ))}
+            {/* Overlay con puntos radar */}
+            <div className="overlay-puntos">
+              {Object.entries(territoriesConfig).map(([key, territory]) => (
+                <RadarPoint
+                  key={territory.id}
+                  left={territory.position.left}
+                  top={territory.position.top}
+                  label={territory.name}
+                  variant={territory.variant}
+                  state={getPointState(key)}
+                  isHovered={hoveredTerritory === key}
+                  parallaxOffset={pointOffset}
+                  onClick={(event) => handleTerritoryClick(key, event)}
+                  onMouseEnter={() => handleTerritoryHover(key)}
+                  onMouseLeave={() => handleTerritoryHover(null)}
+                  onFocus={() => handleTerritoryHover(key)}
+                  onBlur={() => handleTerritoryHover(null)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
