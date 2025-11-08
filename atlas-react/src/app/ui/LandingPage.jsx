@@ -158,34 +158,42 @@ export function LandingPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={transition}
     >
-      <div className="flex justify-center items-center w-[102vw] h-[98vh]">
-        {/* Contenido siempre a la derecha */}
+      <div className="contenedor">
+        {/* Contenido a la derecha con tamaños responsivos */}
         <motion.div
           id="contenido"
+          style={{
+            position: 'absolute',
+            top: '47%',
+            left: '75%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 50,
+            textAlign: 'left',
+          }}
           className="
-            absolute z-50 text-left px-4
-            left-[70%] top-[47%] -translate-x-1/2 -translate-y-1/2 w-[38%]
-            md:left-[72%] md:w-[36%] md:px-0
-            lg:left-[74%] lg:w-[34%]
-            xl:left-[75%] xl:w-[30%]
+            w-[42%] px-3
+            sm:w-[40%] sm:px-4
+            md:w-[36%] md:px-0
+            lg:w-[33%]
+            xl:w-[30%]
           "
         >
           <h1 className="
-            font-['Baskervville'] font-normal text-gray-900 mb-1
-            text-xl leading-tight
-            sm:text-2xl sm:mb-2
-            md:text-3xl
-            lg:text-[2.2rem]
+            font-['Baskervville'] font-normal text-gray-900 leading-tight
+            text-lg mb-1
+            sm:text-xl sm:mb-1.5
+            md:text-2xl md:mb-2
+            lg:text-3xl lg:mb-2.5
             xl:text-[2.7rem]
           ">
             {hero.title.toUpperCase()}
           </h1>
           <h2 className="
-            font-['Inter'] font-normal text-gray-500 mb-4
-            text-sm
-            sm:text-base sm:mb-5
-            md:text-lg md:mb-6
-            lg:text-[1.1rem] lg:mb-8
+            font-['Inter'] font-normal text-gray-500
+            text-xs mb-3
+            sm:text-sm sm:mb-4
+            md:text-base md:mb-5
+            lg:text-lg lg:mb-6
             xl:text-[1.3rem] xl:mb-10
           ">
             {hero.subtitle}
@@ -201,10 +209,10 @@ export function LandingPage() {
               transition={{ duration: 0.3 }}
               className="
                 max-w-full leading-relaxed
-                text-xs
-                sm:text-sm
-                md:text-base
-                lg:text-[0.95rem]
+                text-[0.65rem]
+                sm:text-xs
+                md:text-sm
+                lg:text-base
                 xl:text-base
               "
             >
@@ -217,11 +225,11 @@ export function LandingPage() {
             <motion.p
               className="
                 instruccion text-center font-semibold tracking-wide opacity-85
-                text-[0.65rem] mt-4
-                sm:text-xs sm:mt-5
-                md:text-sm md:mt-6
-                lg:text-[0.85rem] lg:mt-8
-                xl:text-[0.9rem]
+                text-[0.55rem] mt-3
+                sm:text-[0.65rem] sm:mt-4
+                md:text-xs md:mt-5
+                lg:text-sm lg:mt-6
+                xl:text-[0.9rem] xl:mt-8
               "
               key={`instruction-${hoveredTerritory || 'default'}`}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -237,12 +245,12 @@ export function LandingPage() {
           </AnimatePresence>
         </motion.div>
 
-        <div className="relative h-screen">
+        <div className="mapa-wrapper">
           {/* Imagen de fondo con crossfade */}
           <motion.img
             src={currentImage}
             alt="Mapa global"
-            className="h-[105%] w-auto block"
+            className="imagen-mapa"
             animate={{
               opacity: isFading ? 0 : 1,
               transform: `translate(${offset.x}px, ${offset.y}px)`,
