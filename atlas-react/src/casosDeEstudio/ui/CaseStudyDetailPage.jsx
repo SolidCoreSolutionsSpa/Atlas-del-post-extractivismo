@@ -12,6 +12,7 @@ import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { atlasContent } from '../../shared/data/atlasContent'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
+import { FilterDescriptionPanel } from './FilterDescriptionPanel'
 
 const filterIcons = {
   biotic: '/img/icono_biotico.svg',
@@ -214,6 +215,11 @@ export function CaseStudyDetailPage() {
           </button>
         ))}
       </div>
+
+      <FilterDescriptionPanel
+        activeFilter={activeFilter}
+        filterDescriptions={detailMap.filterDescriptions}
+      />
     </motion.section>
   )
 }
@@ -228,6 +234,12 @@ function CircleHotspot({ left, top, label, active, onSelect }) {
         'absolute flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border border-dashed border-white/80 transition',
         active ? 'opacity-100' : 'opacity-30',
       )}
+      animate={{ rotate: 360 }}
+      transition={{
+        duration: 20,
+        repeat: Infinity,
+        ease: 'linear',
+      }}
     >
       <span className="pointer-events-none rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-token-primary shadow">
         {label}
