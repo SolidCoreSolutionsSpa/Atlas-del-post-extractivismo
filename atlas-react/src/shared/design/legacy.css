@@ -112,8 +112,8 @@ html, body {
 
 /* Media queries para pantallas pequeñas en landscape (móviles horizontales) */
 
-/* 320px landscape - máxima compactación */
-@media (max-width: 320px) and (orientation: landscape) and (max-height: 500px) {
+/* 320px altura landscape - máxima compactación */
+@media (orientation: landscape) and (max-height: 320px) {
   .contenedor #contenido {
     top: 50% !important;
     width: 26% !important;
@@ -149,8 +149,8 @@ html, body {
   }
 }
 
-/* 375px landscape */
-@media (min-width: 321px) and (max-width: 375px) and (orientation: landscape) and (max-height: 500px) {
+/* 375px altura landscape */
+@media (orientation: landscape) and (min-height: 321px) and (max-height: 375px) {
   #contenido {
     top: 50%;
     width: 26%;
@@ -186,8 +186,8 @@ html, body {
   }
 }
 
-/* 425px landscape */
-@media (min-width: 376px) and (max-width: 425px) and (orientation: landscape) and (max-height: 500px) {
+/* 425px altura landscape */
+@media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
   #contenido {
     top: 50%;
     width: 26%;
@@ -224,7 +224,7 @@ html, body {
 }
 
 /* Fallback para otras resoluciones pequeñas en landscape */
-@media (min-width: 426px) and (max-height: 500px) and (orientation: landscape) {
+@media (orientation: landscape) and (min-height: 426px) and (max-height: 500px) {
   #contenido {
     top: 50%;
     width: 26%;
@@ -398,20 +398,20 @@ html, body {
 
 /* Ajuste de imagen en landscape para que el texto quepa completamente */
 
-/* Ajustes específicos por ancho de pantalla en landscape */
-@media (max-width: 320px) and (orientation: landscape) and (max-height: 500px) {
+/* Ajustes específicos por altura de pantalla en landscape */
+@media (orientation: landscape) and (max-height: 320px) {
   .imagen-mapa {
     max-height: 55vh !important;
   }
 }
 
-@media (min-width: 321px) and (max-width: 375px) and (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) and (min-height: 321px) and (max-height: 375px) {
   .imagen-mapa {
     max-height: 58vh !important;
   }
 }
 
-@media (min-width: 376px) and (max-width: 425px) and (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
   .imagen-mapa {
     max-height: 60vh !important;
   }
@@ -430,7 +430,7 @@ html, body {
   }
 }
 
-@media (min-width: 426px) and (orientation: landscape) and (max-height: 500px) {
+@media (orientation: landscape) and (min-height: 426px) and (max-height: 500px) {
   .imagen-mapa {
     max-height: 60vh !important;
   }
