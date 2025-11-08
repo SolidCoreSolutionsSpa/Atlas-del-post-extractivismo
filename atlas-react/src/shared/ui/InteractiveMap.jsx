@@ -90,8 +90,12 @@ export function InteractiveMap({
     (evento) => {
       const rect = contenedorRef.current?.getBoundingClientRect()
       if (!rect) return
+
+      // Calcular offset relativo al centro del contenedor (-0.5 a 0.5)
       const offsetRelX = (evento.clientX - rect.left) / rect.width - 0.5
       const offsetRelY = (evento.clientY - rect.top) / rect.height - 0.5
+
+      // Aplicar intensidad y actualizar motion values (invertido para efecto parallax)
       motionX.set(-offsetRelX * intensity)
       motionY.set(-offsetRelY * intensity)
     },
@@ -99,6 +103,7 @@ export function InteractiveMap({
   )
 
   const manejarPointerLeave = useCallback(() => {
+    // Resetear posición cuando el mouse sale del contenedor
     motionX.set(0)
     motionY.set(0)
   }, [motionX, motionY])
@@ -132,7 +137,21 @@ export function InteractiveMap({
   )
 
   useLayoutEffect(() => {
-    const scheduleUpdate = () => requestAnimationFrame(() => applyLayout())
+    let rafId = null
+
+    // Debounced layout update para evitar recálculos excesivos
+    const scheduleUpdate = () => {
+      // Cancelar frame pendiente si existe
+      if (rafId) cancelAnimationFrame(rafId)
+
+      // Programar nuevo frame
+      rafId = requestAnimationFrame(() => {
+        applyLayout()
+        rafId = null
+      })
+    }
+
+    // Aplicar layout inicial
     scheduleUpdate()
 
     const ResizeObserverImpl = typeof window !== 'undefined' ? window.ResizeObserver : undefined
@@ -141,9 +160,15 @@ export function InteractiveMap({
         ? new ResizeObserverImpl(scheduleUpdate)
         : null
 
-    observador?.observe(contenedorRef.current)
+    if (observador && contenedorRef.current) {
+      observador.observe(contenedorRef.current)
+    }
+
     window.addEventListener('resize', scheduleUpdate)
+
     return () => {
+      // Cleanup: cancelar animaciones pendientes
+      if (rafId) cancelAnimationFrame(rafId)
       observador?.disconnect()
       window.removeEventListener('resize', scheduleUpdate)
     }

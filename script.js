@@ -1,23 +1,8 @@
 
-
-// === PARALLAX SOBRE LA IMAGEN ===
+// === ELEMENTOS GLOBALES ===
 const imagen = document.querySelector('.imagen-mapa');
-
-if (imagen) {
-  document.addEventListener('mousemove', (e) => {
-    const { innerWidth, innerHeight } = window;
-    const offsetX = 0.5 - e.clientX / innerWidth;
-    const offsetY = 0.5 - e.clientY / innerHeight;
-    const moveX = offsetX * 20;
-    const moveY = offsetY * 20;
-    imagen.style.transform = `translate(${moveX}px, ${moveY}px)`;
-  });
-
-  document.addEventListener('mouseleave', () => {
-    imagen.style.transform = 'translate(0, 0)';
-  });
-}
-
+let parallaxEnabled = true; // Bandera para controlar el parallax
+let isAnimating = false; // Prevenir múltiples clicks durante animaciones
 
 // === BOTÓN "VOLVER" DINÁMICO ===
 const volver = document.getElementById('volverBtn');
@@ -86,11 +71,16 @@ const redirecciones = {
 };
 
 Object.entries(redirecciones).forEach(([id, url]) => {
- 
+
     const elemento = document.getElementById(id);
     if (elemento) {
       elemento.addEventListener('click', (e) => {
         e.preventDefault();
+
+        // Prevenir múltiples clicks durante la animación
+        if (isAnimating) return;
+        isAnimating = true;
+
         const rect = elemento.getBoundingClientRect();
         const x = rect.left + rect.width / 2;
         const y = rect.top + rect.height / 2;
@@ -103,13 +93,16 @@ Object.entries(redirecciones).forEach(([id, url]) => {
         }, 600);
       });
     }
-  
+
 });
 
 // === PARALLAX TAMBIÉN PARA LOS PUNTOS ===
 const puntos = document.querySelectorAll('.punto, .icono-paisaje, .paisaje-parallax, .radar-point');
 
 document.addEventListener('mousemove', (e) => {
+  // Solo aplicar parallax si está habilitado
+  if (!parallaxEnabled) return;
+
   const { innerWidth, innerHeight } = window;
   const offsetX = 0.5 - e.clientX / innerWidth;
   const offsetY = 0.5 - e.clientY / innerHeight;
@@ -150,6 +143,11 @@ document.addEventListener('mouseleave', () => {
 document.querySelectorAll('.breadcrumb-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
+
+    // Prevenir múltiples clicks durante la animación
+    if (isAnimating) return;
+    isAnimating = true;
+
     const url = link.getAttribute('href');
 
     // Zoom-out desde el centro de la pantalla
@@ -232,6 +230,10 @@ document.querySelectorAll('.radar-point').forEach((punto) => {
     e.preventDefault();
     const url = punto.dataset.url;
     if (!url) return;
+
+    // Prevenir múltiples clicks durante la animación
+    if (isAnimating) return;
+    isAnimating = true;
 
     // origen del zoom = centro visual del punto
     const rect = punto.getBoundingClientRect();
@@ -342,6 +344,7 @@ function configurarHoverLugar({ id, color, texto, descripcion, imagen }) {
 
     // Hover IN / OUT
     const setHover = () => {
+      parallaxEnabled = false; // Desactiva parallax durante hover
       parrafo.textContent = hoverParrafo;
       swapTo(hoverSrc);
 
@@ -353,6 +356,7 @@ function configurarHoverLugar({ id, color, texto, descripcion, imagen }) {
     };
 
     const unsetHover = () => {
+      parallaxEnabled = true; // Reactiva parallax al salir del hover
       parrafo.textContent = originalParrafo;
       swapTo(originalSrc);
 
