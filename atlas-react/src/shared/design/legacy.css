@@ -122,30 +122,30 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.42rem !important;
-    margin-bottom: 1px !important;
-    line-height: 0.9 !important;
+    font-size: 0.85rem !important;
+    margin-bottom: 2px !important;
+    line-height: 0.95 !important;
   }
 
   #contenido h2 {
-    font-size: 0.28rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.55rem !important;
+    margin-bottom: 3px !important;
   }
 
   #contenido p {
-    font-size: 0.26rem !important;
-    margin-bottom: 2px !important;
-    line-height: 1.1 !important;
+    font-size: 0.52rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.15 !important;
   }
 
   .instruccion {
-    font-size: 0.24rem !important;
-    margin-top: 2px !important;
+    font-size: 0.5rem !important;
+    margin-top: 3px !important;
   }
 
   #ingresarBtn {
-    padding: 2px 5px !important;
-    font-size: 0.26rem !important;
+    padding: 3px 8px !important;
+    font-size: 0.52rem !important;
   }
 }
 
@@ -159,30 +159,30 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.48rem !important;
-    margin-bottom: 2px !important;
-    line-height: 0.92 !important;
+    font-size: 0.95rem !important;
+    margin-bottom: 3px !important;
+    line-height: 0.98 !important;
   }
 
   #contenido h2 {
-    font-size: 0.32rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.62rem !important;
+    margin-bottom: 3px !important;
   }
 
   #contenido p {
-    font-size: 0.3rem !important;
-    margin-bottom: 2px !important;
-    line-height: 1.12 !important;
+    font-size: 0.58rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.18 !important;
   }
 
   .instruccion {
-    font-size: 0.28rem !important;
-    margin-top: 2px !important;
+    font-size: 0.56rem !important;
+    margin-top: 3px !important;
   }
 
   #ingresarBtn {
-    padding: 3px 6px !important;
-    font-size: 0.3rem !important;
+    padding: 4px 8px !important;
+    font-size: 0.58rem !important;
   }
 }
 
@@ -196,30 +196,30 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.52rem !important;
-    margin-bottom: 2px !important;
-    line-height: 0.94 !important;
+    font-size: 1.05rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1 !important;
   }
 
   #contenido h2 {
-    font-size: 0.35rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
   }
 
   #contenido p {
-    font-size: 0.33rem !important;
-    margin-bottom: 2px !important;
-    line-height: 1.13 !important;
+    font-size: 0.65rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.2 !important;
   }
 
   .instruccion {
-    font-size: 0.31rem !important;
-    margin-top: 2px !important;
+    font-size: 0.62rem !important;
+    margin-top: 4px !important;
   }
 
   #ingresarBtn {
-    padding: 3px 7px !important;
-    font-size: 0.33rem !important;
+    padding: 4px 9px !important;
+    font-size: 0.65rem !important;
   }
 }
 
@@ -233,30 +233,30 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.45rem !important;
-    margin-bottom: 1px !important;
-    line-height: 0.92 !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.02 !important;
   }
 
   #contenido h2 {
-    font-size: 0.3rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.72rem !important;
+    margin-bottom: 4px !important;
   }
 
   #contenido p {
-    font-size: 0.27rem !important;
-    margin-bottom: 1px !important;
-    line-height: 1.12 !important;
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.22 !important;
   }
 
   .instruccion {
-    font-size: 0.26rem !important;
-    margin-top: 2px !important;
+    font-size: 0.65rem !important;
+    margin-top: 4px !important;
   }
 
   #ingresarBtn {
-    padding: 3px 6px !important;
-    font-size: 0.28rem !important;
+    padding: 4px 9px !important;
+    font-size: 0.68rem !important;
   }
 }
 
@@ -266,25 +266,25 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.5rem !important;
-    margin-bottom: 1px !important;
-    line-height: 0.95 !important;
+    font-size: 1.15rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.05 !important;
   }
 
   #contenido h2 {
-    font-size: 0.34rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.75rem !important;
+    margin-bottom: 4px !important;
   }
 
   #contenido p {
-    font-size: 0.3rem !important;
-    margin-bottom: 2px !important;
-    line-height: 1.15 !important;
+    font-size: 0.72rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.25 !important;
   }
 
   .instruccion {
-    font-size: 0.29rem !important;
-    margin-top: 2px !important;
+    font-size: 0.7rem !important;
+    margin-top: 4px !important;
   }
 }
 
@@ -294,25 +294,25 @@ html, body {
   }
 
   #contenido h1 {
-    font-size: 0.58rem !important;
-    margin-bottom: 2px !important;
-    line-height: 0.97 !important;
+    font-size: 1.25rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.08 !important;
   }
 
   #contenido h2 {
-    font-size: 0.38rem !important;
-    margin-bottom: 2px !important;
+    font-size: 0.82rem !important;
+    margin-bottom: 5px !important;
   }
 
   #contenido p {
-    font-size: 0.34rem !important;
-    margin-bottom: 2px !important;
-    line-height: 1.2 !important;
+    font-size: 0.78rem !important;
+    margin-bottom: 5px !important;
+    line-height: 1.28 !important;
   }
 
   .instruccion {
-    font-size: 0.33rem !important;
-    margin-top: 3px !important;
+    font-size: 0.75rem !important;
+    margin-top: 5px !important;
   }
 }
 
