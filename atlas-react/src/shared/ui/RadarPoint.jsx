@@ -90,13 +90,16 @@ export function RadarPoint({
   // Animación del core en hover
   const coreScale = isHovered ? 1.15 : 1
 
+  // Opacidad en hover - los puntos se vuelven semi-transparentes
+  const hoverOpacity = isHovered ? 0.5 : 1
+
   // Estados de visibilidad
   const containerOpacity =
     state === 'hidden' ? 0 : state === 'soft' ? 0.4 : 1
   const pointerEvents = state === 'hidden' ? 'none' : 'auto'
 
   return (
-    <div
+    <motion.div
       className="absolute"
       style={{
         left,
@@ -106,9 +109,13 @@ export function RadarPoint({
         aspectRatio: '1',
         transform: `translate(calc(-50% + ${parallaxOffset.x}px), calc(-50% + ${parallaxOffset.y}px))`,
         pointerEvents: 'none',
-        opacity: containerOpacity,
         zIndex: 80,
       }}
+      initial={false}
+      animate={{
+        opacity: containerOpacity * hoverOpacity,
+      }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       {/* Contenedor de anillos - no clickeable */}
       <div className="absolute inset-0">
@@ -211,6 +218,6 @@ export function RadarPoint({
           {label}
         </span>
       </motion.button>
-    </div>
+    </motion.div>
   )
 }
