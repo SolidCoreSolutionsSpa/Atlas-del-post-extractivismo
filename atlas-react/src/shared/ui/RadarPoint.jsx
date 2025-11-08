@@ -71,7 +71,7 @@ export function RadarPoint({
 
     return {
       scale: [0.1, 1],
-      opacity: [0.9, 0.3, 0],
+      opacity: [0.9, 0.4, 0.2],
       borderWidth: ['3px', '2px', '1px'],
     }
   }, [prefersReducedMotion])
@@ -95,21 +95,8 @@ export function RadarPoint({
   const pointerEvents = state === 'hidden' ? 'none' : 'auto'
 
   return (
-    <motion.button
-      type="button"
-      onClick={(event) => {
-        if (onClick && state !== 'hidden') {
-          event.preventDefault()
-          event.stopPropagation()
-          onClick(event)
-        }
-      }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      aria-label={label}
-      className="group absolute bg-transparent p-0 outline-none transition-opacity duration-400 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
+    <div
+      className="absolute"
       style={{
         left,
         top,
@@ -117,87 +104,112 @@ export function RadarPoint({
         minWidth: '80px',
         aspectRatio: '1',
         transform: `translate(calc(-50% + ${parallaxOffset.x}px), calc(-50% + ${parallaxOffset.y}px))`,
-        cursor: state === 'hidden' ? 'default' : 'pointer',
-        pointerEvents,
+        pointerEvents: 'none',
         opacity: containerOpacity,
         zIndex: 80,
       }}
-      initial={false}
-      animate={{ opacity: containerOpacity }}
-      transition={{ duration: 0.4, ease: 'easeInOut' }}
     >
-      {/* Anillo 1 - delay 0s */}
-      <motion.span
-        className="absolute inset-0 rounded-full"
-        style={{
-          borderColor: colors.ring,
-          borderStyle: 'solid',
-        }}
-        initial={false}
-        animate={ringAnimation}
-        transition={{
-          ...ringTransition,
-          delay: 0,
-        }}
-      />
+      {/* Contenedor de anillos - no clickeable */}
+      <div className="absolute inset-0">
+        {/* Anillo 1 - delay 0s */}
+        <motion.span
+          className="absolute inset-0 rounded-full"
+          style={{
+            borderColor: colors.ring,
+            borderStyle: 'solid',
+          }}
+          initial={false}
+          animate={ringAnimation}
+          transition={{
+            ...ringTransition,
+            delay: 0,
+          }}
+        />
 
-      {/* Anillo 2 - delay 0.6s */}
-      <motion.span
-        className="absolute inset-0 rounded-full"
-        style={{
-          borderColor: colors.ring,
-          borderStyle: 'solid',
-        }}
-        initial={false}
-        animate={ringAnimation}
-        transition={{
-          ...ringTransition,
-          delay: 0.6,
-        }}
-      />
+        {/* Anillo 2 - delay 0.6s */}
+        <motion.span
+          className="absolute inset-0 rounded-full"
+          style={{
+            borderColor: colors.ring,
+            borderStyle: 'solid',
+          }}
+          initial={false}
+          animate={ringAnimation}
+          transition={{
+            ...ringTransition,
+            delay: 0.6,
+          }}
+        />
 
-      {/* Anillo 3 - delay 1.2s */}
-      <motion.span
-        className="absolute inset-0 rounded-full"
-        style={{
-          borderColor: colors.ring,
-          borderStyle: 'solid',
-        }}
-        initial={false}
-        animate={ringAnimation}
-        transition={{
-          ...ringTransition,
-          delay: 1.2,
-        }}
-      />
+        {/* Anillo 3 - delay 1.2s */}
+        <motion.span
+          className="absolute inset-0 rounded-full"
+          style={{
+            borderColor: colors.ring,
+            borderStyle: 'solid',
+          }}
+          initial={false}
+          animate={ringAnimation}
+          transition={{
+            ...ringTransition,
+            delay: 1.2,
+          }}
+        />
+      </div>
 
-      {/* Núcleo central */}
-      <motion.span
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+      {/* Botón clickeable - solo el núcleo */}
+      <motion.button
+        type="button"
+        onClick={(event) => {
+          if (onClick && state !== 'hidden') {
+            event.preventDefault()
+            event.stopPropagation()
+            onClick(event)
+          }
+        }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        aria-label={label}
+        className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500"
         style={{
-          width: '0.9vw',
-          minWidth: '10px',
+          width: '2vw',
+          minWidth: '20px',
           aspectRatio: '1',
-          backgroundColor: colors.core,
-          boxShadow: `0 0 0 2px #fff inset, 0 0 0 1px ${colors.core}`,
+          cursor: state === 'hidden' ? 'default' : 'pointer',
+          pointerEvents: state === 'hidden' ? 'none' : 'auto',
         }}
         initial={false}
-        animate={{ scale: coreScale }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-      />
-
-      {/* Tooltip al hover */}
-      <span
-        className={clsx(
-          'pointer-events-none absolute -bottom-12 left-1/2 w-max -translate-x-1/2 rounded-full bg-black/85 px-4 py-2 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-200',
-          'group-hover:opacity-100',
-        )}
-        style={{
-          maxWidth: '200px',
-        }}
       >
-        {label}
-      </span>
-    </motion.button>
+        {/* Núcleo central */}
+        <motion.span
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            width: '0.9vw',
+            minWidth: '10px',
+            aspectRatio: '1',
+            backgroundColor: colors.core,
+            boxShadow: `0 0 0 2px #fff inset, 0 0 0 1px ${colors.core}`,
+          }}
+          initial={false}
+          animate={{ scale: coreScale }}
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+        />
+
+        {/* Tooltip al hover */}
+        <span
+          className={clsx(
+            'pointer-events-none absolute -bottom-16 left-1/2 w-max -translate-x-1/2 rounded-full bg-black/85 px-4 py-2 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-200',
+            'group-hover:opacity-100',
+          )}
+          style={{
+            maxWidth: '200px',
+          }}
+        >
+          {label}
+        </span>
+      </motion.button>
+    </div>
   )
 }
