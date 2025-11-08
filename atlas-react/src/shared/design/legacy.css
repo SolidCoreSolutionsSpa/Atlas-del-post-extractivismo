@@ -117,35 +117,35 @@ html, body {
   #contenido {
     top: 50%;
     width: 26%;
-    max-height: 65vh;
+    max-height: 60vh;
     overflow-y: visible;
   }
 
   #contenido h1 {
-    font-size: 0.45rem;
-    margin-bottom: 1px;
-    line-height: 0.9;
+    font-size: 0.32rem !important;
+    margin-bottom: 1px !important;
+    line-height: 0.85 !important;
   }
 
   #contenido h2 {
-    font-size: 0.3rem;
-    margin-bottom: 2px;
+    font-size: 0.22rem !important;
+    margin-bottom: 1px !important;
   }
 
   #contenido p {
-    font-size: 0.28rem;
-    margin-bottom: 1px;
-    line-height: 1.1;
+    font-size: 0.2rem !important;
+    margin-bottom: 1px !important;
+    line-height: 1.05 !important;
   }
 
   .instruccion {
-    font-size: 0.26rem;
-    margin-top: 2px;
+    font-size: 0.19rem !important;
+    margin-top: 1px !important;
   }
 
   #ingresarBtn {
-    padding: 2px 5px;
-    font-size: 0.3rem;
+    padding: 2px 4px !important;
+    font-size: 0.22rem !important;
   }
 }
 
@@ -154,35 +154,35 @@ html, body {
   #contenido {
     top: 50%;
     width: 26%;
-    max-height: 68vh;
+    max-height: 63vh;
     overflow-y: visible;
   }
 
   #contenido h1 {
-    font-size: 0.52rem;
-    margin-bottom: 1px;
-    line-height: 0.92;
+    font-size: 0.38rem !important;
+    margin-bottom: 1px !important;
+    line-height: 0.88 !important;
   }
 
   #contenido h2 {
-    font-size: 0.35rem;
-    margin-bottom: 2px;
+    font-size: 0.26rem !important;
+    margin-bottom: 1px !important;
   }
 
   #contenido p {
-    font-size: 0.32rem;
-    margin-bottom: 2px;
-    line-height: 1.12;
+    font-size: 0.23rem !important;
+    margin-bottom: 1px !important;
+    line-height: 1.08 !important;
   }
 
   .instruccion {
-    font-size: 0.3rem;
-    margin-top: 2px;
+    font-size: 0.22rem !important;
+    margin-top: 1px !important;
   }
 
   #ingresarBtn {
-    padding: 3px 6px;
-    font-size: 0.33rem;
+    padding: 2px 5px !important;
+    font-size: 0.25rem !important;
   }
 }
 
@@ -191,35 +191,35 @@ html, body {
   #contenido {
     top: 50%;
     width: 26%;
-    max-height: 70vh;
+    max-height: 65vh;
     overflow-y: visible;
   }
 
   #contenido h1 {
-    font-size: 0.58rem;
-    margin-bottom: 1px;
-    line-height: 0.94;
+    font-size: 0.42rem !important;
+    margin-bottom: 1px !important;
+    line-height: 0.9 !important;
   }
 
   #contenido h2 {
-    font-size: 0.38rem;
-    margin-bottom: 3px;
+    font-size: 0.28rem !important;
+    margin-bottom: 1px !important;
   }
 
   #contenido p {
-    font-size: 0.35rem;
-    margin-bottom: 2px;
-    line-height: 1.13;
+    font-size: 0.25rem !important;
+    margin-bottom: 1px !important;
+    line-height: 1.1 !important;
   }
 
   .instruccion {
-    font-size: 0.33rem;
-    margin-top: 3px;
+    font-size: 0.24rem !important;
+    margin-top: 2px !important;
   }
 
   #ingresarBtn {
-    padding: 3px 7px;
-    font-size: 0.36rem;
+    padding: 2px 6px !important;
+    font-size: 0.27rem !important;
   }
 }
 
@@ -228,91 +228,91 @@ html, body {
   #contenido {
     top: 50%;
     width: 26%;
-    max-height: 70vh;
+    max-height: 65vh;
     overflow-y: visible;
   }
 
   #contenido h1 {
-    font-size: clamp(0.5rem, 2.2vw, 0.9rem);
-    margin-bottom: clamp(1px, 0.2vw, 2px);
-    line-height: 0.95;
+    font-size: 0.45rem !important;
+    margin-bottom: 1px !important;
+    line-height: 0.92 !important;
   }
 
   #contenido h2 {
-    font-size: clamp(0.35rem, 1.1vw, 0.55rem);
-    margin-bottom: clamp(3px, 0.6vw, 6px);
+    font-size: 0.3rem !important;
+    margin-bottom: 2px !important;
   }
 
   #contenido p {
-    font-size: clamp(0.32rem, 0.85vw, 0.5rem);
-    margin-bottom: clamp(2px, 0.5vw, 4px);
-    line-height: 1.15;
+    font-size: 0.27rem !important;
+    margin-bottom: 1px !important;
+    line-height: 1.12 !important;
   }
 
   .instruccion {
-    font-size: clamp(0.3rem, 0.85vw, 0.48rem);
-    margin-top: clamp(3px, 0.5vw, 5px);
+    font-size: 0.26rem !important;
+    margin-top: 2px !important;
   }
 
   #ingresarBtn {
-    padding: clamp(3px, 0.5vw, 5px) clamp(6px, 1.2vw, 10px);
-    font-size: clamp(0.35rem, 0.85vw, 0.5rem);
+    padding: 3px 6px !important;
+    font-size: 0.28rem !important;
   }
 }
 
 @media (max-height: 600px) and (orientation: landscape) and (min-height: 501px) {
   #contenido {
-    max-height: 75vh;
+    max-height: 70vh;
   }
 
   #contenido h1 {
-    font-size: clamp(0.6rem, 2.6vw, 1.05rem);
-    margin-bottom: clamp(1px, 0.3vw, 3px);
-    line-height: 1;
+    font-size: 0.5rem !important;
+    margin-bottom: 1px !important;
+    line-height: 0.95 !important;
   }
 
   #contenido h2 {
-    font-size: clamp(0.42rem, 1.3vw, 0.65rem);
-    margin-bottom: clamp(4px, 0.9vw, 9px);
+    font-size: 0.34rem !important;
+    margin-bottom: 2px !important;
   }
 
   #contenido p {
-    font-size: clamp(0.38rem, 1vw, 0.58rem);
-    margin-bottom: clamp(3px, 0.7vw, 6px);
-    line-height: 1.2;
+    font-size: 0.3rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.15 !important;
   }
 
   .instruccion {
-    font-size: clamp(0.35rem, 1vw, 0.56rem);
-    margin-top: clamp(4px, 0.9vw, 8px);
+    font-size: 0.29rem !important;
+    margin-top: 2px !important;
   }
 }
 
 @media (max-height: 700px) and (orientation: landscape) and (min-height: 601px) {
   #contenido {
-    max-height: 80vh;
+    max-height: 75vh;
   }
 
   #contenido h1 {
-    font-size: clamp(0.7rem, 3vw, 1.2rem);
-    margin-bottom: clamp(2px, 0.4vw, 4px);
-    line-height: 1.02;
+    font-size: 0.58rem !important;
+    margin-bottom: 2px !important;
+    line-height: 0.97 !important;
   }
 
   #contenido h2 {
-    font-size: clamp(0.48rem, 1.5vw, 0.72rem);
-    margin-bottom: clamp(5px, 1.2vw, 12px);
+    font-size: 0.38rem !important;
+    margin-bottom: 2px !important;
   }
 
   #contenido p {
-    font-size: clamp(0.45rem, 1.15vw, 0.65rem);
-    margin-bottom: clamp(4px, 0.9vw, 8px);
-    line-height: 1.25;
+    font-size: 0.34rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.2 !important;
   }
 
   .instruccion {
-    font-size: clamp(0.42rem, 1.15vw, 0.63rem);
-    margin-top: clamp(5px, 1.1vw, 10px);
+    font-size: 0.33rem !important;
+    margin-top: 3px !important;
   }
 }
 
@@ -401,38 +401,38 @@ html, body {
 /* Ajustes específicos por ancho de pantalla en landscape */
 @media (max-width: 320px) and (orientation: landscape) and (max-height: 500px) {
   .imagen-mapa {
-    max-height: 60vh;
+    max-height: 55vh !important;
   }
 }
 
 @media (min-width: 321px) and (max-width: 375px) and (orientation: landscape) and (max-height: 500px) {
   .imagen-mapa {
-    max-height: 63vh;
+    max-height: 58vh !important;
   }
 }
 
 @media (min-width: 376px) and (max-width: 425px) and (orientation: landscape) and (max-height: 500px) {
   .imagen-mapa {
-    max-height: 65vh;
+    max-height: 60vh !important;
   }
 }
 
 /* Ajustes generales por altura */
 @media (orientation: landscape) and (max-height: 700px) {
   .imagen-mapa {
-    max-height: 80vh;
+    max-height: 72vh !important;
   }
 }
 
 @media (orientation: landscape) and (max-height: 600px) {
   .imagen-mapa {
-    max-height: 72vh;
+    max-height: 65vh !important;
   }
 }
 
 @media (min-width: 426px) and (orientation: landscape) and (max-height: 500px) {
   .imagen-mapa {
-    max-height: 65vh;
+    max-height: 60vh !important;
   }
 }
 
