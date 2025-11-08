@@ -158,31 +158,33 @@ export function LandingPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={transition}
     >
-      <div className="
-        flex flex-col
-        lg:flex-row lg:justify-center lg:items-center lg:w-[102vw] lg:h-[98vh]
-      ">
-        {/* Contenido responsivo: arriba en móvil, derecha en desktop */}
+      <div className="flex justify-center items-center w-[102vw] h-[98vh]">
+        {/* Contenido siempre a la derecha */}
         <motion.div
           id="contenido"
           className="
-            relative z-50 mx-auto px-6 py-8 text-left
-            w-full max-w-2xl
-            lg:absolute lg:left-[75%] lg:top-[47%] lg:-translate-x-1/2 lg:-translate-y-1/2 lg:w-[35%] lg:max-w-none lg:px-0 lg:py-0
-            xl:w-[30%]
+            absolute z-50 text-left px-4
+            left-[70%] top-[47%] -translate-x-1/2 -translate-y-1/2 w-[38%]
+            md:left-[72%] md:w-[36%] md:px-0
+            lg:left-[74%] lg:w-[34%]
+            xl:left-[75%] xl:w-[30%]
           "
         >
           <h1 className="
-            font-['Baskervville'] text-3xl font-normal text-gray-900 mb-2
-            sm:text-4xl
+            font-['Baskervville'] font-normal text-gray-900 mb-1
+            text-xl leading-tight
+            sm:text-2xl sm:mb-2
+            md:text-3xl
             lg:text-[2.2rem]
             xl:text-[2.7rem]
           ">
             {hero.title.toUpperCase()}
           </h1>
           <h2 className="
-            font-['Inter'] text-lg font-normal text-gray-500 mb-6
-            sm:text-xl
+            font-['Inter'] font-normal text-gray-500 mb-4
+            text-sm
+            sm:text-base sm:mb-5
+            md:text-lg md:mb-6
             lg:text-[1.1rem] lg:mb-8
             xl:text-[1.3rem] xl:mb-10
           ">
@@ -198,8 +200,10 @@ export function LandingPage() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               className="
-                max-w-full text-sm leading-relaxed
-                sm:text-base
+                max-w-full leading-relaxed
+                text-xs
+                sm:text-sm
+                md:text-base
                 lg:text-[0.95rem]
                 xl:text-base
               "
@@ -212,9 +216,10 @@ export function LandingPage() {
           <AnimatePresence mode="wait">
             <motion.p
               className="
-                instruccion text-center font-semibold tracking-wide mt-6 opacity-85
-                text-xs
-                sm:text-sm
+                instruccion text-center font-semibold tracking-wide opacity-85
+                text-[0.65rem] mt-4
+                sm:text-xs sm:mt-5
+                md:text-sm md:mt-6
                 lg:text-[0.85rem] lg:mt-8
                 xl:text-[0.9rem]
               "
@@ -232,18 +237,12 @@ export function LandingPage() {
           </AnimatePresence>
         </motion.div>
 
-        <div className="
-          relative flex-1 min-h-[60vh]
-          lg:h-screen lg:flex-none
-        ">
+        <div className="relative h-screen">
           {/* Imagen de fondo con crossfade */}
           <motion.img
             src={currentImage}
             alt="Mapa global"
-            className="
-              w-full h-full object-cover
-              lg:h-[105%] lg:w-auto lg:object-contain
-            "
+            className="h-[105%] w-auto block"
             animate={{
               opacity: isFading ? 0 : 1,
               transform: `translate(${offset.x}px, ${offset.y}px)`,
