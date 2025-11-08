@@ -60,47 +60,290 @@ html, body {
   justify-content: center;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 #contenido {
   position: absolute;
-  top: 37%;
-  left: 50%;
+  top: 50%;
+  left: 75%;
   transform: translate(-50%, -50%);
-  width: 60%;
-  text-align: center;
+  width: 30%;
+  text-align: left;
   font-family: "Inter", sans-serif;
   z-index: 50;
+}
+
+/* Responsive positioning y scaling del texto */
+@media (max-width: 1400px) {
+  #contenido {
+    left: 73%;
+    width: 28%;
+  }
+}
+
+@media (max-width: 1200px) {
+  #contenido {
+    left: 71%;
+    width: 26%;
+  }
+}
+
+@media (max-width: 1024px) {
+  #contenido {
+    left: 70%;
+    width: 25%;
+  }
+}
+
+@media (max-width: 900px) {
+  #contenido {
+    left: 68%;
+    width: 24%;
+  }
+}
+
+@media (max-width: 768px) {
+  #contenido {
+    left: 67%;
+    width: 28%;
+  }
+}
+
+/* Media queries para pantallas pequeñas en landscape (móviles horizontales) */
+
+/* 320px altura landscape - máxima compactación */
+@media (orientation: landscape) and (max-height: 320px) {
+  .contenedor #contenido {
+    top: 50% !important;
+    width: 26% !important;
+    max-height: 60vh !important;
+    overflow-y: visible !important;
+  }
+
+  .contenedor #contenido h1 {
+    font-size: 0.85rem !important;
+    margin-bottom: 2px !important;
+    line-height: 0.95 !important;
+  }
+
+  .contenedor #contenido h2 {
+    font-size: 0.55rem !important;
+    margin-bottom: 2px !important;
+  }
+
+  .contenedor #contenido p {
+    font-size: 0.52rem !important;
+    margin-bottom: 2px !important;
+    line-height: 1.12 !important;
+  }
+
+  .contenedor #contenido p.instruccion {
+    font-size: 0.5rem !important;
+    margin-top: 2px !important;
+  }
+
+  .contenedor #contenido #ingresarBtn {
+    padding: 3px 7px !important;
+    font-size: 0.52rem !important;
+  }
+}
+
+/* 375px altura landscape */
+@media (orientation: landscape) and (min-height: 321px) and (max-height: 375px) {
+  #contenido {
+    top: 50%;
+    width: 26%;
+    max-height: 63vh;
+    overflow-y: visible;
+  }
+
+  #contenido h1 {
+    font-size: 0.95rem !important;
+    margin-bottom: 3px !important;
+    line-height: 0.98 !important;
+  }
+
+  #contenido h2 {
+    font-size: 0.62rem !important;
+    margin-bottom: 3px !important;
+  }
+
+  #contenido p {
+    font-size: 0.58rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.18 !important;
+  }
+
+  .instruccion {
+    font-size: 0.56rem !important;
+    margin-top: 3px !important;
+  }
+
+  #ingresarBtn {
+    padding: 4px 8px !important;
+    font-size: 0.58rem !important;
+  }
+}
+
+/* 425px altura landscape */
+@media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
+  #contenido {
+    top: 50%;
+    width: 26%;
+    max-height: 65vh;
+    overflow-y: visible;
+  }
+
+  #contenido h1 {
+    font-size: 1.05rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1 !important;
+  }
+
+  #contenido h2 {
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  #contenido p {
+    font-size: 0.65rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.2 !important;
+  }
+
+  .instruccion {
+    font-size: 0.62rem !important;
+    margin-top: 4px !important;
+  }
+
+  #ingresarBtn {
+    padding: 4px 9px !important;
+    font-size: 0.65rem !important;
+  }
+}
+
+/* Fallback para otras resoluciones pequeñas en landscape */
+@media (orientation: landscape) and (min-height: 426px) and (max-height: 500px) {
+  #contenido {
+    top: 50%;
+    width: 26%;
+    max-height: 65vh;
+    overflow-y: visible;
+  }
+
+  #contenido h1 {
+    font-size: 1.1rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.02 !important;
+  }
+
+  #contenido h2 {
+    font-size: 0.72rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  #contenido p {
+    font-size: 0.68rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.22 !important;
+  }
+
+  .instruccion {
+    font-size: 0.65rem !important;
+    margin-top: 4px !important;
+  }
+
+  #ingresarBtn {
+    padding: 4px 9px !important;
+    font-size: 0.68rem !important;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) and (min-height: 501px) {
+  #contenido {
+    max-height: 70vh;
+  }
+
+  #contenido h1 {
+    font-size: 1.15rem !important;
+    margin-bottom: 3px !important;
+    line-height: 1.05 !important;
+  }
+
+  #contenido h2 {
+    font-size: 0.75rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  #contenido p {
+    font-size: 0.72rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.25 !important;
+  }
+
+  .instruccion {
+    font-size: 0.7rem !important;
+    margin-top: 4px !important;
+  }
+}
+
+@media (max-height: 700px) and (orientation: landscape) and (min-height: 601px) {
+  #contenido {
+    max-height: 75vh;
+  }
+
+  #contenido h1 {
+    font-size: 1.25rem !important;
+    margin-bottom: 4px !important;
+    line-height: 1.08 !important;
+  }
+
+  #contenido h2 {
+    font-size: 0.82rem !important;
+    margin-bottom: 5px !important;
+  }
+
+  #contenido p {
+    font-size: 0.78rem !important;
+    margin-bottom: 5px !important;
+    line-height: 1.28 !important;
+  }
+
+  .instruccion {
+    font-size: 0.75rem !important;
+    margin-top: 5px !important;
+  }
 }
 
 #contenido h1 {
   line-height: 1.18;
   font-family: "Baskervville", serif;
-  font-size: 2.7rem;
+  font-size: clamp(1.5rem, 3.5vw, 2.7rem);
   font-weight: normal;
   color: #111;
-  margin-bottom: 10px;
+  margin-bottom: clamp(6px, 1vw, 10px);
 }
 
 #contenido h2 {
   font-family: "Inter", sans-serif;
-  font-size: 1.3rem;
+  font-size: clamp(0.9rem, 1.8vw, 1.3rem);
   font-weight: 400;
   color: #919191;
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 4vw, 40px);
 }
 
 #contenido p {
   max-width: 900px;
   margin: 0 auto 20px auto;
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1.3vw, 1rem);
   line-height: 1.5;
   color: #1f1f1f;
 }
 
 #ingresarBtn {
-  padding: 12px 24px;
-  font-size: 1rem;
+  padding: clamp(8px, 1.5vw, 12px) clamp(16px, 3vw, 24px);
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
   background-color: #7b9cc6;
   color: white;
   border: none;
@@ -116,26 +359,96 @@ html, body {
   background-color: #6b8ab2;
 }
 
+/* Texto de instrucción */
+.instruccion {
+  font-size: clamp(0.7rem, 1.4vw, 1.05rem);
+  color: #555;
+  letter-spacing: 0.3px;
+  margin-top: clamp(15px, 3vw, 25px);
+  font-weight: 700;
+  transition: color 0.4s ease, transform 0.4s ease, opacity 0.6s ease, font-weight 0.3s ease;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.instruccion:hover {
+  color: #000000;
+  transform: scale(1.02);
+  opacity: 1;
+}
+
 .mapa-wrapper {
   position: relative;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mapa-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .imagen-mapa {
-  height: 105%;
+  max-height: 100vh;
+  max-width: 100vw;
   width: auto;
-  min-width: 100%;
-  max-width: none;
+  height: auto;
   display: block;
   pointer-events: none;
+  object-fit: contain;
+}
+
+/* Ajuste de imagen en landscape para que el texto quepa completamente */
+
+/* Ajustes específicos por altura de pantalla en landscape */
+@media (orientation: landscape) and (max-height: 320px) {
+  .imagen-mapa {
+    max-height: 55vh !important;
+  }
+}
+
+@media (orientation: landscape) and (min-height: 321px) and (max-height: 375px) {
+  .imagen-mapa {
+    max-height: 58vh !important;
+  }
+}
+
+@media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
+  .imagen-mapa {
+    max-height: 60vh !important;
+  }
+}
+
+/* Ajustes generales por altura */
+@media (orientation: landscape) and (max-height: 700px) {
+  .imagen-mapa {
+    max-height: 72vh !important;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .imagen-mapa {
+    max-height: 65vh !important;
+  }
+}
+
+@media (orientation: landscape) and (min-height: 426px) and (max-height: 500px) {
+  .imagen-mapa {
+    max-height: 60vh !important;
+  }
 }
 
 .overlay-puntos {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 

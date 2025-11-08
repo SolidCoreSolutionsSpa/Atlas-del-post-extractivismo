@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/atlasContent'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useImageCrossfade } from '../../shared/hooks/useImageCrossfade'
+import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
 import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
 
@@ -61,14 +63,20 @@ export function LandingPage() {
   const zoomNavigate = useZoomNavigation()
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
-  const [offset, setOffset] = useState({ x: 0, y: 0 })
+
+  // Hook de crossfade de imágenes
+  const { currentImage, isFading, swapImage } = useImageCrossfade(
+    hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
+  )
+
+  // Hook de parallax
+  const { offset, pointOffset } = useParallax({
+    intensity: PARALLAX_FACTOR,
+    enabled: !prefersReducedMotion,
+  })
 
   // Estado del sistema de hover
   const [hoveredTerritory, setHoveredTerritory] = useState(null)
-  const [currentBackgroundImage, setCurrentBackgroundImage] = useState(
-    hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
-  )
-  const [isFading, setIsFading] = useState(false)
 
   // Texto e instrucción
   const defaultDescription = hero.description
@@ -94,60 +102,19 @@ export function LandingPage() {
     })
   }, [])
 
-  // Parallax
-  useEffect(() => {
-    // Skip parallax if user prefers reduced motion
-    if (prefersReducedMotion) {
-      return
-    }
-
-    function handleMouseMove(event) {
-      const { innerWidth, innerHeight } = window
-      const offsetX = 0.5 - event.clientX / innerWidth
-      const offsetY = 0.5 - event.clientY / innerHeight
-      setOffset({ x: offsetX * PARALLAX_FACTOR, y: offsetY * PARALLAX_FACTOR })
-    }
-
-    function handleMouseLeave() {
-      setOffset({ x: 0, y: 0 })
-    }
-
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('mouseleave', handleMouseLeave)
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseleave', handleMouseLeave)
-    }
-  }, [prefersReducedMotion])
-
   // Sistema de crossfade de imágenes
   const handleTerritoryHover = (territoryKey) => {
     if (!territoryKey) {
       // Mouse leave - volver a imagen original
       setHoveredTerritory(null)
-      swapImage(hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg')
+      const originalImage = hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
+      swapImage(originalImage)
       return
     }
 
     const territory = territoriesConfig[territoryKey]
     setHoveredTerritory(territoryKey)
     swapImage(territory.backgroundImage)
-  }
-
-  const swapImage = (nextSrc) => {
-    if (currentBackgroundImage === nextSrc || isFading) return
-
-    setIsFading(true)
-
-    // Esperar a que termine el fade-out antes de cambiar la imagen
-    setTimeout(() => {
-      setCurrentBackgroundImage(nextSrc)
-      // Pequeño delay para el fade-in
-      requestAnimationFrame(() => {
-        setIsFading(false)
-      })
-    }, 300) // Duración del fade-out
   }
 
   // Click handler para navegación
@@ -192,19 +159,8 @@ export function LandingPage() {
       transition={transition}
     >
       <div className="contenedor">
-        {/* Contenido posicionado arriba-derecha como en el HTML original */}
-        <motion.div
-          id="contenido"
-          style={{
-            position: 'absolute',
-            top: '47%',
-            left: '75%',
-            transform: 'translate(-50%, -50%)',
-            width: '30%',
-            textAlign: 'left',
-            zIndex: 50,
-          }}
-        >
+        {/* Contenido a la derecha */}
+        <motion.div id="contenido">
           <h1>{hero.title.toUpperCase()}</h1>
           <h2>{hero.subtitle}</h2>
 
@@ -232,11 +188,6 @@ export function LandingPage() {
               transition={{ duration: 0.3 }}
               style={{
                 color: currentInstructionColor,
-                fontWeight: 600,
-                fontSize: '0.9rem',
-                letterSpacing: '0.15em',
-                textAlign: 'center',
-                marginTop: '2rem',
               }}
             >
               {currentInstruction}
@@ -245,45 +196,40 @@ export function LandingPage() {
         </motion.div>
 
         <div className="mapa-wrapper">
-          {/* Imagen de fondo con crossfade */}
-          <AnimatePresence mode="wait">
+          <div className="mapa-container">
+            {/* Imagen de fondo con crossfade */}
             <motion.img
-              key={currentBackgroundImage}
-              src={currentBackgroundImage}
+              src={currentImage}
               alt="Mapa global"
               className="imagen-mapa"
-              initial={{ opacity: 0 }}
               animate={{
-                opacity: 1,
+                opacity: isFading ? 0 : 1,
                 transform: `translate(${offset.x}px, ${offset.y}px)`,
               }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ opacity: { duration: 0.3 }, transform: { duration: 0 } }}
               loading="lazy"
             />
-          </AnimatePresence>
 
-          {/* Overlay con puntos radar */}
-          <div className="overlay-puntos">
-            {Object.entries(territoriesConfig).map(([key, territory]) => (
-              <div
-                key={territory.id}
-                onMouseEnter={() => handleTerritoryHover(key)}
-                onMouseLeave={() => handleTerritoryHover(null)}
-                onFocus={() => handleTerritoryHover(key)}
-                onBlur={() => handleTerritoryHover(null)}
-              >
+            {/* Overlay con puntos radar */}
+            <div className="overlay-puntos">
+              {Object.entries(territoriesConfig).map(([key, territory]) => (
                 <RadarPoint
+                  key={territory.id}
                   left={territory.position.left}
                   top={territory.position.top}
                   label={territory.name}
                   variant={territory.variant}
                   state={getPointState(key)}
                   isHovered={hoveredTerritory === key}
+                  parallaxOffset={pointOffset}
                   onClick={(event) => handleTerritoryClick(key, event)}
+                  onMouseEnter={() => handleTerritoryHover(key)}
+                  onMouseLeave={() => handleTerritoryHover(null)}
+                  onFocus={() => handleTerritoryHover(key)}
+                  onBlur={() => handleTerritoryHover(null)}
                 />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

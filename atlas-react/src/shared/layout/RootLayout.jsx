@@ -3,6 +3,8 @@ import { Link, Outlet } from 'react-router-dom'
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
 import { useTheme } from '../hooks/useTheme'
+import { useOrientation } from '../hooks/useOrientation'
+import { OrientationModal } from '../ui/OrientationModal'
 
 const navPlaceholders = [
   { label: 'Sobre el proyecto' },
@@ -13,8 +15,10 @@ const navPlaceholders = [
 export function RootLayout({ children }) {
   usePrefersReducedMotion()
   const { theme } = useTheme()
+  const { isPortrait, isMobile } = useOrientation()
 
   const logoSrc = theme === 'night' ? '/img/LOGONEGROB.png' : '/img/LOGONEGRO.png'
+  const shouldShowOrientationModal = isMobile && isPortrait
 
   return (
     <div className="min-h-screen bg-[#f9fafc] text-token-body">
@@ -38,6 +42,9 @@ export function RootLayout({ children }) {
           <OutletFallback>{children}</OutletFallback>
         </main>
       </TransitionProvider>
+
+      {/* Modal de orientación para dispositivos móviles */}
+      <OrientationModal isOpen={shouldShowOrientationModal} />
     </div>
   )
 }
