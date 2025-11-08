@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
 import { usePageTransition } from '../shared/hooks/useZoomNavigation.jsx'
+import { usePrefersReducedMotion } from '../shared/design/hooks/usePrefersReducedMotion'
 import { casosDeEstudioRoutes } from '../casosDeEstudio/routes/casosDeEstudioRoutes.jsx'
 import { zonasRoutes } from '../zonas/routes/zonasRoutes.jsx'
 import { escenasRoutes } from '../escenas/routes/escenasRoutes.jsx'
@@ -33,75 +34,86 @@ const DEFAULT_CUSTOM = {
   transformOrigin: '50% 50%',
 }
 
-const pageVariants = {
-  enter: (custom = DEFAULT_CUSTOM) => {
-    const isForward = custom.direction !== 'backward'
-    return {
-      opacity: isForward ? 0 : 0.75,
-      scale: isForward ? 0.45 : 1.35,
-      x: 0,
-      y: 0,
-      rotateX: isForward ? 10 : -6,
-      filter: 'blur(24px)',
-    }
-  },
-  center: {
-    opacity: 1,
-    scale: 1,
-    x: 0,
-    y: 0,
-    rotateX: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 0.72,
-      ease: [0.22, 0.61, 0.36, 1],
+function createPageVariants(prefersReducedMotion) {
+  const centerTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.72, ease: [0.22, 0.61, 0.36, 1] }
+
+  return {
+    enter: (custom = DEFAULT_CUSTOM) => {
+      const isForward = custom.direction !== 'backward'
+      return {
+        opacity: isForward ? 0 : 0.75,
+        scale: isForward ? 0.45 : 1.35,
+        x: 0,
+        y: 0,
+        rotateX: isForward ? 10 : -6,
+        filter: 'blur(24px)',
+      }
     },
-  },
-  exit: (custom = DEFAULT_CUSTOM) => {
-    const isForward = custom.direction !== 'backward'
-    return {
-      opacity: 0,
-      scale: isForward ? 1.55 : 0.65,
+    center: {
+      opacity: 1,
+      scale: 1,
       x: 0,
       y: 0,
-      rotateX: isForward ? -14 : 12,
-      filter: 'blur(30px)',
-      transition: {
-        duration: isForward ? 0.65 : 0.58,
-        ease: isForward ? [0.65, 0, 0.35, 1] : [0.17, 0.84, 0.44, 1],
-      },
-    }
-  },
+      rotateX: 0,
+      filter: 'blur(0px)',
+      transition: centerTransition,
+    },
+    exit: (custom = DEFAULT_CUSTOM) => {
+      const isForward = custom.direction !== 'backward'
+      const exitTransition = prefersReducedMotion
+        ? { duration: 0 }
+        : {
+            duration: isForward ? 0.65 : 0.58,
+            ease: isForward ? [0.65, 0, 0.35, 1] : [0.17, 0.84, 0.44, 1],
+          }
+
+      return {
+        opacity: 0,
+        scale: isForward ? 1.55 : 0.65,
+        x: 0,
+        y: 0,
+        rotateX: isForward ? -14 : 12,
+        filter: 'blur(30px)',
+        transition: exitTransition,
+      }
+    },
+  }
 }
 
-const trailVariants = {
-  enter: () => ({
-    opacity: 0,
-    scale: 0.9,
-    x: 0,
-    y: 0,
-  }),
-  center: {
-    opacity: 0,
-    scale: 1,
-    x: 0,
-    y: 0,
-  },
-  exit: (custom = DEFAULT_CUSTOM) => ({
-    opacity: 0.28,
-    scale: 1.55,
-    x: custom.offsetX ?? 0,
-    y: custom.offsetY ?? 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
+function createTrailVariants(prefersReducedMotion) {
+  const exitTransition = prefersReducedMotion
+    ? { duration: 0 }
+    : { duration: 0.5, ease: [0.4, 0, 0.2, 1] }
+
+  return {
+    enter: () => ({
+      opacity: 0,
+      scale: 0.9,
+      x: 0,
+      y: 0,
+    }),
+    center: {
+      opacity: 0,
+      scale: 1,
+      x: 0,
+      y: 0,
     },
-  }),
+    exit: (custom = DEFAULT_CUSTOM) => ({
+      opacity: 0.28,
+      scale: 1.55,
+      x: custom.offsetX ?? 0,
+      y: custom.offsetY ?? 0,
+      transition: exitTransition,
+    }),
+  }
 }
 
 export function AppRoutes() {
   const location = useLocation()
   const transition = usePageTransition()
+  const prefersReducedMotion = usePrefersReducedMotion()
   const element = useRoutes(routeDefinitions, location)
 
   const custom = useMemo(() => {
@@ -119,6 +131,15 @@ export function AppRoutes() {
       transformOrigin: origin?.transformOrigin ?? '50% 50%',
     }
   }, [transition])
+
+  const pageVariants = useMemo(
+    () => createPageVariants(prefersReducedMotion),
+    [prefersReducedMotion],
+  )
+  const trailVariants = useMemo(
+    () => createTrailVariants(prefersReducedMotion),
+    [prefersReducedMotion],
+  )
 
   if (!element) {
     return null

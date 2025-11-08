@@ -1,8 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const QUERY = '(prefers-reduced-motion: reduce)'
 
 export function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+
   useEffect(() => {
     const mediaQuery = window.matchMedia?.(QUERY)
 
@@ -11,7 +13,9 @@ export function usePrefersReducedMotion() {
     }
 
     const handleChange = (event) => {
-      document.body.dataset.motion = event.matches ? 'reduced' : 'full'
+      const reduced = event.matches
+      document.body.dataset.motion = reduced ? 'reduced' : 'full'
+      setPrefersReducedMotion(reduced)
     }
 
     handleChange(mediaQuery)
@@ -21,4 +25,6 @@ export function usePrefersReducedMotion() {
       mediaQuery.removeEventListener('change', handleChange)
     }
   }, [])
+
+  return prefersReducedMotion
 }
