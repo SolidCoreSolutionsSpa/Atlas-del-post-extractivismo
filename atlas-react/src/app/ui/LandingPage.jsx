@@ -162,14 +162,6 @@ export function LandingPage() {
         {/* Contenido a la derecha con tamaños responsivos */}
         <motion.div
           id="contenido"
-          style={{
-            position: 'absolute',
-            top: '47%',
-            left: '75%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 50,
-            textAlign: 'left',
-          }}
           className="
             w-[42%] px-3
             sm:w-[40%] sm:px-4
