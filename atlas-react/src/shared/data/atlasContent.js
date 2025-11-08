@@ -1,10 +1,10 @@
 export const atlasContent = {
   hero: {
     title: 'Atlas del (Post) Extractivismo',
-    subtitle: 'Paisajes y dinamicas del extractivismo (prototipo)',
+    subtitle: 'Entre norte y sur global',
     description:
-      'Explora esta plataforma digital, recorre paisajes y dinamicas marcadas por el extractivismo y descubre como estas practicas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.',
-    image: '/img/paisajehome.webp',
+      'Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.',
+    image: '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
   },
   caseStudies: [
     {
@@ -150,6 +150,66 @@ export const atlasContent = {
           },
         },
       },
+    },
+    {
+      id: 'congo',
+      name: 'Kolwezi – Congo',
+      location: 'Kolwezi, República Democrática del Congo',
+      summary:
+        'Ciudad minera que enfrenta tensiones entre la extracción de cobalto, la degradación ambiental y la rápida urbanización, dejando rastros de minas expuestas, escombreras y sitios abandonados.',
+      globalMap: {
+        image: '/img/mapa-global-de-cobalto-T.jpg',
+        points: [
+          {
+            id: 'punto-congo',
+            left: '29.5%',
+            top: '44.7%',
+            label: 'Kolwezi, República Democrática del Congo',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
+    },
+    {
+      id: 'indonesia',
+      name: 'Sumatera Utara – Indonesia',
+      location: 'Sumatera Utara, Indonesia',
+      summary:
+        'Una de las regiones de aceite de palma más productivas del mundo, configurando un paisaje de extracción agroindustrial donde los ciclos de siembra desplazan comunidades y consolidan monocultivos.',
+      globalMap: {
+        image: '/img/mapa-global-de-aceite-T.jpg',
+        points: [
+          {
+            id: 'punto-indonesia',
+            left: '35.7%',
+            top: '45%',
+            label: 'Sumatera Utara, Indonesia',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
+    },
+    {
+      id: 'charleroi',
+      name: 'Charleroi – Bélgica',
+      location: 'Charleroi, Bélgica',
+      summary:
+        'Territorio post-extractivista donde el carbón fue líder mundial en los 90. Hoy enfrenta la transición entre patrimonio industrial y reconversión económica y social.',
+      globalMap: {
+        image: '/img/mapa-global-de-carbon-T.jpg',
+        points: [
+          {
+            id: 'punto-charleroi',
+            left: '27.5%',
+            top: '36%',
+            label: 'Charleroi, Bélgica',
+            zoneId: null,
+          },
+        ],
+      },
+      detailMap: null, // Por implementar
     },
   ],
   zones: [
