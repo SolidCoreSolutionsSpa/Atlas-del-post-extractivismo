@@ -266,6 +266,7 @@ export const atlasContent = {
       summary:
         "En las últimas dos décadas, Kolwezi, ciudad minera de la República Democrática del Congo, enfrenta tensiones entre la minería, la degradación ambiental y la rápida urbanización que reconfigura los paisajes como rastros extractivos, minas expuestas, escombreras y sitios abandonados.",
       image_path: "/img/mapa-global-de-cobalto-T.jpg",
+      detail_image_path: "/img/mapa-global-de-cobalto-T.jpg",
       position_left: 29.5,
       position_top: 43,
       color: '#443ad4ff',
@@ -279,6 +280,7 @@ export const atlasContent = {
       summary:
         "Una de las regiones de aceite de palma más productivas del mundo ha configurado un paisaje de extracción agroindustrial, donde los ciclos de siembra y resiembra desplazan comunidades, reordenan los ecosistemas y consolidan un régimen de monocultivo.",
       image_path: "/img/mapa-global-de-aceite-T.jpg",
+      detail_image_path: "/img/mapa-global-de-aceite-T.jpg",
       position_left: 35.7,
       position_top: 42,
       color: '#e4db66ff',
@@ -292,6 +294,7 @@ export const atlasContent = {
       summary:
         "El carbón en la década de los 90 era líder mundial en Bélgica. Hoy en día, Charleroi es un territorio post-extractivista en transición, donde el patrimonio industrial se cruza con la reconversión económica y social.",
       image_path: "/img/mapa-global-de-carbon-T.jpg",
+      detail_image_path: "/img/mapa-global-de-carbon-T.jpg",
       position_left: 27.5,
       position_top: 34,
       color: '#1a1a1a',
