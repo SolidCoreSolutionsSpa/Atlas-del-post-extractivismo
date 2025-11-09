@@ -35,7 +35,7 @@ export function RootLayout({ children }) {
             <a
               key={item.label}
               href="#"
-              className={isLandingPage ? '' : 'text-white'}
+              className={isLandingPage ? '' : '!text-white'}
             >
               {item.label}
             </a>
