@@ -148,8 +148,9 @@ export function ZonaDetailPage() {
         intensity={18}
         className="h-screen"
         objectFit="contain"
-        blurredBackground={false}
-        frame={true}
+        blurredBackground={true}
+        blurAmount={20}
+        frame={false}
       >
         {zone.map.hotspots.map((hotspot) => (
           <MapIconHotspot
