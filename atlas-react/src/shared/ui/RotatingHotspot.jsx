@@ -79,14 +79,18 @@ export function RotatingHotspot({
 
   return (
     <motion.div
-      className="group absolute -translate-x-1/2 -translate-y-1/2"
+      className="group absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
       style={{
         left: leftResuelto,
         top: topResuelto,
         translateX,
         translateY,
-        // Área de hover ampliada con padding invisible
-        padding: '20px',
+        // Mismo tamaño que el círculo interno para hover preciso
+        width: '7vw',
+        minWidth: '60px',
+        height: '7vw',
+        minHeight: '60px',
+        pointerEvents: 'auto',
       }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -103,18 +107,13 @@ export function RotatingHotspot({
         aria-label={label}
         disabled={!active}
         className={clsx(
-          'relative transform rounded-full',
+          'absolute inset-0 rounded-full',
           'transition-transform duration-200 hover:scale-110',
           active ? 'cursor-pointer' : 'cursor-not-allowed',
           className,
         )}
         style={{
-          width: '7vw',
-          minWidth: '60px',
-          height: '7vw',
-          minHeight: '60px',
           opacity: active ? 1 : 0.3,
-          pointerEvents: 'auto',
           backgroundColor: 'transparent',
           border: 'none',
         }}
