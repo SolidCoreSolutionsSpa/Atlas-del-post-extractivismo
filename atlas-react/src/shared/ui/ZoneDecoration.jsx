@@ -23,7 +23,7 @@ import { useMapContext } from './InteractiveMap'
  * @param {string} type - Tipo de afectación: 'biotic', 'anthropic', 'physical'
  * @param {boolean} visible - Si la decoración está visible (controlado por filtros)
  * @param {number} [parallaxFactor=0.15] - Factor de parallax (0 = sin parallax, 0.3 = suave)
- * @param {string} [widthClass='w-28'] - Clase de ancho de la imagen
+ * @param {number} [widthVw=9] - Ancho en viewport width (ej: 9 = 9vw)
  * @param {string} [className] - Clases CSS adicionales
  *
  * @example
@@ -35,6 +35,7 @@ import { useMapContext } from './InteractiveMap'
  *     type="anthropic"
  *     visible={activeFilter === 'anthropic' || activeFilter === null}
  *     parallaxFactor={0.15}
+ *     widthVw={10}
  *   />
  * </InteractiveMap>
  */
@@ -74,7 +75,7 @@ export function ZoneDecoration({
   type,
   visible = false,
   parallaxFactor = 0.15,
-  widthClass = 'w-28',
+  widthVw = 9, // Tamaño por defecto en viewport width (más grande que el original 6vw)
   className,
 }) {
   // Usar contexto del mapa para posicionamiento y parallax
@@ -111,10 +112,12 @@ export function ZoneDecoration({
       <img
         src={image}
         alt={tooltip || ''}
-        className={clsx(
-          'pointer-events-none rounded-3xl border border-white/70 shadow-lg',
-          widthClass
-        )}
+        className="pointer-events-none rounded-3xl border border-white/70 shadow-lg"
+        style={{
+          width: `${widthVw}vw`,
+          minWidth: '100px', // Mínimo para pantallas muy pequeñas
+          height: 'auto',
+        }}
         loading="lazy"
       />
       {tooltip && (
