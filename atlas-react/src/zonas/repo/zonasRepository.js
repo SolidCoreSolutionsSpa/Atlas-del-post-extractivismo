@@ -1,4 +1,4 @@
-import { atlasContent } from '../../shared/data/atlasContent'
+import { atlasContent } from '../../shared/data/newAtlasContent'
 import { createZone } from '../model/zoneModel'
 
 export class ZonasRepository {
@@ -26,20 +26,39 @@ export class ZonasRepository {
   }
 }
 
-const seedZones = atlasContent.zones.map((zone) =>
-  createZone({
-    id: zone.id,
-    caseStudyId: zone.caseId,
-    name: zone.name,
-    description: zone.description,
-    sceneIds: atlasContent.scenes
-      .filter((scene) => scene.zoneId === zone.id)
-      .map((scene) => scene.id),
-    map: {
-      image: zone.mapImage,
-      hotspots: zone.hotspots,
-    },
-  }),
+// Extraer todas las zonas de todos los casos de estudio en newAtlasContent
+const seedZones = atlasContent.caseOfStudies.flatMap((caseStudy) =>
+  (caseStudy.zones || []).map((zone) =>
+    createZone({
+      id: zone.id,
+      caseStudyId: caseStudy.id,
+      name: zone.title,
+      description: `Vista detallada de ${zone.title}`,
+      sceneIds: (zone.escene || []).map((scene) => scene.id),
+      map: {
+        image: zone.image_path,
+        hotspots: (zone.escene || []).map((scene) => ({
+          id: scene.id,
+          left: `${scene.position_left}%`,
+          top: `${scene.position_top}%`,
+          label: scene.title,
+          sceneId: scene.id,
+          category: scene.escene_type?.name || 'anthropic',
+          pulsate: true,
+        })),
+      },
+      decorations: (zone.decorations || []).map((decoration) => ({
+        id: decoration.id,
+        image: decoration.image_path,
+        tooltip: decoration.tooltip,
+        position: {
+          left: `${decoration.position_left}%`,
+          top: `${decoration.position_top}%`,
+        },
+        type: decoration.type,
+      })),
+    }),
+  ),
 )
 
 export class InMemoryZonasRepository extends ZonasRepository {

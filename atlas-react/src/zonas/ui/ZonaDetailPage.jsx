@@ -7,6 +7,7 @@ import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
+import { ZoneDecoration } from '../../shared/ui/ZoneDecoration'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { ZonasService } from '../services/zonasService'
@@ -47,6 +48,7 @@ export function ZonaDetailPage() {
 
   const [zone, setZone] = useState(null)
   const [status, setStatus] = useState('loading')
+  const [hoveredHotspotId, setHoveredHotspotId] = useState(null)
 
   useEffect(() => {
     let isMounted = true
@@ -134,17 +136,23 @@ export function ZonaDetailPage() {
 
   return (
     <motion.section
-      className="relative min-h-screen overflow-hidden bg-white"
+      className="relative min-h-screen overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={detailVariants}
     >
+      {/* Mapa interactivo con blur background como en CaseStudyDetailPage */}
       <InteractiveMap
         imageSrc={zone.map.image}
         imageAlt={`Mapa de ${zone.name}`}
         intensity={18}
-        className="h-[calc(100vh-2rem)]"
+        className="h-screen"
+        objectFit="contain"
+        blurredBackground={true}
+        blurAmount={20}
+        frame={false}
       >
+        {/* Hotspots de escenas */}
         {zone.map.hotspots.map((hotspot) => (
           <MapIconHotspot
             key={hotspot.id}
@@ -154,6 +162,7 @@ export function ZonaDetailPage() {
             iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
             iconAlt={hotspot.category ?? 'Hotspot'}
             pulsate={hotspot.pulsate}
+            factor={0.2}
             onClick={(event) => {
               if (!hotspot.sceneId) return
               const rect = event.currentTarget.getBoundingClientRect()
@@ -165,12 +174,41 @@ export function ZonaDetailPage() {
             }}
           />
         ))}
+
+        {/* Decoraciones de la zona - siempre visibles */}
+        {zone.decorations?.map((decoration) => (
+          <ZoneDecoration
+            key={decoration.id}
+            image={decoration.image}
+            tooltip={decoration.tooltip}
+            position={decoration.position}
+            type={decoration.type}
+            visible={true}
+            parallaxFactor={0.15}
+          />
+        ))}
       </InteractiveMap>
 
+      {/* Breadcrumbs en posición absoluta */}
       <Breadcrumbs
         className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
         items={breadcrumbItems}
       />
+
+      {/* Título y descripción de la zona */}
+      <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end gap-3 text-right">
+        <h1
+          className="text-3xl font-semibold text-token-primary sm:text-4xl"
+          style={{ fontFamily: '"Baskervville", serif' }}
+        >
+          {zone.name}
+        </h1>
+        {zone.description && (
+          <p className="text-base leading-relaxed text-token-body/80">
+            {zone.description}
+          </p>
+        )}
+      </div>
     </motion.section>
   )
 }

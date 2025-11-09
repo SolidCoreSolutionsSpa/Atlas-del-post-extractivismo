@@ -9,6 +9,7 @@
  *    image: string,
  *    hotspots: Array<{ id: string, left: string, top: string, label: string, sceneId: string | null, category: string | null, pulsate?: boolean }>
  * }} map
+ * @property {Array<{ id: string, image: string, tooltip: string, position: { left: string, top: string }, type: string }>} decorations
  */
 
 /**
@@ -23,5 +24,6 @@ export function createZone(payload = {}) {
     description: payload.description ?? 'Descripcion pendiente de migracion.',
     sceneIds: payload.sceneIds ?? [],
     map: payload.map ?? { image: '', hotspots: [] },
+    decorations: payload.decorations ?? [],
   }
 }
