@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
 import { RotatingHotspot } from '../../shared/ui/RotatingHotspot'
+import { ZoneDecoration } from '../../shared/ui/ZoneDecoration'
 import { FilterPanel } from './FilterPanel'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { CaseStudiesService } from '../services/caseStudiesService'
@@ -165,6 +166,19 @@ export function CaseStudyDetailPage() {
               }
               zoomNavigate(`/zonas/${zone.id}`, { origin })
             }}
+          />
+        ))}
+
+        {/* Decoraciones de zonas */}
+        {detailMap.decorations?.map((decoration) => (
+          <ZoneDecoration
+            key={decoration.id}
+            image={decoration.image}
+            tooltip={decoration.tooltip}
+            position={decoration.position}
+            type={decoration.type}
+            visible={activeFilter === decoration.type}
+            parallaxFactor={0.15}
           />
         ))}
       </InteractiveMap>
