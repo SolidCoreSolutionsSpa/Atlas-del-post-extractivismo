@@ -17,7 +17,7 @@ export function RootLayout({ children }) {
   const { theme } = useTheme()
   const { isPortrait, isMobile } = useOrientation()
 
-  const logoSrc = theme === 'night' ? '/img/LOGONEGROB.png' : '/img/LOGONEGRO.png'
+  const logoSrc = '/img/logo.png'
   const shouldShowOrientationModal = isMobile && isPortrait
 
   return (
