@@ -53,6 +53,9 @@ export function ZonaDetailPage() {
     async function load() {
       setStatus('loading')
       const data = await service.getById(zoneId)
+      console.log('🔍 DEBUG ZonaDetailPage - zoneId:', zoneId)
+      console.log('🔍 DEBUG ZonaDetailPage - data:', data)
+      console.log('🔍 DEBUG ZonaDetailPage - data.map.image:', data?.map?.image)
       if (isMounted) {
         setZone(data)
         setStatus(data ? 'ready' : 'empty')
@@ -134,7 +137,7 @@ export function ZonaDetailPage() {
 
   return (
     <motion.section
-      className="relative min-h-screen overflow-hidden bg-white"
+      className="relative min-h-screen overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={detailVariants}
@@ -143,7 +146,11 @@ export function ZonaDetailPage() {
         imageSrc={zone.map.image}
         imageAlt={`Mapa de ${zone.name}`}
         intensity={18}
-        className="h-[calc(100vh-2rem)]"
+        className="h-screen"
+        objectFit="contain"
+        blurredBackground={true}
+        blurAmount={20}
+        frame={false}
       >
         {zone.map.hotspots.map((hotspot) => (
           <MapIconHotspot

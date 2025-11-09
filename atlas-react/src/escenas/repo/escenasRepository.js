@@ -1,5 +1,6 @@
-import { atlasContent } from '../../shared/data/atlasContent'
+import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
 import { createScene } from '../model/sceneModel'
+import { SceneDTO } from '../model/SceneDTO'
 
 export class EscenasRepository {
   /**
@@ -27,18 +28,32 @@ export class EscenasRepository {
 
 }
 
-const seedScenes = atlasContent.scenes.map((scene) =>
-  createScene({
-    id: scene.id,
-    zoneId: scene.zoneId,
-    name: scene.name,
-    theme: scene.theme,
-    map: {
-      image: scene.mapImage,
-      hotspots: scene.hotspots,
-    },
-  }),
-)
+// Escenas desde newAtlasContent usando DTOs
+const seedScenes = []
+newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+  if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
+    caseStudy.zones.forEach((zone) => {
+      if (zone.escenes && Array.isArray(zone.escenes)) {
+        zone.escenes.forEach((escene) => {
+          const sceneDTO = SceneDTO.fromNewAtlasContent(escene)
+          const sceneEntity = sceneDTO.toEntity(zone.id)
+          // Convertir entity a formato del createScene
+          const createdScene = createScene({
+            id: sceneEntity.id,
+            zoneId: sceneEntity.zoneId,
+            name: sceneEntity.name,
+            theme: sceneEntity.theme,
+            map: sceneEntity.map,
+          })
+          console.log('🎬 DEBUG escenasRepository - scene created:', createdScene.id, 'zoneId:', createdScene.zoneId, 'image:', createdScene.map.image)
+          seedScenes.push(createdScene)
+        })
+      }
+    })
+  }
+})
+
+console.log('🎬 DEBUG escenasRepository - Total scenes:', seedScenes.length)
 
 export class InMemoryEscenasRepository extends EscenasRepository {
   constructor({ scenes = seedScenes } = {}) {

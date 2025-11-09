@@ -1,5 +1,6 @@
-import { atlasContent } from '../../shared/data/atlasContent'
+import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
 import { createZone } from '../model/zoneModel'
+import { ZoneDTO } from '../model/ZoneDTO'
 
 export class ZonasRepository {
   /**
@@ -26,21 +27,29 @@ export class ZonasRepository {
   }
 }
 
-const seedZones = atlasContent.zones.map((zone) =>
-  createZone({
-    id: zone.id,
-    caseStudyId: zone.caseId,
-    name: zone.name,
-    description: zone.description,
-    sceneIds: atlasContent.scenes
-      .filter((scene) => scene.zoneId === zone.id)
-      .map((scene) => scene.id),
-    map: {
-      image: zone.mapImage,
-      hotspots: zone.hotspots,
-    },
-  }),
-)
+// Zonas desde newAtlasContent usando DTOs
+const seedZones = []
+newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+  if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
+    caseStudy.zones.forEach((zone) => {
+      const zoneDTO = ZoneDTO.fromNewAtlasContent(zone)
+      const zoneEntity = zoneDTO.toEntity(caseStudy.id)
+      // Convertir entity a formato del createZone
+      const createdZone = createZone({
+        id: zoneEntity.id,
+        caseStudyId: zoneEntity.caseStudyId,
+        name: zoneEntity.name,
+        description: zoneEntity.description,
+        sceneIds: zoneEntity.sceneIds,
+        map: zoneEntity.map,
+      })
+      console.log('🔧 DEBUG zonasRepository - zone created:', createdZone.id, 'image:', createdZone.map.image)
+      seedZones.push(createdZone)
+    })
+  }
+})
+
+console.log('🔧 DEBUG zonasRepository - Total zones:', seedZones.length)
 
 export class InMemoryZonasRepository extends ZonasRepository {
   constructor(initial = seedZones) {
