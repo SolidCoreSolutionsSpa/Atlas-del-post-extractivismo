@@ -71,7 +71,7 @@ export function ZonaDetailPage() {
   ]
   if (caseStudy) {
     breadcrumbItems.push({
-      label: caseStudy.title,
+      label: caseStudy.name,
       to: `/casos-de-estudio/${caseStudy.id}`,
     })
   }
