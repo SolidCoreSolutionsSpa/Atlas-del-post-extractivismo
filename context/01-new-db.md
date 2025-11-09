@@ -1,77 +1,90 @@
-Table CasoDeEstudio {
+Table CaseOfStudies {
 id bigint [pk, increment]
-titulo string
-location string
-summary text
-zonas Zona
-position_left decimal       // Posición en mapa global (%)
-position_top decimal        // Posición en mapa global (%)
+title string
+summary string
+zones Zona
+image_path string
+position_top decimal
+position_left decimal
 created_at timestamp
 updated_at timestamp
 }
 
-Table Zona {
+Table Zones {
 id bigint [pk, increment]
-titulo string
-descripcion text
-escenas Escena
-position_left decimal       // Posición en mapa de caso de estudio (%)
-position_top decimal        // Posición en mapa de caso de estudio (%)
+title string
+escene Escenes
+image_path string
+position_top decimal
+position_left decimal
+decorations Decoracion
 created_at timestamp
 updated_at timestamp
 }
 
-Table Escena {
+Table Decorations {
 id bigint [pk, increment]
-titulo string
-tipoDeEscena TipoDeEscena
-theme string                // 'night', 'day', etc.
-elementos Elemento
+image_path string
+position_top decimal
+position_left decimal
 created_at timestamp
 updated_at timestamp
 }
 
-Table TipoDeEscena {
+Table Escenes {
 id bigint [pk, increment]
-nombre string
+title string
+escene_type EsceneTypes
+elements Elements
+image_path string
+position_top decimal
+position_left decimal
 created_at timestamp
 updated_at timestamp
 }
 
-Table Elemento {
+Table EsceneTypes {
 id bigint [pk, increment]
-titulo string
-subtitle string
-tipoDeAfectacion TipoDeAfectacion
-descripcion text
+name string
+created_at timestamp
+updated_at timestamp
+}
+
+Table Elements {
+id bigint [pk, increment]
+title string
+affectation_type AffectationTypes
+description string
 keywords Tags
-fuente text
-image_url string
-position_left decimal       // Posición en mapa de escena (%)
-position_top decimal        // Posición en mapa de escena (%)
+source string
+image_path string
+position_top decimal
+position_left decimal
 created_at timestamp
 updated_at timestamp
 }
 
-Table TipoDeAfectacion {
+Table AffectationTypes {
 id bigint [pk, increment]
-nombre string
+name string
 created_at timestamp
 updated_at timestamp
 }
 
 Table Tags {
 id bigint [pk, increment]
-nombre string
+name string
 created_at timestamp
 updated_at timestamp
 }
 
-Ref: CasoDeEstudio.zonas < Zona.id
-Ref: Zona.escenas < Escena.id
-Ref: Escena.elementos < Elemento.id
+Ref: CaseOfStudies.zones < Zones.id
+Ref: Zones.escene < Escenes.id
+Ref: Escenes.elements < Elements.id
 
-Ref: Elemento.tipoDeAfectacion > TipoDeAfectacion.id
-Ref: Escena.tipoDeEscena > TipoDeEscena.id
+Ref: Elements.affectation_type > AffectationTypes.id
+Ref: Escenes.escene_type > EsceneTypes.id
 
-Ref: Elemento.keywords < Tags.id
+Ref: Elements.keywords < Tags.id
+
+Ref: Zones.decorations < Decorations.id

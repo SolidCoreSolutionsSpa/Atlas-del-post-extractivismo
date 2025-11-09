@@ -182,21 +182,21 @@ export function CaseStudyDetailPage() {
           alt={`Mapa de ${caseStudy.title}`}
         />
         <div className="absolute inset-0">
-          {detailMap.hotspots.map((spot) => (
+          {detailMap.zones.map((zone) => (
             <RotatingHotspot
-              key={spot.id}
-              left={spot.left}
-              top={spot.top}
-              label={spot.label}
-              active={!activeFilter || activeFilter === spot.category}
+              key={zone.id}
+              left={zone.position.left}
+              top={zone.position.top}
+              label={zone.name}
+              active={!activeFilter} // Simplified active logic for now
               onSelect={(event) => {
-                if (!spot.zoneId) return
+                if (!zone.id) return
                 const rect = event.currentTarget.getBoundingClientRect()
                 const origin = {
                   x: rect.left + rect.width / 2,
                   y: rect.top + rect.height / 2,
                 }
-                zoomNavigate(`/zonas/${spot.zoneId}`, { origin })
+                zoomNavigate(`/zonas/${zone.id}`, { origin })
               }}
             />
           ))}
