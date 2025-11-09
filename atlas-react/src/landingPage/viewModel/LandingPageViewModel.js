@@ -39,7 +39,7 @@ export class LandingPageViewModel {
       id: entity.id,
       name: entity.title,
       description: entity.summary,
-      backgroundImage: entity.image_path,
+      backgroundImage: entity.detail_image_path || entity.image_path, // detail_image_path para hover, fallback a image_path
       color: entity.button_color,
       variant: variant,
       position: {

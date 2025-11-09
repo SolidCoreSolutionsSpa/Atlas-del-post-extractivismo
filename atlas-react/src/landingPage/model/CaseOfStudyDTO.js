@@ -14,6 +14,7 @@ export class CaseOfStudyDTO {
     this.title = data.title
     this.summary = data.summary
     this.image_path = data.image_path
+    this.detail_image_path = data.detail_image_path || null
     this.position_top = data.position_top
     this.position_left = data.position_left
     this.color = data.color
@@ -32,6 +33,7 @@ export class CaseOfStudyDTO {
       this.title,
       this.summary,
       this.image_path,
+      this.detail_image_path,
       this.position_top,
       this.position_left,
       this.color, // button_color se mapea desde color
