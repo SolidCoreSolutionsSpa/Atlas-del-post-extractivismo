@@ -190,6 +190,7 @@ export function CaseStudyDetailPage() {
               type={decoration.type}
               visible={isVisible}
               parallaxFactor={0.15}
+              widthVw={decoration.widthVw}
             />
           )
         })}

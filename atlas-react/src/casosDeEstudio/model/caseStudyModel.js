@@ -15,7 +15,7 @@
  * @property {{
  *    image: string,
  *    zones: Array<{ id: string, name: string, position: { left: string, top: string }}>,
- *    decorations: Array<{ id: string, image: string, alt: string, left: string, top: string, category: string | null }>,
+ *    decorations: Array<{ id: string, image: string, widthVw: number, alt: string, left: string, top: string, category: string | null }>,
  *    filterDescriptions: Record<string, { title: string, text: string }>
  * }} detailMap
  */
