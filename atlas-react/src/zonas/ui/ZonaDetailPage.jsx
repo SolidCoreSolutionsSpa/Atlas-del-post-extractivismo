@@ -68,7 +68,6 @@ export function ZonaDetailPage() {
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },
-    { label: 'Casos de extractivismo, escala global', to: '/casos-de-estudio' },
   ]
   if (caseStudy) {
     breadcrumbItems.push({

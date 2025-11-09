@@ -69,11 +69,13 @@ export function CaseStudyDetailPage() {
   const [caseStudy, setCaseStudy] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     let isMounted = true
     async function load() {
       setStatus('loading')
+      setImageLoaded(false)
       const data = await service.getById(caseStudyId)
       if (isMounted) {
         setCaseStudy(data)
@@ -88,7 +90,6 @@ export function CaseStudyDetailPage() {
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },
-    { label: 'Casos de extractivismo, escala global', to: '/casos-de-estudio' },
     { label: caseStudy ? caseStudy.title : 'Provincia' },
   ]
 
@@ -178,8 +179,12 @@ export function CaseStudyDetailPage() {
       <div className="relative h-screen w-full overflow-hidden">
         <img
           src={detailMap.image}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={clsx(
+            'absolute inset-0 h-full w-full object-cover transition-opacity duration-300',
+            imageLoaded ? 'opacity-100' : 'opacity-0'
+          )}
           alt={`Mapa de ${caseStudy.title}`}
+          onLoad={() => setImageLoaded(true)}
         />
         <div className="absolute inset-0">
           {detailMap.zones.map((zone) => (

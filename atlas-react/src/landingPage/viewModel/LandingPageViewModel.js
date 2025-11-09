@@ -39,7 +39,8 @@ export class LandingPageViewModel {
       id: entity.id,
       name: entity.title,
       description: entity.summary,
-      backgroundImage: entity.detail_image_path, // Solo usar detail_image_path si está definido
+      backgroundImage: entity.detail_image_path, // Imagen mostrada en hover
+      detailImagePath: entity.image_path, // Imagen de la página de detalle
       color: entity.button_color,
       variant: variant,
       position: {

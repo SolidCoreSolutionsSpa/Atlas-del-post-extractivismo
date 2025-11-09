@@ -54,12 +54,18 @@ export function LandingPage() {
   // Precarga de imágenes al montar el componente
   useEffect(() => {
     Object.values(territoriesConfig).forEach((territory) => {
+      // Precargar imagen de hover
       if (territory.backgroundImage) {
         const img = new Image()
         img.src = territory.backgroundImage
       }
+      // Precargar imagen de la página de detalle para transición fluida
+      if (territory.detailImagePath) {
+        const img = new Image()
+        img.src = territory.detailImagePath
+      }
     })
-  }, [])
+  }, [territoriesConfig])
 
   // Sistema de crossfade de imágenes
   const handleTerritoryHover = (territoryKey) => {
