@@ -143,6 +143,7 @@ export function CaseStudyDetailPage() {
         imageAlt={`Mapa de ${caseStudy.title}`}
         intensity={18}
         className="h-screen"
+        objectFit="cover"
       >
         {detailMap.zones.map((zone) => (
           <RotatingHotspot

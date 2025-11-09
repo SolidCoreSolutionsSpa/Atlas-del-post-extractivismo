@@ -66,6 +66,7 @@ export function InteractiveMap({
   frame = true,
   contentPosition = 'center',
   overfill = 1,
+  objectFit = 'contain',
   backdropGradient = 'linear-gradient(180deg, rgba(236, 242, 250, 0.95), rgba(236, 242, 250, 0.85))',
   backdropBlur = 28,
   children,
@@ -77,7 +78,7 @@ export function InteractiveMap({
   const motionX = useMotionValue(0)
   const motionY = useMotionValue(0)
 
-  // Natural image dimensions and computed object-contain layout
+  // Natural image dimensions and computed layout
   const [naturalSize, setNaturalSize] = useState({ width: 0, height: 0 })
   const [layout, setLayout] = useState(null)
 
@@ -120,9 +121,12 @@ export function InteractiveMap({
       const containerWidth = container.clientWidth
       const containerHeight = container.clientHeight
 
-      const scale = Math.min(
+      // Usar Math.max para 'cover' (llena toda la pantalla, puede recortar)
+      // Usar Math.min para 'contain' (muestra toda la imagen, puede dejar espacios)
+      const scaleFunc = objectFit === 'cover' ? Math.max : Math.min
+      const scale = scaleFunc(
         (containerWidth * overfill) / size.width,
-        containerHeight / size.height,
+        (containerHeight * overfill) / size.height,
       )
 
       const visibleWidth = size.width * scale
@@ -137,7 +141,7 @@ export function InteractiveMap({
         containerHeight,
       })
     },
-    [naturalSize, overfill],
+    [naturalSize, overfill, objectFit],
   )
 
   useLayoutEffect(() => {
