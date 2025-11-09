@@ -4,6 +4,9 @@
  * @property {string} title
  * @property {string} location
  * @property {string} summary
+ * @property {string} color
+ * @property {string} variant
+ * @property {string|null} navigateTo
  * @property {string[]} zoneIds
  * @property {{
  *    image: string,
@@ -11,7 +14,7 @@
  * }} globalMap
  * @property {{
  *    image: string,
- *    hotspots: Array<{ id: string, left: string, top: string, label: string, zoneId: string | null, category: string | null }>,
+ *    zones: Array<{ id: string, name: string, position: { left: string, top: string }}>,
  *    decorations: Array<{ id: string, image: string, alt: string, left: string, top: string, category: string | null }>,
  *    filterDescriptions: Record<string, { title: string, text: string }>
  * }} detailMap
@@ -27,6 +30,9 @@ export function createCaseStudy(payload = {}) {
     title: payload.title ?? 'Caso de estudio sin titulo',
     location: payload.location ?? '',
     summary: payload.summary ?? 'Resumen pendiente de migracion.',
+    color: payload.color ?? '#000000',
+    variant: payload.variant ?? 'default',
+    navigateTo: payload.navigateTo ?? null,
     zoneIds: payload.zoneIds ?? [],
     globalMap: payload.globalMap ?? { image: '', points: [] },
     detailMap: payload.detailMap ?? {
