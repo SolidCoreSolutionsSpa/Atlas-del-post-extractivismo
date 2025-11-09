@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
@@ -16,8 +16,10 @@ export function RootLayout({ children }) {
   usePrefersReducedMotion()
   const { theme } = useTheme()
   const { isPortrait, isMobile } = useOrientation()
+  const location = useLocation()
 
-  const logoSrc = '/img/logo.png'
+  const isLandingPage = location.pathname === '/'
+  const logoSrc = isLandingPage ? '/img/LOGONEGRO.png' : '/img/LOGOBLANCO.png'
   const shouldShowOrientationModal = isMobile && isPortrait
 
   return (
