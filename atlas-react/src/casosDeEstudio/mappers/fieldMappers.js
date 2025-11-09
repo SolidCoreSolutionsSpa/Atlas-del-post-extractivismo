@@ -28,7 +28,9 @@ export function mapDecorationFields (raw) {
     id: raw.id,
     image: raw.image_path,
     position: mapPosition(raw.position_left, raw.position_top),
-    alt: raw.alt || ''
+    alt: raw.alt || '',
+    type: raw.type || null,
+    tooltip: raw.tooltip || ''
   }
 }
 
