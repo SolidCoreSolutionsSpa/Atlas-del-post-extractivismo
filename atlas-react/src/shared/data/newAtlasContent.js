@@ -93,7 +93,7 @@ export const atlasContent = {
         {
           id: "puerto-punta-chungo",
           title: "Puerto Punta Chungo",
-          image_path: "/img/VistaPuertodefiniva.jpg",
+          image_path: "/img/VistaPuertodefiniva.png",
           position_left: 50,
           position_top: 85,
           escenes: [

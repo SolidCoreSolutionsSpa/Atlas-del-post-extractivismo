@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 200">
+  <defs>
+    <style>
+      .cls-1 {
+        letter-spacing: .03em;
+      }
+
+      .cls-2 {
+        letter-spacing: -.03em;
+      }
+
+      .cls-3 {
+        fill: #000;
+        font-family: BaskervvilleSC-Regular, 'Baskervville SC';
+        font-size: 45.57px;
+        font-variation-settings: 'wght' 400;
+      }
+
+      .cls-4 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-5 {
+        letter-spacing: -.05em;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(169.66 93.93)"><tspan class="cls-5" x="0" y="0">A</tspan><tspan x="31.45" y="0">TLAS </tspan><tspan class="cls-4" x="166.57" y="0">D</tspan><tspan x="202.67" y="0">EL </tspan><tspan class="cls-1" x="273.94" y="0">P</tspan><tspan x="304.25" y="0">OS</tspan><tspan class="cls-4" x="367.1" y="0">T</tspan><tspan x="400.09" y="0"> </tspan><tspan x="0" y="54.69">EXTR</tspan><tspan class="cls-2" x="127.38" y="54.69">A</tspan><tspan x="159.74" y="54.69">CTIVISMO</tspan></text>
+  <image width="1640" height="2360" transform="translate(11 -11.5) scale(.1)" xlink:href="../../Downloads/Ilustración_sin_título (7).png"/>
+</svg>
