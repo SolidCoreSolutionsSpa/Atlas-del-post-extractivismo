@@ -92,6 +92,7 @@ export function ZoneDecoration({
         top: topResuelto,
         translateX,
         translateY,
+        pointerEvents: 'none', // Always none to not interfere with hotspot hovers
       }}
       className={clsx(
         'group absolute -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300',
@@ -101,7 +102,6 @@ export function ZoneDecoration({
       animate={{
         opacity: visible ? 1 : 0,
         scale: visible ? 1 : 0.8,
-        pointerEvents: visible ? 'auto' : 'none',
       }}
       transition={{
         duration: 0.3,
