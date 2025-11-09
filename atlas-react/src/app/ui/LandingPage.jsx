@@ -1,72 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { atlasContent } from '../../shared/data/atlasContent'
+import { atlasContent } from '../../shared/data/newAtlasContent'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useImageCrossfade } from '../../shared/hooks/useImageCrossfade'
 import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
 import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
+import { LandingPageViewModel } from '../../landingPage/viewModel/LandingPageViewModel'
 
 const hero = atlasContent.hero
 const PARALLAX_FACTOR = 20
-
-// Configuración de territorios para el hover system
-const territoriesConfig = {
-  choapa: {
-    id: 'choapa-btn',
-    name: 'PROVINCIA DE CHOAPA, COQUIMBO, CHILE',
-    description:
-      'La minería en el norte de Chile enfrenta una crisis hídrica que ha llevado una nueva era de plantas desalinizadoras que extraen agua del océano Pacífico. Aunque la desalinización ofrece una propuesta "verde", mira como su sostenimiento puede generar controversias socio-ecológicas.',
-    backgroundImage: '/img/mapa-global-de-cobre-T.jpg',
-    color: '#d57a00',
-    variant: 'default',
-    position: { left: '29.5%', top: '68%' },
-    navigateTo: '/casos-de-estudio/provincia-choapa',
-  },
-  congo: {
-    id: 'congo-btn',
-    name: 'KOLWEZI – CONGO',
-    description:
-      'En las últimas dos décadas, Kolwezi, ciudad minera de la República Democrática del Congo, enfrenta tensiones entre la minería, la degradación ambiental y la rápida urbanización que reconfigura los paisajes como rastros extractivos, minas expuestas, escombreras y sitios abandonados.',
-    backgroundImage: '/img/mapa-global-de-cobalto-T.jpg',
-    color: '#443ad4ff',
-    variant: 'blue',
-    position: { left: '29.5%', top: '44.7%' },
-    navigateTo: null, // Próximamente
-  },
-  indonesia: {
-    id: 'indonesia-btn',
-    name: 'SUMATERA UTARA – INDONESIA',
-    description:
-      'Una de las regiones de aceite de palma más productivas del mundo ha configurado un paisaje de extracción agroindustrial, donde los ciclos de siembra y resiembra desplazan comunidades, reordenan los ecosistemas y consolidan un régimen de monocultivo.',
-    backgroundImage: '/img/mapa-global-de-aceite-T.jpg',
-    color: '#e4db66ff',
-    variant: 'yellow',
-    position: { left: '35.7%', top: '45%' },
-    navigateTo: null, // Próximamente
-  },
-  charleroi: {
-    id: 'charleroi-btn',
-    name: 'CHARLEROI – BÉLGICA (PRÓXIMAMENTE)',
-    description:
-      'El carbón en la década de los 90 era líder mundial en Bélgica. Hoy en día, Charleroi es un territorio post-extractivista en transición, donde el patrimonio industrial se cruza con la reconversión económica y social.',
-    backgroundImage: '/img/mapa-global-de-carbon-T.jpg',
-    color: '#1a1a1a',
-    variant: 'black',
-    position: { left: '27.5%', top: '36%' },
-    navigateTo: null, // Próximamente
-  },
-}
 
 export function LandingPage() {
   const zoomNavigate = useZoomNavigation()
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
 
+  // ViewModel para obtener casos de estudio siguiendo patrón MVVM
+  const viewModel = useMemo(() => new LandingPageViewModel(), [])
+  const territoriesConfig = useMemo(() => viewModel.getTerritoriesConfig(), [viewModel])
+
   // Hook de crossfade de imágenes
   const { currentImage, isFading, swapImage } = useImageCrossfade(
-    hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
+    hero.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
   )
 
   // Hook de parallax
@@ -107,7 +64,7 @@ export function LandingPage() {
     if (!territoryKey) {
       // Mouse leave - volver a imagen original
       setHoveredTerritory(null)
-      const originalImage = hero.image || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
+      const originalImage = hero.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
       swapImage(originalImage)
       return
     }
