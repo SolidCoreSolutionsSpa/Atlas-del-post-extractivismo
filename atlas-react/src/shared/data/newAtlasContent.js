@@ -40,7 +40,7 @@ export const atlasContent = {
           image_path: null,
           position_left: 70,
           position_top: 55,
-          escene: [],
+          escenes: [],
           decorations: [
             {
               id: "decoracion-caimanes",
@@ -68,7 +68,7 @@ export const atlasContent = {
           image_path: null,
           position_left: 37,
           position_top: 26,
-          escene: [],
+          escenes: [],
           decorations: [
             {
               id: "decoracion-chacay",
@@ -96,7 +96,7 @@ export const atlasContent = {
           image_path: "/img/VistaPuertodefiniva.jpg",
           position_left: 50,
           position_top: 85,
-          escene: [
+          escenes: [
             {
               id: "perturbacion-aerea",
               title: "Perturbacion aerea",

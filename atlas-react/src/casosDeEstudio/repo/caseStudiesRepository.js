@@ -63,7 +63,7 @@ function transformZones () {
         caseId: caseStudy.id,
         mapImage: rawZone.image_path,
         name: rawZone.title,
-        sceneIds: rawZone.escene?.map(s => s.id) || []
+        sceneIds: rawZone.escenes?.map(s => s.id) || []
       })
     }
   }
@@ -74,7 +74,7 @@ function transformScenes () {
   const scenes = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const rawScene of zone.escene || []) {
+      for (const rawScene of zone.escenes || []) {
         scenes.push({
           ...mapSceneFields(rawScene),
           zoneId: zone.id,
@@ -92,7 +92,7 @@ function transformElements () {
   const elements = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const scene of zone.escene || []) {
+      for (const scene of zone.escenes || []) {
         for (const rawElement of scene.elements || []) {
           elements.push({
             ...mapElementFields(rawElement),
