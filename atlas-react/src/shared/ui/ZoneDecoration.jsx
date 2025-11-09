@@ -1,7 +1,7 @@
-import { motion, useTransform } from 'framer-motion'
-import clsx from 'clsx'
-import { useMemo } from 'react'
-import { useMapContext } from './InteractiveMap'
+import { motion, useTransform } from "framer-motion";
+import clsx from "clsx";
+import { useMemo } from "react";
+import { useMapContext } from "./InteractiveMap";
 
 /**
  * ZoneDecoration Component
@@ -41,31 +41,33 @@ import { useMapContext } from './InteractiveMap'
  */
 
 function resolveCoordinate(value, tamaño) {
-  if (typeof value === 'number') return value
-  if (typeof value === 'string') {
-    const limpio = value.trim()
-    const num = Number.parseFloat(limpio)
-    if (Number.isFinite(num)) return limpio.endsWith('%') ? (num / 100) * tamaño : num
+  if (typeof value === "number") return value;
+  if (typeof value === "string") {
+    const limpio = value.trim();
+    const num = Number.parseFloat(limpio);
+    if (Number.isFinite(num))
+      return limpio.endsWith("%") ? (num / 100) * tamaño : num;
   }
-  return 0
+  return 0;
 }
 
 function useMapCoordinates(left, top) {
-  const { layout } = useMapContext()
+  const { layout } = useMapContext();
   return useMemo(() => {
-    if (!layout || layout.width <= 0 || layout.height <= 0) return { left, top }
+    if (!layout || layout.width <= 0 || layout.height <= 0)
+      return { left, top };
     return {
       left: resolveCoordinate(left, layout.width),
       top: resolveCoordinate(top, layout.height),
-    }
-  }, [layout, left, top])
+    };
+  }, [layout, left, top]);
 }
 
 function useParallaxTransforms(factor = 0) {
-  const { motionX, motionY } = useMapContext()
-  const translateX = useTransform(motionX, (value) => value * factor)
-  const translateY = useTransform(motionY, (value) => value * factor)
-  return { translateX, translateY }
+  const { motionX, motionY } = useMapContext();
+  const translateX = useTransform(motionX, (value) => value * factor);
+  const translateY = useTransform(motionY, (value) => value * factor);
+  return { translateX, translateY };
 }
 
 export function ZoneDecoration({
@@ -79,11 +81,11 @@ export function ZoneDecoration({
   className,
 }) {
   // Usar contexto del mapa para posicionamiento y parallax
-  const { translateX, translateY } = useParallaxTransforms(parallaxFactor)
+  const { translateX, translateY } = useParallaxTransforms(parallaxFactor);
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(
     position.left,
     position.top
-  )
+  );
 
   return (
     <motion.div
@@ -92,10 +94,10 @@ export function ZoneDecoration({
         top: topResuelto,
         translateX,
         translateY,
-        pointerEvents: 'none', // Always none to not interfere with hotspot hovers
+        pointerEvents: "none", // Always none to not interfere with hotspot hovers
       }}
       className={clsx(
-        'group absolute -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300',
+        "group absolute -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300",
         className
       )}
       initial={{ opacity: 0, scale: 0.8 }}
@@ -105,17 +107,17 @@ export function ZoneDecoration({
       }}
       transition={{
         duration: 0.3,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       }}
       aria-hidden={!visible}
     >
       <img
         src={image}
-        alt={tooltip || ''}
-        className="pointer-events-none rounded-3xl shadow-lg"
+        alt={tooltip || ""}
+        className="pointer-events-none rounded-3xl"
         style={{
           width: `${widthVw}vw`,
-          height: 'auto',
+          height: "auto",
         }}
         loading="lazy"
       />
@@ -125,5 +127,5 @@ export function ZoneDecoration({
         </span>
       )}
     </motion.div>
-  )
+  );
 }
