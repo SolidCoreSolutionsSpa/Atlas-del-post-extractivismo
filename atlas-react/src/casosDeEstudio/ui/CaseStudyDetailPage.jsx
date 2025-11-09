@@ -1,48 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
-import {
-  InteractiveMap,
-  MapDecoration,
-} from '../../shared/ui/InteractiveMap'
-import { CircleHotspot } from '../../shared/ui/CircleHotspot'
+import { InteractiveMap } from '../../shared/ui/InteractiveMap'
 import { RotatingHotspot } from '../../shared/ui/RotatingHotspot'
 import { FilterPanel } from './FilterPanel'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { zones } from '../repo/caseStudiesRepository'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
-
-// Parallax factors differentiated by category
-function getParallaxFactor(category) {
-  switch (category) {
-    case 'biotic':
-      return 0.15 // Ligero
-    case 'anthropic':
-      return 0.25 // Medio
-    case 'physical':
-      return 0.35 // Más notorio
-    default:
-      return 0.2
-  }
-}
-
-// Custom sizes for specific decorations
-function getSizeClass(decorationId) {
-  const sizes = {
-    'paisaje-islahuevo': 'w-32 lg:w-48',
-    'paisaje-conchali': 'w-28 lg:w-40',
-    'paisaje-glaciares': 'w-36 lg:w-52',
-    'paisaje-salmuera': 'w-28 lg:w-40',
-    'paisaje-perturbacion': 'w-32 lg:w-44',
-    'paisaje-caimanes': 'w-30 lg:w-42',
-    'paisaje-quebrada': 'w-28 lg:w-40',
-  }
-  return sizes[decorationId] || 'w-28 lg:w-40'
-}
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -52,8 +18,6 @@ const detailVariants = {
     transition: { type: 'spring', stiffness: 140, damping: 18 },
   },
 }
-
-const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
 
 export function CaseStudyDetailPage() {
   const { caseStudyId } = useParams()
@@ -69,13 +33,11 @@ export function CaseStudyDetailPage() {
   const [caseStudy, setCaseStudy] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     let isMounted = true
     async function load() {
       setStatus('loading')
-      setImageLoaded(false)
       const data = await service.getById(caseStudyId)
       if (isMounted) {
         setCaseStudy(data)
@@ -175,38 +137,33 @@ export function CaseStudyDetailPage() {
       animate="visible"
       variants={detailVariants}
     >
-      {/* Mapa con hotspots giratorios */}
-      <div className="relative h-screen w-full overflow-hidden">
-        <img
-          src={detailMap.image}
-          className={clsx(
-            'absolute inset-0 h-full w-full object-cover transition-opacity duration-300',
-            imageLoaded ? 'opacity-100' : 'opacity-0'
-          )}
-          alt={`Mapa de ${caseStudy.title}`}
-          onLoad={() => setImageLoaded(true)}
-        />
-        <div className="absolute inset-0">
-          {detailMap.zones.map((zone) => (
-            <RotatingHotspot
-              key={zone.id}
-              left={zone.position.left}
-              top={zone.position.top}
-              label={zone.name}
-              active={!activeFilter} // Simplified active logic for now
-              onSelect={(event) => {
-                if (!zone.id) return
-                const rect = event.currentTarget.getBoundingClientRect()
-                const origin = {
-                  x: rect.left + rect.width / 2,
-                  y: rect.top + rect.height / 2,
-                }
-                zoomNavigate(`/zonas/${zone.id}`, { origin })
-              }}
-            />
-          ))}
-        </div>
-      </div>
+      {/* Mapa con hotspots giratorios usando InteractiveMap */}
+      <InteractiveMap
+        imageSrc={detailMap.image}
+        imageAlt={`Mapa de ${caseStudy.title}`}
+        intensity={18}
+        className="h-screen"
+      >
+        {detailMap.zones.map((zone) => (
+          <RotatingHotspot
+            key={zone.id}
+            left={zone.position.left}
+            top={zone.position.top}
+            label={zone.name}
+            active={!activeFilter} // Simplified active logic for now
+            parallaxFactor={0.15}
+            onSelect={(event) => {
+              if (!zone.id) return
+              const rect = event.currentTarget.getBoundingClientRect()
+              const origin = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              }
+              zoomNavigate(`/zonas/${zone.id}`, { origin })
+            }}
+          />
+        ))}
+      </InteractiveMap>
 
       <Breadcrumbs
         className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
