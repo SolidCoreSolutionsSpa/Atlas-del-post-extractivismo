@@ -207,7 +207,7 @@ export function CaseStudyDetailPage() {
         >
           {caseStudy.title}
         </h1>
-        <p className="text-sm uppercase tracking-[0.3em] text-token-muted">
+        <p className="text-sm uppercase tracking-[0.3em] text-white">
           {caseStudy.location}
         </p>
         <p className="text-base leading-relaxed text-token-body/80">
