@@ -94,7 +94,7 @@ export const atlasContent = {
             },
             {
               id: "decoracion-glaciares",
-              image_path: "/img/glaciares.webp",
+              image_path: "/img/glaciaress_1.png",
               position_left: 39.1,
               position_top: 19.1,
               type: "physical",
@@ -270,7 +270,7 @@ export const atlasContent = {
             },
             {
               id: "decoracion-bosques",
-              image_path: "/img/bosquesp.webp",
+              image_path: "/img/bosques.webp",
               position_left: 54,
               position_top: 71,
               type: "anthropic",
