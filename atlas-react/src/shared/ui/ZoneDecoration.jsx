@@ -112,7 +112,7 @@ export function ZoneDecoration({
       <img
         src={image}
         alt={tooltip || ''}
-        className="pointer-events-none rounded-3xl border border-white/70 shadow-lg"
+        className="pointer-events-none rounded-3xl shadow-lg"
         style={{
           width: `${widthVw}vw`,
           minWidth: '100px', // Mínimo para pantallas muy pequeñas
