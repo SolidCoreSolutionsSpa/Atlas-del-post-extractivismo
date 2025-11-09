@@ -1,4 +1,3 @@
-import { atlasContent } from '../../shared/data/atlasContent'
 import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
 import { createScene } from '../model/sceneModel'
 import { SceneDTO } from '../model/SceneDTO'
@@ -29,22 +28,8 @@ export class EscenasRepository {
 
 }
 
-// Escenas del atlasContent original
-const seedScenesOld = atlasContent.scenes.map((scene) =>
-  createScene({
-    id: scene.id,
-    zoneId: scene.zoneId,
-    name: scene.name,
-    theme: scene.theme,
-    map: {
-      image: scene.mapImage,
-      hotspots: scene.hotspots,
-    },
-  }),
-)
-
 // Escenas desde newAtlasContent usando DTOs
-const seedScenesNew = []
+const seedScenes = []
 newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
@@ -53,7 +38,7 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
           const sceneDTO = SceneDTO.fromNewAtlasContent(escene)
           const sceneEntity = sceneDTO.toEntity(zone.id)
           // Convertir entity a formato del createScene
-          seedScenesNew.push(createScene({
+          seedScenes.push(createScene({
             id: sceneEntity.id,
             zoneId: sceneEntity.zoneId,
             name: sceneEntity.name,
@@ -65,9 +50,6 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
     })
   }
 })
-
-// Combinar escenas de ambas fuentes
-const seedScenes = [...seedScenesOld, ...seedScenesNew]
 
 export class InMemoryEscenasRepository extends EscenasRepository {
   constructor({ scenes = seedScenes } = {}) {

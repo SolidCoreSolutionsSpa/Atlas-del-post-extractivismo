@@ -1,4 +1,3 @@
-import { atlasContent } from '../../shared/data/atlasContent'
 import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
 import { createZone } from '../model/zoneModel'
 import { ZoneDTO } from '../model/ZoneDTO'
@@ -28,32 +27,15 @@ export class ZonasRepository {
   }
 }
 
-// Zonas del atlasContent original
-const seedZonesOld = atlasContent.zones.map((zone) =>
-  createZone({
-    id: zone.id,
-    caseStudyId: zone.caseId,
-    name: zone.name,
-    description: zone.description,
-    sceneIds: atlasContent.scenes
-      .filter((scene) => scene.zoneId === zone.id)
-      .map((scene) => scene.id),
-    map: {
-      image: zone.mapImage,
-      hotspots: zone.hotspots,
-    },
-  }),
-)
-
 // Zonas desde newAtlasContent usando DTOs
-const seedZonesNew = []
+const seedZones = []
 newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
       const zoneDTO = ZoneDTO.fromNewAtlasContent(zone)
       const zoneEntity = zoneDTO.toEntity(caseStudy.id)
       // Convertir entity a formato del createZone
-      seedZonesNew.push(createZone({
+      seedZones.push(createZone({
         id: zoneEntity.id,
         caseStudyId: zoneEntity.caseStudyId,
         name: zoneEntity.name,
@@ -64,9 +46,6 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
     })
   }
 })
-
-// Combinar zonas de ambas fuentes
-const seedZones = [...seedZonesOld, ...seedZonesNew]
 
 export class InMemoryZonasRepository extends ZonasRepository {
   constructor(initial = seedZones) {
