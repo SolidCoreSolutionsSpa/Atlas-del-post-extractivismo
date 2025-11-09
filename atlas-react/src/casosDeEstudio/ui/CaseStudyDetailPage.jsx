@@ -1,63 +1,63 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
-import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
-import { InteractiveMap } from '../../shared/ui/InteractiveMap'
-import { RotatingHotspot } from '../../shared/ui/RotatingHotspot'
-import { ZoneDecoration } from '../../shared/ui/ZoneDecoration'
-import { FilterPanel } from './FilterPanel'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { CaseStudiesService } from '../services/caseStudiesService'
-import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
+import { Breadcrumbs } from "../../shared/ui/Breadcrumbs";
+import { InteractiveMap } from "../../shared/ui/InteractiveMap";
+import { RotatingHotspot } from "../../shared/ui/RotatingHotspot";
+import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
+import { FilterPanel } from "./FilterPanel";
+import { useZoomNavigation } from "../../shared/hooks/useZoomNavigation.jsx";
+import { CaseStudiesService } from "../services/caseStudiesService";
+import { inMemoryCaseStudiesRepository } from "../repo/caseStudiesRepository";
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 140, damping: 18 },
+    transition: { type: "spring", stiffness: 140, damping: 18 },
   },
-}
+};
 
 export function CaseStudyDetailPage() {
-  const { caseStudyId } = useParams()
-  const zoomNavigate = useZoomNavigation()
+  const { caseStudyId } = useParams();
+  const zoomNavigate = useZoomNavigation();
   const service = useMemo(
     () =>
       new CaseStudiesService({
         caseStudiesRepository: inMemoryCaseStudiesRepository,
       }),
-    [],
-  )
+    []
+  );
 
-  const [caseStudy, setCaseStudy] = useState(null)
-  const [status, setStatus] = useState('loading')
-  const [activeFilter, setActiveFilter] = useState(null)
-  const [hoveredZoneId, setHoveredZoneId] = useState(null)
+  const [caseStudy, setCaseStudy] = useState(null);
+  const [status, setStatus] = useState("loading");
+  const [activeFilter, setActiveFilter] = useState(null);
+  const [hoveredZoneId, setHoveredZoneId] = useState(null);
 
   useEffect(() => {
-    let isMounted = true
+    let isMounted = true;
     async function load() {
-      setStatus('loading')
-      const data = await service.getById(caseStudyId)
+      setStatus("loading");
+      const data = await service.getById(caseStudyId);
       if (isMounted) {
-        setCaseStudy(data)
-        setStatus(data ? 'ready' : 'empty')
+        setCaseStudy(data);
+        setStatus(data ? "ready" : "empty");
       }
     }
-    load()
+    load();
     return () => {
-      isMounted = false
-    }
-  }, [caseStudyId, service])
+      isMounted = false;
+    };
+  }, [caseStudyId, service]);
 
   const breadcrumbItems = [
-    { label: 'Inicio', to: '/' },
-    { label: caseStudy ? caseStudy.title : 'Provincia' },
-  ]
+    { label: "Inicio", to: "/" },
+    { label: caseStudy ? caseStudy.title : "Provincia" },
+  ];
 
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -71,7 +71,7 @@ export function CaseStudyDetailPage() {
         />
         <div className="absolute inset-0 bg-token-divider" />
       </motion.section>
-    )
+    );
   }
 
   if (!caseStudy) {
@@ -88,17 +88,18 @@ export function CaseStudyDetailPage() {
             Caso de estudio no encontrado
           </h2>
           <p className="mt-2 text-sm text-token-muted">
-            Verifica el enlace o regresa al mapa global para seleccionar un punto disponible.
+            Verifica el enlace o regresa al mapa global para seleccionar un
+            punto disponible.
           </p>
           <button
             type="button"
             onClick={(event) => {
-              const rect = event.currentTarget.getBoundingClientRect()
+              const rect = event.currentTarget.getBoundingClientRect();
               const origin = {
                 x: rect.left + rect.width / 2,
                 y: rect.top + rect.height / 2,
-              }
-              zoomNavigate('/casos-de-estudio', { origin })
+              };
+              zoomNavigate("/casos-de-estudio", { origin });
             }}
             className="mt-6 inline-flex items-center rounded-full bg-token-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-token-primary-strong"
           >
@@ -106,10 +107,10 @@ export function CaseStudyDetailPage() {
           </button>
         </div>
       </motion.section>
-    )
+    );
   }
 
-  const { detailMap } = caseStudy
+  const { detailMap } = caseStudy;
 
   if (!detailMap) {
     return (
@@ -129,7 +130,7 @@ export function CaseStudyDetailPage() {
           </p>
         </div>
       </motion.section>
-    )
+    );
   }
 
   return (
@@ -149,6 +150,7 @@ export function CaseStudyDetailPage() {
         blurredBackground={true}
         blurAmount={20}
         frame={false}
+        overfill={1.25}
       >
         {detailMap.zones.map((zone) => (
           <RotatingHotspot
@@ -161,13 +163,13 @@ export function CaseStudyDetailPage() {
             onMouseEnter={() => setHoveredZoneId(zone.id)}
             onMouseLeave={() => setHoveredZoneId(null)}
             onSelect={(event) => {
-              if (!zone.id) return
-              const rect = event.currentTarget.getBoundingClientRect()
+              if (!zone.id) return;
+              const rect = event.currentTarget.getBoundingClientRect();
               const origin = {
                 x: rect.left + rect.width / 2,
                 y: rect.top + rect.height / 2,
-              }
-              zoomNavigate(`/zonas/${zone.id}`, { origin })
+              };
+              zoomNavigate(`/zonas/${zone.id}`, { origin });
             }}
           />
         ))}
@@ -179,7 +181,7 @@ export function CaseStudyDetailPage() {
           // 2. El filtro activo coincide con su tipo
           const isVisible =
             hoveredZoneId === decoration.zoneId ||
-            activeFilter === decoration.type
+            activeFilter === decoration.type;
 
           return (
             <ZoneDecoration
@@ -191,7 +193,7 @@ export function CaseStudyDetailPage() {
               visible={isVisible}
               parallaxFactor={0.15}
             />
-          )
+          );
         })}
       </InteractiveMap>
 
@@ -221,5 +223,5 @@ export function CaseStudyDetailPage() {
         onFilterChange={setActiveFilter}
       />
     </motion.section>
-  )
+  );
 }
