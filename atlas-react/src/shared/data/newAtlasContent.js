@@ -12,7 +12,8 @@ export const atlasContent = {
       title: "Provincia de Choapa",
       summary:
         "La minería en el norte de Chile enfrenta una crisis hídrica que ha llevado una nueva era de plantas desalinizadoras que extraen agua del océano Pacífico. Aunque la desalinización ofrece una propuesta \"verde\", mira como su sostenimiento puede generar controversias socio-ecológicas.",
-      image_path: "/img/mapa-global-de-cobre-T.jpg",
+      image_path: "/img/choapaoficial-1000.jpg",
+      detail_image_path: "/img/mapa-global-de-cobre-T.jpg",
       position_left: 29,
       position_top: 65,
       color: '#d57a00',
