@@ -35,17 +35,21 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
       const zoneDTO = ZoneDTO.fromNewAtlasContent(zone)
       const zoneEntity = zoneDTO.toEntity(caseStudy.id)
       // Convertir entity a formato del createZone
-      seedZones.push(createZone({
+      const createdZone = createZone({
         id: zoneEntity.id,
         caseStudyId: zoneEntity.caseStudyId,
         name: zoneEntity.name,
         description: zoneEntity.description,
         sceneIds: zoneEntity.sceneIds,
         map: zoneEntity.map,
-      }))
+      })
+      console.log('🔧 DEBUG zonasRepository - zone created:', createdZone.id, 'image:', createdZone.map.image)
+      seedZones.push(createdZone)
     })
   }
 })
+
+console.log('🔧 DEBUG zonasRepository - Total zones:', seedZones.length)
 
 export class InMemoryZonasRepository extends ZonasRepository {
   constructor(initial = seedZones) {
