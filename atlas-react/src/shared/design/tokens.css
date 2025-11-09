@@ -5,13 +5,14 @@
 
 :root {
   color-scheme: light dark;
-  --token-background: rgb(249 250 252);
+  --token-background: rgb(255 255 255);
   --token-surface: rgb(255 255 255);
   --token-primary: rgb(52 120 246);
   --token-primary-strong: rgb(34 88 192);
-  --token-body: rgb(17 24 39);
-  --token-muted: rgb(100 116 139);
+  --token-body: rgb(0 0 0);
+  --token-muted: rgb(111 111 111);
   --token-divider: rgb(226 232 240);
+  --token-heading: rgb(145 145 145);
 }
 
 @theme {
@@ -22,6 +23,7 @@
   --color-token-body: var(--token-body);
   --color-token-muted: var(--token-muted);
   --color-token-divider: var(--token-divider);
+  --color-token-heading: var(--token-heading);
 }
 
 @media (prefers-color-scheme: dark) {

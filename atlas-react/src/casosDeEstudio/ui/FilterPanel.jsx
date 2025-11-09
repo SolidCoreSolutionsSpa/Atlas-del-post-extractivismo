@@ -40,9 +40,9 @@ export function FilterPanel({
   activeFilter,
   onFilterChange,
   filterIcons = {
-    biotic: '/img/icono_biotico.svg',
-    anthropic: '/img/icono_antropico.svg',
-    physical: '/img/icono_fisico.svg',
+    biotic: '/img/icono_biotico_negro.svg',
+    anthropic: '/img/icono_antropico_negro.svg',
+    physical: '/img/icono_fisico_negro.svg',
   },
 }) {
   return (

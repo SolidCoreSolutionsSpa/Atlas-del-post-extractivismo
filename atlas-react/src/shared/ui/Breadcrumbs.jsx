@@ -12,9 +12,10 @@ export function Breadcrumbs({ items, className }) {
   return (
     <nav
       className={clsx(
-        'inline-flex max-w-[calc(100vw-2rem)] flex-wrap items-center gap-1 rounded-full bg-white/85 px-3 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-token-muted shadow-md backdrop-blur-sm leading-none sm:flex-nowrap sm:gap-1.5 sm:px-4 sm:py-2 sm:text-[0.7rem] sm:tracking-[0.22em] md:px-4 md:py-2.5 md:text-[0.75rem] lg:gap-2 lg:px-5 lg:py-3 lg:text-xs lg:tracking-[0.28em]',
+        'inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-3 py-2 text-[0.9rem] font-normal shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
         className,
       )}
+      style={{ fontFamily: 'Inter, sans-serif' }}
     >
       {items.map((item, index) => (
         <BreadcrumbItem
@@ -32,8 +33,8 @@ function BreadcrumbItem({ label, to, isLast, zoomNavigate }) {
   if (!to) {
     return (
       <>
-        <span className="text-token-primary">{label}</span>
-        {!isLast ? <span className="text-token-muted">/</span> : null}
+        <span className="text-[#222] dark:text-white dark:font-medium">{label}</span>
+        {!isLast ? <span className="text-[#6f6f6f] dark:text-[#e9e9e9]">&gt;</span> : null}
       </>
     )
   }
@@ -53,11 +54,11 @@ function BreadcrumbItem({ label, to, isLast, zoomNavigate }) {
       <a
         href={to}
         onClick={handleClick}
-        className="cursor-pointer transition hover:text-token-primary-strong"
+        className="cursor-pointer text-[#6f6f6f] no-underline hover:underline dark:text-[#e9e9e9]"
       >
         {label}
       </a>
-      {!isLast ? <span className="text-token-muted">/</span> : null}
+      {!isLast ? <span className="text-[#6f6f6f] dark:text-[#e9e9e9]">&gt;</span> : null}
     </>
   )
 }
