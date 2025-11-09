@@ -67,6 +67,8 @@ export function InteractiveMap({
   contentPosition = 'center',
   overfill = 1,
   objectFit = 'contain',
+  blurredBackground = false,
+  blurAmount = 20,
   backdropGradient = 'linear-gradient(180deg, rgba(236, 242, 250, 0.95), rgba(236, 242, 250, 0.85))',
   backdropBlur = 28,
   children,
@@ -168,7 +170,7 @@ export function InteractiveMap({
   )
 
   const hayImagen = typeof imageSrc === 'string' && imageSrc.length > 0
-  const shouldRenderBackdrop = hayImagen
+  const shouldRenderBackdrop = hayImagen && !blurredBackground
 
   const clasesPosicion =
     contentPosition === 'top-left'
@@ -191,6 +193,7 @@ export function InteractiveMap({
           className,
         )}
       >
+        {/* Backdrop original con parallax (modo clásico) */}
         {shouldRenderBackdrop && (
           <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
             <motion.div
@@ -216,6 +219,21 @@ export function InteractiveMap({
                 height: '200vh',
                 filter: `blur(${backdropBlur}px) saturate(1.25) brightness(1.05)`,
                 opacity: 0.9,
+              }}
+            />
+          </div>
+        )}
+
+        {/* Imagen de fondo con blur fija (nuevo modo) */}
+        {blurredBackground && hayImagen && (
+          <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+            <img
+              src={imageSrc}
+              alt=""
+              aria-hidden="true"
+              className="h-full w-full object-cover"
+              style={{
+                filter: `blur(${blurAmount}px)`,
               }}
             />
           </div>

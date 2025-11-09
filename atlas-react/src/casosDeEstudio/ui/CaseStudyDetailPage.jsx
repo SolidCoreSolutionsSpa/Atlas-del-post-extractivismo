@@ -143,7 +143,9 @@ export function CaseStudyDetailPage() {
         imageAlt={`Mapa de ${caseStudy.title}`}
         intensity={18}
         className="h-screen"
-        objectFit="cover"
+        objectFit="contain"
+        blurredBackground={true}
+        blurAmount={20}
       >
         {detailMap.zones.map((zone) => (
           <RotatingHotspot
