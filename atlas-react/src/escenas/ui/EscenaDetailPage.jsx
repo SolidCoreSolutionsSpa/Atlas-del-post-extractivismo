@@ -10,7 +10,7 @@ import {
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
-import { atlasContent } from '../../shared/data/atlasContent'
+import { zones, caseStudies, elements } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 
@@ -29,12 +29,12 @@ const detailVariants = {
   },
 }
 
-const zoneIndex = new Map(atlasContent.zones.map((zone) => [zone.id, zone]))
+const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
 const caseIndex = new Map(
-  atlasContent.caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
+  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
 )
 const elementIndex = new Map(
-  atlasContent.elements.map((element) => [element.id, element]),
+  elements.map((element) => [element.id, element]),
 )
 
 export function EscenaDetailPage() {
@@ -87,7 +87,6 @@ export function EscenaDetailPage() {
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },
-    { label: 'Casos de extractivismo, escala global', to: '/casos-de-estudio' },
   ]
   if (caseStudy) {
     breadcrumbItems.push({

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { TagChip } from '../../shared/ui/TagChip'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { atlasContent } from '../../shared/data/atlasContent'
+import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
 
@@ -19,11 +19,11 @@ const panelVariants = {
 }
 
 const sceneIndex = new Map(
-  atlasContent.scenes.map((scene) => [scene.id, scene]),
+  scenes.map((scene) => [scene.id, scene]),
 )
-const zoneIndex = new Map(atlasContent.zones.map((zone) => [zone.id, zone]))
+const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
 const caseIndex = new Map(
-  atlasContent.caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
+  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
 )
 
 export function ElementDetailPage() {
@@ -52,7 +52,6 @@ export function ElementDetailPage() {
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },
-    { label: 'Casos de extractivismo, escala global', to: '/casos-de-estudio' },
   ]
   if (caseStudy) {
     breadcrumbItems.push({

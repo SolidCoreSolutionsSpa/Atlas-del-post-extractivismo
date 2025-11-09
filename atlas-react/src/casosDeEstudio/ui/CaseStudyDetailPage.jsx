@@ -12,7 +12,7 @@ import { CircleHotspot } from '../../shared/ui/CircleHotspot'
 import { RotatingHotspot } from '../../shared/ui/RotatingHotspot'
 import { FilterPanel } from './FilterPanel'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { atlasContent } from '../../shared/data/atlasContent'
+import { zones } from '../repo/caseStudiesRepository'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
 
@@ -53,7 +53,7 @@ const detailVariants = {
   },
 }
 
-const zoneIndex = new Map(atlasContent.zones.map((zone) => [zone.id, zone]))
+const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
 
 export function CaseStudyDetailPage() {
   const { caseStudyId } = useParams()

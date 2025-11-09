@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap, MapMarker } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { atlasContent } from '../../shared/data/atlasContent'
+import { caseStudies as fallbackCaseStudies } from '../repo/caseStudiesRepository'
 import { useCaseStudiesState } from '../hooks/useCaseStudiesState'
 import { CaseStudiesService } from '../services/caseStudiesService'
 import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
@@ -23,7 +23,7 @@ export function CaseStudiesListPage() {
   const zoomNavigate = useZoomNavigation()
 
   const isLoading = status === 'loading'
-  const fallbackImage = atlasContent.caseStudies[0]?.globalMap.image ?? null
+  const fallbackImage = fallbackCaseStudies[0]?.globalMap.image ?? null
   const mapImage = caseStudies[0]?.globalMap.image ?? fallbackImage ?? null
 
   return (

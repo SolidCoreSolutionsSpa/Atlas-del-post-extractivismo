@@ -8,7 +8,7 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { atlasContent } from '../../shared/data/atlasContent'
+import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'
 
@@ -28,10 +28,10 @@ const detailVariants = {
 }
 
 const caseIndex = new Map(
-  atlasContent.caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
+  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
 )
 const sceneIndex = new Map(
-  atlasContent.scenes.map((scene) => [scene.id, scene]),
+  scenes.map((scene) => [scene.id, scene]),
 )
 
 export function ZonaDetailPage() {
@@ -71,7 +71,7 @@ export function ZonaDetailPage() {
   ]
   if (caseStudy) {
     breadcrumbItems.push({
-      label: caseStudy.name,
+      label: caseStudy.title,
       to: `/casos-de-estudio/${caseStudy.id}`,
     })
   }
