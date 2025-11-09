@@ -134,6 +134,45 @@ export function ZonaDetailPage() {
     )
   }
 
+  // Validar que la zona tenga imagen configurada
+  if (!zone.map.image) {
+    return (
+      <motion.section
+        className="mx-auto flex w-[92%] max-w-4xl flex-col gap-6 pb-16"
+        initial="hidden"
+        animate="visible"
+        variants={detailVariants}
+      >
+        <Breadcrumbs items={breadcrumbItems} />
+        <div className="mt-20 rounded-3xl border border-token-divider bg-token-surface p-8 shadow-sm">
+          <h2 className="text-2xl font-semibold text-token-primary">
+            Mapa de zona no disponible
+          </h2>
+          <p className="mt-2 text-sm text-token-muted">
+            Esta zona ({zone.name}) aún no tiene un mapa configurado.
+          </p>
+          <button
+            type="button"
+            onClick={(event) => {
+              const rect = event.currentTarget.getBoundingClientRect()
+              const origin = {
+                x: rect.left + rect.width / 2,
+                y: rect.top + rect.height / 2,
+              }
+              zoomNavigate(
+                caseStudy ? `/casos-de-estudio/${caseStudy.id}` : '/casos-de-estudio',
+                { origin },
+              )
+            }}
+            className="mt-6 inline-flex items-center rounded-full bg-token-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-token-primary-strong"
+          >
+            Volver al caso de estudio
+          </button>
+        </div>
+      </motion.section>
+    )
+  }
+
   return (
     <motion.section
       className="relative min-h-screen overflow-hidden"
