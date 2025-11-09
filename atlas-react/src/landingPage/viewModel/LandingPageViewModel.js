@@ -40,7 +40,7 @@ export class LandingPageViewModel {
       name: entity.title,
       description: entity.summary,
       backgroundImage: entity.image_path,
-      color: entity.color,
+      color: entity.button_color,
       variant: variant,
       position: {
         left: `${entity.position_left}%`,

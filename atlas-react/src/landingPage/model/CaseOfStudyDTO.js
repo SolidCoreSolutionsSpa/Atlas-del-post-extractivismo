@@ -35,7 +35,6 @@ export class CaseOfStudyDTO {
       this.position_top,
       this.position_left,
       this.color, // button_color se mapea desde color
-      this.color, // color principal
     )
   }
 
