@@ -38,18 +38,22 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
           const sceneDTO = SceneDTO.fromNewAtlasContent(escene)
           const sceneEntity = sceneDTO.toEntity(zone.id)
           // Convertir entity a formato del createScene
-          seedScenes.push(createScene({
+          const createdScene = createScene({
             id: sceneEntity.id,
             zoneId: sceneEntity.zoneId,
             name: sceneEntity.name,
             theme: sceneEntity.theme,
             map: sceneEntity.map,
-          }))
+          })
+          console.log('🎬 DEBUG escenasRepository - scene created:', createdScene.id, 'zoneId:', createdScene.zoneId, 'image:', createdScene.map.image)
+          seedScenes.push(createdScene)
         })
       }
     })
   }
 })
+
+console.log('🎬 DEBUG escenasRepository - Total scenes:', seedScenes.length)
 
 export class InMemoryEscenasRepository extends EscenasRepository {
   constructor({ scenes = seedScenes } = {}) {

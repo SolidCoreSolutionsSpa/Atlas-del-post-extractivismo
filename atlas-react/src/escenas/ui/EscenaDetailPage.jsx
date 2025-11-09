@@ -57,6 +57,9 @@ export function EscenaDetailPage() {
     async function load() {
       setStatus('loading')
       const data = await service.getById(sceneId)
+      console.log('🎬 DEBUG EscenaDetailPage - sceneId:', sceneId)
+      console.log('🎬 DEBUG EscenaDetailPage - data:', data)
+      console.log('🎬 DEBUG EscenaDetailPage - data.map.image:', data?.map?.image)
       if (isMounted) {
         setScene(data)
         setStatus(data ? 'ready' : 'empty')
@@ -153,7 +156,7 @@ export function EscenaDetailPage() {
     )
   }
 
-  const elements = atlasContent.elements.filter((element) => element.sceneId === scene.id)
+  const sceneElements = Array.from(elementIndex.values()).filter((element) => element.sceneId === scene.id)
 
   return (
     <motion.section
@@ -212,7 +215,7 @@ export function EscenaDetailPage() {
           Elementos vinculados
         </p>
         <div className="flex flex-wrap justify-end gap-2">
-          {elements.map((element) => (
+          {sceneElements.map((element) => (
             <button
               key={element.id}
               type="button"
