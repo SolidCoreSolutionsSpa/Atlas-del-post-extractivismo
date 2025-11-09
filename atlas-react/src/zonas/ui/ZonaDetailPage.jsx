@@ -137,7 +137,7 @@ export function ZonaDetailPage() {
 
   return (
     <motion.section
-      className="relative min-h-screen overflow-hidden bg-white"
+      className="relative min-h-screen overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={detailVariants}
