@@ -32,7 +32,11 @@ export function RootLayout({ children }) {
         </div>
         <div className="nav-right ml-auto flex items-center gap-[30px]">
           {navPlaceholders.map((item) => (
-            <a key={item.label} href="#">
+            <a
+              key={item.label}
+              href="#"
+              className={isLandingPage ? '' : 'text-white'}
+            >
               {item.label}
             </a>
           ))}
