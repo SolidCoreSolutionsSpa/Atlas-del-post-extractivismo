@@ -27,7 +27,7 @@ export function RootLayout({ children }) {
       <nav id="navbar">
         <div className="nav-left">
           <Link to="/">
-            <img src={logoSrc} alt="Atlas del Post-Extractivismo" className="h-8" />
+            <img src={logoSrc} alt="Atlas del Post-Extractivismo" className="h-12" />
           </Link>
         </div>
         <div className="nav-right ml-auto flex items-center gap-[30px]">
