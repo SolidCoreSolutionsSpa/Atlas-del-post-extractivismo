@@ -54,8 +54,10 @@ export function LandingPage() {
   // Precarga de imágenes al montar el componente
   useEffect(() => {
     Object.values(territoriesConfig).forEach((territory) => {
-      const img = new Image()
-      img.src = territory.backgroundImage
+      if (territory.backgroundImage) {
+        const img = new Image()
+        img.src = territory.backgroundImage
+      }
     })
   }, [])
 
@@ -71,7 +73,11 @@ export function LandingPage() {
 
     const territory = territoriesConfig[territoryKey]
     setHoveredTerritory(territoryKey)
-    swapImage(territory.backgroundImage)
+
+    // Solo cambiar imagen si el territorio tiene backgroundImage definido
+    if (territory.backgroundImage) {
+      swapImage(territory.backgroundImage)
+    }
   }
 
   // Click handler para navegación
