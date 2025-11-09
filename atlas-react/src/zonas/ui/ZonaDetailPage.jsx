@@ -146,7 +146,10 @@ export function ZonaDetailPage() {
         imageSrc={zone.map.image}
         imageAlt={`Mapa de ${zone.name}`}
         intensity={18}
-        className="h-[calc(100vh-2rem)]"
+        className="h-screen"
+        objectFit="contain"
+        blurredBackground={false}
+        frame={true}
       >
         {zone.map.hotspots.map((hotspot) => (
           <MapIconHotspot
