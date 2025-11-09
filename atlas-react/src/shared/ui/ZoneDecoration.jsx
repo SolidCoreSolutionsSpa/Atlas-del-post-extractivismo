@@ -115,7 +115,6 @@ export function ZoneDecoration({
         className="pointer-events-none rounded-3xl shadow-lg"
         style={{
           width: `${widthVw}vw`,
-          minWidth: '100px', // Mínimo para pantallas muy pequeñas
           height: 'auto',
         }}
         loading="lazy"
