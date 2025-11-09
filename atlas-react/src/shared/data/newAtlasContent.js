@@ -104,8 +104,8 @@ export const atlasContent = {
               position_left: 59.5,
               position_top: 70,
               escene_type: {
-                id: "escena-nocturna",
-                name: "night",
+                id: 1,
+                name: "anthropic",
               },
               elements: [
                 {
@@ -229,6 +229,42 @@ export const atlasContent = {
                   ],
                 },
               ],
+            },
+            {
+              id: "contaminacion-por-desalacion",
+              title: "Contaminacion por desalacion",
+              image_path: null,
+              position_left: 86,
+              position_top: 36,
+              escene_type: {
+                id: 1,
+                name: "anthropic",
+              },
+              elements: [],
+            },
+            {
+              id: "vibraciones-submarinas",
+              title: "Vibraciones submarinas",
+              image_path: null,
+              position_left: 75.5,
+              position_top: 73,
+              escene_type: {
+                id: 1,
+                name: "biotic",
+              },
+              elements: [],
+            },
+            {
+              id: "santuario-de-la-naturaleza",
+              title: "Santuario de la naturaleza",
+              image_path: null,
+              position_left: 17,
+              position_top: 84,
+              escene_type: {
+                id: 1,
+                name: "biotic",
+              },
+              elements: [],
             },
           ],
           decorations: [
