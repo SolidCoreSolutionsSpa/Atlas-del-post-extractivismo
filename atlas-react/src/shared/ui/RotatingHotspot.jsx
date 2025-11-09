@@ -68,6 +68,8 @@ export function RotatingHotspot({
   label,
   active = true,
   onSelect,
+  onMouseEnter,
+  onMouseLeave,
   parallaxFactor = 0,
   className,
 }) {
@@ -94,6 +96,8 @@ export function RotatingHotspot({
             onSelect(event)
           }
         }}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         aria-label={label}
         disabled={!active}
         className={clsx(

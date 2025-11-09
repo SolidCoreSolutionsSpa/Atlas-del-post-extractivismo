@@ -34,6 +34,7 @@ export function CaseStudyDetailPage() {
   const [caseStudy, setCaseStudy] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
+  const [hoveredZoneId, setHoveredZoneId] = useState(null)
 
   useEffect(() => {
     let isMounted = true
@@ -157,6 +158,8 @@ export function CaseStudyDetailPage() {
             label={zone.name}
             active={!activeFilter} // Simplified active logic for now
             parallaxFactor={0.15}
+            onMouseEnter={() => setHoveredZoneId(zone.id)}
+            onMouseLeave={() => setHoveredZoneId(null)}
             onSelect={(event) => {
               if (!zone.id) return
               const rect = event.currentTarget.getBoundingClientRect()
@@ -170,17 +173,26 @@ export function CaseStudyDetailPage() {
         ))}
 
         {/* Decoraciones de zonas */}
-        {detailMap.decorations?.map((decoration) => (
-          <ZoneDecoration
-            key={decoration.id}
-            image={decoration.image}
-            tooltip={decoration.tooltip}
-            position={decoration.position}
-            type={decoration.type}
-            visible={activeFilter === decoration.type}
-            parallaxFactor={0.15}
-          />
-        ))}
+        {detailMap.decorations?.map((decoration) => {
+          // Mostrar decoración si:
+          // 1. Su zona está en hover, O
+          // 2. El filtro activo coincide con su tipo
+          const isVisible =
+            hoveredZoneId === decoration.zoneId ||
+            activeFilter === decoration.type
+
+          return (
+            <ZoneDecoration
+              key={decoration.id}
+              image={decoration.image}
+              tooltip={decoration.tooltip}
+              position={decoration.position}
+              type={decoration.type}
+              visible={isVisible}
+              parallaxFactor={0.15}
+            />
+          )
+        })}
       </InteractiveMap>
 
       <Breadcrumbs

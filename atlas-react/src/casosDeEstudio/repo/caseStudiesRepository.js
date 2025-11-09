@@ -19,8 +19,10 @@ function buildDetailMap (caseStudy) {
   }))
 
   const allDecorations = (caseStudy.zones || [])
-    .flatMap(zone => zone.decorations || [])
-    .map(mapDecorationFields)
+    .flatMap(zone => (zone.decorations || []).map(decoration => ({
+      ...mapDecorationFields(decoration),
+      zoneId: zone.id
+    })))
 
   return {
     image: caseStudy.image_path,
