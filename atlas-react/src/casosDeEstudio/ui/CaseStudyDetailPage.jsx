@@ -146,6 +146,7 @@ export function CaseStudyDetailPage() {
         objectFit="contain"
         blurredBackground={true}
         blurAmount={20}
+        frame={false}
       >
         {detailMap.zones.map((zone) => (
           <RotatingHotspot
