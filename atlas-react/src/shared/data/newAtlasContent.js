@@ -60,7 +60,7 @@ export const atlasContent = {
             },
             {
               id: "decoracion-petroglifos",
-              image_path: "/img/ecosistematranque.webp",
+              image_path: "/img/petroglifos.webp",
               position_left: 73,
               position_top: 46.5,
               type: "anthropic",
@@ -86,7 +86,7 @@ export const atlasContent = {
             },
             {
               id: "decoracion-hualtatas",
-              image_path: "/img/botadero.webp",
+              image_path: "/img/hualtatas.webp",
               position_left: 33.5,
               position_top: 24,
               type: "biotic",
@@ -246,7 +246,7 @@ export const atlasContent = {
           decorations: [
             {
               id: "decoracion-islahuevos",
-              image_path: "/img/islahuevo.webp",
+              image_path: "/img/islahuevos.webp",
               position_left: 69,
               position_top: 92,
               type: "biotic",
@@ -262,7 +262,7 @@ export const atlasContent = {
             },
             {
               id: "decoracion-santuario",
-              image_path: "/img/LagunaConchali.webp",
+              image_path: "/img/santuario.webp",
               position_left: 41,
               position_top: 85.5,
               type: "biotic",
