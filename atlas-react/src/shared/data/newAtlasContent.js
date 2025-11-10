@@ -63,9 +63,9 @@ export const atlasContent = {
             {
               id: "decoracion-petroglifos",
               image_path: "/img/petroglifos.webp",
-              position_left: 73,
+              position_left: 74,
               position_top: 46.5,
-              widthVw: 9,
+              widthVw: 9.5,
               type: "anthropic",
               tooltip: "Ecosistema Tranque",
             },
