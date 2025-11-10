@@ -82,9 +82,9 @@ export const atlasContent = {
             {
               id: "decoracion-chacay",
               image_path: "/img/chacay.webp",
-              position_left: 47,
-              position_top: 32,
-              widthVw: 8,
+              position_left: 48,
+              position_top: 30,
+              widthVw: 7,
               type: "anthropic",
               tooltip: "Área Chacay",
             },
