@@ -46,7 +46,7 @@ export function FilterPanel({
   },
 }) {
   return (
-    <div className="pointer-events-auto absolute bottom-16 left-16 flex items-center gap-4 rounded-[2rem] bg-white/90 px-6 py-4 shadow-xl backdrop-blur">
+    <div className="pointer-events-auto absolute bottom-16 left-16 flex items-center gap-3 rounded-[15px] bg-white/25 px-2.5 py-2.5 shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
       {Object.entries(filterDescriptions).map(([category, info]) => (
         <button
           key={category}
@@ -56,23 +56,20 @@ export function FilterPanel({
           onMouseLeave={() => onFilterChange(null)}
           onBlur={() => onFilterChange(null)}
           className={clsx(
-            'flex flex-col items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] transition',
+            'rounded-lg border-2 border-transparent bg-transparent p-1.5 transition-all duration-500',
             activeFilter === category
-              ? 'text-token-primary'
-              : 'text-token-muted hover:text-token-primary',
+              ? 'bg-white/60'
+              : 'hover:bg-white/60',
           )}
           aria-label={info.title}
           title={info.text}
         >
-          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-token-divider bg-white shadow">
-            <img
-              src={filterIcons[category]}
-              alt=""
-              className="h-6 w-6"
-              loading="lazy"
-            />
-          </span>
-          {info.title.split(' ')[1]}
+          <img
+            src={filterIcons[category]}
+            alt=""
+            className="h-10 w-10"
+            loading="lazy"
+          />
         </button>
       ))}
     </div>
