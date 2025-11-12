@@ -366,8 +366,9 @@ export function MapIconHotspot({
   iconSrc,
   iconAlt,
   onClick,
-  factor = 0.2, // por defecto leve “flotado” sobre el marco
+  factor = 0.2, // por defecto leve "flotado" sobre el marco
   pulsate = true,
+  active = true,
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
@@ -389,13 +390,20 @@ export function MapIconHotspot({
         translateY,
       }}
       className="group absolute flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-2"
+      animate={{
+        opacity: active ? 1 : 0.3,
+      }}
+      transition={{
+        duration: 0.3,
+        ease: 'easeInOut',
+      }}
     >
       <motion.img
         src={iconSrc}
         alt={iconAlt}
         className={clsx(
           'pointer-events-auto h-10 w-10 rounded-full bg-white/80 p-2 backdrop-blur transition hover:scale-110',
-          pulsate && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
+          pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
         )}
         loading="lazy"
       />

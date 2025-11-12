@@ -11,11 +11,27 @@ import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'
+import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
   anthropic: '/img/icono_antropico_negro.svg',
   physical: '/img/icono_fisico_negro.svg',
+}
+
+const filterDescriptions = {
+  biotic: {
+    title: 'Paisajes bioticos',
+    text: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
+  },
+  anthropic: {
+    title: 'Paisajes antropicos',
+    text: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
+  },
+  physical: {
+    title: 'Paisajes fisicos',
+    text: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
+  },
 }
 
 const detailVariants = {
@@ -47,6 +63,7 @@ export function ZonaDetailPage() {
 
   const [zone, setZone] = useState(null)
   const [status, setStatus] = useState('loading')
+  const [activeFilter, setActiveFilter] = useState(null)
 
   useEffect(() => {
     let isMounted = true
@@ -150,27 +167,38 @@ export function ZonaDetailPage() {
         frame={false}
         overfill={1.28}
       >
-        {zone.map.hotspots.map((hotspot) => (
-          <MapIconHotspot
-            key={hotspot.id}
-            left={hotspot.left}
-            top={hotspot.top}
-            label={hotspot.label}
-            iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
-            iconAlt={hotspot.category ?? 'Hotspot'}
-            pulsate={hotspot.pulsate}
-            onClick={(event) => {
-              if (!hotspot.sceneId) return
-              const rect = event.currentTarget.getBoundingClientRect()
-              const origin = {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2,
-              }
-              zoomNavigate(`/escenas/${hotspot.sceneId}`, { origin })
-            }}
-          />
-        ))}
+        {zone.map.hotspots.map((hotspot) => {
+          const isActive = !activeFilter || hotspot.category === activeFilter
+          return (
+            <MapIconHotspot
+              key={hotspot.id}
+              left={hotspot.left}
+              top={hotspot.top}
+              label={hotspot.label}
+              iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
+              iconAlt={hotspot.category ?? 'Hotspot'}
+              pulsate={hotspot.pulsate}
+              active={isActive}
+              onClick={(event) => {
+                if (!hotspot.sceneId) return
+                const rect = event.currentTarget.getBoundingClientRect()
+                const origin = {
+                  x: rect.left + rect.width / 2,
+                  y: rect.top + rect.height / 2,
+                }
+                zoomNavigate(`/escenas/${hotspot.sceneId}`, { origin })
+              }}
+            />
+          )
+        })}
       </InteractiveMap>
+
+      <FilterPanel
+        filterDescriptions={filterDescriptions}
+        activeFilter={activeFilter}
+        onFilterChange={setActiveFilter}
+        orientation="vertical"
+      />
 
       <Breadcrumbs
         className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
