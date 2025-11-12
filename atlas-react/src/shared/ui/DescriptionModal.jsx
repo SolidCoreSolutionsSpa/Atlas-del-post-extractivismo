@@ -40,7 +40,7 @@ export function DescriptionModal({ isOpen, onClose, title, description }) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
-              className="relative max-w-lg w-full rounded-2xl bg-black/90 p-8 shadow-2xl"
+              className="relative max-w-lg w-full rounded-2xl bg-black/60 p-8 shadow-2xl"
               style={{ pointerEvents: 'auto' }}
               onClick={(e) => e.stopPropagation()}
             >
