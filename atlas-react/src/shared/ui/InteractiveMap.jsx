@@ -407,7 +407,7 @@ export function MapIconHotspot({
     >
       <div
         className={clsx(
-          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 p-2 backdrop-blur transition hover:scale-110',
+          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 p-1 backdrop-blur transition hover:scale-110',
           pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
         )}
       >
