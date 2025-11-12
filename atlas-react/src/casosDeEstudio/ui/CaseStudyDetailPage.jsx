@@ -6,6 +6,7 @@ import { Breadcrumbs } from "../../shared/ui/Breadcrumbs";
 import { InteractiveMap } from "../../shared/ui/InteractiveMap";
 import { RotatingHotspot } from "../../shared/ui/RotatingHotspot";
 import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
+import { DescriptionModal } from "../../shared/ui/DescriptionModal";
 import { FilterPanel } from "./FilterPanel";
 import { useZoomNavigation } from "../../shared/hooks/useZoomNavigation.jsx";
 import { CaseStudiesService } from "../services/caseStudiesService";
@@ -35,6 +36,7 @@ export function CaseStudyDetailPage() {
   const [status, setStatus] = useState("loading");
   const [activeFilter, setActiveFilter] = useState(null);
   const [hoveredZoneId, setHoveredZoneId] = useState(null);
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -213,15 +215,40 @@ export function CaseStudyDetailPage() {
         <p className="text-sm uppercase tracking-[0.3em] text-white">
           {caseStudy.location}
         </p>
-        <p className="text-base leading-relaxed text-token-body/80">
-          {caseStudy.summary}
-        </p>
+        <button
+          onClick={() => setIsDescriptionModalOpen(true)}
+          className="pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg transition hover:bg-white hover:scale-110 hover:shadow-xl"
+          aria-label="Ver descripción de la provincia"
+          title="Ver descripción"
+        >
+          <svg
+            className="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </button>
       </div>
 
       <FilterPanel
         filterDescriptions={detailMap.filterDescriptions}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
+      />
+
+      <DescriptionModal
+        isOpen={isDescriptionModalOpen}
+        onClose={() => setIsDescriptionModalOpen(false)}
+        title={caseStudy.title}
+        description={caseStudy.summary}
       />
     </motion.section>
   );
