@@ -205,40 +205,27 @@ export function CaseStudyDetailPage() {
         items={breadcrumbItems}
       />
 
-      <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end text-right">
-        <div className="rounded-2xl bg-black/50 p-6 backdrop-blur-sm">
-          <h1
-            className="text-3xl font-semibold text-white sm:text-4xl"
-            style={{ fontFamily: '"Baskervville", serif' }}
-          >
-            {caseStudy.title}
-          </h1>
-          <p className="mt-3 text-sm uppercase tracking-[0.3em] text-white">
-            {caseStudy.location}
-          </p>
-          <button
-            onClick={() => setIsDescriptionModalOpen(true)}
-            className="pointer-events-auto mt-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg transition hover:bg-white hover:scale-110 hover:shadow-xl ml-auto"
-            aria-label="Ver descripción de la provincia"
-            title="Ver descripción"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      </div>
+      <button
+        onClick={() => setIsDescriptionModalOpen(true)}
+        className="absolute top-28 right-12 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg transition hover:bg-white hover:scale-110 hover:shadow-xl"
+        aria-label="Ver descripción de la provincia"
+        title="Ver descripción"
+      >
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
 
       <FilterPanel
         filterDescriptions={detailMap.filterDescriptions}
