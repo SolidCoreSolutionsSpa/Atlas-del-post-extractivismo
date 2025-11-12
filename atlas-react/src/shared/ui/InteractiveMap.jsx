@@ -405,15 +405,19 @@ export function MapIconHotspot({
         ease: 'easeInOut',
       }}
     >
-      <motion.img
-        src={iconSrc}
-        alt={iconAlt}
+      <div
         className={clsx(
-          'pointer-events-auto h-10 w-10 rounded-full bg-white/80 p-2 backdrop-blur transition hover:scale-110',
+          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 p-2 backdrop-blur transition hover:scale-110',
           pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
         )}
-        loading="lazy"
-      />
+      >
+        <img
+          src={iconSrc}
+          alt={iconAlt}
+          className="h-full w-full object-contain"
+          loading="lazy"
+        />
+      </div>
       <span className="pointer-events-none bg-black/80 px-4 py-1.5 text-xs font-normal text-white opacity-0 shadow transition-opacity group-hover:opacity-100" style={{ borderRadius: '50px' }}>
         {label}
       </span>
