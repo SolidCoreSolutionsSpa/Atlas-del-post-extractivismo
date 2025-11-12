@@ -13,6 +13,7 @@ import clsx from 'clsx'
  * @param {string | null} activeFilter - Filtro actualmente activo
  * @param {Function} onFilterChange - Callback cuando cambia el filtro
  * @param {object} [filterIcons] - Iconos SVG para cada categoría
+ * @param {'horizontal' | 'vertical'} [orientation='horizontal'] - Orientación del panel
  * @example
  * const filterDescriptions = {
  *   biotic: {
@@ -33,20 +34,29 @@ import clsx from 'clsx'
  *   filterDescriptions={filterDescriptions}
  *   activeFilter={activeFilter}
  *   onFilterChange={setActiveFilter}
+ *   orientation="horizontal"
  * />
  */
 export function FilterPanel({
   filterDescriptions,
   activeFilter,
   onFilterChange,
+  orientation = 'horizontal',
   filterIcons = {
     biotic: '/img/icono_biotico_negro.svg',
     anthropic: '/img/icono_antropico_negro.svg',
     physical: '/img/icono_fisico_negro.svg',
   },
 }) {
+  const containerClasses = clsx(
+    'pointer-events-auto absolute flex gap-3 rounded-[15px] bg-white/25 shadow-[0_4px_10px_rgba(0,0,0,0.1)]',
+    orientation === 'horizontal'
+      ? 'bottom-16 left-16 flex-row items-center px-2.5 py-2.5'
+      : 'left-4 top-1/2 -translate-y-1/2 flex-col items-center px-2.5 py-2.5'
+  )
+
   return (
-    <div className="pointer-events-auto absolute bottom-16 left-16 flex items-center gap-3 rounded-[15px] bg-white/25 px-2.5 py-2.5 shadow-[0_4px_10px_rgba(0,0,0,0.1)]">
+    <div className={containerClasses}>
       {Object.entries(filterDescriptions).map(([category, info]) => (
         <button
           key={category}
