@@ -53,9 +53,6 @@ export function ZonaDetailPage() {
     async function load() {
       setStatus('loading')
       const data = await service.getById(zoneId)
-      console.log('🔍 DEBUG ZonaDetailPage - zoneId:', zoneId)
-      console.log('🔍 DEBUG ZonaDetailPage - data:', data)
-      console.log('🔍 DEBUG ZonaDetailPage - data.map.image:', data?.map?.image)
       if (isMounted) {
         setZone(data)
         setStatus(data ? 'ready' : 'empty')

@@ -43,13 +43,10 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
         sceneIds: zoneEntity.sceneIds,
         map: zoneEntity.map,
       })
-      console.log('🔧 DEBUG zonasRepository - zone created:', createdZone.id, 'image:', createdZone.map.image)
       seedZones.push(createdZone)
     })
   }
 })
-
-console.log('🔧 DEBUG zonasRepository - Total zones:', seedZones.length)
 
 export class InMemoryZonasRepository extends ZonasRepository {
   constructor(initial = seedZones) {
