@@ -151,6 +151,7 @@ export function ZonaDetailPage() {
         blurredBackground={true}
         blurAmount={20}
         frame={false}
+        overfill={1.28}
       >
         {zone.map.hotspots.map((hotspot) => (
           <MapIconHotspot
