@@ -40,14 +40,14 @@ export function DescriptionModal({ isOpen, onClose, title, description }) {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
-              className="relative max-w-lg w-full rounded-2xl bg-white p-8 shadow-2xl"
+              className="relative max-w-lg w-full rounded-2xl bg-black/90 p-8 shadow-2xl"
               style={{ pointerEvents: 'auto' }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Botón de cerrar */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-600 transition hover:bg-gray-200 hover:text-gray-800"
+                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
                 aria-label="Cerrar modal"
               >
                 <svg
@@ -68,14 +68,14 @@ export function DescriptionModal({ isOpen, onClose, title, description }) {
 
               {/* Título */}
               <h2
-                className="mb-6 text-2xl font-semibold text-gray-900 pr-8"
+                className="mb-6 text-2xl font-semibold text-white pr-8"
                 style={{ fontFamily: '"Baskervville", serif' }}
               >
                 {title}
               </h2>
 
               {/* Descripción */}
-              <p className="text-base leading-relaxed text-gray-700">
+              <p className="text-base leading-relaxed text-gray-200">
                 {description}
               </p>
             </motion.div>
