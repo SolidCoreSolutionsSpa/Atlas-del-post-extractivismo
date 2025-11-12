@@ -376,6 +376,7 @@ export function MapIconHotspot({
   factor = 0.2, // por defecto leve "flotado" sobre el marco
   pulsate = true,
   active = true,
+  iconPadding = 'p-1.5', // padding personalizable por ícono
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
@@ -407,7 +408,8 @@ export function MapIconHotspot({
     >
       <div
         className={clsx(
-          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 p-1.5 backdrop-blur transition hover:scale-110',
+          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur transition hover:scale-110',
+          iconPadding,
           pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
         )}
       >

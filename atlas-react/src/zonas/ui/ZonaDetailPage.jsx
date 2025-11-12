@@ -19,6 +19,12 @@ const iconByCategory = {
   physical: '/img/icono_fisico_negro.svg',
 }
 
+const paddingByCategory = {
+  biotic: 'p-1', // Más grande (menos padding)
+  anthropic: 'p-1.5', // Tamaño medio
+  physical: 'p-1.5', // Tamaño medio
+}
+
 const filterDescriptions = {
   biotic: {
     title: 'Paisajes bioticos',
@@ -180,6 +186,7 @@ export function ZonaDetailPage() {
               label={hotspot.label}
               iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
               iconAlt={hotspot.category ?? 'Hotspot'}
+              iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {
