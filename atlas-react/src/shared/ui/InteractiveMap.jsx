@@ -172,11 +172,6 @@ export function InteractiveMap({
   const hayImagen = typeof imageSrc === 'string' && imageSrc.length > 0
   const shouldRenderBackdrop = hayImagen && !blurredBackground
 
-  console.log('🖼️ InteractiveMap - imageSrc:', imageSrc)
-  console.log('🖼️ InteractiveMap - hayImagen:', hayImagen)
-  console.log('🖼️ InteractiveMap - layout:', layout)
-  console.log('🖼️ InteractiveMap - naturalSize:', naturalSize)
-
   const clasesPosicion =
     contentPosition === 'top-left'
       ? 'items-start justify-start'
@@ -270,7 +265,6 @@ export function InteractiveMap({
                   width: e.currentTarget.naturalWidth,
                   height: e.currentTarget.naturalHeight,
                 }
-                console.log('🖼️ InteractiveMap - Image loaded! naturalSize:', nextSize)
                 setNaturalSize(nextSize)
                 requestAnimationFrame(() => applyLayout(nextSize))
               }}
@@ -295,7 +289,6 @@ export function InteractiveMap({
                 width: e.currentTarget.naturalWidth,
                 height: e.currentTarget.naturalHeight,
               }
-              console.log('🖼️ InteractiveMap - Initial hidden image loaded! naturalSize:', nextSize)
               setNaturalSize(nextSize)
               requestAnimationFrame(() => applyLayout(nextSize))
             }}

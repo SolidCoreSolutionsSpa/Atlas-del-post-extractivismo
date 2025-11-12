@@ -57,9 +57,6 @@ export function EscenaDetailPage() {
     async function load() {
       setStatus('loading')
       const data = await service.getById(sceneId)
-      console.log('🎬 DEBUG EscenaDetailPage - sceneId:', sceneId)
-      console.log('🎬 DEBUG EscenaDetailPage - data:', data)
-      console.log('🎬 DEBUG EscenaDetailPage - data.map.image:', data?.map?.image)
       if (isMounted) {
         setScene(data)
         setStatus(data ? 'ready' : 'empty')

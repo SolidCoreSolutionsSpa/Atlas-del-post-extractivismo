@@ -25,7 +25,6 @@ export class ZoneDTO {
    * @returns {ZoneEntity} Entidad de zona
    */
   toEntity(caseStudyId) {
-    console.log('🔥 ZoneDTO.toEntity - id:', this.id, 'image_path:', this.image_path)
     // Mapear escenas a hotspots
     const hotspots = this.escenes.map((escene) => ({
       id: escene.id,
@@ -48,7 +47,6 @@ export class ZoneDTO {
         hotspots: hotspots,
       }
     )
-    console.log('🔥 ZoneDTO.toEntity - entity.map.image:', entity.map.image)
     return entity
   }
 
