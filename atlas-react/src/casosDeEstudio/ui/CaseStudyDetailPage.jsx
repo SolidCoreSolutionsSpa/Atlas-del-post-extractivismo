@@ -231,6 +231,7 @@ export function CaseStudyDetailPage() {
         filterDescriptions={detailMap.filterDescriptions}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
+        showDescriptionCard={true}
       />
 
       <DescriptionModal
