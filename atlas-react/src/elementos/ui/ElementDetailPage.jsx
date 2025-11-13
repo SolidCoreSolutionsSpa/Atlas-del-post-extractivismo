@@ -162,35 +162,33 @@ export function ElementDetailPage() {
       />
 
       {/* Ficha flotante con información del elemento */}
-      <div className="pointer-events-auto absolute bottom-8 left-8 right-8 sm:bottom-12 sm:left-12 sm:right-auto sm:max-w-xl">
-        <div className="rounded-[2rem] bg-white/95 p-8 shadow-2xl backdrop-blur">
+      <div className="pointer-events-auto absolute bottom-[5vh] right-[5vw] w-full max-w-[400px]">
+        <div className="rounded-xl bg-black/50 p-8 shadow-2xl backdrop-blur">
           {/* Categoría superior */}
-          <div className="mb-3 inline-block rounded-full bg-token-primary/10 px-4 py-1.5">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-token-primary">
-              {affectationType?.name ?? 'Elemento'}
-            </p>
-          </div>
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-white/70">
+            {affectationType?.name ?? 'Elemento'}
+          </p>
 
           {/* Título del elemento */}
-          <h1 className="text-3xl font-semibold text-token-primary sm:text-4xl" style={{ fontFamily: '"Baskervville", serif' }}>
+          <h1 className="text-[1.3rem] font-bold leading-tight text-white">
             {element.name}
           </h1>
 
           {/* Subtítulo si existe */}
           {element.subtitle && (
-            <p className="mt-2 text-sm font-medium uppercase tracking-[0.2em] text-token-muted">
+            <p className="mt-1 text-[1.1rem] italic text-white/80">
               {element.subtitle}
             </p>
           )}
 
           {/* Descripción */}
-          <p className="mt-4 text-base leading-relaxed text-token-body">
+          <p className="mt-4 text-sm leading-relaxed text-white/90">
             {element.body}
           </p>
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="mt-5">
+            <div className="mt-4">
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <TagChip key={tag.id} label={tag.label} active />
@@ -200,8 +198,8 @@ export function ElementDetailPage() {
           )}
 
           {/* Fuente */}
-          <div className="mt-5 border-t border-token-divider pt-4">
-            <p className="text-xs text-token-muted">
+          <div className="mt-4 border-t border-white/20 pt-3">
+            <p className="text-xs leading-relaxed text-white/60">
               {element.source}
             </p>
           </div>
@@ -219,7 +217,7 @@ export function ElementDetailPage() {
                 origin,
               })
             }}
-            className="mt-6 inline-flex w-full items-center justify-center rounded-full border-2 border-token-divider px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-token-muted transition hover:border-token-primary hover:text-token-primary"
+            className="mt-5 inline-flex w-full items-center justify-center rounded-full border-2 border-white/30 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:border-white hover:bg-white/10"
           >
             Volver a la escena
           </button>
@@ -229,8 +227,8 @@ export function ElementDetailPage() {
       {/* Panel de recomendaciones - Solo si hay recomendaciones */}
       {recommendations.length > 0 && (
         <div className="pointer-events-auto absolute top-28 right-8 hidden max-w-sm lg:block">
-          <div className="rounded-[2rem] bg-white/90 p-6 shadow-xl backdrop-blur">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-token-muted">
+          <div className="rounded-xl bg-black/50 p-6 shadow-xl backdrop-blur">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
               Elementos relacionados
             </h2>
             <ul className="mt-4 flex flex-col gap-3">
@@ -246,12 +244,12 @@ export function ElementDetailPage() {
                       }
                       zoomNavigate(`/elementos/${item.element.id}`, { origin })
                     }}
-                    className="w-full rounded-xl border border-token-divider bg-white p-3 text-left transition hover:border-token-primary hover:shadow-md"
+                    className="w-full rounded-lg border border-white/20 bg-white/10 p-3 text-left transition hover:border-white/40 hover:bg-white/20"
                   >
-                    <p className="text-sm font-semibold text-token-primary">
+                    <p className="text-sm font-semibold text-white">
                       {item.element.name}
                     </p>
-                    <p className="mt-1 text-xs text-token-muted">
+                    <p className="mt-1 text-xs text-white/60">
                       {item.sharedTagIds.length} tag{item.sharedTagIds.length !== 1 ? 's' : ''} compartido{item.sharedTagIds.length !== 1 ? 's' : ''}
                     </p>
                   </button>
