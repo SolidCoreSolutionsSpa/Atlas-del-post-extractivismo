@@ -1,4 +1,4 @@
-import { atlasContent } from '../../shared/data/atlasContent'
+import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
 import {
   createAffectationType,
   createElement,
@@ -15,60 +15,88 @@ function slugify(value) {
     .replace(/^-|-$/g, '') || 'sin-clasificar'
 }
 
+// Extraer todos los elementos de la estructura jerárquica de newAtlasContent
+const allElements = []
+newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+  if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
+    caseStudy.zones.forEach((zone) => {
+      if (zone.escenes && Array.isArray(zone.escenes)) {
+        zone.escenes.forEach((scene) => {
+          if (scene.elements && Array.isArray(scene.elements)) {
+            scene.elements.forEach((element) => {
+              allElements.push({
+                ...element,
+                sceneId: scene.id,
+              })
+            })
+          }
+        })
+      }
+    })
+  }
+})
+
 const affectationTypeMap = new Map()
 const tagMap = new Map()
 
-atlasContent.elements.forEach((item) => {
-  const typeSlug = slugify(item.affectationType)
+allElements.forEach((item) => {
+  const affectationName = item.affectation_type?.name || 'Sin clasificar'
+  const typeSlug = slugify(affectationName)
   if (!affectationTypeMap.has(typeSlug)) {
     affectationTypeMap.set(
       typeSlug,
       createAffectationType({
         id: typeSlug,
-        name: item.affectationType,
+        name: affectationName,
         description: '',
       }),
     )
   }
 
-  item.tags.forEach((tagLabel) => {
-    const tagSlug = slugify(tagLabel)
-    if (!tagMap.has(tagSlug)) {
-      tagMap.set(
-        tagSlug,
-        createTag({
-          id: tagSlug,
-          label: tagLabel,
-        }),
-      )
-    }
-  })
+  if (item.keywords && Array.isArray(item.keywords)) {
+    item.keywords.forEach((keyword) => {
+      const tagLabel = keyword.name
+      const tagSlug = slugify(tagLabel)
+      if (!tagMap.has(tagSlug)) {
+        tagMap.set(
+          tagSlug,
+          createTag({
+            id: tagSlug,
+            label: tagLabel,
+          }),
+        )
+      }
+    })
+  }
 })
 
 const seedAffectationTypes = Array.from(affectationTypeMap.values())
 const seedTags = Array.from(tagMap.values())
 
-const seedElements = atlasContent.elements.map((item) =>
+const seedElements = allElements.map((item) =>
   createElement({
     id: item.id,
     sceneId: item.sceneId,
-    name: item.name,
-    subtitle: item.subtitle,
-    image: item.image,
-    body: item.body,
+    name: item.title,
+    subtitle: item.title,
+    image: item.image_path,
+    body: item.description,
     source: item.source,
-    affectationTypeId: slugify(item.affectationType),
+    affectationTypeId: slugify(item.affectation_type?.name || 'Sin clasificar'),
   }),
 )
 
-const seedElementTags = atlasContent.elements.flatMap((item) =>
-  item.tags.map((tagLabel) =>
+const seedElementTags = allElements.flatMap((item) => {
+  if (!item.keywords || !Array.isArray(item.keywords)) {
+    return []
+  }
+  return item.keywords.map((keyword) =>
     createElementTag({
       elementId: item.id,
-      tagId: slugify(tagLabel),
+      tagId: slugify(keyword.name),
     }),
-  ),
-)
+  )
+})
 
 export class ElementsRepository {
   /**
