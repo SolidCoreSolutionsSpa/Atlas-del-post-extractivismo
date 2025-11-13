@@ -118,7 +118,7 @@ export const atlasContent = {
             {
               id: "perturbacion-aerea",
               title: "Perturbacion aerea",
-              image_path: "/img/Ecosistema aereo actualizado.PNG",
+              image_path: "/img/Ecosistema_aereo_actualizado.png",
               position_left: 59.5,
               position_top: 70,
               escene_type: {
