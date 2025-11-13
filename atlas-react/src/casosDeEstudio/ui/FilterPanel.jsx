@@ -100,7 +100,7 @@ export function FilterPanel({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="pointer-events-none absolute bottom-[10vw] left-[5vw] z-[300] max-w-[300px] rounded-[10px] bg-white/90 px-4 py-3 font-sans text-base leading-relaxed shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
+              className="pointer-events-none absolute bottom-[10vw] left-16 z-[300] max-w-[300px] rounded-[10px] bg-white/90 px-4 py-3 font-sans text-base leading-relaxed shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
             >
               <strong className="mb-1.5 block text-lg font-bold text-black">
                 {activeFilterInfo.title}
