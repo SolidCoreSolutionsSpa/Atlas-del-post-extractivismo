@@ -232,7 +232,7 @@ export function InteractiveMap({
               src={imageSrc}
               alt=""
               aria-hidden="true"
-              className={clsx('h-full w-full', objectFit === 'cover' ? 'object-cover' : 'object-contain')}
+              className="h-full w-full object-cover"
               style={{
                 filter: `blur(${blurAmount}px)`,
               }}
