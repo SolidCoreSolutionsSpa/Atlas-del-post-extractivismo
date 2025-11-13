@@ -196,7 +196,7 @@ export function InteractiveMap({
         onPointerMove={manejarPointerMove}
         onPointerLeave={manejarPointerLeave}
         className={clsx(
-          'relative flex h-full w-full',
+          'relative flex h-full w-full isolate',
           clasesPosicion,
           frame ? 'overflow-hidden rounded-[2.5rem]' : 'overflow-visible',
           !hayImagen && 'bg-[#f9fafc]',
