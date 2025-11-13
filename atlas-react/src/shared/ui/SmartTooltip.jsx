@@ -8,8 +8,8 @@ import clsx from 'clsx'
  * y ajusta su posición para mantenerse visible.
  *
  * - Posición por defecto: abajo del ícono, centrado horizontalmente
- * - Si se sale por la derecha: se alinea a la derecha (termina en el centro del ícono)
- * - Si se sale por la izquierda: se alinea a la izquierda (empieza en el centro del ícono)
+ * - Si se sale por la derecha: el texto termina justo antes del borde derecho del viewport
+ * - Si se sale por la izquierda: el texto empieza justo después del borde izquierdo del viewport
  * - Si se sale por abajo: se mueve arriba con la misma distancia
  *
  * @component
@@ -37,41 +37,38 @@ export function SmartTooltip({ text, isVisible, className }) {
       const viewportWidth = window.innerWidth
       const viewportHeight = window.innerHeight
       const padding = 8
-      const gap = 8 // Distancia entre el ícono y el tooltip (equivalente a mt-2)
+      const gap = 8 // Distancia entre el ícono y el tooltip
 
-      // Centro del contenedor (ícono)
+      // Posición por defecto: centrado horizontalmente, abajo del ícono
+      let transformX = '-50%'
+      let additionalTranslateX = 0
+
+      // Calcular posición del tooltip centrado
       const centerX = containerRect.left + containerRect.width / 2
-      const centerY = containerRect.top + containerRect.height / 2
-
-      let transformX = '-50%' // Por defecto, centrado
-      let transformY = '0'
-      let top = '100%' // Por defecto, abajo del ícono
-      let left = '50%' // Por defecto, centrado horizontalmente
-      let marginTop = gap
-
-      // Calcular posición por defecto (abajo, centrado)
-      const defaultLeft = centerX - tooltipRect.width / 2
-      const defaultRight = centerX + tooltipRect.width / 2
-      const defaultTop = containerRect.bottom + gap
-      const defaultBottom = defaultTop + tooltipRect.height
+      const tooltipLeft = centerX - tooltipRect.width / 2
+      const tooltipRight = centerX + tooltipRect.width / 2
 
       // Verificar overflow horizontal
-      const overflowsRight = defaultRight > viewportWidth - padding
-      const overflowsLeft = defaultLeft < padding
-
-      // Verificar overflow vertical
-      const overflowsBottom = defaultBottom > viewportHeight - padding
+      const overflowsRight = tooltipRight > viewportWidth - padding
+      const overflowsLeft = tooltipLeft < padding
 
       // Ajustar posición horizontal si hay overflow
       if (overflowsRight) {
-        // El tooltip debe terminar en el centro del ícono (alineado a la derecha)
-        left = '50%' // Centro del ícono
-        transformX = '-100%' // El tooltip se extiende completamente a la izquierda del centro
+        // El tooltip debe terminar antes del borde derecho del viewport
+        // Calcular cuánto necesitamos mover a la izquierda
+        const overflow = tooltipRight - (viewportWidth - padding)
+        additionalTranslateX = -overflow
       } else if (overflowsLeft) {
-        // El tooltip debe empezar en el centro del ícono (alineado a la izquierda)
-        left = '50%' // Centro del ícono
-        transformX = '0%' // El tooltip se extiende completamente a la derecha del centro
+        // El tooltip debe empezar después del borde izquierdo del viewport
+        // Calcular cuánto necesitamos mover a la derecha
+        const overflow = padding - tooltipLeft
+        additionalTranslateX = overflow
       }
+
+      // Verificar overflow vertical
+      const defaultTop = containerRect.bottom + gap
+      const defaultBottom = defaultTop + tooltipRect.height
+      const overflowsBottom = defaultBottom > viewportHeight - padding
 
       // Ajustar posición vertical si hay overflow
       if (overflowsBottom) {
@@ -79,19 +76,19 @@ export function SmartTooltip({ text, isVisible, className }) {
         setStyle({
           position: 'absolute',
           bottom: '100%',
-          left,
+          left: '50%',
           marginBottom: `${gap}px`,
-          transform: `translate(${transformX}, ${transformY})`,
+          transform: `translate(calc(-50% + ${additionalTranslateX}px), 0)`,
         })
         return
       }
 
       setStyle({
         position: 'absolute',
-        top,
-        left,
-        marginTop: `${marginTop}px`,
-        transform: `translate(${transformX}, ${transformY})`,
+        top: '100%',
+        left: '50%',
+        marginTop: `${gap}px`,
+        transform: `translate(calc(-50% + ${additionalTranslateX}px), 0)`,
       })
     }, 10)
 
