@@ -15,9 +15,9 @@ import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 
 const iconByCategory = {
-  biotic: '/img/icono_biotico_negro.svg',
-  anthropic: '/img/icono_antropico_negro.svg',
-  physical: '/img/icono_fisico_negro.svg',
+  biotic: '/img/icono_biotico.svg',
+  anthropic: '/img/icono_antropico.svg',
+  physical: '/img/icono_fisico.svg',
 }
 
 const detailVariants = {
@@ -166,7 +166,7 @@ export function EscenaDetailPage() {
         imageSrc={scene.map.image}
         imageAlt={`Mapa de la escena ${scene.name}`}
         intensity={20}
-        className="h-[calc(100vh-2rem)]"
+        className="h-screen"
       >
         {scene.map.hotspots.map((hotspot) => (
           <MapIconHotspot
@@ -207,30 +207,32 @@ export function EscenaDetailPage() {
         </p>
       </div>
 
-      <div className="pointer-events-auto absolute bottom-16 right-12 flex max-w-sm flex-col items-end gap-3 rounded-[2rem] bg-white/90 p-6 text-token-body shadow-xl backdrop-blur">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-token-muted">
-          Elementos vinculados
-        </p>
-        <div className="flex flex-wrap justify-end gap-2">
-          {sceneElements.map((element) => (
-            <button
-              key={element.id}
-              type="button"
-              onClick={(event) => {
-                const rect = event.currentTarget.getBoundingClientRect()
-                const origin = {
-                  x: rect.left + rect.width / 2,
-                  y: rect.top + rect.height / 2,
-                }
-                zoomNavigate(`/elementos/${element.id}`, { origin })
-              }}
-              className="rounded-full border border-token-divider px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-token-muted transition hover:border-token-primary hover:text-token-primary"
-            >
-              {element.name}
-            </button>
-          ))}
+      {sceneElements.length > 0 && (
+        <div className="pointer-events-auto absolute bottom-16 right-12 flex max-w-sm flex-col items-end gap-3 rounded-[2rem] bg-white/90 p-6 text-token-body shadow-xl backdrop-blur">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-token-muted">
+            Elementos vinculados
+          </p>
+          <div className="flex flex-wrap justify-end gap-2">
+            {sceneElements.map((element) => (
+              <button
+                key={element.id}
+                type="button"
+                onClick={(event) => {
+                  const rect = event.currentTarget.getBoundingClientRect()
+                  const origin = {
+                    x: rect.left + rect.width / 2,
+                    y: rect.top + rect.height / 2,
+                  }
+                  zoomNavigate(`/elementos/${element.id}`, { origin })
+                }}
+                className="rounded-full border border-token-divider px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-token-muted transition hover:border-token-primary hover:text-token-primary"
+              >
+                {element.name}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </motion.section>
   )
 }
