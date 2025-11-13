@@ -173,6 +173,15 @@ export function InteractiveMap({
   const hayImagen = typeof imageSrc === 'string' && imageSrc.length > 0
   const shouldRenderBackdrop = hayImagen && !blurredBackground
 
+  // DEBUG: Log para verificar condiciones de renderizado
+  console.log('🖼️ InteractiveMap DEBUG:', {
+    imageSrc,
+    hayImagen,
+    blurredBackground,
+    shouldRenderBackdrop,
+    shouldRenderBlur: blurredBackground && hayImagen
+  })
+
   const clasesPosicion =
     contentPosition === 'top-left'
       ? 'items-start justify-start'
@@ -236,6 +245,8 @@ export function InteractiveMap({
               style={{
                 filter: `blur(${blurAmount}px)`,
               }}
+              onLoad={() => console.log('✅ Blur background loaded:', imageSrc)}
+              onError={(e) => console.error('❌ Blur background failed to load:', imageSrc, e)}
             />
           </div>
         )}
