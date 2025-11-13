@@ -7,6 +7,11 @@ import clsx from 'clsx'
  * Un tooltip inteligente que detecta automáticamente cuando se sale del viewport
  * y ajusta su posición para mantenerse visible.
  *
+ * - Posición por defecto: abajo del ícono, centrado horizontalmente
+ * - Si se sale por la derecha: se alinea a la derecha (termina en el centro del ícono)
+ * - Si se sale por la izquierda: se alinea a la izquierda (empieza en el centro del ícono)
+ * - Si se sale por abajo: se mueve arriba con la misma distancia
+ *
  * @component
  * @param {string} text - Texto a mostrar en el tooltip
  * @param {boolean} isVisible - Si el tooltip debe mostrarse
@@ -14,93 +19,101 @@ import clsx from 'clsx'
  */
 export function SmartTooltip({ text, isVisible, className }) {
   const tooltipRef = useRef(null)
-  const [position, setPosition] = useState({ x: 0, y: 0 })
-  const [alignment, setAlignment] = useState('bottom-center')
+  const containerRef = useRef(null)
+  const [style, setStyle] = useState({})
 
   useEffect(() => {
-    if (!isVisible || !tooltipRef.current) return
+    if (!isVisible || !tooltipRef.current || !containerRef.current) return
 
-    const tooltip = tooltipRef.current
-    const rect = tooltip.getBoundingClientRect()
-    const viewportWidth = window.innerWidth
-    const viewportHeight = window.innerHeight
+    // Pequeño delay para asegurar que el DOM está renderizado
+    const timeoutId = setTimeout(() => {
+      if (!tooltipRef.current || !containerRef.current) return
 
-    // Padding desde los bordes del viewport
-    const padding = 8
+      const tooltip = tooltipRef.current
+      const container = containerRef.current
+      const tooltipRect = tooltip.getBoundingClientRect()
+      const containerRect = container.getBoundingClientRect()
 
-    let newAlignment = 'bottom-center'
-    let adjustX = 0
-    let adjustY = 0
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      const padding = 8
+      const gap = 8 // Distancia entre el ícono y el tooltip (equivalente a mt-2)
 
-    // Detectar overflow en el eje Y (arriba/abajo)
-    const overflowsBottom = rect.bottom > viewportHeight - padding
-    const overflowsTop = rect.top < padding
+      // Centro del contenedor (ícono)
+      const centerX = containerRect.left + containerRect.width / 2
+      const centerY = containerRect.top + containerRect.height / 2
 
-    // Detectar overflow en el eje X (izquierda/derecha)
-    const overflowsRight = rect.right > viewportWidth - padding
-    const overflowsLeft = rect.left < padding
+      let transformX = '-50%' // Por defecto, centrado
+      let transformY = '0'
+      let top = '100%' // Por defecto, abajo del ícono
+      let left = '50%' // Por defecto, centrado horizontalmente
+      let marginTop = gap
 
-    // Ajustar posición vertical
-    if (overflowsBottom && !overflowsTop) {
-      // Mover hacia arriba
-      newAlignment = 'top-center'
-    } else if (overflowsTop && !overflowsBottom) {
-      // Mover hacia abajo
-      newAlignment = 'bottom-center'
-    }
+      // Calcular posición por defecto (abajo, centrado)
+      const defaultLeft = centerX - tooltipRect.width / 2
+      const defaultRight = centerX + tooltipRect.width / 2
+      const defaultTop = containerRect.bottom + gap
+      const defaultBottom = defaultTop + tooltipRect.height
 
-    // Ajustar posición horizontal
-    if (overflowsRight && !overflowsLeft) {
-      // Mover hacia la izquierda
-      adjustX = -(rect.right - viewportWidth + padding)
-      newAlignment = newAlignment.replace('center', 'right')
-    } else if (overflowsLeft && !overflowsRight) {
-      // Mover hacia la derecha
-      adjustX = padding - rect.left
-      newAlignment = newAlignment.replace('center', 'left')
-    }
+      // Verificar overflow horizontal
+      const overflowsRight = defaultRight > viewportWidth - padding
+      const overflowsLeft = defaultLeft < padding
 
-    // Casos especiales: esquinas
-    if (overflowsBottom && overflowsRight) {
-      newAlignment = 'top-right'
-    } else if (overflowsBottom && overflowsLeft) {
-      newAlignment = 'top-left'
-    } else if (overflowsTop && overflowsRight) {
-      newAlignment = 'bottom-right'
-    } else if (overflowsTop && overflowsLeft) {
-      newAlignment = 'bottom-left'
-    }
+      // Verificar overflow vertical
+      const overflowsBottom = defaultBottom > viewportHeight - padding
 
-    setAlignment(newAlignment)
-    setPosition({ x: adjustX, y: adjustY })
-  }, [isVisible])
+      // Ajustar posición horizontal si hay overflow
+      if (overflowsRight) {
+        // El tooltip debe terminar en el centro del ícono (alineado a la derecha)
+        left = '50%' // Centro del ícono
+        transformX = '-100%' // El tooltip se extiende completamente a la izquierda del centro
+      } else if (overflowsLeft) {
+        // El tooltip debe empezar en el centro del ícono (alineado a la izquierda)
+        left = '50%' // Centro del ícono
+        transformX = '0%' // El tooltip se extiende completamente a la derecha del centro
+      }
 
-  const positionClasses = clsx({
-    // Posición vertical por defecto (abajo)
-    'top-full mt-2': alignment.startsWith('bottom'),
-    // Posición vertical alternativa (arriba)
-    'bottom-full mb-2': alignment.startsWith('top'),
-    // Alineación horizontal
-    'left-1/2 -translate-x-1/2': alignment.includes('center'),
-    'left-0': alignment.includes('left'),
-    'right-0': alignment.includes('right'),
-  })
+      // Ajustar posición vertical si hay overflow
+      if (overflowsBottom) {
+        // Mover el tooltip arriba del ícono
+        setStyle({
+          position: 'absolute',
+          bottom: '100%',
+          left,
+          marginBottom: `${gap}px`,
+          transform: `translate(${transformX}, ${transformY})`,
+        })
+        return
+      }
+
+      setStyle({
+        position: 'absolute',
+        top,
+        left,
+        marginTop: `${marginTop}px`,
+        transform: `translate(${transformX}, ${transformY})`,
+      })
+    }, 10)
+
+    return () => clearTimeout(timeoutId)
+  }, [isVisible, text])
 
   return (
-    <span
-      ref={tooltipRef}
-      className={clsx(
-        'pointer-events-none absolute whitespace-nowrap bg-black/80 px-4 py-1.5 text-xs font-normal text-white shadow transition-opacity',
-        positionClasses,
-        isVisible ? 'opacity-100' : 'opacity-0',
-        className
-      )}
-      style={{
-        borderRadius: '50px',
-        transform: `translate(${position.x}px, ${position.y}px)`,
-      }}
-    >
-      {text}
+    <span ref={containerRef} className="absolute inset-0">
+      <span
+        ref={tooltipRef}
+        className={clsx(
+          'pointer-events-none whitespace-nowrap bg-black/80 px-4 py-1.5 text-xs font-normal text-white shadow transition-opacity',
+          isVisible ? 'opacity-100' : 'opacity-0',
+          className
+        )}
+        style={{
+          borderRadius: '50px',
+          ...style,
+        }}
+      >
+        {text}
+      </span>
     </span>
   )
 }

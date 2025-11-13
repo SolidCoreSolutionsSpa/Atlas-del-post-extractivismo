@@ -130,13 +130,15 @@ export function RotatingHotspot({
           border: 'none',
         }}
       >
-        {/* Círculo punteado giratorio en sentido horario */}
-        <div
-          className="absolute inset-0 rounded-full border-[3px] border-dashed border-white animate-rotate-clockwise"
-        />
+        <div className="relative h-full w-full">
+          {/* Círculo punteado giratorio en sentido horario */}
+          <div
+            className="absolute inset-0 rounded-full border-[3px] border-dashed border-white animate-rotate-clockwise"
+          />
 
-        {/* Tooltip inteligente que evita salirse de la pantalla */}
-        <SmartTooltip text={label} isVisible={isHovered} />
+          {/* Tooltip inteligente que evita salirse de la pantalla */}
+          <SmartTooltip text={label} isVisible={isHovered} />
+        </div>
       </button>
     </motion.div>
   )

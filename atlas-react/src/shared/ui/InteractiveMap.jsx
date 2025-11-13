@@ -355,14 +355,16 @@ export function MapMarker({
         'group absolute flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full border-2 border-white shadow-lg outline-none transition focus-visible:ring-2 focus-visible:ring-token-primary',
       )}
     >
-      <span
-        className={clsx(
-          'pointer-events-auto block h-full w-full rounded-full transition',
-          colorBase,
-          pulsate && 'animate-[pulse-soft_2.5s_ease-in-out_infinite]',
-        )}
-      />
-      <SmartTooltip text={label} isVisible={isHovered} />
+      <div className="relative h-full w-full">
+        <span
+          className={clsx(
+            'pointer-events-auto block h-full w-full rounded-full transition',
+            colorBase,
+            pulsate && 'animate-[pulse-soft_2.5s_ease-in-out_infinite]',
+          )}
+        />
+        <SmartTooltip text={label} isVisible={isHovered} />
+      </div>
       {children}
     </motion.button>
   )
@@ -411,21 +413,23 @@ export function MapIconHotspot({
         ease: 'easeInOut',
       }}
     >
-      <div
-        className={clsx(
-          'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur transition hover:scale-110',
-          iconPadding,
-          pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
-        )}
-      >
-        <img
-          src={iconSrc}
-          alt={iconAlt}
-          className="h-full w-full object-contain"
-          loading="lazy"
-        />
+      <div className="relative">
+        <div
+          className={clsx(
+            'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/80 backdrop-blur transition hover:scale-110',
+            iconPadding,
+            pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
+          )}
+        >
+          <img
+            src={iconSrc}
+            alt={iconAlt}
+            className="h-full w-full object-contain"
+            loading="lazy"
+          />
+        </div>
+        <SmartTooltip text={label} isVisible={isHovered} />
       </div>
-      <SmartTooltip text={label} isVisible={isHovered} />
     </motion.button>
   )
 }
