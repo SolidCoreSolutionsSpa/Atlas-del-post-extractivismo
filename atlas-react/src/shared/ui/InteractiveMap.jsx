@@ -16,6 +16,7 @@ import {
 } from 'framer-motion'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
+import { SmartTooltip } from './SmartTooltip'
 
 export const MapParallaxContext = createContext(null)
 
@@ -316,6 +317,7 @@ export function MapMarker({
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
+  const [isHovered, setIsHovered] = useState(false)
 
   const colorBase =
     tone === 'danger'
@@ -334,6 +336,8 @@ export function MapMarker({
           onClick(evento)
         }
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         left: leftResuelto,
         top: topResuelto,
@@ -351,9 +355,7 @@ export function MapMarker({
           pulsate && 'animate-[pulse-soft_2.5s_ease-in-out_infinite]',
         )}
       />
-      <span className="pointer-events-none absolute -bottom-10 left-1/2 w-max -translate-x-1/2 bg-black/80 px-4 py-1.5 text-xs font-normal text-white opacity-0 shadow transition-opacity group-hover:opacity-100" style={{ borderRadius: '50px' }}>
-        {label}
-      </span>
+      <SmartTooltip text={label} isVisible={isHovered} />
       {children}
     </motion.button>
   )
@@ -373,6 +375,7 @@ export function MapIconHotspot({
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <motion.button
@@ -384,13 +387,15 @@ export function MapIconHotspot({
           onClick(evento)
         }
       }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         left: leftResuelto,
         top: topResuelto,
         translateX,
         translateY,
       }}
-      className="group absolute flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center gap-2"
+      className="group absolute -translate-x-1/2 -translate-y-1/2 transform"
       animate={{
         opacity: active ? 1 : 0.3,
       }}
@@ -413,9 +418,7 @@ export function MapIconHotspot({
           loading="lazy"
         />
       </div>
-      <span className="pointer-events-none bg-black/80 px-4 py-1.5 text-xs font-normal text-white opacity-0 shadow transition-opacity group-hover:opacity-100" style={{ borderRadius: '50px' }}>
-        {label}
-      </span>
+      <SmartTooltip text={label} isVisible={isHovered} />
     </motion.button>
   )
 }

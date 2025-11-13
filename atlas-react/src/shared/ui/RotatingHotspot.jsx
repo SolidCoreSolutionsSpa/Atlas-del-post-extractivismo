@@ -1,7 +1,8 @@
 import clsx from 'clsx'
 import { motion, useTransform } from 'framer-motion'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useMapContext } from './InteractiveMap'
+import { SmartTooltip } from './SmartTooltip'
 
 /**
  * RotatingHotspot Component
@@ -76,6 +77,17 @@ export function RotatingHotspot({
   // Usar contexto del mapa para posicionamiento y parallax
   const { translateX, translateY } = useParallaxTransforms(parallaxFactor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseEnter = (e) => {
+    setIsHovered(true)
+    if (onMouseEnter) onMouseEnter(e)
+  }
+
+  const handleMouseLeave = (e) => {
+    setIsHovered(false)
+    if (onMouseLeave) onMouseLeave(e)
+  }
 
   return (
     <motion.div
@@ -92,8 +104,8 @@ export function RotatingHotspot({
         minHeight: '60px',
         pointerEvents: 'auto',
       }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <button
         type="button"
@@ -123,10 +135,8 @@ export function RotatingHotspot({
           className="absolute inset-0 rounded-full border-[3px] border-dashed border-white animate-rotate-clockwise"
         />
 
-        {/* Tooltip que aparece en hover */}
-        <span className="pointer-events-none absolute bottom-full left-1/2 mb-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/80 px-3 py-1.5 text-xs font-normal tracking-wider text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-          {label}
-        </span>
+        {/* Tooltip inteligente que evita salirse de la pantalla */}
+        <SmartTooltip text={label} isVisible={isHovered} />
       </button>
     </motion.div>
   )
