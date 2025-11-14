@@ -254,18 +254,6 @@ export function EscenaDetailPage() {
         </svg>
       </button>
 
-      <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end gap-3 text-right">
-        <h1
-          className="text-3xl font-semibold text-white sm:text-4xl"
-          style={{ fontFamily: '"Baskervville", serif' }}
-        >
-          {scene.name}
-        </h1>
-        <p className="text-base leading-relaxed text-white/80">
-          Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura.
-        </p>
-      </div>
-
       {sceneElements.length > 0 && (
         <div className="pointer-events-auto absolute bottom-16 right-12 flex max-w-sm flex-col items-end gap-3 rounded-[2rem] bg-white/90 p-6 text-token-body shadow-xl backdrop-blur">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-token-muted">
