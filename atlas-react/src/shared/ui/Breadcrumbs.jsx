@@ -12,7 +12,7 @@ export function Breadcrumbs({ items, className }) {
   return (
     <nav
       className={clsx(
-        'inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-3 py-2 text-[0.9rem] font-normal shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
+        'breadcrumb-nav inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-3 py-2 text-[0.9rem] font-normal shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
         className,
       )}
       style={{ fontFamily: 'Inter, sans-serif' }}
