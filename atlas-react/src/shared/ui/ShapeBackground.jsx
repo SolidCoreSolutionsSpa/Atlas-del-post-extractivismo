@@ -23,8 +23,8 @@ export function ShapeBackground({
   pulsate = false,
   active = true,
 }) {
-  // Tamaño base - diamante es más grande que las otras formas
-  const sizeClass = shape === 'diamond' ? 'h-12 w-12' : 'h-10 w-10'
+  // Tamaño base - diamante y triángulo son más grandes que las otras formas
+  const sizeClass = shape === 'diamond' || shape === 'triangle' ? 'h-12 w-12' : 'h-10 w-10'
 
   // Clases base compartidas por todas las formas
   const baseClasses = clsx(
