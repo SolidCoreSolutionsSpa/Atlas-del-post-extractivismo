@@ -10,7 +10,7 @@ import {
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
-import { zones, caseStudies, elements } from '../../casosDeEstudio/repo/caseStudiesRepository'
+import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
@@ -61,9 +61,6 @@ const detailVariants = {
 const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
 const caseIndex = new Map(
   caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-const elementIndex = new Map(
-  elements.map((element) => [element.id, element]),
 )
 
 export function EscenaDetailPage() {
@@ -184,8 +181,6 @@ export function EscenaDetailPage() {
     )
   }
 
-  const sceneElements = Array.from(elementIndex.values()).filter((element) => element.sceneId === scene.id)
-
   return (
     <motion.section
       className={clsx('relative min-h-screen overflow-hidden bg-[#050b1d] text-white')}
@@ -260,33 +255,6 @@ export function EscenaDetailPage() {
           />
         </svg>
       </button>
-
-      {sceneElements.length > 0 && (
-        <div className="pointer-events-auto absolute bottom-16 right-12 flex max-w-sm flex-col items-end gap-3 rounded-[2rem] bg-white/90 p-6 text-token-body shadow-xl backdrop-blur">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-token-muted">
-            Elementos vinculados
-          </p>
-          <div className="flex flex-wrap justify-end gap-2">
-            {sceneElements.map((element) => (
-              <button
-                key={element.id}
-                type="button"
-                onClick={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect()
-                  const origin = {
-                    x: rect.left + rect.width / 2,
-                    y: rect.top + rect.height / 2,
-                  }
-                  zoomNavigate(`/elementos/${element.id}`, { origin })
-                }}
-                className="rounded-full border border-token-divider px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-token-muted transition hover:border-token-primary hover:text-token-primary"
-              >
-                {element.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
 
       <DescriptionModal
         isOpen={isDescriptionModalOpen}
