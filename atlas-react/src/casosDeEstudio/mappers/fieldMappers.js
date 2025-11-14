@@ -41,8 +41,8 @@ export function mapZoneFields (raw) {
     id: raw.id,
     title: raw.title,
     image: raw.image_path, // ← Transform here
-    position: mapPosition(raw.position_left, raw.position_top),
-    decorations: raw.decorations?.map(mapDecorationFields) || []
+    position: mapPosition(raw.position_left, raw.position_top)
+    // decorations removed - now handled at scene level
   }
 }
 

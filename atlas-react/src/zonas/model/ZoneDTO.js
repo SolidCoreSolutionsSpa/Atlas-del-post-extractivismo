@@ -16,7 +16,7 @@ export class ZoneDTO {
     this.position_left = data.position_left
     this.position_top = data.position_top
     this.escenes = data.escenes || []
-    this.decorations = data.decorations || []
+    // decorations removed - now each scene has its own decoration field
   }
 
   /**

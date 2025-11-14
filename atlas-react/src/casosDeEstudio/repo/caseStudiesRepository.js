@@ -18,11 +18,16 @@ function buildDetailMap (caseStudy) {
     position: mapPosition(zone.position_left, zone.position_top)
   }))
 
+  // Extract decorations from scenes instead of zones
   const allDecorations = (caseStudy.zones || [])
-    .flatMap(zone => (zone.decorations || []).map(decoration => ({
-      ...mapDecorationFields(decoration),
-      zoneId: zone.id
-    })))
+    .flatMap(zone =>
+      (zone.escenes || [])
+        .filter(scene => scene.decoration) // Only scenes with decoration
+        .map(scene => ({
+          ...mapDecorationFields(scene.decoration),
+          zoneId: zone.id // Keep zone association for hover functionality
+        }))
+    )
 
   return {
     image: caseStudy.image_path,
