@@ -204,24 +204,6 @@ export function ElementDetailPage() {
               {element.source}
             </p>
           </div>
-
-          {/* Botón volver */}
-          <button
-            type="button"
-            onClick={(event) => {
-              const rect = event.currentTarget.getBoundingClientRect()
-              const origin = {
-                x: rect.left + rect.width / 2,
-                y: rect.top + rect.height / 2,
-              }
-              zoomNavigate(scene ? `/escenas/${scene.id}` : '/casos-de-estudio', {
-                origin,
-              })
-            }}
-            className="mt-4 inline-flex w-full items-center justify-center rounded-full border border-white/30 px-3 py-1.5 text-xs font-medium text-white transition hover:border-white hover:bg-white/10"
-          >
-            ← Volver a la escena
-          </button>
         </div>
 
         {/* Panel de recomendaciones - Solo imágenes debajo de la tarjeta principal */}
