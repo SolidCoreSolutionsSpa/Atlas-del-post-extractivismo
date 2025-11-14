@@ -165,29 +165,31 @@ export function ElementDetailPage() {
       <div
         className="element-detail-cards pointer-events-auto absolute flex w-full flex-col"
         style={{
-          // Fluid responsive scaling matching breadcrumb pattern
-          // Scales from ~31% at 320px to 100% at 1024px viewport
-          maxWidth: 'clamp(7.8rem, 39vw, 25rem)', // 400px max
+          // Fluid responsive scaling based on 1440p reference
+          // At 1440px+: 400px (25rem) max - maintains fixed size
+          // Below 1440px: scales proportionally (27.78vw = 400px/1440px)
+          // At 320px: ~104px minimum (26% of original)
+          maxWidth: 'clamp(6.5rem, 27.78vw, 25rem)',
           bottom: '5vh',
           right: '5vw',
-          gap: 'clamp(0.312rem, 1.56vw, 1rem)', // gap-4 = 1rem
+          gap: 'clamp(0.26rem, 1.11vw, 1rem)', // gap-4 = 1rem
         }}
       >
         {/* Ficha flotante con información del elemento */}
         <div
           className="element-card-main rounded-xl bg-black/50 shadow-2xl backdrop-blur"
           style={{
-            padding: 'clamp(0.624rem, 3.12vw, 2rem)', // p-8 = 2rem
-            borderRadius: 'clamp(0.234rem, 1.17vw, 0.75rem)', // rounded-xl = 0.75rem
+            padding: 'clamp(0.52rem, 2.22vw, 2rem)', // p-8 = 2rem
+            borderRadius: 'clamp(0.195rem, 0.83vw, 0.75rem)', // rounded-xl = 0.75rem
           }}
         >
           {/* Categoría superior */}
           <p
             className="element-category font-bold uppercase text-white/70"
             style={{
-              fontSize: 'clamp(0.273rem, 1.365vw, 0.875rem)', // text-sm = 0.875rem
-              marginBottom: 'clamp(0.156rem, 0.78vw, 0.5rem)', // mb-2 = 0.5rem
-              letterSpacing: 'clamp(0.047rem, 0.234vw, 0.15rem)', // tracking-[0.15em]
+              fontSize: 'clamp(0.228rem, 0.97vw, 0.875rem)', // text-sm = 0.875rem
+              marginBottom: 'clamp(0.13rem, 0.56vw, 0.5rem)', // mb-2 = 0.5rem
+              letterSpacing: '0.15em',
             }}
           >
             {affectationType?.name ?? 'Elemento'}
@@ -197,7 +199,7 @@ export function ElementDetailPage() {
           <h1
             className="font-bold leading-tight text-white"
             style={{
-              fontSize: 'clamp(0.406rem, 2.028vw, 1.3rem)', // text-[1.3rem]
+              fontSize: 'clamp(0.338rem, 1.44vw, 1.3rem)', // text-[1.3rem]
             }}
           >
             {element.name}
@@ -208,8 +210,8 @@ export function ElementDetailPage() {
             <p
               className="element-subtitle italic text-white/80"
               style={{
-                marginTop: 'clamp(0.078rem, 0.39vw, 0.25rem)', // mt-1 = 0.25rem
-                fontSize: 'clamp(0.343rem, 1.716vw, 1.1rem)', // text-[1.1rem]
+                marginTop: 'clamp(0.065rem, 0.28vw, 0.25rem)', // mt-1 = 0.25rem
+                fontSize: 'clamp(0.286rem, 1.22vw, 1.1rem)', // text-[1.1rem]
               }}
             >
               {element.subtitle}
@@ -220,8 +222,8 @@ export function ElementDetailPage() {
           <p
             className="leading-relaxed text-white/90"
             style={{
-              marginTop: 'clamp(0.312rem, 1.56vw, 1rem)', // mt-4 = 1rem
-              fontSize: 'clamp(0.273rem, 1.365vw, 0.875rem)', // text-sm = 0.875rem
+              marginTop: 'clamp(0.26rem, 1.11vw, 1rem)', // mt-4 = 1rem
+              fontSize: 'clamp(0.228rem, 0.97vw, 0.875rem)', // text-sm = 0.875rem
             }}
           >
             {element.body}
@@ -232,13 +234,13 @@ export function ElementDetailPage() {
             <div
               className="element-tags"
               style={{
-                marginTop: 'clamp(0.312rem, 1.56vw, 1rem)', // mt-4 = 1rem
+                marginTop: 'clamp(0.26rem, 1.11vw, 1rem)', // mt-4 = 1rem
               }}
             >
               <div
                 className="flex flex-wrap"
                 style={{
-                  gap: 'clamp(0.156rem, 0.78vw, 0.5rem)', // gap-2 = 0.5rem
+                  gap: 'clamp(0.13rem, 0.56vw, 0.5rem)', // gap-2 = 0.5rem
                 }}
               >
                 {tags.map((tag) => (
@@ -252,14 +254,14 @@ export function ElementDetailPage() {
           <div
             className="border-t border-white/20"
             style={{
-              marginTop: 'clamp(0.312rem, 1.56vw, 1rem)', // mt-4 = 1rem
-              paddingTop: 'clamp(0.234rem, 1.17vw, 0.75rem)', // pt-3 = 0.75rem
+              marginTop: 'clamp(0.26rem, 1.11vw, 1rem)', // mt-4 = 1rem
+              paddingTop: 'clamp(0.195rem, 0.83vw, 0.75rem)', // pt-3 = 0.75rem
             }}
           >
             <p
               className="element-source leading-relaxed text-white/60"
               style={{
-                fontSize: 'clamp(0.234rem, 1.17vw, 0.75rem)', // text-xs = 0.75rem
+                fontSize: 'clamp(0.195rem, 0.83vw, 0.75rem)', // text-xs = 0.75rem
               }}
             >
               {element.source}
@@ -272,16 +274,16 @@ export function ElementDetailPage() {
           <div
             className="element-recommendations rounded-xl bg-black/50 shadow-xl backdrop-blur"
             style={{
-              padding: 'clamp(0.312rem, 1.56vw, 1rem)', // p-4 = 1rem
-              borderRadius: 'clamp(0.234rem, 1.17vw, 0.75rem)', // rounded-xl = 0.75rem
+              padding: 'clamp(0.26rem, 1.11vw, 1rem)', // p-4 = 1rem
+              borderRadius: 'clamp(0.195rem, 0.83vw, 0.75rem)', // rounded-xl = 0.75rem
             }}
           >
             <h2
               className="element-recommendation-title font-semibold uppercase text-white/70"
               style={{
-                marginBottom: 'clamp(0.234rem, 1.17vw, 0.75rem)', // mb-3 = 0.75rem
-                fontSize: 'clamp(0.234rem, 1.17vw, 0.75rem)', // text-xs = 0.75rem
-                letterSpacing: 'clamp(0.062rem, 0.312vw, 0.2rem)', // tracking-[0.2em]
+                marginBottom: 'clamp(0.195rem, 0.83vw, 0.75rem)', // mb-3 = 0.75rem
+                fontSize: 'clamp(0.195rem, 0.83vw, 0.75rem)', // text-xs = 0.75rem
+                letterSpacing: '0.2em',
               }}
             >
               Elementos relacionados
@@ -291,7 +293,7 @@ export function ElementDetailPage() {
             <div
               className="flex justify-center"
               style={{
-                gap: 'clamp(0.156rem, 0.78vw, 0.5rem)', // gap-2 = 0.5rem
+                gap: 'clamp(0.13rem, 0.56vw, 0.5rem)', // gap-2 = 0.5rem
               }}
             >
               {recommendations.slice(0, 5).map((item) => {
@@ -312,8 +314,8 @@ export function ElementDetailPage() {
                     }}
                     className="element-recommendation-image aspect-square overflow-hidden border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
                     style={{
-                      width: 'clamp(1.872rem, 9.36vw, 3.75rem)', // w-[60px] = 3.75rem
-                      borderRadius: 'clamp(0.156rem, 0.78vw, 0.5rem)', // rounded-lg = 0.5rem
+                      width: 'clamp(0.975rem, 4.17vw, 3.75rem)', // w-[60px] = 3.75rem
+                      borderRadius: 'clamp(0.13rem, 0.56vw, 0.5rem)', // rounded-lg = 0.5rem
                     }}
                     title={item.element.name}
                   >
