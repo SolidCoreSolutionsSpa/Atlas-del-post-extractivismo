@@ -23,9 +23,9 @@ const iconByCategory = {
 }
 
 const paddingByCategory = {
-  biotic: 'p-1',
+  biotic: 'p-2',
   anthropic: 'p-1.5',
-  physical: 'p-2.5',
+  physical: 'p-2',
 }
 
 const shapeByCategory = {
