@@ -178,13 +178,21 @@
     gap: 0.6vw;
   }
 
-  /* Override TagChip styles for mobile */
-  .element-tags span,
-  .element-tags span > span,
-  .element-tags .flex span {
+  /* Override TagChip styles for mobile - target .text-xs specifically */
+  .element-tags .text-xs,
+  .element-tags .text-xs > span,
+  .element-tags span {
     font-size: 1.4vw !important; /* ~6px at 425px - much smaller */
     padding: 0.3vw 0.6vw !important; /* Smaller padding */
     line-height: 1.1 !important;
+  }
+
+  /* Also override px-3 py-1 from TagChip */
+  .element-tags .text-xs {
+    padding-left: 0.6vw !important;
+    padding-right: 0.6vw !important;
+    padding-top: 0.3vw !important;
+    padding-bottom: 0.3vw !important;
   }
 
   .element-card-main > div:last-child {
