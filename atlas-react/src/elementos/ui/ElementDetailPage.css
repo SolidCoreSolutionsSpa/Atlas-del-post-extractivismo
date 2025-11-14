@@ -71,40 +71,39 @@
   }
 }
 
-/* For screens < 1024px: wider proportions to prevent vertical stretching */
-/* Make width larger relative to height (reduce vertical spacing/padding) */
+/* For screens < 1024px: balanced proportions for tablets and small screens */
 @media (max-width: 1023px) {
   .element-detail-cards {
-    width: 40vw; /* Wider: ~307px at 768px (vs 213px with 27.78vw) */
-    gap: 0.8vw; /* Reduced vertical gap */
+    width: 35vw; /* Narrower: ~269px at 768px */
+    gap: 1vw; /* Slightly more vertical gap */
   }
 
   .element-card-main {
-    padding: 1.5vw 2vw; /* Less vertical, more horizontal padding */
+    padding: 1.8vw 2vw; /* More vertical padding */
     border-radius: 0.83vw;
   }
 
   .element-category {
-    font-size: 1.2vw; /* Larger font to reduce content wrapping */
-    margin-bottom: 0.4vw; /* Reduced vertical margin */
+    font-size: 1.2vw;
+    margin-bottom: 0.5vw; /* Slightly more margin */
   }
 
   .element-card-main h1 {
-    font-size: 1.8vw; /* Larger to reduce wrapping */
+    font-size: 1.8vw;
   }
 
   .element-subtitle {
-    margin-top: 0.2vw; /* Minimal vertical spacing */
+    margin-top: 0.3vw; /* Slightly more spacing */
     font-size: 1.5vw;
   }
 
   .element-card-main p {
-    margin-top: 0.8vw; /* Reduced vertical spacing */
+    margin-top: 0.9vw; /* Slightly more spacing */
     font-size: 1.2vw;
   }
 
   .element-tags {
-    margin-top: 0.8vw; /* Reduced vertical spacing */
+    margin-top: 0.9vw; /* Slightly more spacing */
   }
 
   .element-tags > div {
@@ -112,8 +111,8 @@
   }
 
   .element-card-main > div:last-child {
-    margin-top: 0.8vw; /* Reduced vertical spacing */
-    padding-top: 0.6vw;
+    margin-top: 0.9vw; /* Slightly more spacing */
+    padding-top: 0.7vw; /* More top padding */
   }
 
   .element-source {
@@ -121,12 +120,12 @@
   }
 
   .element-recommendations {
-    padding: 1vw 1.5vw; /* Less vertical, more horizontal */
+    padding: 1.2vw 1.5vw; /* More vertical padding */
     border-radius: 0.83vw;
   }
 
   .element-recommendation-title {
-    margin-bottom: 0.6vw; /* Reduced vertical spacing */
+    margin-bottom: 0.7vw; /* More spacing */
     font-size: 1vw;
   }
 
@@ -135,7 +134,7 @@
   }
 
   .element-recommendation-image {
-    width: 5vw; /* Slightly larger images */
+    width: 5vw;
     border-radius: 0.5vw;
   }
 }
