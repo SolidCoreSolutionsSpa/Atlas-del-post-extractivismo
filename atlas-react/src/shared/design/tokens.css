@@ -70,6 +70,8 @@ a {
 /* Night theme styles */
 body.theme-night {
   background: rgb(10, 5, 56);
+  --token-primary: rgb(175 238 238);
+  --token-primary-strong: rgb(175 238 238);
 }
 
 body.theme-night #navbar a {
