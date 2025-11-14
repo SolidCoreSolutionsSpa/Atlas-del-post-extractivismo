@@ -179,10 +179,12 @@
   }
 
   /* Override TagChip styles for mobile */
-  .element-tags span {
-    font-size: 1.6vw !important; /* ~6.8px at 425px */
-    padding: 0.4vw 0.8vw !important; /* Smaller padding */
-    line-height: 1.2 !important;
+  .element-tags span,
+  .element-tags span > span,
+  .element-tags .flex span {
+    font-size: 1.4vw !important; /* ~6px at 425px - much smaller */
+    padding: 0.3vw 0.6vw !important; /* Smaller padding */
+    line-height: 1.1 !important;
   }
 
   .element-card-main > div:last-child {
