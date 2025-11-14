@@ -218,9 +218,9 @@ export function ElementDetailPage() {
                 origin,
               })
             }}
-            className="mt-5 inline-flex w-full items-center justify-center rounded-full border-2 border-white/30 px-5 py-2.5 text-sm font-semibold uppercase tracking-[0.15em] text-white transition hover:border-white hover:bg-white/10"
+            className="mt-4 inline-flex w-full items-center justify-center rounded-full border border-white/30 px-3 py-1.5 text-xs font-medium text-white transition hover:border-white hover:bg-white/10"
           >
-            Volver a la escena
+            ← Volver a la escena
           </button>
         </div>
 
