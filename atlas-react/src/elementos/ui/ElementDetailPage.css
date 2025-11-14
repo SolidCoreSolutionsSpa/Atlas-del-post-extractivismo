@@ -178,13 +178,20 @@
     gap: 0.6vw;
   }
 
+  /* Override TagChip styles for mobile */
+  .element-tags span {
+    font-size: 1.6vw !important; /* ~6.8px at 425px */
+    padding: 0.4vw 0.8vw !important; /* Smaller padding */
+    line-height: 1.2 !important;
+  }
+
   .element-card-main > div:last-child {
     margin-top: 1.2vw;
     padding-top: 0.8vw;
   }
 
   .element-source {
-    font-size: 1.8vw; /* ~7.7px at 425px */
+    font-size: 1.6vw; /* Slightly smaller: ~6.8px at 425px */
   }
 
   .element-recommendations {
