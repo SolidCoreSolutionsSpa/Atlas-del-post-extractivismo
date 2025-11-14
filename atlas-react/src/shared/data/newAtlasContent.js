@@ -173,7 +173,48 @@ export const atlasContent = {
               id: 1,
               name: "biotic",
             },
-            elements: [],
+            elements: [
+              {
+                id: "retroceso-glaciar",
+                title: "Retroceso glaciar",
+                description:
+                  "El retroceso de los glaciares en la zona es una consecuencia directa de las actividades extractivas que alteran el relieve y la hidrología local. La transformación física del territorio afecta los flujos de agua y la estabilidad del suelo glaciar.",
+                source:
+                  "Fuente: Observaciones de cambio climático y actividad extractiva en la zona central de Chile.",
+                image_path: "/img/cases-of-study/provincia-choapa/zones/yacimiento-minero/escenes/glaciares/glaciares.webp",
+                position_left: 35,
+                position_top: 40,
+                affectation_type: {
+                  id: "afectacion-fisica",
+                  name: "Afectacion fisica",
+                },
+                keywords: [
+                  { id: "tag-glaciar", name: "glaciar" },
+                  { id: "tag-fisico", name: "fisico" },
+                  { id: "tag-suelo", name: "suelo" },
+                ],
+              },
+              {
+                id: "erosion-suelo",
+                title: "Erosión del suelo",
+                description:
+                  "Las operaciones mineras generan una transformación profunda del relieve, causando erosión acelerada del suelo. La remoción de vegetación y la exposición de materiales geológicos alteran permanentemente la morfología del terreno.",
+                source:
+                  "Fuente: Estudios de impacto ambiental de proyectos extractivos en Chile.",
+                image_path: "/img/cases-of-study/provincia-choapa/zones/yacimiento-minero/escenes/glaciares/glaciares.webp",
+                position_left: 60,
+                position_top: 55,
+                affectation_type: {
+                  id: "afectacion-fisica",
+                  name: "Afectacion fisica",
+                },
+                keywords: [
+                  { id: "tag-erosion", name: "erosion" },
+                  { id: "tag-fisico", name: "fisico" },
+                  { id: "tag-suelo", name: "suelo" },
+                ],
+              },
+            ],
           },],
         },
         {

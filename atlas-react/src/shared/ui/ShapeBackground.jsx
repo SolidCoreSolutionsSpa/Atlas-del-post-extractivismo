@@ -23,9 +23,13 @@ export function ShapeBackground({
   pulsate = false,
   active = true,
 }) {
+  // Tamaño base - diamante es más grande que las otras formas
+  const sizeClass = shape === 'diamond' ? 'h-12 w-12' : 'h-10 w-10'
+
   // Clases base compartidas por todas las formas
   const baseClasses = clsx(
-    'pointer-events-auto flex h-10 w-10 items-center justify-center bg-white/80 backdrop-blur transition hover:scale-110',
+    'pointer-events-auto flex items-center justify-center bg-white/80 backdrop-blur transition hover:scale-110',
+    sizeClass,
     iconPadding,
     pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
     className,
