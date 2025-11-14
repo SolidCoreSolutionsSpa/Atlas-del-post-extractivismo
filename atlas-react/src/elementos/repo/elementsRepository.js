@@ -80,6 +80,7 @@ const seedElements = allElements.map((item) =>
     name: item.title,
     subtitle: item.title,
     image: item.image_path,
+    detailImagePath: item.detail_image_path ?? null,
     body: item.description,
     source: item.source,
     affectationTypeId: slugify(item.affectation_type?.name || 'Sin clasificar'),

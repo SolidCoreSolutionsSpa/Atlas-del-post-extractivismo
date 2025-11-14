@@ -1,6 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
@@ -33,7 +33,6 @@ export function ElementDetailPage() {
   const { elementId } = useParams()
   const zoomNavigate = useZoomNavigation()
   const { setTheme } = useTheme()
-  const [currentIndex, setCurrentIndex] = useState(0)
   const seed = useMemo(
     () => (elementId ? hashString(elementId) : undefined),
     [elementId],
@@ -42,7 +41,7 @@ export function ElementDetailPage() {
     elementId,
     elementsRepository: inMemoryElementsRepository,
     options: {
-      limit: 4,
+      limit: 5,
       seed,
     },
   })
@@ -50,23 +49,6 @@ export function ElementDetailPage() {
   const element = base?.element ?? null
   const tags = base?.tags ?? []
   const affectationType = base?.affectationType ?? null
-
-  // Reset carousel index when recommendations change
-  useMemo(() => {
-    setCurrentIndex(0)
-  }, [recommendations])
-
-  const handlePrevious = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? recommendations.length - 1 : prev - 1
-    )
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prev) =>
-      prev === recommendations.length - 1 ? 0 : prev + 1
-    )
-  }
 
   const scene = element ? sceneIndex.get(element.sceneId) : null
   const zone = scene ? zoneIndex.get(scene.zoneId) : null
@@ -242,25 +224,22 @@ export function ElementDetailPage() {
           </button>
         </div>
 
-        {/* Panel de recomendaciones - Carousel debajo de la tarjeta principal */}
+        {/* Panel de recomendaciones - Solo imágenes debajo de la tarjeta principal */}
         {recommendations.length > 0 && (
-          <div className="hidden rounded-xl bg-black/50 p-6 shadow-xl backdrop-blur lg:block">
-            <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+          <div className="hidden rounded-xl bg-black/50 p-4 shadow-xl backdrop-blur lg:block">
+            <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
               Elementos relacionados
             </h2>
 
-            {/* Carousel container */}
-            <div className="relative">
-              {/* Current item */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={recommendations[currentIndex].element.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
+            {/* Grid de imágenes - máximo 5, centradas si hay menos */}
+            <div className="flex justify-center gap-2">
+              {recommendations.slice(0, 5).map((item) => {
+                // Solo mostrar si tiene imagen
+                if (!item.element.detailImagePath) return null
+
+                return (
                   <button
+                    key={item.element.id}
                     type="button"
                     onClick={(event) => {
                       const rect = event.currentTarget.getBoundingClientRect()
@@ -268,96 +247,19 @@ export function ElementDetailPage() {
                         x: rect.left + rect.width / 2,
                         y: rect.top + rect.height / 2,
                       }
-                      zoomNavigate(
-                        `/elementos/${recommendations[currentIndex].element.id}`,
-                        { origin }
-                      )
+                      zoomNavigate(`/elementos/${item.element.id}`, { origin })
                     }}
-                    className="w-full rounded-lg border border-white/20 bg-white/10 p-4 text-left transition hover:border-white/40 hover:bg-white/20"
+                    className="aspect-square w-[60px] overflow-hidden rounded-lg border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
+                    title={item.element.name}
                   >
-                    <p className="text-sm font-semibold text-white">
-                      {recommendations[currentIndex].element.name}
-                    </p>
-                    <p className="mt-2 text-xs leading-relaxed text-white/80">
-                      {recommendations[currentIndex].element.body.substring(0, 100)}
-                      {recommendations[currentIndex].element.body.length > 100 ? '...' : ''}
-                    </p>
-                    <p className="mt-2 text-xs text-white/60">
-                      {recommendations[currentIndex].sharedTagIds.length} tag
-                      {recommendations[currentIndex].sharedTagIds.length !== 1 ? 's' : ''} compartido
-                      {recommendations[currentIndex].sharedTagIds.length !== 1 ? 's' : ''}
-                    </p>
+                    <img
+                      src={item.element.detailImagePath}
+                      alt={item.element.name}
+                      className="h-full w-full object-cover"
+                    />
                   </button>
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Navigation arrows */}
-              <div className="mt-4 flex items-center justify-between">
-                <button
-                  type="button"
-                  onClick={handlePrevious}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white hover:bg-white/20"
-                  aria-label="Anterior"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-
-                {/* Indicator dots */}
-                <div className="flex gap-2">
-                  {recommendations.map((_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      onClick={() => setCurrentIndex(index)}
-                      className={clsx(
-                        'h-2 w-2 rounded-full transition',
-                        index === currentIndex
-                          ? 'bg-white'
-                          : 'bg-white/30 hover:bg-white/50'
-                      )}
-                      aria-label={`Ir al elemento ${index + 1}`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:border-white hover:bg-white/20"
-                  aria-label="Siguiente"
-                >
-                  <svg
-                    className="h-4 w-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* Counter */}
-              <p className="mt-3 text-center text-xs text-white/50">
-                {currentIndex + 1} de {recommendations.length}
-              </p>
+                )
+              })}
             </div>
           </div>
         )}
