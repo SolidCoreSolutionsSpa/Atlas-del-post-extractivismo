@@ -163,13 +163,13 @@ export function ElementDetailPage() {
 
       {/* Contenedor de fichas flotantes a la derecha */}
       <div
-        className="element-detail-cards pointer-events-auto absolute flex w-full flex-col"
+        className="element-detail-cards pointer-events-auto absolute flex flex-col"
         style={{
           // Fluid responsive scaling based on 1440p reference
           // At 1440px+: 400px (25rem) max - maintains fixed size
           // Below 1440px: scales proportionally (27.78vw = 400px/1440px)
           // At 320px: ~104px minimum (26% of original)
-          maxWidth: 'clamp(6.5rem, 27.78vw, 25rem)',
+          width: 'clamp(6.5rem, 27.78vw, 25rem)',
           bottom: '5vh',
           right: '5vw',
           gap: 'clamp(0.26rem, 1.11vw, 1rem)', // gap-4 = 1rem
