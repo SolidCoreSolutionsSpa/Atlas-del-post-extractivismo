@@ -71,71 +71,71 @@
   }
 }
 
-/* For screens < 1024px: scale based on 1024px reference */
-/* Values at 1024px: width=284.4px, padding=22.7px, etc. */
+/* For screens < 1024px: wider proportions to prevent vertical stretching */
+/* Make width larger relative to height (reduce vertical spacing/padding) */
 @media (max-width: 1023px) {
   .element-detail-cards {
-    width: 27.78vw; /* 284.4px at 1024px */
-    gap: 1.11vw; /* 11.4px at 1024px */
+    width: 40vw; /* Wider: ~307px at 768px (vs 213px with 27.78vw) */
+    gap: 0.8vw; /* Reduced vertical gap */
   }
 
   .element-card-main {
-    padding: 2.22vw; /* 22.7px at 1024px */
-    border-radius: 0.83vw; /* 8.5px at 1024px */
+    padding: 1.5vw 2vw; /* Less vertical, more horizontal padding */
+    border-radius: 0.83vw;
   }
 
   .element-category {
-    font-size: 0.97vw; /* 9.9px at 1024px */
-    margin-bottom: 0.56vw; /* 5.7px at 1024px */
+    font-size: 1.2vw; /* Larger font to reduce content wrapping */
+    margin-bottom: 0.4vw; /* Reduced vertical margin */
   }
 
   .element-card-main h1 {
-    font-size: 1.44vw; /* 14.7px at 1024px */
+    font-size: 1.8vw; /* Larger to reduce wrapping */
   }
 
   .element-subtitle {
-    margin-top: 0.28vw; /* 2.9px at 1024px */
-    font-size: 1.22vw; /* 12.5px at 1024px */
+    margin-top: 0.2vw; /* Minimal vertical spacing */
+    font-size: 1.5vw;
   }
 
   .element-card-main p {
-    margin-top: 1.11vw; /* 11.4px at 1024px */
-    font-size: 0.97vw; /* 9.9px at 1024px */
+    margin-top: 0.8vw; /* Reduced vertical spacing */
+    font-size: 1.2vw;
   }
 
   .element-tags {
-    margin-top: 1.11vw; /* 11.4px at 1024px */
+    margin-top: 0.8vw; /* Reduced vertical spacing */
   }
 
   .element-tags > div {
-    gap: 0.56vw; /* 5.7px at 1024px */
+    gap: 0.5vw;
   }
 
   .element-card-main > div:last-child {
-    margin-top: 1.11vw; /* 11.4px at 1024px */
-    padding-top: 0.83vw; /* 8.5px at 1024px */
+    margin-top: 0.8vw; /* Reduced vertical spacing */
+    padding-top: 0.6vw;
   }
 
   .element-source {
-    font-size: 0.83vw; /* 8.5px at 1024px */
+    font-size: 1vw;
   }
 
   .element-recommendations {
-    padding: 1.11vw; /* 11.4px at 1024px */
-    border-radius: 0.83vw; /* 8.5px at 1024px */
+    padding: 1vw 1.5vw; /* Less vertical, more horizontal */
+    border-radius: 0.83vw;
   }
 
   .element-recommendation-title {
-    margin-bottom: 0.83vw; /* 8.5px at 1024px */
-    font-size: 0.83vw; /* 8.5px at 1024px */
+    margin-bottom: 0.6vw; /* Reduced vertical spacing */
+    font-size: 1vw;
   }
 
   .element-recommendations > div {
-    gap: 0.56vw; /* 5.7px at 1024px */
+    gap: 0.5vw;
   }
 
   .element-recommendation-image {
-    width: 4.17vw; /* 42.7px at 1024px */
-    border-radius: 0.56vw; /* 5.7px at 1024px */
+    width: 5vw; /* Slightly larger images */
+    border-radius: 0.5vw;
   }
 }
