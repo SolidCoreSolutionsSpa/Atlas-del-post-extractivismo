@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 
 import { useZoomNavigation } from '../hooks/useZoomNavigation.jsx'
+import './Breadcrumbs.css'
 
 export function Breadcrumbs({ items, className }) {
   const zoomNavigate = useZoomNavigation()
