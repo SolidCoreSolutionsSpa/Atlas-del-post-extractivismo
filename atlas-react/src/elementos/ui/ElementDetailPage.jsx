@@ -202,7 +202,12 @@ export function ElementDetailPage() {
             <div className="element-tags">
               <div className="flex flex-wrap">
                 {tags.map((tag) => (
-                  <TagChip key={tag.id} label={tag.label} active />
+                  <TagChip
+                    key={tag.id}
+                    label={tag.label}
+                    active
+                    className="mobile-tag-chip"
+                  />
                 ))}
               </div>
             </div>

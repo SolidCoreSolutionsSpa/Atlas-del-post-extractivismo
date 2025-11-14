@@ -178,18 +178,18 @@
     gap: 0.6vw;
   }
 
-  /* Override ALL TagChip styles for mobile using universal selector */
-  .element-tags *,
-  .element-tags span,
-  .element-tags > div > * {
+  /* Override TagChip with mobile-tag-chip class */
+  .mobile-tag-chip {
     font-size: 1.4vw !important; /* ~6px at 425px - much smaller */
+    padding: 0.3vw 0.6vw !important; /* Smaller padding */
     line-height: 1.1 !important;
   }
 
-  /* Override padding for the chip container */
-  .element-tags > div > span,
-  .element-tags > div > * {
-    padding: 0.3vw 0.6vw !important; /* Smaller padding */
+  /* Target nested spans inside mobile-tag-chip */
+  .mobile-tag-chip span,
+  .mobile-tag-chip > span {
+    font-size: 1.4vw !important;
+    line-height: 1.1 !important;
   }
 
   .element-card-main > div:last-child {
