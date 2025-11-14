@@ -192,7 +192,12 @@ export function ElementDetailPage() {
             <div className="mt-4">
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
-                  <TagChip key={tag.id} label={tag.label} active />
+                  <TagChip
+                    key={tag.id}
+                    label={tag.label}
+                    active
+                    className="border-[#AFEEEE] bg-[#AFEEEE]/20 text-[#AFEEEE]"
+                  />
                 ))}
               </div>
             </div>
