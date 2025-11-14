@@ -251,7 +251,8 @@ export const atlasContent = {
                     "El jilguero destaca dentro de la zona como una de las especies mas abundantes y distribuidas en diversos ambientes. Se encuentra mayormente en matorral costero (6,11 ind/ha), pradera costera (4,81 ind/ha) y plantaciones (2,11 ind/ha).",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 4.4, pp. 860-861). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jilguero/Jilguero.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jilguero/jilguero.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jilguero/jilguero.png",
                   position_left: 24.5,
                   position_top: 32,
                   affectation_type: {
@@ -271,7 +272,8 @@ export const atlasContent = {
                     "En el area de Puerto Punta Chungo, las lineas electricas de 220 kV afectan a las aves por riesgo de electrocucion y colision, interrumpiendo sus rutas de vuelo. Una de las especies mas afectadas es el jote de cabeza negra, con 67 individuos registrados (8,21 %). Para mitigar el impacto se instalan dispositivos anticolision visibles incluso para aves nocturnas.",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 4, p. 796). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jote-cabeza-negra/Jote-cabeza-negra.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jote-cabeza-negra/jote-cabeza-negra.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/jote-cabeza-negra/jote-cabeza-negra.png",
                   position_left: 47.5,
                   position_top: 34.5,
                   affectation_type: {
@@ -291,7 +293,8 @@ export const atlasContent = {
                     "Aunque no es una especie directamente impactada segun los estudios evaluados, su presencia en zonas intervenidas por infraestructura extractiva como luminarias o tendido electrico indica familiaridad con ambientes tecnificados. Esta ave se registra como una de las especies con mayor presencia en la zona.",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 3.15, pp. 285-287). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/diuca/Diuca.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/diuca/diuca.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/diuca/diuca.png",
                   position_left: 74,
                   position_top: 28,
                   affectation_type: {
@@ -311,7 +314,8 @@ export const atlasContent = {
                     "En Puerto Punta Chungo las plantaciones de Eucalyptus globulus cubren 109,13 hectareas (43,8 % del area de influencia), siendo la vegetacion dominante, con un indice de artificializacion de 9,4. Su riego por microaspersor en primavera-verano intensifica la evapotranspiracion junto al puerto.",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulos 3.13 y 4). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/bosques-evapotranspiracion/Bosques-de-evapotranspiracion.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/bosques-evapotranspiracion/bosques-de-evapotranspiracion.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/bosques-evapotranspiracion/eucalipto.png",
                   position_left: 52,
                   position_top: 78,
                   affectation_type: {
@@ -331,7 +335,8 @@ export const atlasContent = {
                     "Se reemplazaron 1.912 luminarias distribuidas en varias areas del proyecto, incluyendo Puerto Punta Chungo. La potencia total instalada en esta zona es de 27,15 kW. La iluminacion en el puerto genera impacto visual nocturno y contribuye a la contaminacion luminica que altera patrones de fauna local.",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 3.5, p. 3-15). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/torres-iluminacion/Luz-del-puerto.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/torres-iluminacion/luz-puerto.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/torres-iluminacion/torres-iluminacion.png",
                   position_left: 36.7,
                   position_top: 45,
                   affectation_type: {
@@ -351,7 +356,8 @@ export const atlasContent = {
                     "El tendido electrico en Puerto Punta Chungo incluye lineas de transmision de 220 kV en doble circuito, esenciales para operar la planta desaladora. Su instalacion afecta rutas de vuelo de aves marinas y genera campos electromagneticos de baja intensidad en zonas ecologicas.",
                   source:
                     "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 4.4, pp. 243-245). SEA, Chile.",
-                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/lineas-electricas/Cables-electricos.jpg",
+                  image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/lineas-electricas/cables-electricos.jpg",
+                  detail_image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/lineas-electricas/lineas-electricas.png",
                   position_left: 84,
                   position_top: 48,
                   affectation_type: {
