@@ -71,21 +71,21 @@
   }
 }
 
-/* For screens < 1024px: balanced proportions for tablets and small screens */
-@media (max-width: 1023px) {
+/* For screens 426px - 1023px: tablets and medium screens */
+@media (min-width: 426px) and (max-width: 1023px) {
   .element-detail-cards {
-    width: 35vw; /* Narrower: ~269px at 768px */
-    gap: 1vw; /* Slightly more vertical gap */
+    width: 35vw; /* ~269px at 768px */
+    gap: 1vw;
   }
 
   .element-card-main {
-    padding: 1.8vw 2vw; /* More vertical padding */
+    padding: 1.8vw 2vw;
     border-radius: 0.83vw;
   }
 
   .element-category {
     font-size: 1.2vw;
-    margin-bottom: 0.5vw; /* Slightly more margin */
+    margin-bottom: 0.5vw;
   }
 
   .element-card-main h1 {
@@ -93,17 +93,17 @@
   }
 
   .element-subtitle {
-    margin-top: 0.3vw; /* Slightly more spacing */
+    margin-top: 0.3vw;
     font-size: 1.5vw;
   }
 
   .element-card-main p {
-    margin-top: 0.9vw; /* Slightly more spacing */
+    margin-top: 0.9vw;
     font-size: 1.2vw;
   }
 
   .element-tags {
-    margin-top: 0.9vw; /* Slightly more spacing */
+    margin-top: 0.9vw;
   }
 
   .element-tags > div {
@@ -111,8 +111,8 @@
   }
 
   .element-card-main > div:last-child {
-    margin-top: 0.9vw; /* Slightly more spacing */
-    padding-top: 0.7vw; /* More top padding */
+    margin-top: 0.9vw;
+    padding-top: 0.7vw;
   }
 
   .element-source {
@@ -120,12 +120,12 @@
   }
 
   .element-recommendations {
-    padding: 1.2vw 1.5vw; /* More vertical padding */
+    padding: 1.2vw 1.5vw;
     border-radius: 0.83vw;
   }
 
   .element-recommendation-title {
-    margin-bottom: 0.7vw; /* More spacing */
+    margin-bottom: 0.7vw;
     font-size: 1vw;
   }
 
@@ -136,5 +136,73 @@
   .element-recommendation-image {
     width: 5vw;
     border-radius: 0.5vw;
+  }
+}
+
+/* For mobile screens <= 425px: compact layout with smaller fonts */
+@media (max-width: 425px) {
+  .element-detail-cards {
+    width: 38vw; /* Slightly wider: ~162px at 425px */
+    gap: 0.8vw;
+  }
+
+  .element-card-main {
+    padding: 1.5vw 1.8vw; /* Reduced padding */
+    border-radius: 1vw;
+  }
+
+  .element-category {
+    font-size: 2vw; /* Smaller font: ~8.5px at 425px */
+    margin-bottom: 0.8vw;
+  }
+
+  .element-card-main h1 {
+    font-size: 2.8vw; /* Smaller font: ~11.9px at 425px */
+  }
+
+  .element-subtitle {
+    margin-top: 0.5vw;
+    font-size: 2.4vw; /* ~10.2px at 425px */
+  }
+
+  .element-card-main p {
+    margin-top: 1.2vw;
+    font-size: 2vw; /* ~8.5px at 425px */
+  }
+
+  .element-tags {
+    margin-top: 1.2vw;
+  }
+
+  .element-tags > div {
+    gap: 0.6vw;
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: 1.2vw;
+    padding-top: 0.8vw;
+  }
+
+  .element-source {
+    font-size: 1.8vw; /* ~7.7px at 425px */
+  }
+
+  .element-recommendations {
+    padding: 1.2vw 1.5vw;
+    border-radius: 1vw;
+  }
+
+  .element-recommendation-title {
+    margin-bottom: 0.8vw;
+    font-size: 1.8vw;
+  }
+
+  .element-recommendations > div {
+    gap: 0.6vw;
+  }
+
+  .element-recommendation-image {
+    width: 6vw; /* ~25.5px at 425px */
+    border-radius: 0.6vw;
   }
 }
