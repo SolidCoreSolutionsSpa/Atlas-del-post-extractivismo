@@ -12,7 +12,13 @@ export function Breadcrumbs({ items, className }) {
   return (
     <nav
       className={clsx(
-        'breadcrumb-nav inline-flex items-center gap-1.5 rounded-xl bg-white/20 px-3 py-2 text-[0.9rem] font-normal shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
+        'breadcrumb-nav inline-flex items-center rounded-xl bg-white/20 shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
+        // Responsive sizing: smaller screens get proportionally smaller breadcrumbs
+        'gap-0.5 px-1.5 py-1 text-[0.55rem]', // < 640px (mobile)
+        'sm:gap-1 sm:px-2 sm:py-1.5 sm:text-[0.65rem]', // >= 640px (small)
+        'md:gap-1.5 md:px-2.5 md:py-1.5 md:text-[0.75rem]', // >= 768px (medium)
+        'lg:gap-1.5 lg:px-3 lg:py-2 lg:text-[0.9rem]', // >= 1024px (large - original size)
+        'font-normal',
         className,
       )}
       style={{ fontFamily: 'Inter, sans-serif' }}
