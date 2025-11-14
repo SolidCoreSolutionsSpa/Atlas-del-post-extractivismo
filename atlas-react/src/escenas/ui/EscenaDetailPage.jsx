@@ -14,6 +14,7 @@ import { zones, caseStudies, elements } from '../../casosDeEstudio/repo/caseStud
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
+import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -74,6 +75,7 @@ export function EscenaDetailPage() {
   const [scene, setScene] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
   useEffect(() => {
     let isMounted = true
@@ -230,6 +232,28 @@ export function EscenaDetailPage() {
         items={breadcrumbItems}
       />
 
+      <button
+        onClick={() => setIsDescriptionModalOpen(true)}
+        className="absolute top-20 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(20,20,40,0.3)] text-white shadow-lg backdrop-blur-sm transition hover:bg-[rgba(20,20,40,0.5)] hover:scale-110 hover:shadow-xl sm:right-6 lg:right-8"
+        aria-label="Ver descripción de la escena"
+        title="Ver descripción"
+      >
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
+
       <div className="pointer-events-none absolute top-28 right-12 flex max-w-sm flex-col items-end gap-3 text-right">
         <h1
           className="text-3xl font-semibold text-white sm:text-4xl"
@@ -268,6 +292,13 @@ export function EscenaDetailPage() {
           </div>
         </div>
       )}
+
+      <DescriptionModal
+        isOpen={isDescriptionModalOpen}
+        onClose={() => setIsDescriptionModalOpen(false)}
+        title={scene.name}
+        description="Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura en el territorio."
+      />
     </motion.section>
   )
 }
