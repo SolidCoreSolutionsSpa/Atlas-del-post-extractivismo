@@ -288,3 +288,100 @@ body.theme-night .radar-point .core {
     height: 40px !important;
   }
 }
+
+/* Responsividad para Breadcrumbs - Aplicado a todas las vistas */
+.breadcrumb-nav {
+  max-width: 50vw !important;
+  overflow: hidden;
+}
+
+.breadcrumb-nav span,
+.breadcrumb-nav a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Ajustes por breakpoint para breadcrumbs */
+@media (max-width: 1400px) {
+  .breadcrumb-nav {
+    max-width: 55vw !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 130px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .breadcrumb-nav {
+    max-width: 60vw !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 110px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .breadcrumb-nav {
+    max-width: 65vw !important;
+    padding: 0.45rem 0.7rem !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 100px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-nav {
+    max-width: 70vw !important;
+    padding: 0.4rem 0.6rem !important;
+    gap: 0.375rem !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 80px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .breadcrumb-nav {
+    max-width: 75vw !important;
+    padding: 0.35rem 0.5rem !important;
+    gap: 0.25rem !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 70px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Landscape mobile */
+@media (orientation: landscape) and (max-height: 600px) {
+  .breadcrumb-nav {
+    max-width: 50vw !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+
+  .breadcrumb-nav span,
+  .breadcrumb-nav a {
+    max-width: 80px;
+    font-size: 0.6rem;
+  }
+}
