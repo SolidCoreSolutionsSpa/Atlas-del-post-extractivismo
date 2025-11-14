@@ -22,7 +22,7 @@ const iconByCategory = {
 const paddingByCategory = {
   biotic: 'p-2', // Con más margen para consistencia
   anthropic: 'p-1.5', // Tamaño medio
-  physical: 'p-2.5', // Más margen para compensar forma triangular
+  physical: 'p-3', // Más margen para mayor separación visual
 }
 
 const shapeByCategory = {
