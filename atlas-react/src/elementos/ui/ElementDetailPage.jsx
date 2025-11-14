@@ -162,11 +162,11 @@ export function ElementDetailPage() {
       />
 
       {/* Contenedor de fichas flotantes a la derecha */}
-      <div className="pointer-events-auto absolute bottom-[5vh] right-[5vw] flex w-full max-w-[400px] flex-col gap-4">
+      <div className="element-detail-cards pointer-events-auto absolute bottom-[5vh] right-[5vw] flex w-full max-w-[400px] flex-col gap-4">
         {/* Ficha flotante con información del elemento */}
-        <div className="rounded-xl bg-black/50 p-8 shadow-2xl backdrop-blur">
+        <div className="element-card-main rounded-xl bg-black/50 p-8 shadow-2xl backdrop-blur">
           {/* Categoría superior */}
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-white/70">
+          <p className="element-category mb-2 text-sm font-bold uppercase tracking-[0.15em] text-white/70">
             {affectationType?.name ?? 'Elemento'}
           </p>
 
@@ -177,7 +177,7 @@ export function ElementDetailPage() {
 
           {/* Subtítulo si existe */}
           {element.subtitle && (
-            <p className="mt-1 text-[1.1rem] italic text-white/80">
+            <p className="element-subtitle mt-1 text-[1.1rem] italic text-white/80">
               {element.subtitle}
             </p>
           )}
@@ -189,7 +189,7 @@ export function ElementDetailPage() {
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="mt-4">
+            <div className="element-tags mt-4">
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <TagChip key={tag.id} label={tag.label} active />
@@ -200,7 +200,7 @@ export function ElementDetailPage() {
 
           {/* Fuente */}
           <div className="mt-4 border-t border-white/20 pt-3">
-            <p className="text-xs leading-relaxed text-white/60">
+            <p className="element-source text-xs leading-relaxed text-white/60">
               {element.source}
             </p>
           </div>
@@ -208,8 +208,8 @@ export function ElementDetailPage() {
 
         {/* Panel de recomendaciones - Solo imágenes debajo de la tarjeta principal */}
         {recommendations.length > 0 && (
-          <div className="hidden rounded-xl bg-black/50 p-4 shadow-xl backdrop-blur lg:block">
-            <h2 className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+          <div className="element-recommendations hidden rounded-xl bg-black/50 p-4 shadow-xl backdrop-blur lg:block">
+            <h2 className="element-recommendation-title mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
               Elementos relacionados
             </h2>
 
@@ -231,7 +231,7 @@ export function ElementDetailPage() {
                       }
                       zoomNavigate(`/elementos/${item.element.id}`, { origin })
                     }}
-                    className="aspect-square w-[60px] overflow-hidden rounded-lg border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
+                    className="element-recommendation-image aspect-square w-[60px] overflow-hidden rounded-lg border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
                     title={item.element.name}
                   >
                     <img
