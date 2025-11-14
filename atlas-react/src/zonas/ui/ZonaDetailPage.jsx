@@ -25,6 +25,12 @@ const paddingByCategory = {
   physical: 'p-1.5', // Tamaño medio
 }
 
+const shapeByCategory = {
+  biotic: 'diamond',
+  anthropic: 'square',
+  physical: 'triangle',
+}
+
 const filterDescriptions = {
   biotic: {
     title: 'Paisajes bioticos',
@@ -184,6 +190,7 @@ export function ZonaDetailPage() {
               iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
+              backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {
