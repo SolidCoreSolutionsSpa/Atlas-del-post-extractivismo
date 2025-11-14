@@ -5,6 +5,7 @@ import clsx from 'clsx'
  *
  * Renderiza diferentes formas geométricas como fondo para iconos.
  * Útil para diferenciar visualmente categorías de afectación.
+ * Todas las formas usan un cuadrado base con clip-path para crear la ilusión de diferentes figuras.
  *
  * @param {Object} props
  * @param {'circle' | 'square' | 'diamond' | 'triangle'} props.shape - Forma del fondo
@@ -30,57 +31,48 @@ export function ShapeBackground({
     className,
   )
 
-  // Renderizar según la forma seleccionada
+  // Definir clip-path según la forma
+  let clipPathStyle = {}
+
   switch (shape) {
     case 'square':
-      return (
-        <div className={clsx(baseClasses, 'rounded-[4px]')}>
-          {children}
-        </div>
-      )
+      // Cuadrado con bordes ligeramente redondeados
+      clipPathStyle = {}
+      break
 
     case 'diamond':
-      // Rombo: cuadrado rotado 45 grados y estirado verticalmente
-      return (
-        <div className="relative h-10 w-10">
-          <div
-            className={clsx(
-              baseClasses,
-              'absolute left-1/2 top-1/2 h-[28px] w-[20px] -translate-x-1/2 -translate-y-1/2 rounded-[2px]',
-            )}
-            style={{ transform: 'translate(-50%, -50%) rotate(45deg)' }}
-          >
-            <div
-              className="flex h-full w-full items-center justify-center"
-              style={{ transform: 'rotate(-45deg)' }}
-            >
-              {children}
-            </div>
-          </div>
-        </div>
-      )
+      // Rombo/diamante: cortamos las 4 esquinas para formar un diamante
+      clipPathStyle = {
+        clipPath: 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)',
+      }
+      break
 
     case 'triangle':
-      // Triángulo equilátero usando clip-path
-      return (
-        <div className="relative h-10 w-10">
-          <div
-            className={clsx(baseClasses, 'rounded-none')}
-            style={{
-              clipPath: 'polygon(50% 10%, 90% 85%, 10% 85%)',
-            }}
-          >
-            <div className="mt-1">{children}</div>
-          </div>
-        </div>
-      )
+      // Triángulo equilátero apuntando hacia arriba
+      clipPathStyle = {
+        clipPath: 'polygon(50% 10%, 90% 85%, 10% 85%)',
+      }
+      break
 
     case 'circle':
     default:
-      return (
-        <div className={clsx(baseClasses, 'rounded-full')}>
-          {children}
-        </div>
-      )
+      // Círculo usando border-radius
+      clipPathStyle = {}
+      break
   }
+
+  const shapeClass = shape === 'circle'
+    ? 'rounded-full'
+    : shape === 'square'
+    ? 'rounded-[4px]'
+    : 'rounded-none'
+
+  return (
+    <div
+      className={clsx(baseClasses, shapeClass)}
+      style={clipPathStyle}
+    >
+      {children}
+    </div>
+  )
 }
