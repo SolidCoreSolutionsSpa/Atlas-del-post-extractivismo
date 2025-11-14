@@ -293,59 +293,76 @@ body.theme-night .radar-point .core {
 .breadcrumb-nav {
   max-width: 48vw !important;
   font-size: 0.85rem !important;
+  white-space: nowrap !important;
+  flex-wrap: nowrap !important;
+}
+
+.breadcrumb-nav span,
+.breadcrumb-nav a {
+  white-space: nowrap !important;
 }
 
 /* Ajustes por breakpoint para breadcrumbs */
 @media (max-width: 1400px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.8rem !important;
-    padding: 0.55rem 0.8rem !important;
+    font-size: 0.78rem !important;
+    padding: 0.55rem 0.75rem !important;
+    gap: 0.5rem !important;
   }
 }
 
 @media (max-width: 1200px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.75rem !important;
-    padding: 0.5rem 0.7rem !important;
-    gap: 0.5rem !important;
+    font-size: 0.72rem !important;
+    padding: 0.5rem 0.65rem !important;
+    gap: 0.45rem !important;
   }
 }
 
 @media (max-width: 1024px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.7rem !important;
-    padding: 0.45rem 0.65rem !important;
-    gap: 0.45rem !important;
+    font-size: 0.66rem !important;
+    padding: 0.45rem 0.6rem !important;
+    gap: 0.4rem !important;
   }
 }
 
 @media (max-width: 768px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.65rem !important;
-    padding: 0.4rem 0.6rem !important;
-    gap: 0.4rem !important;
+    font-size: 0.6rem !important;
+    padding: 0.4rem 0.55rem !important;
+    gap: 0.35rem !important;
   }
 }
 
 @media (max-width: 640px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.6rem !important;
-    padding: 0.35rem 0.55rem !important;
-    gap: 0.35rem !important;
+    font-size: 0.54rem !important;
+    padding: 0.35rem 0.5rem !important;
+    gap: 0.3rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .breadcrumb-nav {
     max-width: 48vw !important;
-    font-size: 0.55rem !important;
-    padding: 0.3rem 0.5rem !important;
-    gap: 0.3rem !important;
+    font-size: 0.48rem !important;
+    padding: 0.3rem 0.45rem !important;
+    gap: 0.25rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .breadcrumb-nav {
+    max-width: 48vw !important;
+    font-size: 0.44rem !important;
+    padding: 0.25rem 0.4rem !important;
+    gap: 0.2rem !important;
   }
 }
 
@@ -353,7 +370,7 @@ body.theme-night .radar-point .core {
 @media (orientation: landscape) and (max-height: 600px) {
   .breadcrumb-nav {
     max-width: 45vw !important;
-    font-size: 0.6rem !important;
+    font-size: 0.56rem !important;
     padding: 0.3rem 0.5rem !important;
     gap: 0.3rem !important;
   }
