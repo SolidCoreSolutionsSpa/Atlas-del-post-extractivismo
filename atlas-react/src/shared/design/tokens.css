@@ -86,6 +86,19 @@ body.theme-night .nav-left a {
   color: #ffffff;
 }
 
+/* Night theme - Tag colors */
+body.theme-night .text-token-primary-strong {
+  color: rgb(175 238 238);
+}
+
+body.theme-night .border-token-primary {
+  border-color: rgb(175 238 238);
+}
+
+body.theme-night .bg-token-surface {
+  background-color: rgba(175, 238, 238, 0.1);
+}
+
 /* Night theme - radar points */
 body.theme-night .radar-point .ring {
   border-color: #ffb23b;
