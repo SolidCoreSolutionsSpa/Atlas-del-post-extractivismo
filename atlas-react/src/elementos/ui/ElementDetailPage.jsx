@@ -179,8 +179,9 @@ export function ElementDetailPage() {
         items={breadcrumbItems}
       />
 
-      {/* Ficha flotante con información del elemento */}
-      <div className="pointer-events-auto absolute bottom-[5vh] right-[5vw] w-full max-w-[400px]">
+      {/* Contenedor de fichas flotantes a la derecha */}
+      <div className="pointer-events-auto absolute bottom-[5vh] right-[5vw] flex w-full max-w-[400px] flex-col gap-4">
+        {/* Ficha flotante con información del elemento */}
         <div className="rounded-xl bg-black/50 p-8 shadow-2xl backdrop-blur">
           {/* Categoría superior */}
           <p className="mb-2 text-sm font-bold uppercase tracking-[0.15em] text-white/70">
@@ -240,12 +241,10 @@ export function ElementDetailPage() {
             Volver a la escena
           </button>
         </div>
-      </div>
 
-      {/* Panel de recomendaciones - Carousel debajo de la tarjeta principal */}
-      {recommendations.length > 0 && (
-        <div className="pointer-events-auto absolute bottom-[5vh] left-[5vw] hidden w-full max-w-[350px] lg:block">
-          <div className="rounded-xl bg-black/50 p-6 shadow-xl backdrop-blur">
+        {/* Panel de recomendaciones - Carousel debajo de la tarjeta principal */}
+        {recommendations.length > 0 && (
+          <div className="hidden rounded-xl bg-black/50 p-6 shadow-xl backdrop-blur lg:block">
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
               Elementos relacionados
             </h2>
@@ -361,8 +360,8 @@ export function ElementDetailPage() {
               </p>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </motion.section>
   )
 }
