@@ -166,29 +166,28 @@ export function ElementDetailPage() {
         className="element-detail-cards pointer-events-auto absolute flex flex-col"
         style={{
           // Fluid responsive scaling based on 1440p reference
-          // At 1440px+: 400px (25rem) max - maintains fixed size
-          // Below 1440px: scales proportionally (27.78vw = 400px/1440px)
-          // At 320px: ~89px minimum (22.2% of original - 5.555rem)
-          width: 'clamp(5.555rem, 27.78vw, 25rem)',
+          // Formula: min((px_at_1440p / 1440) * 100vw, max_px)
+          // Scales linearly with viewport, capped at 1440px values
+          width: 'min(27.78vw, 25rem)', // 400px at 1440p
           bottom: '5vh',
           right: '5vw',
-          gap: 'clamp(0.222rem, 1.11vw, 1rem)', // gap-4 = 1rem
+          gap: 'min(1.11vw, 1rem)', // 16px (gap-4) at 1440p
         }}
       >
         {/* Ficha flotante con información del elemento */}
         <div
           className="element-card-main rounded-xl bg-black/50 shadow-2xl backdrop-blur"
           style={{
-            padding: 'clamp(0.444rem, 2.22vw, 2rem)', // p-8 = 2rem
-            borderRadius: 'clamp(0.167rem, 0.83vw, 0.75rem)', // rounded-xl = 0.75rem
+            padding: 'min(2.22vw, 2rem)', // 32px (p-8) at 1440p
+            borderRadius: 'min(0.83vw, 0.75rem)', // 12px (rounded-xl) at 1440p
           }}
         >
           {/* Categoría superior */}
           <p
             className="element-category font-bold uppercase text-white/70"
             style={{
-              fontSize: 'clamp(0.194rem, 0.97vw, 0.875rem)', // text-sm = 0.875rem
-              marginBottom: 'clamp(0.111rem, 0.56vw, 0.5rem)', // mb-2 = 0.5rem
+              fontSize: 'min(0.97vw, 0.875rem)', // 14px (text-sm) at 1440p
+              marginBottom: 'min(0.56vw, 0.5rem)', // 8px (mb-2) at 1440p
               letterSpacing: '0.15em',
             }}
           >
@@ -199,7 +198,7 @@ export function ElementDetailPage() {
           <h1
             className="font-bold leading-tight text-white"
             style={{
-              fontSize: 'clamp(0.289rem, 1.44vw, 1.3rem)', // text-[1.3rem]
+              fontSize: 'min(1.44vw, 1.3rem)', // 20.8px at 1440p
             }}
           >
             {element.name}
@@ -210,8 +209,8 @@ export function ElementDetailPage() {
             <p
               className="element-subtitle italic text-white/80"
               style={{
-                marginTop: 'clamp(0.056rem, 0.28vw, 0.25rem)', // mt-1 = 0.25rem
-                fontSize: 'clamp(0.244rem, 1.22vw, 1.1rem)', // text-[1.1rem]
+                marginTop: 'min(0.28vw, 0.25rem)', // 4px (mt-1) at 1440p
+                fontSize: 'min(1.22vw, 1.1rem)', // 17.6px at 1440p
               }}
             >
               {element.subtitle}
@@ -222,8 +221,8 @@ export function ElementDetailPage() {
           <p
             className="leading-relaxed text-white/90"
             style={{
-              marginTop: 'clamp(0.222rem, 1.11vw, 1rem)', // mt-4 = 1rem
-              fontSize: 'clamp(0.194rem, 0.97vw, 0.875rem)', // text-sm = 0.875rem
+              marginTop: 'min(1.11vw, 1rem)', // 16px (mt-4) at 1440p
+              fontSize: 'min(0.97vw, 0.875rem)', // 14px (text-sm) at 1440p
             }}
           >
             {element.body}
@@ -234,13 +233,13 @@ export function ElementDetailPage() {
             <div
               className="element-tags"
               style={{
-                marginTop: 'clamp(0.222rem, 1.11vw, 1rem)', // mt-4 = 1rem
+                marginTop: 'min(1.11vw, 1rem)', // 16px (mt-4) at 1440p
               }}
             >
               <div
                 className="flex flex-wrap"
                 style={{
-                  gap: 'clamp(0.111rem, 0.56vw, 0.5rem)', // gap-2 = 0.5rem
+                  gap: 'min(0.56vw, 0.5rem)', // 8px (gap-2) at 1440p
                 }}
               >
                 {tags.map((tag) => (
@@ -254,14 +253,14 @@ export function ElementDetailPage() {
           <div
             className="border-t border-white/20"
             style={{
-              marginTop: 'clamp(0.222rem, 1.11vw, 1rem)', // mt-4 = 1rem
-              paddingTop: 'clamp(0.167rem, 0.83vw, 0.75rem)', // pt-3 = 0.75rem
+              marginTop: 'min(1.11vw, 1rem)', // 16px (mt-4) at 1440p
+              paddingTop: 'min(0.83vw, 0.75rem)', // 12px (pt-3) at 1440p
             }}
           >
             <p
               className="element-source leading-relaxed text-white/60"
               style={{
-                fontSize: 'clamp(0.167rem, 0.83vw, 0.75rem)', // text-xs = 0.75rem
+                fontSize: 'min(0.83vw, 0.75rem)', // 12px (text-xs) at 1440p
               }}
             >
               {element.source}
@@ -274,15 +273,15 @@ export function ElementDetailPage() {
           <div
             className="element-recommendations rounded-xl bg-black/50 shadow-xl backdrop-blur"
             style={{
-              padding: 'clamp(0.222rem, 1.11vw, 1rem)', // p-4 = 1rem
-              borderRadius: 'clamp(0.167rem, 0.83vw, 0.75rem)', // rounded-xl = 0.75rem
+              padding: 'min(1.11vw, 1rem)', // 16px (p-4) at 1440p
+              borderRadius: 'min(0.83vw, 0.75rem)', // 12px (rounded-xl) at 1440p
             }}
           >
             <h2
               className="element-recommendation-title font-semibold uppercase text-white/70"
               style={{
-                marginBottom: 'clamp(0.167rem, 0.83vw, 0.75rem)', // mb-3 = 0.75rem
-                fontSize: 'clamp(0.167rem, 0.83vw, 0.75rem)', // text-xs = 0.75rem
+                marginBottom: 'min(0.83vw, 0.75rem)', // 12px (mb-3) at 1440p
+                fontSize: 'min(0.83vw, 0.75rem)', // 12px (text-xs) at 1440p
                 letterSpacing: '0.2em',
               }}
             >
@@ -293,7 +292,7 @@ export function ElementDetailPage() {
             <div
               className="flex justify-center"
               style={{
-                gap: 'clamp(0.111rem, 0.56vw, 0.5rem)', // gap-2 = 0.5rem
+                gap: 'min(0.56vw, 0.5rem)', // 8px (gap-2) at 1440p
               }}
             >
               {recommendations.slice(0, 5).map((item) => {
@@ -314,8 +313,8 @@ export function ElementDetailPage() {
                     }}
                     className="element-recommendation-image aspect-square overflow-hidden border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
                     style={{
-                      width: 'clamp(0.833rem, 4.17vw, 3.75rem)', // w-[60px] = 3.75rem
-                      borderRadius: 'clamp(0.111rem, 0.56vw, 0.5rem)', // rounded-lg = 0.5rem
+                      width: 'min(4.17vw, 3.75rem)', // 60px at 1440p
+                      borderRadius: 'min(0.56vw, 0.5rem)', // 8px (rounded-lg) at 1440p
                     }}
                     title={item.element.name}
                   >
