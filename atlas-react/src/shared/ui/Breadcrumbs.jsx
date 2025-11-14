@@ -27,6 +27,11 @@ export function Breadcrumbs({ items, className }) {
         paddingTop: 'clamp(0.156rem, 0.78vw, 0.5rem)',
         paddingBottom: 'clamp(0.156rem, 0.78vw, 0.5rem)',
         gap: 'clamp(0.117rem, 0.585vw, 0.375rem)',
+        // Vertical offset compensation: as breadcrumb shrinks, add margin-top to maintain position
+        // At 1024px: 0px additional margin
+        // At 320px: 35px additional margin to compensate for shrinkage and avoid navbar overlap
+        // Formula: marginTop = 50.9px - 4.97vw (linear interpolation between 320px and 1024px viewports)
+        marginTop: 'clamp(0px, calc(50.9px - 4.97vw), 35px)',
       }}
     >
       {items.map((item, index) => (
