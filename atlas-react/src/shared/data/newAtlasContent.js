@@ -4,7 +4,7 @@ export const atlasContent = {
     subtitle: "Entre norte y sur global",
     description:
       "Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.",
-    image_path: "/img/landing/mapa-global.jpg",
+    image_path: "/img/mapa-global.jpg",
   },
   caseOfStudies: [
     {
@@ -13,7 +13,7 @@ export const atlasContent = {
       summary:
         'La minería en el norte de Chile enfrenta una crisis hídrica que ha llevado una nueva era de plantas desalinizadoras que extraen agua del océano Pacífico. Aunque la desalinización ofrece una propuesta "verde", mira como su sostenimiento puede generar controversias socio-ecológicas.',
       image_path: "/img/cases-of-study/provincia-choapa/choapaoficial-1000.jpg",
-      detail_image_path: "/img/landing/mapa-global-de-cobre-T.jpg",
+      detail_image_path: "/img/cases-of-study/provincia-choapa/mapa-global-de-cobre-T.jpg",
       position_left: 29,
       position_top: 65,
       color: "#d57a00",
@@ -394,11 +394,11 @@ export const atlasContent = {
     },
     {
       id: "congo",
-      title: "Kolwezi – Congo",
+      title: "Kolwezi - Congo",
       summary:
         "En las últimas dos décadas, Kolwezi, ciudad minera de la República Democrática del Congo, enfrenta tensiones entre la minería, la degradación ambiental y la rápida urbanización que reconfigura los paisajes como rastros extractivos, minas expuestas, escombreras y sitios abandonados.",
-      image_path: "/img/landing/mapa-global-de-cobalto-T.jpg",
-      detail_image_path: "/img/landing/mapa-global-de-cobalto-T.jpg",
+      image_path: "/img/cases-of-study/kolwezi-congo/mapa-global-de-cobalto-T.jpg",
+      detail_image_path: "/img/cases-of-study/kolwezi-congo/mapa-global-de-cobalto-T.jpg",
       position_left: 29.5,
       position_top: 43,
       color: "#443ad4ff",
@@ -408,11 +408,11 @@ export const atlasContent = {
     },
     {
       id: "indonesia",
-      title: "Sumatera Utara – Indonesia",
+      title: "Sumatera Utara - Indonesia",
       summary:
         "Una de las regiones de aceite de palma más productivas del mundo ha configurado un paisaje de extracción agroindustrial, donde los ciclos de siembra y resiembra desplazan comunidades, reordenan los ecosistemas y consolidan un régimen de monocultivo.",
-      image_path: "/img/landing/mapa-global-de-aceite-T.jpg",
-      detail_image_path: "/img/landing/mapa-global-de-aceite-T.jpg",
+      image_path: "/img/cases-of-study/sumatera-utara-indonesia/mapa-global-de-aceite-T.jpg",
+      detail_image_path: "/img/cases-of-study/sumatera-utara-indonesia/mapa-global-de-aceite-T.jpg",
       position_left: 35.7,
       position_top: 42,
       color: "#e4db66ff",
@@ -422,11 +422,11 @@ export const atlasContent = {
     },
     {
       id: "charleroi",
-      title: "Charleroi – Bélgica",
+      title: "Charleroi - Bélgica",
       summary:
         "El carbón en la década de los 90 era líder mundial en Bélgica. Hoy en día, Charleroi es un territorio post-extractivista en transición, donde el patrimonio industrial se cruza con la reconversión económica y social.",
-      image_path: "/img/landing/mapa-global-de-carbon-T.jpg",
-      detail_image_path: "/img/landing/mapa-global-de-carbon-T.jpg",
+      image_path: "/img/cases-of-study/charleroi-bélgica/mapa-global-de-carbon-T.jpg",
+      detail_image_path: "/img/cases-of-study/charleroi-bélgica/mapa-global-de-carbon-T.jpg",
       position_left: 27.5,
       position_top: 34,
       color: "#1a1a1a",
