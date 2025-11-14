@@ -11,6 +11,7 @@ import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
+import './ElementDetailPage.css'
 
 const panelVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -165,83 +166,41 @@ export function ElementDetailPage() {
       <div
         className="element-detail-cards pointer-events-auto absolute flex flex-col"
         style={{
-          // Fluid responsive scaling based on 1440p reference
-          // Uses viewport width (vw) for continuous linear scaling at all screen sizes
-          // Formula: (px_at_1440p / 1440) * 100vw = X.XXvw
-          width: '27.78vw', // 400px at 1440p, scales proportionally on all screens
           bottom: '5vh',
           right: '5vw',
-          gap: '1.11vw', // 16px (gap-4) at 1440p
         }}
       >
         {/* Ficha flotante con información del elemento */}
-        <div
-          className="element-card-main bg-black/50 shadow-2xl backdrop-blur"
-          style={{
-            padding: '2.22vw', // 32px (p-8) at 1440p
-            borderRadius: '0.83vw', // 12px (rounded-xl) at 1440p
-          }}
-        >
+        <div className="element-card-main bg-black/50 shadow-2xl backdrop-blur">
           {/* Categoría superior */}
           <p
             className="element-category font-bold uppercase text-white/70"
-            style={{
-              fontSize: '0.97vw', // 14px (text-sm) at 1440p
-              marginBottom: '0.56vw', // 8px (mb-2) at 1440p
-              letterSpacing: '0.15em',
-            }}
+            style={{ letterSpacing: '0.15em' }}
           >
             {affectationType?.name ?? 'Elemento'}
           </p>
 
           {/* Título del elemento */}
-          <h1
-            className="font-bold leading-tight text-white"
-            style={{
-              fontSize: '1.44vw', // 20.8px at 1440p
-            }}
-          >
+          <h1 className="font-bold leading-tight text-white">
             {element.name}
           </h1>
 
           {/* Subtítulo si existe */}
           {element.subtitle && (
-            <p
-              className="element-subtitle italic text-white/80"
-              style={{
-                marginTop: '0.28vw', // 4px (mt-1) at 1440p
-                fontSize: '1.22vw', // 17.6px at 1440p
-              }}
-            >
+            <p className="element-subtitle italic text-white/80">
               {element.subtitle}
             </p>
           )}
 
           {/* Descripción */}
-          <p
-            className="leading-relaxed text-white/90"
-            style={{
-              marginTop: '1.11vw', // 16px (mt-4) at 1440p
-              fontSize: '0.97vw', // 14px (text-sm) at 1440p
-            }}
-          >
+          <p className="leading-relaxed text-white/90">
             {element.body}
           </p>
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div
-              className="element-tags"
-              style={{
-                marginTop: '1.11vw', // 16px (mt-4) at 1440p
-              }}
-            >
-              <div
-                className="flex flex-wrap"
-                style={{
-                  gap: '0.56vw', // 8px (gap-2) at 1440p
-                }}
-              >
+            <div className="element-tags">
+              <div className="flex flex-wrap">
                 {tags.map((tag) => (
                   <TagChip key={tag.id} label={tag.label} active />
                 ))}
@@ -250,19 +209,8 @@ export function ElementDetailPage() {
           )}
 
           {/* Fuente */}
-          <div
-            className="border-t border-white/20"
-            style={{
-              marginTop: '1.11vw', // 16px (mt-4) at 1440p
-              paddingTop: '0.83vw', // 12px (pt-3) at 1440p
-            }}
-          >
-            <p
-              className="element-source leading-relaxed text-white/60"
-              style={{
-                fontSize: '0.83vw', // 12px (text-xs) at 1440p
-              }}
-            >
+          <div className="border-t border-white/20">
+            <p className="element-source leading-relaxed text-white/60">
               {element.source}
             </p>
           </div>
@@ -270,31 +218,16 @@ export function ElementDetailPage() {
 
         {/* Panel de recomendaciones - Solo imágenes debajo de la tarjeta principal */}
         {recommendations.length > 0 && (
-          <div
-            className="element-recommendations bg-black/50 shadow-xl backdrop-blur"
-            style={{
-              padding: '1.11vw', // 16px (p-4) at 1440p
-              borderRadius: '0.83vw', // 12px (rounded-xl) at 1440p
-            }}
-          >
+          <div className="element-recommendations bg-black/50 shadow-xl backdrop-blur">
             <h2
               className="element-recommendation-title font-semibold uppercase text-white/70"
-              style={{
-                marginBottom: '0.83vw', // 12px (mb-3) at 1440p
-                fontSize: '0.83vw', // 12px (text-xs) at 1440p
-                letterSpacing: '0.2em',
-              }}
+              style={{ letterSpacing: '0.2em' }}
             >
               Elementos relacionados
             </h2>
 
             {/* Grid de imágenes - máximo 5, centradas si hay menos */}
-            <div
-              className="flex justify-center"
-              style={{
-                gap: '0.56vw', // 8px (gap-2) at 1440p
-              }}
-            >
+            <div className="flex justify-center">
               {recommendations.slice(0, 5).map((item) => {
                 // Solo mostrar si tiene imagen
                 if (!item.element.detailImagePath) return null
@@ -312,10 +245,6 @@ export function ElementDetailPage() {
                       zoomNavigate(`/elementos/${item.element.id}`, { origin })
                     }}
                     className="element-recommendation-image aspect-square overflow-hidden border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
-                    style={{
-                      width: '4.17vw', // 60px at 1440p
-                      borderRadius: '0.56vw', // 8px (rounded-lg) at 1440p
-                    }}
                     title={item.element.name}
                   >
                     <img

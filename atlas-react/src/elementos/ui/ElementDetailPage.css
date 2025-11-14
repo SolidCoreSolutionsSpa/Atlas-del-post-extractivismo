@@ -1,0 +1,141 @@
+/*
+ * Responsive scaling for Element Detail Page cards
+ * Base reference: 1440p for large screens, 1024p for small screens
+ */
+
+/* For screens >= 1024px: scale based on 1440px reference */
+@media (min-width: 1024px) {
+  .element-detail-cards {
+    width: 27.78vw; /* 400px at 1440px */
+    gap: 1.11vw; /* 16px at 1440px */
+  }
+
+  .element-card-main {
+    padding: 2.22vw; /* 32px at 1440px */
+    border-radius: 0.83vw; /* 12px at 1440px */
+  }
+
+  .element-category {
+    font-size: 0.97vw; /* 14px at 1440px */
+    margin-bottom: 0.56vw; /* 8px at 1440px */
+  }
+
+  .element-card-main h1 {
+    font-size: 1.44vw; /* 20.8px at 1440px */
+  }
+
+  .element-subtitle {
+    margin-top: 0.28vw; /* 4px at 1440px */
+    font-size: 1.22vw; /* 17.6px at 1440px */
+  }
+
+  .element-card-main p {
+    margin-top: 1.11vw; /* 16px at 1440px */
+    font-size: 0.97vw; /* 14px at 1440px */
+  }
+
+  .element-tags {
+    margin-top: 1.11vw; /* 16px at 1440px */
+  }
+
+  .element-tags > div {
+    gap: 0.56vw; /* 8px at 1440px */
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: 1.11vw; /* 16px at 1440px */
+    padding-top: 0.83vw; /* 12px at 1440px */
+  }
+
+  .element-source {
+    font-size: 0.83vw; /* 12px at 1440px */
+  }
+
+  .element-recommendations {
+    padding: 1.11vw; /* 16px at 1440px */
+    border-radius: 0.83vw; /* 12px at 1440px */
+  }
+
+  .element-recommendation-title {
+    margin-bottom: 0.83vw; /* 12px at 1440px */
+    font-size: 0.83vw; /* 12px at 1440px */
+  }
+
+  .element-recommendations > div {
+    gap: 0.56vw; /* 8px at 1440px */
+  }
+
+  .element-recommendation-image {
+    width: 4.17vw; /* 60px at 1440px */
+    border-radius: 0.56vw; /* 8px at 1440px */
+  }
+}
+
+/* For screens < 1024px: scale based on 1024px reference */
+/* Values at 1024px: width=284.4px, padding=22.7px, etc. */
+@media (max-width: 1023px) {
+  .element-detail-cards {
+    width: 27.78vw; /* 284.4px at 1024px */
+    gap: 1.11vw; /* 11.4px at 1024px */
+  }
+
+  .element-card-main {
+    padding: 2.22vw; /* 22.7px at 1024px */
+    border-radius: 0.83vw; /* 8.5px at 1024px */
+  }
+
+  .element-category {
+    font-size: 0.97vw; /* 9.9px at 1024px */
+    margin-bottom: 0.56vw; /* 5.7px at 1024px */
+  }
+
+  .element-card-main h1 {
+    font-size: 1.44vw; /* 14.7px at 1024px */
+  }
+
+  .element-subtitle {
+    margin-top: 0.28vw; /* 2.9px at 1024px */
+    font-size: 1.22vw; /* 12.5px at 1024px */
+  }
+
+  .element-card-main p {
+    margin-top: 1.11vw; /* 11.4px at 1024px */
+    font-size: 0.97vw; /* 9.9px at 1024px */
+  }
+
+  .element-tags {
+    margin-top: 1.11vw; /* 11.4px at 1024px */
+  }
+
+  .element-tags > div {
+    gap: 0.56vw; /* 5.7px at 1024px */
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: 1.11vw; /* 11.4px at 1024px */
+    padding-top: 0.83vw; /* 8.5px at 1024px */
+  }
+
+  .element-source {
+    font-size: 0.83vw; /* 8.5px at 1024px */
+  }
+
+  .element-recommendations {
+    padding: 1.11vw; /* 11.4px at 1024px */
+    border-radius: 0.83vw; /* 8.5px at 1024px */
+  }
+
+  .element-recommendation-title {
+    margin-bottom: 0.83vw; /* 8.5px at 1024px */
+    font-size: 0.83vw; /* 8.5px at 1024px */
+  }
+
+  .element-recommendations > div {
+    gap: 0.56vw; /* 5.7px at 1024px */
+  }
+
+  .element-recommendation-image {
+    width: 4.17vw; /* 42.7px at 1024px */
+    border-radius: 0.56vw; /* 5.7px at 1024px */
+  }
+}
