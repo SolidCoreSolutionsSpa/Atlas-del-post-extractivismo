@@ -183,8 +183,9 @@ export function ElementDetailPage() {
       <div
         className="element-detail-cards pointer-events-auto absolute flex flex-col"
         style={{
-          bottom: '5vh',
+          top: '50%', // Punto de anclaje al centro vertical
           right: '5vw',
+          transform: 'translateY(-50%)', // Centra el contenedor desde su punto de anclaje
         }}
       >
         {/* Ficha flotante con información del elemento */}
