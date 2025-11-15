@@ -274,7 +274,7 @@
     gap: 0.8vh; /* Use vh for vertical spacing */
     /* Override centered positioning - use bottom-right corner instead */
     top: auto !important;
-    bottom: 8vh !important;
+    bottom: 6vh !important;
     transform: none !important;
     max-height: 85vh !important; /* Ensure cards don't exceed viewport height minus navbar */
   }
