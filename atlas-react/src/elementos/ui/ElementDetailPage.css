@@ -180,7 +180,7 @@
 
   /* Override TagChip with mobile-tag-chip class */
   .mobile-tag-chip {
-    font-size: 1.4vh !important; /* ~6px at 425px height */
+    font-size: 2vh !important; /* Same as description text: ~8.5px at 425px height */
     padding: 0.3vh 0.6vw !important; /* vh for vertical, vw for horizontal */
     line-height: 1.1 !important;
   }
@@ -188,7 +188,7 @@
   /* Target nested spans inside mobile-tag-chip */
   .mobile-tag-chip span,
   .mobile-tag-chip > span {
-    font-size: 1.4vh !important;
+    font-size: 2vh !important;
     line-height: 1.1 !important;
   }
 
