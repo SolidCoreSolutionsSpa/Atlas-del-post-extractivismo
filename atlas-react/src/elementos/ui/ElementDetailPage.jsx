@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
-import { TagChip } from '../../shared/ui/TagChip'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
@@ -20,6 +19,24 @@ const panelVariants = {
     y: 0,
     transition: { type: 'spring', stiffness: 180, damping: 20 },
   },
+}
+
+// Responsive TagChip that scales font size based on viewport height for landscape mobile
+function ResponsiveTagChip({ label }) {
+  return (
+    <motion.span
+      className="inline-flex items-center gap-1 rounded-full border border-token-primary bg-token-surface font-medium text-token-primary-strong"
+      style={{
+        fontSize: 'clamp(0.5rem, 2vh, 0.75rem)', // Min 8px, scales with vh, max 12px
+        padding: 'clamp(0.15rem, 0.3vh, 0.25rem) clamp(0.4rem, 0.6vw, 0.75rem)',
+        lineHeight: '1.1',
+      }}
+      layout
+      transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+    >
+      <span>{label}</span>
+    </motion.span>
+  )
 }
 
 const sceneIndex = new Map(
@@ -202,10 +219,9 @@ export function ElementDetailPage() {
             <div className="element-tags">
               <div className="flex flex-wrap">
                 {tags.map((tag) => (
-                  <TagChip
+                  <ResponsiveTagChip
                     key={tag.id}
                     label={tag.label}
-                    active
                   />
                 ))}
               </div>
