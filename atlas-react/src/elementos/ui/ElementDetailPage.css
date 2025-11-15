@@ -141,6 +141,11 @@
 
 /* For mobile screens in landscape <= 425px height */
 @media (max-height: 425px) and (orientation: landscape) {
+  /* Override Tailwind CSS variable for text-xs */
+  .element-detail-cards {
+    --text-xs: 2vh;
+  }
+
   .element-detail-cards {
     width: 38vw; /* Based on viewport width in landscape */
     gap: 0.8vh; /* Use vh for vertical spacing */
@@ -176,19 +181,6 @@
 
   .element-tags > div {
     gap: 0.6vh;
-  }
-
-  /* Override Tailwind text-xs directly for all TagChips in landscape mobile */
-  .element-tags .text-xs {
-    font-size: 2vh !important; /* Same as description text: ~8.5px at 425px height */
-    padding: 0.3vh 0.6vw !important; /* vh for vertical, vw for horizontal */
-    line-height: 1.1 !important;
-  }
-
-  /* Also target any nested spans */
-  .element-tags .text-xs span {
-    font-size: 2vh !important;
-    line-height: 1.1 !important;
   }
 
   .element-card-main > div:last-child {
