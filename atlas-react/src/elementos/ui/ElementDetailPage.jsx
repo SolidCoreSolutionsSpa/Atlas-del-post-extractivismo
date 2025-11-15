@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import clsx from 'clsx'
@@ -46,6 +46,16 @@ export function ElementDetailPage() {
       seed,
     },
   })
+
+  // Detect landscape mobile viewport
+  const [isLandscapeMobile, setIsLandscapeMobile] = useState(false)
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-height: 425px) and (orientation: landscape)')
+    const handleChange = (e) => setIsLandscapeMobile(e.matches)
+    handleChange(mediaQuery)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   const element = base?.element ?? null
   const tags = base?.tags ?? []
@@ -202,12 +212,33 @@ export function ElementDetailPage() {
             <div className="element-tags">
               <div className="flex flex-wrap">
                 {tags.map((tag) => (
-                  <TagChip
+                  <span
                     key={tag.id}
-                    label={tag.label}
-                    active
-                    className="mobile-tag-chip"
-                  />
+                    style={isLandscapeMobile ? {
+                      fontSize: '2vh',
+                      padding: '0.3vh 0.6vw',
+                      lineHeight: '1.1',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                      borderRadius: '9999px',
+                      border: '1px solid',
+                      borderColor: 'rgba(255, 255, 255, 0.2)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                      color: 'white',
+                      fontWeight: '500',
+                    } : undefined}
+                  >
+                    {isLandscapeMobile ? (
+                      tag.label
+                    ) : (
+                      <TagChip
+                        label={tag.label}
+                        active
+                        className="mobile-tag-chip"
+                      />
+                    )}
+                  </span>
                 ))}
               </div>
             </div>
