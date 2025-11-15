@@ -178,16 +178,15 @@
     gap: 0.6vh;
   }
 
-  /* Override TagChip with mobile-tag-chip class */
-  .mobile-tag-chip {
+  /* Override Tailwind text-xs directly for all TagChips in landscape mobile */
+  .element-tags .text-xs {
     font-size: 2vh !important; /* Same as description text: ~8.5px at 425px height */
     padding: 0.3vh 0.6vw !important; /* vh for vertical, vw for horizontal */
     line-height: 1.1 !important;
   }
 
-  /* Target nested spans inside mobile-tag-chip */
-  .mobile-tag-chip span,
-  .mobile-tag-chip > span {
+  /* Also target any nested spans */
+  .element-tags .text-xs span {
     font-size: 2vh !important;
     line-height: 1.1 !important;
   }
