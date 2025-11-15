@@ -71,8 +71,74 @@
   }
 }
 
+/* Scale up for very large screens (> 1440px) - allow cards to grow larger */
+@media (min-width: 1441px) {
+  .element-detail-cards {
+    width: clamp(400px, 30vw, 600px); /* Grow from 400px to max 600px */
+    gap: clamp(16px, 1.2vw, 20px);
+  }
+
+  .element-card-main {
+    padding: clamp(32px, 2.4vw, 48px);
+  }
+
+  .element-category {
+    font-size: clamp(14px, 1.05vw, 16px);
+    margin-bottom: clamp(8px, 0.6vw, 10px);
+  }
+
+  .element-card-main h1 {
+    font-size: clamp(20.8px, 1.56vw, 28px);
+  }
+
+  .element-subtitle {
+    margin-top: clamp(4px, 0.3vw, 6px);
+    font-size: clamp(17.6px, 1.32vw, 22px);
+  }
+
+  .element-card-main p {
+    margin-top: clamp(16px, 1.2vw, 20px);
+    font-size: clamp(14px, 1.05vw, 17px);
+  }
+
+  .element-tags {
+    margin-top: clamp(16px, 1.2vw, 20px);
+  }
+
+  .element-tags > div {
+    gap: clamp(8px, 0.6vw, 10px);
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: clamp(16px, 1.2vw, 20px);
+    padding-top: clamp(12px, 0.9vw, 16px);
+  }
+
+  .element-source {
+    font-size: clamp(12px, 0.9vw, 14px);
+  }
+
+  .element-recommendations {
+    padding: clamp(16px, 1.2vw, 20px);
+  }
+
+  .element-recommendation-title {
+    margin-bottom: clamp(12px, 0.9vw, 16px);
+    font-size: clamp(12px, 0.9vw, 14px);
+  }
+
+  .element-recommendations > div {
+    gap: clamp(8px, 0.6vw, 10px);
+  }
+
+  .element-recommendation-image {
+    width: clamp(60px, 4.5vw, 80px);
+  }
+}
+
 /* Cap card sizes on ultra-wide screens where background image has vertical overflow */
-@media (min-width: 1024px) and (min-aspect-ratio: 16/9) {
+/* Only applies to screens between 1024px-1440px to avoid limiting growth on very large screens */
+@media (min-width: 1024px) and (max-width: 1440px) and (min-aspect-ratio: 16/9) {
   .element-detail-cards {
     width: min(27.78vw, 400px); /* Cap at 400px */
   }
