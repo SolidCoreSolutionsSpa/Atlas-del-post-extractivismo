@@ -50,8 +50,11 @@ export function ElementDetailPage() {
   // Detect landscape mobile viewport
   const [isLandscapeMobile, setIsLandscapeMobile] = useState(false)
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-height: 425px) and (orientation: landscape)')
-    const handleChange = (e) => setIsLandscapeMobile(e.matches)
+    const mediaQuery = window.matchMedia('(max-height: 426px) and (orientation: landscape)')
+    const handleChange = (e) => {
+      setIsLandscapeMobile(e.matches)
+      console.log('Landscape mobile detected:', e.matches, 'Height:', window.innerHeight, 'Width:', window.innerWidth)
+    }
     handleChange(mediaQuery)
     mediaQuery.addEventListener('change', handleChange)
     return () => mediaQuery.removeEventListener('change', handleChange)
@@ -216,6 +219,7 @@ export function ElementDetailPage() {
                     key={tag.id}
                     label={tag.label}
                     active
+                    className={isLandscapeMobile ? 'mobile-tag-chip' : undefined}
                     style={isLandscapeMobile ? {
                       fontSize: '2vh',
                       padding: '0.3vh 0.6vw',
