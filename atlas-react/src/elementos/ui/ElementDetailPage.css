@@ -139,84 +139,84 @@
   }
 }
 
-/* For mobile screens <= 425px: compact layout with smaller fonts */
-@media (max-width: 425px) {
+/* For mobile screens in landscape <= 425px height */
+@media (max-height: 425px) and (orientation: landscape) {
   .element-detail-cards {
-    width: 38vw; /* Slightly wider: ~162px at 425px */
-    gap: 0.8vw;
+    width: 38vw; /* Based on viewport width in landscape */
+    gap: 0.8vh; /* Use vh for vertical spacing */
   }
 
   .element-card-main {
-    padding: 1.5vw 1.8vw; /* Reduced padding */
+    padding: 1.5vh 1.8vw; /* vh for vertical, vw for horizontal */
     border-radius: 1vw;
   }
 
   .element-category {
-    font-size: 2vw; /* Smaller font: ~8.5px at 425px */
-    margin-bottom: 0.8vw;
+    font-size: 2vh; /* Based on height: ~8.5px at 425px height */
+    margin-bottom: 0.8vh;
   }
 
   .element-card-main h1 {
-    font-size: 2.8vw; /* Smaller font: ~11.9px at 425px */
+    font-size: 2.8vh; /* ~11.9px at 425px height */
   }
 
   .element-subtitle {
-    margin-top: 0.5vw;
-    font-size: 2.4vw; /* ~10.2px at 425px */
+    margin-top: 0.5vh;
+    font-size: 2.4vh; /* ~10.2px at 425px height */
   }
 
   .element-card-main p {
-    margin-top: 1.2vw;
-    font-size: 2vw; /* ~8.5px at 425px */
+    margin-top: 1.2vh;
+    font-size: 2vh; /* ~8.5px at 425px height */
   }
 
   .element-tags {
-    margin-top: 1.2vw;
+    margin-top: 1.2vh;
   }
 
   .element-tags > div {
-    gap: 0.6vw;
+    gap: 0.6vh;
   }
 
   /* Override TagChip with mobile-tag-chip class */
   .mobile-tag-chip {
-    font-size: 1.4vw !important; /* ~6px at 425px - much smaller */
-    padding: 0.3vw 0.6vw !important; /* Smaller padding */
+    font-size: 1.4vh !important; /* ~6px at 425px height */
+    padding: 0.3vh 0.6vw !important; /* vh for vertical, vw for horizontal */
     line-height: 1.1 !important;
   }
 
   /* Target nested spans inside mobile-tag-chip */
   .mobile-tag-chip span,
   .mobile-tag-chip > span {
-    font-size: 1.4vw !important;
+    font-size: 1.4vh !important;
     line-height: 1.1 !important;
   }
 
   .element-card-main > div:last-child {
-    margin-top: 1.2vw;
-    padding-top: 0.8vw;
+    margin-top: 1.2vh;
+    padding-top: 0.8vh;
   }
 
   .element-source {
-    font-size: 1.6vw; /* Slightly smaller: ~6.8px at 425px */
+    font-size: 1.6vh; /* ~6.8px at 425px height */
   }
 
   .element-recommendations {
-    padding: 1.2vw 1.5vw;
+    padding: 1.2vh 1.5vw; /* vh for vertical, vw for horizontal */
     border-radius: 1vw;
   }
 
   .element-recommendation-title {
-    margin-bottom: 0.8vw;
-    font-size: 1.8vw;
+    margin-bottom: 0.8vh;
+    font-size: 1.8vh;
   }
 
   .element-recommendations > div {
-    gap: 0.6vw;
+    gap: 0.6vw; /* horizontal gap uses vw */
   }
 
   .element-recommendation-image {
-    width: 6vw; /* ~25.5px at 425px */
-    border-radius: 0.6vw;
+    width: 6vh; /* Based on height for square images */
+    border-radius: 0.6vh;
   }
 }
