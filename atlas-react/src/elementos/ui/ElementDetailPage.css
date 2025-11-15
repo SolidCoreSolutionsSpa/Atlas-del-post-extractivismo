@@ -108,6 +108,11 @@
     gap: clamp(6px, 0.4vw, 8px);
   }
 
+  /* Override TagChip font size to match description text */
+  .element-tags span {
+    font-size: clamp(12px, 0.85vw, 15px) !important; /* Same as description text */
+  }
+
   .element-card-main > div:last-child {
     margin-top: clamp(12px, 0.9vw, 16px);
     padding-top: clamp(10px, 0.7vw, 12px);
@@ -170,6 +175,11 @@
 
   .element-tags > div {
     gap: clamp(4px, 0.3vw, 6px);
+  }
+
+  /* Override TagChip font size to match description text */
+  .element-tags span {
+    font-size: clamp(10px, 0.7vw, 13px) !important; /* Same as description text */
   }
 
   .element-card-main > div:last-child {
@@ -236,6 +246,11 @@
 
   .element-tags > div {
     gap: 0.5vw;
+  }
+
+  /* Override TagChip font size to match description text */
+  .element-tags span {
+    font-size: 1.2vw !important; /* Same as description text */
   }
 
   .element-card-main > div:last-child {
@@ -309,6 +324,11 @@
 
   .element-tags > div {
     gap: 0.6vh;
+  }
+
+  /* Override TagChip font size to match description text in landscape mobile */
+  .element-tags span {
+    font-size: 2vh !important; /* Same as description text */
   }
 
   .element-card-main > div:last-child {
