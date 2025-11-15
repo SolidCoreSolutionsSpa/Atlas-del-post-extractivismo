@@ -181,12 +181,11 @@ export function ElementDetailPage() {
 
       {/* Contenedor de fichas flotantes a la derecha */}
       <div
-        className="element-detail-cards pointer-events-auto absolute flex flex-col overflow-y-auto"
+        className="element-detail-cards pointer-events-auto absolute flex flex-col"
         style={{
           top: '50%', // Punto de anclaje al centro vertical
           right: '5vw',
           transform: 'translateY(-50%)', // Centra el contenedor desde su punto de anclaje
-          maxHeight: 'calc(100vh - 10rem)', // Deja espacio para navbar (6-8rem arriba) y margen abajo
         }}
       >
         {/* Ficha flotante con información del elemento */}
