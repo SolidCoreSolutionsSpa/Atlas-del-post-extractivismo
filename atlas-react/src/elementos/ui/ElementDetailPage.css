@@ -332,6 +332,10 @@
   .element-detail-cards {
     width: 38vw; /* Based on viewport width in landscape */
     gap: 0.8vh; /* Use vh for vertical spacing */
+    /* Override centered positioning - use bottom-right corner instead */
+    top: auto !important;
+    bottom: 3vh !important;
+    transform: none !important;
   }
 
   .element-card-main {
