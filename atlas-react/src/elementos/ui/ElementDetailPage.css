@@ -71,6 +71,134 @@
   }
 }
 
+/* Scale down for screens with limited height (avoid navbar/breadcrumb overlap) */
+@media (min-width: 1024px) and (max-height: 900px) {
+  .element-detail-cards {
+    gap: clamp(12px, 0.9vw, 16px);
+  }
+
+  .element-card-main {
+    padding: clamp(24px, 1.8vw, 36px);
+  }
+
+  .element-category {
+    font-size: clamp(12px, 0.85vw, 14px);
+    margin-bottom: clamp(6px, 0.4vw, 8px);
+  }
+
+  .element-card-main h1 {
+    font-size: clamp(18px, 1.25vw, 24px);
+  }
+
+  .element-subtitle {
+    margin-top: clamp(3px, 0.2vw, 4px);
+    font-size: clamp(15px, 1.05vw, 18px);
+  }
+
+  .element-card-main p {
+    margin-top: clamp(12px, 0.9vw, 16px);
+    font-size: clamp(12px, 0.85vw, 15px);
+  }
+
+  .element-tags {
+    margin-top: clamp(12px, 0.9vw, 16px);
+  }
+
+  .element-tags > div {
+    gap: clamp(6px, 0.4vw, 8px);
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: clamp(12px, 0.9vw, 16px);
+    padding-top: clamp(10px, 0.7vw, 12px);
+  }
+
+  .element-source {
+    font-size: clamp(10px, 0.75vw, 12px);
+  }
+
+  .element-recommendations {
+    padding: clamp(12px, 0.9vw, 16px);
+  }
+
+  .element-recommendation-title {
+    margin-bottom: clamp(10px, 0.7vw, 12px);
+    font-size: clamp(10px, 0.75vw, 12px);
+  }
+
+  .element-recommendations > div {
+    gap: clamp(6px, 0.4vw, 8px);
+  }
+
+  .element-recommendation-image {
+    width: clamp(50px, 3.5vw, 65px);
+  }
+}
+
+/* Further scale down for very limited height screens */
+@media (min-width: 1024px) and (max-height: 750px) {
+  .element-detail-cards {
+    gap: clamp(10px, 0.7vw, 12px);
+  }
+
+  .element-card-main {
+    padding: clamp(20px, 1.5vw, 28px);
+  }
+
+  .element-category {
+    font-size: clamp(10px, 0.7vw, 12px);
+    margin-bottom: clamp(4px, 0.3vw, 6px);
+  }
+
+  .element-card-main h1 {
+    font-size: clamp(16px, 1.1vw, 20px);
+  }
+
+  .element-subtitle {
+    margin-top: clamp(2px, 0.15vw, 3px);
+    font-size: clamp(13px, 0.9vw, 16px);
+  }
+
+  .element-card-main p {
+    margin-top: clamp(10px, 0.7vw, 12px);
+    font-size: clamp(10px, 0.7vw, 13px);
+  }
+
+  .element-tags {
+    margin-top: clamp(10px, 0.7vw, 12px);
+  }
+
+  .element-tags > div {
+    gap: clamp(4px, 0.3vw, 6px);
+  }
+
+  .element-card-main > div:last-child {
+    margin-top: clamp(10px, 0.7vw, 12px);
+    padding-top: clamp(8px, 0.5vw, 10px);
+  }
+
+  .element-source {
+    font-size: clamp(9px, 0.65vw, 11px);
+  }
+
+  .element-recommendations {
+    padding: clamp(10px, 0.7vw, 12px);
+  }
+
+  .element-recommendation-title {
+    margin-bottom: clamp(8px, 0.5vw, 10px);
+    font-size: clamp(9px, 0.65vw, 11px);
+  }
+
+  .element-recommendations > div {
+    gap: clamp(4px, 0.3vw, 6px);
+  }
+
+  .element-recommendation-image {
+    width: clamp(45px, 3vw, 55px);
+  }
+}
+
 /* For screens 426px - 1023px: tablets and medium screens */
 @media (min-width: 426px) and (max-width: 1023px) {
   .element-detail-cards {
