@@ -186,6 +186,7 @@ export function ElementDetailPage() {
           top: '50%', // Punto de anclaje al centro vertical
           right: '5vw',
           transform: 'translateY(-50%)', // Centra el contenedor desde su punto de anclaje
+          maxHeight: 'calc(100vh - 13rem)', // Navbar (~6rem) + 10% + margen inferior = espacio reservado
         }}
       >
         {/* Ficha flotante con información del elemento */}
