@@ -139,6 +139,14 @@ export class ElementsRepository {
   async findElementsWithSharedTags(params) {
     throw new Error('ElementsRepository.findElementsWithSharedTags() no implementado')
   }
+
+  /**
+   * @param {string} sceneId
+   * @returns {Promise<import('../model/elementModel').Element[]>}
+   */
+  async findBySceneId(sceneId) {
+    throw new Error('ElementsRepository.findBySceneId() no implementado')
+  }
 }
 
 class InMemoryElementsRepository extends ElementsRepository {
@@ -277,6 +285,10 @@ class InMemoryElementsRepository extends ElementsRepository {
     return Array.from(tagIds)
       .map((id) => this.tagIndex.get(id))
       .filter(Boolean)
+  }
+
+  async findBySceneId(sceneId) {
+    return this.elements.filter((element) => element.sceneId === sceneId)
   }
 }
 

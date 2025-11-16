@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import clsx from 'clsx'
@@ -10,7 +10,9 @@ import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
+import { NavigationArrows } from './NavigationArrows'
 import './ElementDetailPage.css'
+import './NavigationArrows.css'
 
 const panelVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -51,6 +53,8 @@ export function ElementDetailPage() {
   const { elementId } = useParams()
   const zoomNavigate = useZoomNavigation()
   const { setTheme } = useTheme()
+  const [sceneElements, setSceneElements] = useState([])
+
   const seed = useMemo(
     () => (elementId ? hashString(elementId) : undefined),
     [elementId],
@@ -71,6 +75,21 @@ export function ElementDetailPage() {
   const scene = element ? sceneIndex.get(element.sceneId) : null
   const zone = scene ? zoneIndex.get(scene.zoneId) : null
   const caseStudy = zone ? caseIndex.get(zone.caseId) : null
+
+  // Obtener elementos de la escena actual
+  useEffect(() => {
+    async function loadSceneElements() {
+      if (element?.sceneId) {
+        const elements = await inMemoryElementsRepository.findBySceneId(
+          element.sceneId,
+        )
+        setSceneElements(elements)
+      } else {
+        setSceneElements([])
+      }
+    }
+    loadSceneElements()
+  }, [element?.sceneId])
 
   // Apply theme based on element data (always night theme for immersive experience)
   useMemo(() => {
@@ -189,6 +208,12 @@ export function ElementDetailPage() {
           maxHeight: 'calc(100vh - 13rem)', // Navbar (~6rem) + 10% + margen inferior = espacio reservado
         }}
       >
+        {/* Flechas de navegación entre elementos de la escena */}
+        <NavigationArrows
+          currentElementId={elementId}
+          sceneElements={sceneElements}
+        />
+
         {/* Ficha flotante con información del elemento */}
         <div className="element-card-main bg-black/50 shadow-2xl backdrop-blur">
           {/* Categoría superior */}

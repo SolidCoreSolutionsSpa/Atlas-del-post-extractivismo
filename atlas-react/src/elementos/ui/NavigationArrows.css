@@ -1,0 +1,93 @@
+/**
+ * Navigation Arrows Styles
+ * Responsive arrows for navigating between elements in the same scene
+ * Similar style to InfoButton with minimal width and variable height
+ */
+
+.navigation-arrows-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(0.5rem, 1vw, 1rem);
+  z-index: 10;
+}
+
+.navigation-arrow {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 20, 40, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  /* Responsive sizing:
+   * Width: minimal (narrow arrows)
+   * Height: variable, scales with viewport height
+   */
+  width: clamp(1.5rem, 3vh, 2.5rem);
+  height: clamp(6rem, 25vh, 15rem);
+
+  /* Padding for internal spacing */
+  padding: clamp(0.25rem, 0.5vh, 0.5rem);
+}
+
+.navigation-arrow:hover:not(:disabled) {
+  background: rgba(20, 20, 40, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.navigation-arrow:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.navigation-arrow:disabled {
+  background: rgba(20, 20, 40, 0.15);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navigation-arrow-icon {
+  width: 100%;
+  height: auto;
+  max-width: clamp(1rem, 2vh, 1.5rem);
+}
+
+/* Left arrow positioning */
+.navigation-arrow-left {
+  /* Positioned on the left side */
+}
+
+/* Right arrow positioning */
+.navigation-arrow-right {
+  /* Positioned on the right side */
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-height: 600px) {
+  .navigation-arrow {
+    height: clamp(4rem, 20vh, 8rem);
+    width: clamp(1.25rem, 2.5vh, 2rem);
+  }
+}
+
+/* Responsive adjustments for large screens */
+@media (min-height: 900px) {
+  .navigation-arrow {
+    width: clamp(2rem, 3vh, 3rem);
+    height: clamp(8rem, 30vh, 18rem);
+  }
+}
