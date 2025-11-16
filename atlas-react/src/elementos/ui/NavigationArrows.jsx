@@ -1,7 +1,8 @@
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { NavigationArrow } from './NavigationArrow'
 
 /**
- * Navigation arrows component for navigating between elements in the same scene
+ * Navigation arrows container component for navigating between elements in the same scene
+ * Uses the reusable NavigationArrow component
  *
  * @param {Object} props
  * @param {string} props.currentElementId - ID of the current element
@@ -13,8 +14,6 @@ export function NavigationArrows({
   sceneElements = [],
   className = '',
 }) {
-  const zoomNavigate = useZoomNavigation()
-
   if (!sceneElements || sceneElements.length <= 1) {
     return null
   }
@@ -33,66 +32,21 @@ export function NavigationArrows({
   const previousElement = hasPrevious ? sceneElements[currentIndex - 1] : null
   const nextElement = hasNext ? sceneElements[currentIndex + 1] : null
 
-  const handleNavigate = (elementId, event) => {
-    const rect = event.currentTarget.getBoundingClientRect()
-    const origin = {
-      x: rect.left + rect.width / 2,
-      y: rect.top + rect.height / 2,
-    }
-    zoomNavigate(`/elementos/${elementId}`, { origin })
-  }
-
   return (
     <>
-      {/* Left Arrow - pegada al borde izquierdo */}
-      <button
-        type="button"
-        onClick={(event) => previousElement && handleNavigate(previousElement.id, event)}
-        disabled={!hasPrevious}
-        className="navigation-arrow navigation-arrow-left"
-        aria-label={hasPrevious ? `Ir a ${previousElement?.name}` : 'No hay elemento anterior'}
-        title={hasPrevious ? previousElement?.name : 'No hay elemento anterior'}
-      >
-        <svg
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="navigation-arrow-icon"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2.5}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </button>
+      {/* Left/Previous Arrow - pegada al borde izquierdo */}
+      <NavigationArrow
+        direction="previous"
+        targetElement={previousElement}
+        className={className}
+      />
 
-      {/* Right Arrow - pegada al borde derecho */}
-      <button
-        type="button"
-        onClick={(event) => nextElement && handleNavigate(nextElement.id, event)}
-        disabled={!hasNext}
-        className="navigation-arrow navigation-arrow-right"
-        aria-label={hasNext ? `Ir a ${nextElement?.name}` : 'No hay elemento siguiente'}
-        title={hasNext ? nextElement?.name : 'No hay elemento siguiente'}
-      >
-        <svg
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-          className="navigation-arrow-icon"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2.5}
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </button>
+      {/* Right/Next Arrow - pegada al borde derecho */}
+      <NavigationArrow
+        direction="next"
+        targetElement={nextElement}
+        className={className}
+      />
     </>
   )
 }
