@@ -207,12 +207,11 @@ export function CaseStudyDetailPage() {
 
       <button
         onClick={() => setIsDescriptionModalOpen(true)}
-        className="absolute top-28 right-12 flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(20,20,40,0.3)] text-white shadow-lg backdrop-blur-sm transition hover:bg-[rgba(20,20,40,0.5)] hover:scale-110 hover:shadow-xl"
+        className="info-button-responsive absolute flex items-center justify-center rounded-full bg-[rgba(20,20,40,0.3)] text-white shadow-lg backdrop-blur-sm transition hover:bg-[rgba(20,20,40,0.5)] hover:scale-110 hover:shadow-xl"
         aria-label="Ver descripción de la provincia"
         title="Ver descripción"
       >
         <svg
-          className="h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

@@ -46,6 +46,36 @@ body {
   top: clamp(1.75rem, calc(1.75rem + 3vw + 3vh), 10rem) !important;
 }
 
+/* Responsive info button positioning and sizing
+ * Reference: 1024p screen (typically 1024x768)
+ * Scales button size and position based on viewport height
+ *
+ * Button positioning and size:
+ * - Mobile landscape (710x320): top ~40px, right ~20px, size ~20px
+ * - Tablet 1024p (1024x768): top ~96px, right ~48px, size ~40px (REFERENCE)
+ * - Desktop (1920x1080): top ~135px, right ~67px, size ~54px
+ * - Large desktop (2560x1440): top ~180px, right ~90px, size ~60px (capped)
+ *
+ * Formula uses vh for height-based scaling with clamp to prevent extremes
+ */
+.info-button-responsive {
+  /* Position from top: scales with viewport height, reference 12.5vh at 768px = 96px */
+  top: clamp(2.5rem, 12.5vh, 11.25rem) !important;
+
+  /* Position from right: scales with viewport height, reference 6.25vh at 768px = 48px */
+  right: clamp(1.25rem, 6.25vh, 5.625rem) !important;
+
+  /* Button size (width and height): scales with viewport height, reference 5.2vh at 768px = 40px */
+  width: clamp(1.25rem, 5.2vh, 3.75rem) !important;
+  height: clamp(1.25rem, 5.2vh, 3.75rem) !important;
+}
+
+/* Icon inside info button scales proportionally with button */
+.info-button-responsive svg {
+  width: clamp(0.875rem, 3.125vh, 2.25rem) !important;
+  height: clamp(0.875rem, 3.125vh, 2.25rem) !important;
+}
+
 /* Responsive logo scaling */
 .navbar-logo {
   /* Scales from 28px (mobile) to 64px (very large screens) */
