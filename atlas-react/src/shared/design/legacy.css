@@ -308,46 +308,48 @@ body {
 
 /* Responsive map icon hotspot sizes
  * These classes apply to the icon hotspots shown on maps in ZonaDetailPage and EscenaDetailPage
- * Sizes match exactly the FilterPanel icon sizes for visual consistency
+ * IMPORTANT: The internal SVG icon should match FilterPanel icon sizes (24-60px)
+ * Container sizes compensate for padding so the icon inside remains 24-60px
  *
- * Reference sizes (filter-icon-responsive):
- * - Mobile (320px height): 1.5rem (24px)
- * - Tablet (768px height): ~46px (6vh)
- * - Desktop (1080px height): ~65px (6vh)
- * - Large: 3.75rem (60px) max
+ * Reference: FilterPanel icons = clamp(1.5rem, 6vh, 3.75rem) = 24-60px
+ *
+ * Padding compensation:
+ * - p-1.5 = 0.375rem (6px) each side = 0.75rem (12px) total
+ * - p-2 = 0.5rem (8px) each side = 1rem (16px) total
+ * - p-3 = 0.75rem (12px) each side = 1.5rem (24px) total
  */
 
-/* Base size for all shapes - matches filter-icon-responsive exactly */
+/* Base size for circle/square with p-1.5 padding (most common) */
 .map-icon-base-responsive {
-  /* Same size as FilterPanel icons for consistency
-   * Mobile: 1.5rem (24px)
-   * Ideal: 6vh (scales proportionally)
-   * Desktop large: 3.75rem (60px)
+  /* Container size compensates for p-1.5 padding (0.75rem total)
+   * So internal icon = 24-60px (same as FilterPanel)
+   * Mobile: 1.5rem + 0.75rem = 2.25rem (36px container, 24px icon)
+   * Desktop: 3.75rem + 0.75rem = 4.5rem (72px container, 60px icon)
    */
-  width: clamp(1.5rem, 6vh, 3.75rem) !important;
-  height: clamp(1.5rem, 6vh, 3.75rem) !important;
+  width: clamp(2.25rem, calc(6vh + 0.75rem), 4.5rem) !important;
+  height: clamp(2.25rem, calc(6vh + 0.75rem), 4.5rem) !important;
 }
 
-/* Slightly larger for diamond shape (needs space due to rotation) */
+/* Diamond shape with p-2 padding */
 .map-icon-diamond-responsive {
-  /* Diamond needs ~10% more space
-   * Mobile: 1.65rem (26.4px)
-   * Ideal: 6.25vh
-   * Desktop large: 3.9rem (62.4px)
+  /* Container size compensates for p-2 padding (1rem total)
+   * So internal icon = 24-60px (same as FilterPanel)
+   * Mobile: 1.5rem + 1rem = 2.5rem (40px container, 24px icon)
+   * Desktop: 3.75rem + 1rem = 4.75rem (76px container, 60px icon)
    */
-  width: clamp(1.65rem, 6.25vh, 3.9rem) !important;
-  height: clamp(1.65rem, 6.25vh, 3.9rem) !important;
+  width: clamp(2.5rem, calc(6vh + 1rem), 4.75rem) !important;
+  height: clamp(2.5rem, calc(6vh + 1rem), 4.75rem) !important;
 }
 
-/* Larger for triangle shape (needs more space due to geometry) */
+/* Triangle shape with p-3 padding */
 .map-icon-triangle-responsive {
-  /* Triangle needs ~15% more space
-   * Mobile: 1.75rem (28px)
-   * Ideal: 6.5vh
-   * Desktop large: 4rem (64px)
+  /* Container size compensates for p-3 padding (1.5rem total)
+   * So internal icon = 24-60px (same as FilterPanel)
+   * Mobile: 1.5rem + 1.5rem = 3rem (48px container, 24px icon)
+   * Desktop: 3.75rem + 1.5rem = 5.25rem (84px container, 60px icon)
    */
-  width: clamp(1.75rem, 6.5vh, 4rem) !important;
-  height: clamp(1.75rem, 6.5vh, 4rem) !important;
+  width: clamp(3rem, calc(6vh + 1.5rem), 5.25rem) !important;
+  height: clamp(3rem, calc(6vh + 1.5rem), 5.25rem) !important;
 }
 
 /* Responsive logo scaling */
