@@ -23,8 +23,14 @@ export function ShapeBackground({
   pulsate = false,
   active = true,
 }) {
-  // Tamaño base - diferentes tamaños según la forma
-  const sizeClass = shape === 'triangle' ? 'h-14 w-14' : shape === 'diamond' ? 'h-12 w-12' : 'h-10 w-10'
+  // Tamaño responsivo - diferentes tamaños según la forma
+  // Usa clases CSS responsivas definidas en legacy.css que escalan con viewport
+  const sizeClass =
+    shape === 'triangle'
+      ? 'map-icon-triangle-responsive'
+      : shape === 'diamond'
+      ? 'map-icon-diamond-responsive'
+      : 'map-icon-base-responsive'
 
   // Clases base compartidas por todas las formas
   const baseClasses = clsx(

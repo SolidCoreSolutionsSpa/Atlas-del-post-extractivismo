@@ -306,6 +306,50 @@ body {
   font-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem) !important;
 }
 
+/* Responsive map icon hotspot sizes
+ * These classes apply to the icon hotspots shown on maps in ZonaDetailPage and EscenaDetailPage
+ * Sizes are designed to match the FilterPanel icon sizes for visual consistency
+ *
+ * Reference sizes (filter-icon-responsive):
+ * - Mobile (320px height): ~1.5rem (24px)
+ * - Tablet (768px height): ~46px (6vh)
+ * - Desktop (1080px height): ~65px (6vh)
+ * - Large: ~3.75rem (60px) max
+ */
+
+/* Base size for most shapes (circle, square) */
+.map-icon-base-responsive {
+  /* Size scales with viewport height for consistency
+   * Mobile: 1.75rem (28px) - slightly larger than filter minimum
+   * Ideal: 6vh (scales proportionally)
+   * Desktop large: 4rem (64px) - slightly larger than filter max
+   */
+  width: clamp(1.75rem, 6vh, 4rem) !important;
+  height: clamp(1.75rem, 6vh, 4rem) !important;
+}
+
+/* Larger size for diamond shape */
+.map-icon-diamond-responsive {
+  /* Diamond needs slightly more space due to rotation
+   * Mobile: 2rem (32px)
+   * Ideal: 6.5vh
+   * Desktop large: 4.25rem (68px)
+   */
+  width: clamp(2rem, 6.5vh, 4.25rem) !important;
+  height: clamp(2rem, 6.5vh, 4.25rem) !important;
+}
+
+/* Larger size for triangle shape */
+.map-icon-triangle-responsive {
+  /* Triangle needs more space due to geometry
+   * Mobile: 2.25rem (36px)
+   * Ideal: 7vh
+   * Desktop large: 4.5rem (72px)
+   */
+  width: clamp(2.25rem, 7vh, 4.5rem) !important;
+  height: clamp(2.25rem, 7vh, 4.5rem) !important;
+}
+
 /* Responsive logo scaling */
 .navbar-logo {
   /* Scales from 28px (mobile) to 64px (very large screens) */
