@@ -28,14 +28,20 @@ body {
 }
 
 /* Responsive breadcrumb positioning - maintains proportional distance from navbar
- * Formula: top = navbar_height + proportional_gap
- * - Mobile (~375px): ~73px (navbar ~52px + gap ~21px)
- * - Tablet (~768px): ~106px (navbar ~81px + gap ~25px)
- * - Desktop (~1920px): ~124px (navbar ~114px + gap ~10px)
- * Uses viewport height and width to scale proportionally with navbar
+ * Formula: top = base + viewport-scaled-gap
+ * IMPORTANT: Scales PROPORTIONALLY - small screens = close, large screens = far
+ *
+ * Screen Size Examples (width x height):
+ * - Mobile landscape (710x320): ~84px - CLOSE to navbar
+ * - Tablet portrait (768x1024): ~100px - medium distance
+ * - Desktop (1920x1080): ~135px - well separated
+ * - Large desktop (2560x1440): ~160px - MORE separated
+ *
+ * Formula breakdown: 3.5rem (base 56px) + 3vw (scales with width) + 2vh (scales with height)
+ * This ensures breadcrumbs stay close on small screens and increase distance on larger screens
  */
 .breadcrumb-responsive-top {
-  top: clamp(3.5rem, calc(5vh + 2vw + 2rem), 8.125rem) !important;
+  top: clamp(3.5rem, calc(3.5rem + 3vw + 2vh), 10rem) !important;
 }
 
 /* Responsive logo scaling */
