@@ -183,17 +183,17 @@ body {
    */
   left: clamp(1rem, 4vw, 4rem) !important;
 
-  /* Padding scales
+  /* Padding scales - increased max for better visibility
    * Mobile: 0.375rem (6px)
-   * Desktop: 0.75rem (12px)
+   * Desktop: 1rem (16px) - increased from 0.75rem
    */
-  padding: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+  padding: clamp(0.375rem, 0.75vw + 0.25rem, 1rem) !important;
 
-  /* Gap between buttons scales
+  /* Gap between buttons scales - increased max
    * Mobile: 0.375rem (6px)
-   * Desktop: 0.75rem (12px)
+   * Desktop: 1rem (16px) - increased from 0.75rem
    */
-  gap: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+  gap: clamp(0.375rem, 0.75vw + 0.25rem, 1rem) !important;
 }
 
 /* Responsive filter panel - vertical orientation (Zona/Escena)
@@ -206,41 +206,42 @@ body {
    */
   left: clamp(0.75rem, 1.5vw, 1.5rem) !important;
 
-  /* Padding scales
+  /* Padding scales - increased max for better visibility
    * Mobile: 0.375rem (6px)
-   * Desktop: 0.75rem (12px)
+   * Desktop: 1rem (16px) - increased from 0.75rem
    */
-  padding: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+  padding: clamp(0.375rem, 0.75vw + 0.25rem, 1rem) !important;
 
-  /* Gap between buttons scales
+  /* Gap between buttons scales - increased max
    * Mobile: 0.375rem (6px)
-   * Desktop: 0.75rem (12px)
+   * Desktop: 1rem (16px) - increased from 0.75rem
    */
-  gap: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+  gap: clamp(0.375rem, 0.75vw + 0.25rem, 1rem) !important;
 }
 
 /* Responsive filter button
  * Scales button padding based on viewport
  */
 .filter-button-responsive {
-  /* Padding scales
+  /* Padding scales - increased max for better touch targets
    * Mobile: 0.25rem (4px)
-   * Desktop: 0.5rem (8px)
+   * Desktop: 0.875rem (14px) - increased from 0.5rem
    */
-  padding: clamp(0.25rem, 0.35vw, 0.5rem) !important;
+  padding: clamp(0.25rem, 0.5vw + 0.125rem, 0.875rem) !important;
 }
 
 /* Responsive filter icon
- * Scales icon size based on viewport height
+ * Scales icon size based on viewport height and width
  */
 .filter-icon-responsive {
-  /* Icon size scales with viewport height
+  /* Icon size scales with viewport, grows proportionally
    * Mobile (320px height): ~1.5rem (24px)
-   * Tablet (768px height): ~2rem (32px)
-   * Desktop (1080px height): ~2.5rem (40px)
+   * Tablet (768px height): ~2.5rem (40px)
+   * Desktop (1080px height): ~3.25rem (52px)
+   * Large desktop: ~3.75rem (60px) - increased from 2.5rem
    */
-  width: clamp(1.5rem, 3vh, 2.5rem) !important;
-  height: clamp(1.5rem, 3vh, 2.5rem) !important;
+  width: clamp(1.5rem, 2rem + 2vh, 3.75rem) !important;
+  height: clamp(1.5rem, 2rem + 2vh, 3.75rem) !important;
 }
 
 /* Responsive filter description card
