@@ -20,10 +20,10 @@ export function ViewportDebug() {
     // Detectar si las media queries están matcheando
     const mq320 = window.matchMedia('(orientation: landscape) and (max-height: 320px)')
     const mq375 = window.matchMedia(
-      '(orientation: landscape) and (min-height: 321px) and (max-height: 375px)',
+      '(orientation: landscape) and (min-height: 321px) and (max-height: 385px)',
     )
     const mq425 = window.matchMedia(
-      '(orientation: landscape) and (min-height: 376px) and (max-height: 425px)',
+      '(orientation: landscape) and (min-height: 386px) and (max-height: 435px)',
     )
 
     const updateMediaQueries = () => {
