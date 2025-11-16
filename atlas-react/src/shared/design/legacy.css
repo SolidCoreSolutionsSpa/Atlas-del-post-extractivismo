@@ -231,17 +231,19 @@ body {
 }
 
 /* Responsive filter icon
- * Scales icon size based on viewport height and width
+ * Scales icon size based on viewport height
  */
 .filter-icon-responsive {
-  /* Icon size scales with viewport, grows proportionally
-   * Mobile (320px height): ~1.5rem (24px)
-   * Tablet (768px height): ~2.5rem (40px)
-   * Desktop (1080px height): ~3.25rem (52px)
-   * Large desktop: ~3.75rem (60px) - increased from 2.5rem
+  /* Icon size scales proportionally with viewport height
+   * Mobile (320px height): ~1.5rem (24px) - minimum
+   * Tablet (768px height): ~46px (6vh)
+   * Desktop (1080px height): ~65px (6vh)
+   * Large desktop: ~3.75rem (60px) - capped at maximum
+   *
+   * Formula: purely vh-based for true proportional scaling
    */
-  width: clamp(1.5rem, 2rem + 2vh, 3.75rem) !important;
-  height: clamp(1.5rem, 2rem + 2vh, 3.75rem) !important;
+  width: clamp(1.5rem, 6vh, 3.75rem) !important;
+  height: clamp(1.5rem, 6vh, 3.75rem) !important;
 }
 
 /* Responsive filter description card
@@ -252,14 +254,14 @@ body {
   /* Bottom position scales to stay above the filter panel
    * Formula accounts for: panel bottom + panel height + gap
    * - Panel bottom: clamp(2rem, 5vh, 4rem) = 32-64px
-   * - Panel height: ~36-64px (icons + padding)
-   * - Desired gap: ~16-24px
+   * - Panel height with new icons: ~36-80px (6vh icons + padding)
+   * - Desired gap: ~16-32px
    *
-   * Mobile (320px): 88px from bottom (panel ~32px, height ~40px, gap ~16px)
-   * Tablet (768px): 108px from bottom (panel ~38px, height ~45px, gap ~25px)
-   * Desktop (1080px): 140px from bottom (panel ~64px, height ~60px, gap ~16px)
+   * Mobile (320px): ~96px from bottom (panel ~32px, height ~36px, gap ~28px)
+   * Tablet (768px): ~140px from bottom (panel ~38px, height ~60px, gap ~42px)
+   * Desktop (1080px): ~165px from bottom (panel ~64px, height ~80px, gap ~21px)
    */
-  bottom: clamp(5.5rem, 10vh + 2rem, 14rem) !important;
+  bottom: clamp(6rem, 12vh + 2.5rem, 15rem) !important;
 
   /* Left position scales with viewport width - aligns with panel
    * Mobile: ~1rem (16px) from left
