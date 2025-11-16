@@ -27,6 +27,17 @@ body {
   background: transparent;
 }
 
+/* Responsive breadcrumb positioning - maintains proportional distance from navbar
+ * Formula: top = navbar_height + proportional_gap
+ * - Mobile (~375px): ~73px (navbar ~52px + gap ~21px)
+ * - Tablet (~768px): ~106px (navbar ~81px + gap ~25px)
+ * - Desktop (~1920px): ~124px (navbar ~114px + gap ~10px)
+ * Uses viewport height and width to scale proportionally with navbar
+ */
+.breadcrumb-responsive-top {
+  top: clamp(3.5rem, calc(5vh + 2vw + 2rem), 8.125rem) !important;
+}
+
 /* Responsive logo scaling */
 .navbar-logo {
   /* Scales from 28px (mobile) to 64px (very large screens) */
