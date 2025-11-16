@@ -29,19 +29,21 @@ body {
 
 /* Responsive breadcrumb positioning - maintains proportional distance from navbar
  * Formula: top = base + viewport-scaled-gap
- * IMPORTANT: Scales PROPORTIONALLY - small screens = close, large screens = far
+ * IMPORTANT: Scales PROPORTIONALLY - small screens = VERY close, large screens = far
  *
  * Screen Size Examples (width x height):
- * - Mobile landscape (710x320): ~84px - CLOSE to navbar
- * - Tablet portrait (768x1024): ~100px - medium distance
- * - Desktop (1920x1080): ~135px - well separated
- * - Large desktop (2560x1440): ~160px - MORE separated
+ * - Mobile landscape (710x320): ~63px - PEGADO al navbar (navbar ~63px)
+ * - Tablet portrait (768x1024): ~85px - close distance
+ * - Desktop (1920x1080): ~125px - well separated
+ * - Large desktop (2560x1440): ~152px - MORE separated
  *
- * Formula breakdown: 3.5rem (base 56px) + 3vw (scales with width) + 2vh (scales with height)
- * This ensures breadcrumbs stay close on small screens and increase distance on larger screens
+ * Formula breakdown: 2rem (base 32px) + 3vw + 3vh
+ * - Mobile 710x320: 32 + 21.3 + 9.6 = ~63px (pegado)
+ * - Desktop 2560x1440: 32 + 76.8 + 43.2 = ~152px (separado)
+ * This ensures breadcrumbs are glued to navbar on mobile and properly spaced on large screens
  */
 .breadcrumb-responsive-top {
-  top: clamp(3.5rem, calc(3.5rem + 3vw + 2vh), 10rem) !important;
+  top: clamp(2rem, calc(2rem + 3vw + 3vh), 10rem) !important;
 }
 
 /* Responsive logo scaling */
