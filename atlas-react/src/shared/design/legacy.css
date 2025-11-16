@@ -519,36 +519,36 @@ body {
 
 /* 375px altura landscape */
 @media (orientation: landscape) and (min-height: 321px) and (max-height: 375px) {
-  #contenido {
-    top: 50%;
-    width: 26%;
-    max-height: 62vh;
-    overflow-y: visible;
+  .contenedor #contenido {
+    top: 50% !important;
+    width: 26% !important;
+    max-height: 62vh !important;
+    overflow-y: visible !important;
   }
 
-  #contenido h1 {
+  .contenedor #contenido h1 {
     font-size: 0.88rem !important;
     margin-bottom: 2px !important;
     line-height: 0.96 !important;
   }
 
-  #contenido h2 {
+  .contenedor #contenido h2 {
     font-size: 0.58rem !important;
     margin-bottom: 2px !important;
   }
 
-  #contenido p {
+  .contenedor #contenido p {
     font-size: 0.54rem !important;
     margin-bottom: 2px !important;
     line-height: 1.14 !important;
   }
 
-  .instruccion {
+  .contenedor #contenido p.instruccion {
     font-size: 0.53rem !important;
     margin-top: 2px !important;
   }
 
-  #ingresarBtn {
+  .contenedor #contenido #ingresarBtn {
     padding: 3px 7px !important;
     font-size: 0.54rem !important;
   }
@@ -556,36 +556,36 @@ body {
 
 /* 425px altura landscape */
 @media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
-  #contenido {
-    top: 50%;
-    width: 26%;
-    max-height: 64vh;
-    overflow-y: visible;
+  .contenedor #contenido {
+    top: 50% !important;
+    width: 26% !important;
+    max-height: 64vh !important;
+    overflow-y: visible !important;
   }
 
-  #contenido h1 {
+  .contenedor #contenido h1 {
     font-size: 0.92rem !important;
     margin-bottom: 2px !important;
     line-height: 0.98 !important;
   }
 
-  #contenido h2 {
+  .contenedor #contenido h2 {
     font-size: 0.62rem !important;
     margin-bottom: 3px !important;
   }
 
-  #contenido p {
+  .contenedor #contenido p {
     font-size: 0.58rem !important;
     margin-bottom: 3px !important;
     line-height: 1.16 !important;
   }
 
-  .instruccion {
+  .contenedor #contenido p.instruccion {
     font-size: 0.56rem !important;
     margin-top: 3px !important;
   }
 
-  #ingresarBtn {
+  .contenedor #contenido #ingresarBtn {
     padding: 4px 8px !important;
     font-size: 0.58rem !important;
   }
