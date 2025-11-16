@@ -43,8 +43,8 @@ export function NavigationArrows({
   }
 
   return (
-    <div className={`navigation-arrows-container ${className}`}>
-      {/* Left Arrow */}
+    <>
+      {/* Left Arrow - pegada al borde izquierdo */}
       <button
         type="button"
         onClick={(event) => previousElement && handleNavigate(previousElement.id, event)}
@@ -69,7 +69,7 @@ export function NavigationArrows({
         </svg>
       </button>
 
-      {/* Right Arrow */}
+      {/* Right Arrow - pegada al borde derecho */}
       <button
         type="button"
         onClick={(event) => nextElement && handleNavigate(nextElement.id, event)}
@@ -93,6 +93,6 @@ export function NavigationArrows({
           />
         </svg>
       </button>
-    </div>
+    </>
   )
 }

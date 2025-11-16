@@ -2,29 +2,23 @@
  * Navigation Arrows Styles
  * Responsive arrows for navigating between elements in the same scene
  * Similar style to InfoButton with minimal width and variable height
+ * Arrows are positioned at the left and right edges of the viewport
  */
 
-.navigation-arrows-container {
+.navigation-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 clamp(0.5rem, 1vw, 1rem);
-  z-index: 10;
-}
+  z-index: 20;
 
-.navigation-arrow {
-  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: rgba(20, 20, 40, 0.3);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+
   border: none;
   border-radius: 8px;
   color: white;
@@ -45,12 +39,12 @@
 
 .navigation-arrow:hover:not(:disabled) {
   background: rgba(20, 20, 40, 0.5);
-  transform: scale(1.05);
+  transform: translateY(-50%) scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .navigation-arrow:active:not(:disabled) {
-  transform: scale(0.98);
+  transform: translateY(-50%) scale(0.98);
 }
 
 .navigation-arrow:disabled {
@@ -66,14 +60,14 @@
   max-width: clamp(1rem, 2vh, 1.5rem);
 }
 
-/* Left arrow positioning */
+/* Left arrow - pegada al borde izquierdo */
 .navigation-arrow-left {
-  /* Positioned on the left side */
+  left: clamp(0.5rem, 1vw, 1rem);
 }
 
-/* Right arrow positioning */
+/* Right arrow - pegada al borde derecho */
 .navigation-arrow-right {
-  /* Positioned on the right side */
+  right: clamp(0.5rem, 1vw, 1rem);
 }
 
 /* Responsive adjustments for very small screens */

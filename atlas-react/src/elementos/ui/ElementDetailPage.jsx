@@ -198,6 +198,12 @@ export function ElementDetailPage() {
         items={breadcrumbItems}
       />
 
+      {/* Flechas de navegación entre elementos de la escena - pegadas a los bordes */}
+      <NavigationArrows
+        currentElementId={elementId}
+        sceneElements={sceneElements}
+      />
+
       {/* Contenedor de fichas flotantes a la derecha */}
       <div
         className="element-detail-cards pointer-events-auto absolute flex flex-col"
@@ -208,12 +214,6 @@ export function ElementDetailPage() {
           maxHeight: 'calc(100vh - 13rem)', // Navbar (~6rem) + 10% + margen inferior = espacio reservado
         }}
       >
-        {/* Flechas de navegación entre elementos de la escena */}
-        <NavigationArrows
-          currentElementId={elementId}
-          sceneElements={sceneElements}
-        />
-
         {/* Ficha flotante con información del elemento */}
         <div className="element-card-main bg-black/50 shadow-2xl backdrop-blur">
           {/* Categoría superior */}
