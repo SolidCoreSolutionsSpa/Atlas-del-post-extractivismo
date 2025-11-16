@@ -8,6 +8,7 @@ import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
 import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
 import { LandingPageViewModel } from '../../landingPage/viewModel/LandingPageViewModel'
+import { ViewportDebug } from '../../shared/debug/ViewportDebug'
 
 const hero = atlasContent.hero
 const PARALLAX_FACTOR = 20
@@ -127,6 +128,7 @@ export function LandingPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={transition}
     >
+      <ViewportDebug />
       <div className="contenedor">
         {/* Contenido a la derecha */}
         <motion.div id="contenido">

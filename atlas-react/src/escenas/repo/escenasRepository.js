@@ -45,15 +45,12 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
             theme: sceneEntity.theme,
             map: sceneEntity.map,
           })
-          console.log('🎬 DEBUG escenasRepository - scene created:', createdScene.id, 'zoneId:', createdScene.zoneId, 'image:', createdScene.map.image)
           seedScenes.push(createdScene)
         })
       }
     })
   }
 })
-
-console.log('🎬 DEBUG escenasRepository - Total scenes:', seedScenes.length)
 
 export class InMemoryEscenasRepository extends EscenasRepository {
   constructor({ scenes = seedScenes } = {}) {
