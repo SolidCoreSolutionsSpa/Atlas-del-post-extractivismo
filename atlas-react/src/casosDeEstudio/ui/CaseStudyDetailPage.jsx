@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { Breadcrumbs } from "../../shared/ui/Breadcrumbs";
+import { InfoButton } from "../../shared/ui/InfoButton";
 import { InteractiveMap } from "../../shared/ui/InteractiveMap";
 import { RotatingHotspot } from "../../shared/ui/RotatingHotspot";
 import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
@@ -205,26 +206,11 @@ export function CaseStudyDetailPage() {
         items={breadcrumbItems}
       />
 
-      <button
+      <InfoButton
         onClick={() => setIsDescriptionModalOpen(true)}
-        className="info-button-responsive absolute flex items-center justify-center rounded-full bg-[rgba(20,20,40,0.3)] text-white shadow-lg backdrop-blur-sm transition hover:bg-[rgba(20,20,40,0.5)] hover:scale-110 hover:shadow-xl"
-        aria-label="Ver descripción de la provincia"
+        ariaLabel="Ver descripción de la provincia"
         title="Ver descripción"
-      >
-        <svg
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      </button>
+      />
 
       <FilterPanel
         filterDescriptions={detailMap.filterDescriptions}
