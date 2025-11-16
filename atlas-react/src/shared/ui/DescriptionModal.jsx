@@ -34,24 +34,23 @@ export function DescriptionModal({ isOpen, onClose, title, description }) {
           />
 
           {/* Contenido del modal */}
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4" style={{ pointerEvents: 'none' }}>
+          <div className="modal-wrapper-responsive fixed inset-0 z-[9999] flex items-center justify-center" style={{ pointerEvents: 'none' }}>
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ delay: 0.1, duration: 0.3 }}
-              className="relative max-w-lg w-full rounded-2xl bg-white/85 p-8 shadow-2xl backdrop-blur-sm"
+              className="modal-content-responsive relative w-full rounded-2xl bg-white/85 shadow-2xl backdrop-blur-sm"
               style={{ pointerEvents: 'auto' }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Botón de cerrar */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
+                className="modal-close-button-responsive absolute flex items-center justify-center rounded-full bg-gray-200 text-gray-700 transition hover:bg-gray-300"
                 aria-label="Cerrar modal"
               >
                 <svg
-                  className="h-5 w-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -68,14 +67,14 @@ export function DescriptionModal({ isOpen, onClose, title, description }) {
 
               {/* Título */}
               <h2
-                className="mb-6 text-2xl font-bold text-black pr-8"
+                className="modal-title-responsive font-bold text-black pr-8"
                 style={{ fontFamily: '"Baskervville", serif' }}
               >
                 {title}
               </h2>
 
               {/* Descripción */}
-              <p className="text-base leading-relaxed text-gray-700">
+              <p className="modal-description-responsive text-gray-700">
                 {description}
               </p>
             </motion.div>

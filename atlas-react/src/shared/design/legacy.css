@@ -77,6 +77,96 @@ body {
   height: clamp(0.875rem, 3.125vh, 2.25rem) !important;
 }
 
+/* Responsive modal wrapper positioning
+ * Ensures modal doesn't overlap with navbar on mobile screens
+ * Provides adequate padding that scales with screen size
+ */
+.modal-wrapper-responsive {
+  /* Padding scales from mobile to desktop
+   * Mobile (320px height): ~80px top padding (navbar ~52px + gap ~28px)
+   * Desktop (1080px height): ~16px padding all around
+   */
+  padding: clamp(5rem, 1vh, 1rem) clamp(0.5rem, 2vw, 1rem) !important;
+}
+
+/* Responsive modal content sizing
+ * Scales modal width, padding, and typography based on viewport
+ */
+.modal-content-responsive {
+  /* Modal width scales from small on mobile to large on desktop
+   * Mobile landscape (710px): ~85vw width, max ~90% of screen
+   * Tablet (768px): ~512px (32rem)
+   * Desktop (1920px): ~800px (50rem)
+   */
+  max-width: clamp(22rem, 85vw, 50rem) !important;
+
+  /* Padding scales to keep content readable
+   * Mobile: 1rem (16px)
+   * Desktop: 2.5rem (40px)
+   */
+  padding: clamp(1rem, 2.5vw + 1rem, 2.5rem) !important;
+
+  /* Max height to prevent modal from being taller than viewport minus navbar
+   * Mobile landscape (320px height): ~65vh (208px usable, navbar ~52px)
+   * Desktop (1080px height): ~85vh (918px usable)
+   */
+  max-height: clamp(65vh, 70vh + 5vw, 85vh) !important;
+  overflow-y: auto !important;
+}
+
+/* Responsive modal title */
+.modal-title-responsive {
+  /* Font size scales from mobile to desktop
+   * Mobile: 1.125rem (18px)
+   * Desktop: 2rem (32px)
+   */
+  font-size: clamp(1.125rem, 1rem + 1.5vw, 2rem) !important;
+
+  /* Margin bottom scales proportionally
+   * Mobile: 0.75rem (12px)
+   * Desktop: 1.5rem (24px)
+   */
+  margin-bottom: clamp(0.75rem, 1vw + 0.5rem, 1.5rem) !important;
+}
+
+/* Responsive modal description text */
+.modal-description-responsive {
+  /* Font size scales from mobile to desktop
+   * Mobile: 0.875rem (14px)
+   * Desktop: 1.125rem (18px)
+   */
+  font-size: clamp(0.875rem, 0.75rem + 0.5vw, 1.125rem) !important;
+
+  /* Line height scales for readability
+   * Mobile: 1.4
+   * Desktop: 1.7
+   */
+  line-height: clamp(1.4, 1.3 + 0.5vw, 1.7) !important;
+}
+
+/* Responsive modal close button */
+.modal-close-button-responsive {
+  /* Button size scales with viewport
+   * Mobile: 1.75rem (28px)
+   * Desktop: 2.5rem (40px)
+   */
+  width: clamp(1.75rem, 2rem + 0.5vw, 2.5rem) !important;
+  height: clamp(1.75rem, 2rem + 0.5vw, 2.5rem) !important;
+
+  /* Position from edges scales
+   * Mobile: 0.5rem (8px)
+   * Desktop: 1rem (16px)
+   */
+  top: clamp(0.5rem, 0.75vw, 1rem) !important;
+  right: clamp(0.5rem, 0.75vw, 1rem) !important;
+}
+
+/* Icon inside close button */
+.modal-close-button-responsive svg {
+  width: clamp(1rem, 1.25rem + 0.25vw, 1.5rem) !important;
+  height: clamp(1rem, 1.25rem + 0.25vw, 1.5rem) !important;
+}
+
 /* Responsive logo scaling */
 .navbar-logo {
   /* Scales from 28px (mobile) to 64px (very large screens) */
