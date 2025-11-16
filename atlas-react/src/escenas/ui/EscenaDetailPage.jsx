@@ -230,7 +230,7 @@ export function EscenaDetailPage() {
       />
 
       <Breadcrumbs
-        className="absolute left-4 top-16 sm:left-10 sm:top-20 lg:top-24"
+        className="absolute left-4 sm:left-10 breadcrumb-responsive-top"
         items={breadcrumbItems}
       />
 
