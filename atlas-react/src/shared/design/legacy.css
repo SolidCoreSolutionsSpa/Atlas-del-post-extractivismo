@@ -32,18 +32,18 @@ body {
  * IMPORTANT: Scales PROPORTIONALLY - small screens = VERY close, large screens = far
  *
  * Screen Size Examples (width x height):
- * - Mobile landscape (710x320): ~63px - PEGADO al navbar (navbar ~63px)
- * - Tablet portrait (768x1024): ~85px - close distance
- * - Desktop (1920x1080): ~125px - well separated
- * - Large desktop (2560x1440): ~152px - MORE separated
+ * - Mobile landscape (710x320): ~58px - PEGADO al navbar
+ * - Tablet portrait (768x1024): ~80px - close distance
+ * - Desktop (1920x1080): ~120px - well separated
+ * - Large desktop (2560x1440): ~148px - MORE separated
  *
- * Formula breakdown: 2rem (base 32px) + 3vw + 3vh
- * - Mobile 710x320: 32 + 21.3 + 9.6 = ~63px (pegado)
- * - Desktop 2560x1440: 32 + 76.8 + 43.2 = ~152px (separado)
- * This ensures breadcrumbs are glued to navbar on mobile and properly spaced on large screens
+ * Formula breakdown: 1.75rem (base 28px) + 3vw + 3vh
+ * - Mobile 710x320: 28 + 21.3 + 9.6 = ~59px (pegado al navbar)
+ * - Desktop 2560x1440: 28 + 76.8 + 43.2 = ~148px (bien separado)
+ * Reduced base from 2rem to 1.75rem after removing internal marginTop from Breadcrumbs component
  */
 .breadcrumb-responsive-top {
-  top: clamp(2rem, calc(2rem + 3vw + 3vh), 10rem) !important;
+  top: clamp(1.75rem, calc(1.75rem + 3vw + 3vh), 10rem) !important;
 }
 
 /* Responsive logo scaling */

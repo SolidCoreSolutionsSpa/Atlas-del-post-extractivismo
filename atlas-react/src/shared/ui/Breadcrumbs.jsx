@@ -19,19 +19,15 @@ export function Breadcrumbs({ items, className }) {
       style={{
         fontFamily: 'Inter, sans-serif',
         // Fluid scaling: scales proportionally from 320px to 1024px viewport width
-        // At 1024px: 0.9rem, 12px padding, 6px gap (original size)
-        // At 320px: ~0.28rem, ~3.75px padding, ~1.87px gap (~31% of original)
+        // Minimal padding to keep breadcrumb compact and close to navbar
         fontSize: 'clamp(0.28rem, 0.88vw, 0.9rem)',
         paddingLeft: 'clamp(0.234rem, 1.17vw, 0.75rem)',
         paddingRight: 'clamp(0.234rem, 1.17vw, 0.75rem)',
-        paddingTop: 'clamp(0.156rem, 0.78vw, 0.5rem)',
-        paddingBottom: 'clamp(0.156rem, 0.78vw, 0.5rem)',
+        // Reduced vertical padding to minimize container height
+        paddingTop: 'clamp(0.125rem, 0.4vw, 0.375rem)',
+        paddingBottom: 'clamp(0.125rem, 0.4vw, 0.375rem)',
         gap: 'clamp(0.117rem, 0.585vw, 0.375rem)',
-        // Vertical offset compensation: as breadcrumb shrinks, add margin-top to maintain position
-        // At 1024px: 0px additional margin
-        // At 320px: 35px additional margin to compensate for shrinkage and avoid navbar overlap
-        // Formula: marginTop = 50.9px - 4.97vw (linear interpolation between 320px and 1024px viewports)
-        marginTop: 'clamp(0px, calc(50.9px - 4.97vw), 35px)',
+        // Removed marginTop - positioning is now controlled by breadcrumb-responsive-top class
       }}
     >
       {items.map((item, index) => (
