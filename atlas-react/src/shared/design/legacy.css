@@ -554,13 +554,14 @@ body {
   }
 }
 
-/* 425px altura landscape */
+/* 425px altura landscape - TEST VERSION */
 @media (orientation: landscape) and (min-height: 376px) and (max-height: 425px) {
   .contenedor #contenido {
     top: 50% !important;
     width: 26% !important;
     max-height: 64vh !important;
     overflow-y: visible !important;
+    background-color: rgba(255, 0, 0, 0.1) !important; /* TEST: Si ves un fondo rojo, el CSS se está cargando */
   }
 
   .contenedor #contenido h1 {
