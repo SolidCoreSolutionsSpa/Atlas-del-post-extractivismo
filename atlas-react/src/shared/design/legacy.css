@@ -51,16 +51,17 @@ body {
  * Scales button size and position based on viewport height
  *
  * Button positioning and size:
- * - Mobile landscape (710x320): top ~40px, right ~20px, size ~20px
+ * - Mobile landscape (710x320): top ~64px (below navbar ~52px), right ~20px, size ~20px
  * - Tablet 1024p (1024x768): top ~96px, right ~48px, size ~40px (REFERENCE)
  * - Desktop (1920x1080): top ~135px, right ~67px, size ~54px
  * - Large desktop (2560x1440): top ~180px, right ~90px, size ~60px (capped)
  *
  * Formula uses vh for height-based scaling with clamp to prevent extremes
+ * Minimum 4rem (64px) ensures button stays below navbar on mobile (~52px)
  */
 .info-button-responsive {
   /* Position from top: scales with viewport height, reference 12.5vh at 768px = 96px */
-  top: clamp(2.5rem, 12.5vh, 11.25rem) !important;
+  top: clamp(4rem, 12.5vh, 11.25rem) !important;
 
   /* Position from right: scales with viewport height, reference 6.25vh at 768px = 48px */
   right: clamp(1.25rem, 6.25vh, 5.625rem) !important;
