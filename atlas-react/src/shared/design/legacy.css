@@ -14,15 +14,24 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 25px 5vw;
+  /* Responsive padding: smaller on mobile, larger on desktop */
+  padding: clamp(12px, 2.5vh, 25px) clamp(3vw, 5vw, 5vw);
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 1.1rem;
+  /* Responsive font-size: scales from 0.7rem (small screens) to 1.1rem (large screens) */
+  font-size: clamp(0.7rem, 0.6rem + 0.8vw, 1.1rem);
   z-index: 100;
   font-family: "Inter", sans-serif;
   background: transparent;
+}
+
+/* Responsive logo scaling */
+.navbar-logo {
+  /* Scales from 28px (mobile) to 64px (very large screens) */
+  height: clamp(28px, 2rem + 1vw, 64px);
+  width: auto;
 }
 
 .nav-left {
@@ -39,7 +48,38 @@ body {
 
 .nav-right {
   display: flex;
-  gap: 30px;
+  /* Responsive gap: smaller on mobile, larger on desktop */
+  gap: clamp(12px, 2vw, 30px);
+}
+
+/* Hide nav links on very small screens (< 640px) to prevent overflow */
+@media (max-width: 640px) {
+  .navbar-links {
+    display: none;
+  }
+}
+
+/* Show nav links and adjust spacing on tablets and up */
+@media (min-width: 641px) {
+  .navbar-links {
+    display: flex;
+  }
+}
+
+/* Fine-tune for very large screens to prevent navbar from becoming too large */
+@media (min-width: 1920px) {
+  #navbar {
+    font-size: 1.1rem;
+    padding: 25px 5vw;
+  }
+
+  .navbar-logo {
+    height: 64px;
+  }
+
+  .nav-right {
+    gap: 30px;
+  }
 }
 
 .nav-right a {
@@ -47,6 +87,8 @@ body {
   color: #6f6f6f;
   font-weight: 400;
   transition: color 0.3s ease;
+  /* Ensure text doesn't break on small screens */
+  white-space: nowrap;
 }
 
 .nav-right a:hover {

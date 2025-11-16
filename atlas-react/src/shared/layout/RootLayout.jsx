@@ -1,10 +1,11 @@
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
 import { useTheme } from '../hooks/useTheme'
 import { useOrientation } from '../hooks/useOrientation'
 import { OrientationModal } from '../ui/OrientationModal'
+import { Navbar } from '../ui/Navbar'
 
 const navPlaceholders = [
   { label: 'Sobre el proyecto' },
@@ -24,24 +25,11 @@ export function RootLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-[#f9fafc] text-token-body">
-      <nav id="navbar">
-        <div className="nav-left">
-          <Link to="/">
-            <img src={logoSrc} alt="Atlas del Post-Extractivismo" className="h-12" />
-          </Link>
-        </div>
-        <div className="nav-right ml-auto flex items-center gap-[30px]">
-          {navPlaceholders.map((item) => (
-            <a
-              key={item.label}
-              href="#"
-              className={isLandingPage ? '' : '!text-white'}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </nav>
+      <Navbar
+        logoSrc={logoSrc}
+        navItems={navPlaceholders}
+        isLandingPage={isLandingPage}
+      />
 
       <TransitionProvider>
         <main className="min-h-screen">
