@@ -167,6 +167,135 @@ body {
   height: clamp(1rem, 1.25rem + 0.25vw, 1.5rem) !important;
 }
 
+/* Responsive filter panel - horizontal orientation (CaseStudy)
+ * Scales position, padding, and size based on viewport
+ */
+.filter-panel-horizontal-responsive {
+  /* Bottom position scales from mobile to desktop
+   * Mobile (320px height): ~2rem (32px) from bottom
+   * Desktop (1080px height): ~4rem (64px) from bottom
+   */
+  bottom: clamp(2rem, 5vh, 4rem) !important;
+
+  /* Left position scales with viewport width
+   * Mobile (710px width): ~1rem (16px) from left
+   * Desktop (1920px width): ~4rem (64px) from left
+   */
+  left: clamp(1rem, 4vw, 4rem) !important;
+
+  /* Padding scales
+   * Mobile: 0.375rem (6px)
+   * Desktop: 0.75rem (12px)
+   */
+  padding: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+
+  /* Gap between buttons scales
+   * Mobile: 0.375rem (6px)
+   * Desktop: 0.75rem (12px)
+   */
+  gap: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+}
+
+/* Responsive filter panel - vertical orientation (Zona/Escena)
+ * Scales position, padding, and size based on viewport
+ */
+.filter-panel-vertical-responsive {
+  /* Left position scales with viewport width
+   * Mobile (710px width): ~0.75rem (12px) from left
+   * Desktop (1920px width): ~1.5rem (24px) from left
+   */
+  left: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+
+  /* Padding scales
+   * Mobile: 0.375rem (6px)
+   * Desktop: 0.75rem (12px)
+   */
+  padding: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+
+  /* Gap between buttons scales
+   * Mobile: 0.375rem (6px)
+   * Desktop: 0.75rem (12px)
+   */
+  gap: clamp(0.375rem, 0.5vw + 0.25rem, 0.75rem) !important;
+}
+
+/* Responsive filter button
+ * Scales button padding based on viewport
+ */
+.filter-button-responsive {
+  /* Padding scales
+   * Mobile: 0.25rem (4px)
+   * Desktop: 0.5rem (8px)
+   */
+  padding: clamp(0.25rem, 0.35vw, 0.5rem) !important;
+}
+
+/* Responsive filter icon
+ * Scales icon size based on viewport height
+ */
+.filter-icon-responsive {
+  /* Icon size scales with viewport height
+   * Mobile (320px height): ~1.5rem (24px)
+   * Tablet (768px height): ~2rem (32px)
+   * Desktop (1080px height): ~2.5rem (40px)
+   */
+  width: clamp(1.5rem, 3vh, 2.5rem) !important;
+  height: clamp(1.5rem, 3vh, 2.5rem) !important;
+}
+
+/* Responsive filter description card
+ * Scales position and size based on viewport
+ */
+.filter-description-card-responsive {
+  /* Bottom position scales (for horizontal orientation)
+   * Mobile: ~4rem (64px) from bottom
+   * Desktop: ~10vw from bottom
+   */
+  bottom: clamp(4rem, 10vh, 12rem) !important;
+
+  /* Left position scales with viewport width
+   * Mobile: ~1rem (16px) from left
+   * Desktop: ~4rem (64px) from left
+   */
+  left: clamp(1rem, 4vw, 4rem) !important;
+
+  /* Max width scales
+   * Mobile: ~15rem (240px)
+   * Desktop: ~20rem (320px)
+   */
+  max-width: clamp(15rem, 40vw, 20rem) !important;
+
+  /* Padding scales
+   * Mobile: 0.75rem (12px)
+   * Desktop: 1rem (16px)
+   */
+  padding: clamp(0.75rem, 1vw, 1rem) !important;
+}
+
+/* Responsive description card title */
+.filter-description-title-responsive {
+  /* Font size scales
+   * Mobile: 0.875rem (14px)
+   * Desktop: 1.125rem (18px)
+   */
+  font-size: clamp(0.875rem, 0.75rem + 0.5vw, 1.125rem) !important;
+
+  /* Margin bottom scales
+   * Mobile: 0.25rem (4px)
+   * Desktop: 0.375rem (6px)
+   */
+  margin-bottom: clamp(0.25rem, 0.35vw, 0.375rem) !important;
+}
+
+/* Responsive description card text */
+.filter-description-text-responsive {
+  /* Font size scales
+   * Mobile: 0.75rem (12px)
+   * Desktop: 0.875rem (14px)
+   */
+  font-size: clamp(0.75rem, 0.65rem + 0.3vw, 0.875rem) !important;
+}
+
 /* Responsive logo scaling */
 .navbar-logo {
   /* Scales from 28px (mobile) to 64px (very large screens) */

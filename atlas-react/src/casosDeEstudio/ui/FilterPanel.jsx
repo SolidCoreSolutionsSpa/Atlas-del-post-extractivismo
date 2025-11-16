@@ -53,10 +53,10 @@ export function FilterPanel({
   },
 }) {
   const containerClasses = clsx(
-    'pointer-events-auto absolute flex gap-3 rounded-[15px] bg-white/25 shadow-[0_4px_10px_rgba(0,0,0,0.1)]',
+    'pointer-events-auto absolute flex rounded-[15px] bg-white/25 shadow-[0_4px_10px_rgba(0,0,0,0.1)]',
     orientation === 'horizontal'
-      ? 'bottom-16 left-16 flex-row items-center px-2.5 py-2.5'
-      : 'left-4 top-1/2 -translate-y-1/2 flex-col items-center px-2.5 py-2.5'
+      ? 'filter-panel-horizontal-responsive flex-row items-center'
+      : 'filter-panel-vertical-responsive top-1/2 -translate-y-1/2 flex-col items-center'
   )
 
   const activeFilterInfo = activeFilter ? filterDescriptions[activeFilter] : null
@@ -73,7 +73,7 @@ export function FilterPanel({
             onMouseLeave={() => onFilterChange(null)}
             onBlur={() => onFilterChange(null)}
             className={clsx(
-              'rounded-lg border-2 border-transparent bg-transparent p-1.5 transition-all duration-500',
+              'filter-button-responsive rounded-lg border-2 border-transparent bg-transparent transition-all duration-500',
               activeFilter === category
                 ? 'bg-white/60'
                 : 'hover:bg-white/60',
@@ -84,7 +84,7 @@ export function FilterPanel({
             <img
               src={filterIcons[category]}
               alt=""
-              className="h-10 w-10"
+              className="filter-icon-responsive"
               loading="lazy"
             />
           </button>
@@ -100,12 +100,12 @@ export function FilterPanel({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.2, ease: 'easeInOut' }}
-              className="pointer-events-none absolute bottom-[10vw] left-16 z-[300] max-w-[300px] rounded-[10px] bg-white/90 px-4 py-3 font-sans text-base leading-relaxed shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
+              className="filter-description-card-responsive pointer-events-none absolute z-[300] rounded-[10px] bg-white/90 font-sans leading-relaxed shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
             >
-              <strong className="mb-1.5 block text-lg font-bold text-black">
+              <strong className="filter-description-title-responsive block font-bold text-black">
                 {activeFilterInfo.title}
               </strong>
-              <p className="text-sm text-black">
+              <p className="filter-description-text-responsive text-black">
                 {activeFilterInfo.text}
               </p>
             </motion.div>
