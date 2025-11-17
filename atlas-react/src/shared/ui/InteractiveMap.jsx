@@ -17,7 +17,7 @@ import {
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { SmartTooltip } from './SmartTooltip'
-import { ShapeBackground } from './ShapeBackground'
+import { ShapeIcon } from './ShapeIcon'
 
 export const MapParallaxContext = createContext(null)
 
@@ -410,20 +410,15 @@ export function MapIconHotspot({
       }}
     >
       <div className="relative">
-        <ShapeBackground
+        <ShapeIcon
           shape={backgroundShape}
+          iconSrc={iconSrc}
+          iconAlt={iconAlt}
           iconPadding={iconPadding}
           pulsate={pulsate}
           active={active}
           backgroundColor={backgroundColor}
-        >
-          <img
-            src={iconSrc}
-            alt={iconAlt}
-            className="h-full w-full object-contain"
-            loading="lazy"
-          />
-        </ShapeBackground>
+        />
         <SmartTooltip text={label} isVisible={isHovered} />
       </div>
     </motion.button>
