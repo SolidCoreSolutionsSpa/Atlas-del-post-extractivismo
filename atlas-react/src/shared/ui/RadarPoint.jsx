@@ -133,8 +133,9 @@ export function RadarPoint({
             display: 'block',
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transformOrigin: 'center',
           }}
-          initial={false}
+          initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
           transition={{
             ...ringTransition,
@@ -150,8 +151,9 @@ export function RadarPoint({
             display: 'block',
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transformOrigin: 'center',
           }}
-          initial={false}
+          initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
           transition={{
             ...ringTransition,
@@ -167,8 +169,9 @@ export function RadarPoint({
             display: 'block',
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transformOrigin: 'center',
           }}
-          initial={false}
+          initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
           transition={{
             ...ringTransition,
