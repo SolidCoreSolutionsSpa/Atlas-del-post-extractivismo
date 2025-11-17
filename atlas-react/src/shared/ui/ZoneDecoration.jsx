@@ -1,3 +1,4 @@
+import React from 'react'
 import { motion, useTransform } from "framer-motion";
 import clsx from "clsx";
 import { useMemo } from "react";

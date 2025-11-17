@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { motion } from 'framer-motion'
 
 import { SectionHeader } from '../../shared/design/components/SectionHeader'

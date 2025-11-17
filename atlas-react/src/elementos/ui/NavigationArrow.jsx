@@ -1,3 +1,4 @@
+import React from 'react'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 
 /**

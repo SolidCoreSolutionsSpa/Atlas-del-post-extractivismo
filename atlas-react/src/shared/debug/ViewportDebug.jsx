@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export function ViewportDebug() {
   const [viewport, setViewport] = useState({ width: 0, height: 0 })

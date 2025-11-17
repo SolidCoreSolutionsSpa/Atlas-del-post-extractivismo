@@ -1,3 +1,4 @@
+import React from 'react'
 export function SectionHeader({ eyebrow, title, description }) {
   return (
     <header className="flex flex-col gap-2">

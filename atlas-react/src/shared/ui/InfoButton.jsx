@@ -1,3 +1,4 @@
+import React from 'react'
 /**
  * Responsive info button component
  * Displays a circular button with an info icon that scales based on viewport height
