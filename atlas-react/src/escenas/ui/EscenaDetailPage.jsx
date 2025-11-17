@@ -210,7 +210,7 @@ export function EscenaDetailPage() {
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
-              backgroundColor={isHighlighted ? 'bg-[#ff0000]/80' : undefined}
+              backgroundColor={isHighlighted ? 'bg-[#ff0000]' : undefined}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {
