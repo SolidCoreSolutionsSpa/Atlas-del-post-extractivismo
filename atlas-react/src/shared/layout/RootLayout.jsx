@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
@@ -16,12 +17,28 @@ const navPlaceholders = [
 export function RootLayout({ children }) {
   usePrefersReducedMotion()
   const { theme } = useTheme()
-  const { isPortrait, isMobile } = useOrientation()
+  const { isPortrait, isLandscape, isMobile } = useOrientation()
   const location = useLocation()
+  const [isFullscreen, setIsFullscreen] = useState(false)
+
+  // Detectar cambios en el estado de fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [])
 
   const isLandingPage = location.pathname === '/'
   const logoSrc = isLandingPage ? '/img/LOGONEGRO.png' : '/img/LOGOBLANCO.png'
-  const shouldShowOrientationModal = isMobile && isPortrait
+
+  // Mostrar modal si es móvil Y (está en portrait O está en landscape sin fullscreen)
+  const shouldShowOrientationModal = isMobile && (isPortrait || (isLandscape && !isFullscreen))
 
   return (
     <div className="min-h-screen bg-[#f9fafc] text-token-body">
@@ -38,7 +55,11 @@ export function RootLayout({ children }) {
       </TransitionProvider>
 
       {/* Modal de orientación para dispositivos móviles */}
-      <OrientationModal isOpen={shouldShowOrientationModal} />
+      <OrientationModal
+        isOpen={shouldShowOrientationModal}
+        isPortrait={isPortrait}
+        isLandscape={isLandscape}
+      />
     </div>
   )
 }

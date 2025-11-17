@@ -1,18 +1,40 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 /**
  * Modal que bloquea la interfaz cuando un dispositivo móvil
- * está en orientación vertical (portrait)
+ * está en orientación vertical (portrait) o cuando está en landscape
+ * pero no ha activado fullscreen
  *
  * @param {Object} props
  * @param {boolean} props.isOpen - Si el modal debe mostrarse
+ * @param {boolean} props.isPortrait - Si está en modo portrait
+ * @param {boolean} props.isLandscape - Si está en modo landscape
  *
  * @example
- * <OrientationModal isOpen={isMobile && isPortrait} />
+ * <OrientationModal isOpen={shouldShow} isPortrait={isPortrait} isLandscape={isLandscape} />
  */
-export function OrientationModal({ isOpen }) {
+export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
   const [isFullscreenRequested, setIsFullscreenRequested] = useState(false)
+
+  // Escuchar cambios en el estado de fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      // Si el usuario salió de fullscreen, resetear el estado
+      if (!document.fullscreenElement) {
+        setIsFullscreenRequested(false)
+      } else {
+        // Si está en fullscreen, marcar como solicitado
+        setIsFullscreenRequested(true)
+      }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [])
 
   const handleFullscreenClick = async () => {
     try {
@@ -69,16 +91,25 @@ export function OrientationModal({ isOpen }) {
               </svg>
             </motion.div>
 
-            {/* Título */}
+            {/* Título dinámico según orientación */}
             <h2 className="mb-4 text-2xl font-bold text-gray-900">
-              Rota tu dispositivo
+              {isPortrait ? 'Rota tu dispositivo' : 'Activa pantalla completa'}
             </h2>
 
-            {/* Descripción */}
+            {/* Descripción dinámica */}
             <p className="mb-6 text-gray-600">
-              Esta aplicación está diseñada para verse en modo horizontal. Por
-              favor, rota tu dispositivo para continuar explorando el Atlas del
-              (Post) Extractivismo.
+              {isPortrait ? (
+                <>
+                  Esta aplicación está diseñada para verse en modo horizontal. Por
+                  favor, rota tu dispositivo para continuar explorando el Atlas del
+                  (Post) Extractivismo.
+                </>
+              ) : (
+                <>
+                  Para una mejor experiencia y ver toda la interfaz sin las barras
+                  del navegador, activa la pantalla completa.
+                </>
+              )}
             </p>
 
             {/* Botón de Fullscreen */}
@@ -93,7 +124,9 @@ export function OrientationModal({ isOpen }) {
 
             {isFullscreenRequested && (
               <p className="text-sm text-gray-500">
-                Ahora rota tu dispositivo para ver en pantalla completa
+                {isPortrait
+                  ? 'Ahora rota tu dispositivo para ver en pantalla completa'
+                  : '¡Perfecto! Ya estás en pantalla completa'}
               </p>
             )}
           </motion.div>
