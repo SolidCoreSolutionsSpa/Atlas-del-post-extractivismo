@@ -118,12 +118,21 @@ export function RadarPoint({
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       {/* Contenedor de anillos - no clickeable */}
-      <div className="absolute inset-0">
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+        }}
+      >
         {/* Anillo 1 - delay 0s */}
         <motion.span
-          className="absolute inset-0 rounded-full border-2"
           style={{
-            borderColor: colors.ring,
+            position: 'absolute',
+            inset: 0,
+            display: 'block',
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
           }}
           initial={false}
           animate={ringAnimation}
@@ -135,9 +144,12 @@ export function RadarPoint({
 
         {/* Anillo 2 - delay 0.6s */}
         <motion.span
-          className="absolute inset-0 rounded-full border-2"
           style={{
-            borderColor: colors.ring,
+            position: 'absolute',
+            inset: 0,
+            display: 'block',
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
           }}
           initial={false}
           animate={ringAnimation}
@@ -149,9 +161,12 @@ export function RadarPoint({
 
         {/* Anillo 3 - delay 1.2s */}
         <motion.span
-          className="absolute inset-0 rounded-full border-2"
           style={{
-            borderColor: colors.ring,
+            position: 'absolute',
+            inset: 0,
+            display: 'block',
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
           }}
           initial={false}
           animate={ringAnimation}
