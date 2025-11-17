@@ -1,3 +1,4 @@
+import React from 'react'
 import { ElementDetailPage } from '../ui/ElementDetailPage'
 import { ElementRecommendationsPanel } from '../ui/ElementRecommendationsPanel'
 

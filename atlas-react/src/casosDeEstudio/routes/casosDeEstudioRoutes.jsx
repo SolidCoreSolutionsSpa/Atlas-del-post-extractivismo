@@ -1,3 +1,4 @@
+import React from 'react'
 import { CaseStudiesListPage } from '../ui/CaseStudiesListPage'
 import { CaseStudyDetailPage } from '../ui/CaseStudyDetailPage'
 

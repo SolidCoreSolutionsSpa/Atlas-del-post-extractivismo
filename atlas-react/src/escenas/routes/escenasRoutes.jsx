@@ -1,3 +1,4 @@
+import React from 'react'
 import { EscenasListPage } from '../ui/EscenasListPage'
 import { EscenaDetailPage } from '../ui/EscenaDetailPage'
 
