@@ -135,10 +135,13 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
             animation: prefersReducedMotion
               ? 'none'
               : 'pulseRing 2.4s ease-out infinite',
             animationDelay: '0s',
+            animationFillMode: 'both',
           }}
         />
 
@@ -152,10 +155,13 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
             animation: prefersReducedMotion
               ? 'none'
               : 'pulseRing 2.4s ease-out infinite',
             animationDelay: '0.6s',
+            animationFillMode: 'both',
           }}
         />
 
@@ -169,10 +175,13 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
             animation: prefersReducedMotion
               ? 'none'
               : 'pulseRing 2.4s ease-out infinite',
             animationDelay: '1.2s',
+            animationFillMode: 'both',
           }}
         />
 
