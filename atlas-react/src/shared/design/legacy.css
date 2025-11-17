@@ -445,35 +445,35 @@ body {
 }
 
 /* Responsive positioning y scaling del texto */
-@media (max-width: 1400px) {
+@media (max-width: 1400px) and (orientation: portrait) {
   #contenido {
     left: 73%;
     width: 28%;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1200px) and (orientation: portrait) {
   #contenido {
     left: 71%;
     width: 26%;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (orientation: portrait) {
   #contenido {
     left: 70%;
     width: 25%;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 900px) and (orientation: portrait) {
   #contenido {
     left: 68%;
     width: 24%;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) and (orientation: portrait) {
   #contenido {
     left: 67%;
     width: 28%;
