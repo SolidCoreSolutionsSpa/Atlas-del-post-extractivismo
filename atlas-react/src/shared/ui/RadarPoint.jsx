@@ -126,7 +126,7 @@ export function RadarPoint({
         }}
       >
         {/* Anillo 1 - delay 0s */}
-        <motion.div
+        <div
           style={{
             position: 'absolute',
             top: 0,
@@ -135,18 +135,15 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center center',
-          }}
-          initial={{ scale: 0.1, opacity: 0.9 }}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 0,
+            animation: prefersReducedMotion
+              ? 'none'
+              : `pulseRing ${isHovered ? '1.8s' : '2.4s'} ease-out infinite`,
+            animationDelay: '0s',
           }}
         />
 
         {/* Anillo 2 - delay 0.6s */}
-        <motion.div
+        <div
           style={{
             position: 'absolute',
             top: 0,
@@ -155,18 +152,15 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center center',
-          }}
-          initial={{ scale: 0.1, opacity: 0.9 }}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 0.6,
+            animation: prefersReducedMotion
+              ? 'none'
+              : `pulseRing ${isHovered ? '1.8s' : '2.4s'} ease-out infinite`,
+            animationDelay: '0.6s',
           }}
         />
 
         {/* Anillo 3 - delay 1.2s */}
-        <motion.div
+        <div
           style={{
             position: 'absolute',
             top: 0,
@@ -175,15 +169,29 @@ export function RadarPoint({
             bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center center',
-          }}
-          initial={{ scale: 0.1, opacity: 0.9 }}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 1.2,
+            animation: prefersReducedMotion
+              ? 'none'
+              : `pulseRing ${isHovered ? '1.8s' : '2.4s'} ease-out infinite`,
+            animationDelay: '1.2s',
           }}
         />
+
+        {/* Definición de la animación CSS */}
+        <style>{`
+          @keyframes pulseRing {
+            0% {
+              transform: scale(0.1);
+              opacity: 0.9;
+            }
+            70% {
+              opacity: 0.3;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 0;
+            }
+          }
+        `}</style>
       </div>
 
       {/* Botón clickeable - solo el núcleo */}
