@@ -255,13 +255,15 @@ body {
    * Formula accounts for: panel bottom + panel height + gap
    * - Panel bottom: clamp(2rem, 5vh, 4rem) = 32-64px
    * - Panel height with new icons: ~36-80px (6vh icons + padding)
-   * - Desired gap: ~16-32px
+   * - Desired gap: ~24-48px (increased for 1440p compatibility)
    *
    * Mobile (320px): ~96px from bottom (panel ~32px, height ~36px, gap ~28px)
    * Tablet (768px): ~140px from bottom (panel ~38px, height ~60px, gap ~42px)
-   * Desktop (1080px): ~165px from bottom (panel ~64px, height ~80px, gap ~21px)
+   * 1440p (900px): ~188px from bottom (panel ~45px, height ~70px, gap ~73px)
+   * Desktop (1080px): ~192px from bottom (panel ~54px, height ~80px, gap ~58px)
+   * Large (1440px): ~240px from bottom (panel ~64px, height ~80px, gap ~96px)
    */
-  bottom: clamp(6rem, 12vh + 2.5rem, 15rem) !important;
+  bottom: clamp(6rem, 14vh + 3rem, 15rem) !important;
 
   /* Left position scales with viewport width - aligns with panel
    * Mobile: ~1rem (16px) from left
