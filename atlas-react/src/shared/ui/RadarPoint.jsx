@@ -125,6 +125,7 @@ export function RadarPoint({
           style={{
             borderColor: colors.ring,
             borderStyle: 'solid',
+            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
@@ -140,6 +141,7 @@ export function RadarPoint({
           style={{
             borderColor: colors.ring,
             borderStyle: 'solid',
+            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
@@ -155,6 +157,7 @@ export function RadarPoint({
           style={{
             borderColor: colors.ring,
             borderStyle: 'solid',
+            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
