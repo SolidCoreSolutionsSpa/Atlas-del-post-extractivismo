@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLocation, useRoutes } from 'react-router-dom'
 
