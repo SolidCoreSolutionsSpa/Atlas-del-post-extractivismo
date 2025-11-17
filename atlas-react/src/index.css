@@ -1,8 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Baskervville&family=Inter:wght@400;500;700&display=swap");
-@import 'tailwindcss';
+@import './shared/design/tokens.css';
+@import './shared/design/legacy.css';
 
-@theme {
-  --animate-rotate-clockwise: rotateClockwise 10s linear infinite;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-rotate-clockwise {
+    animation: rotateClockwise 10s linear infinite;
+  }
 
   @keyframes rotateClockwise {
     from {
@@ -13,9 +20,6 @@
     }
   }
 }
-
-@import './shared/design/tokens.css';
-@import './shared/design/legacy.css';
 
 @layer base {
 
