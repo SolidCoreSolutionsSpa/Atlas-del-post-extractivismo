@@ -35,4 +35,30 @@
   #root {
     min-height: 100vh;
   }
+
+  /* Estilos para modo pantalla completa */
+  /* Asegurar que el contenido ocupe toda la pantalla cuando está en fullscreen */
+  :fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--token-background, #f9fafc);
+  }
+
+  :-webkit-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--token-background, #f9fafc);
+  }
+
+  :-moz-full-screen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--token-background, #f9fafc);
+  }
+
+  :-ms-fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--token-background, #f9fafc);
+  }
 }
