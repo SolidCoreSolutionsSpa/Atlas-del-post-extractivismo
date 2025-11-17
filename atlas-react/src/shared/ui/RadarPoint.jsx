@@ -126,14 +126,16 @@ export function RadarPoint({
         }}
       >
         {/* Anillo 1 - delay 0s */}
-        <motion.span
+        <motion.div
           style={{
             position: 'absolute',
-            inset: 0,
-            display: 'block',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center',
+            transformOrigin: 'center center',
           }}
           initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
@@ -144,14 +146,16 @@ export function RadarPoint({
         />
 
         {/* Anillo 2 - delay 0.6s */}
-        <motion.span
+        <motion.div
           style={{
             position: 'absolute',
-            inset: 0,
-            display: 'block',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center',
+            transformOrigin: 'center center',
           }}
           initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
@@ -162,14 +166,16 @@ export function RadarPoint({
         />
 
         {/* Anillo 3 - delay 1.2s */}
-        <motion.span
+        <motion.div
           style={{
             position: 'absolute',
-            inset: 0,
-            display: 'block',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
             borderRadius: '50%',
             border: `2px solid ${colors.ring}`,
-            transformOrigin: 'center',
+            transformOrigin: 'center center',
           }}
           initial={{ scale: 0.1, opacity: 0.9 }}
           animate={ringAnimation}
