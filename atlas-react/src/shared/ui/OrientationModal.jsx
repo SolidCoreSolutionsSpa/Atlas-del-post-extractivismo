@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useState } from 'react'
 
 /**
  * Modal que bloquea la interfaz cuando un dispositivo móvil
@@ -11,6 +12,19 @@ import { motion, AnimatePresence } from 'framer-motion'
  * <OrientationModal isOpen={isMobile && isPortrait} />
  */
 export function OrientationModal({ isOpen }) {
+  const [isFullscreenRequested, setIsFullscreenRequested] = useState(false)
+
+  const handleFullscreenClick = async () => {
+    try {
+      if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen()
+        setIsFullscreenRequested(true)
+      }
+    } catch (err) {
+      console.warn('No se pudo activar fullscreen:', err.message)
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -61,11 +75,27 @@ export function OrientationModal({ isOpen }) {
             </h2>
 
             {/* Descripción */}
-            <p className="text-gray-600">
+            <p className="mb-6 text-gray-600">
               Esta aplicación está diseñada para verse en modo horizontal. Por
               favor, rota tu dispositivo para continuar explorando el Atlas del
               (Post) Extractivismo.
             </p>
+
+            {/* Botón de Fullscreen */}
+            {!isFullscreenRequested && (
+              <button
+                onClick={handleFullscreenClick}
+                className="w-full rounded-lg bg-gray-900 px-6 py-3 text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+              >
+                Activar pantalla completa
+              </button>
+            )}
+
+            {isFullscreenRequested && (
+              <p className="text-sm text-gray-500">
+                Ahora rota tu dispositivo para ver en pantalla completa
+              </p>
+            )}
           </motion.div>
         </motion.div>
       )}

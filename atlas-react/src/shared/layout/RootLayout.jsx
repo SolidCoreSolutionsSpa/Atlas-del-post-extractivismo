@@ -4,7 +4,6 @@ import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion
 import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
 import { useTheme } from '../hooks/useTheme'
 import { useOrientation } from '../hooks/useOrientation'
-import { useFullscreenOnLandscape } from '../hooks/useFullscreenOnLandscape'
 import { OrientationModal } from '../ui/OrientationModal'
 import { Navbar } from '../ui/Navbar'
 
@@ -16,7 +15,6 @@ const navPlaceholders = [
 
 export function RootLayout({ children }) {
   usePrefersReducedMotion()
-  useFullscreenOnLandscape()
   const { theme } = useTheme()
   const { isPortrait, isMobile } = useOrientation()
   const location = useLocation()
