@@ -63,7 +63,9 @@ export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ delay: 0.1, duration: 0.3 }}
-            className="mx-4 max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl"
+            className={`mx-4 max-w-md rounded-2xl bg-white text-center shadow-2xl ${
+              isLandscape ? 'p-4' : 'p-8'
+            }`}
           >
             {/* Icono de rotación animado */}
             <motion.div
@@ -73,10 +75,10 @@ export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mb-6 flex justify-center"
+              className={isLandscape ? 'mb-3 flex justify-center' : 'mb-6 flex justify-center'}
             >
               <svg
-                className="h-24 w-24 text-gray-700"
+                className={isLandscape ? 'h-12 w-12 text-gray-700' : 'h-24 w-24 text-gray-700'}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -92,12 +94,12 @@ export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
             </motion.div>
 
             {/* Título dinámico según orientación */}
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+            <h2 className={isLandscape ? 'mb-2 text-lg font-bold text-gray-900' : 'mb-4 text-2xl font-bold text-gray-900'}>
               {isPortrait ? 'Rota tu dispositivo' : 'Activa pantalla completa'}
             </h2>
 
             {/* Descripción dinámica */}
-            <p className="mb-6 text-gray-600">
+            <p className={isLandscape ? 'mb-3 text-sm text-gray-600' : 'mb-6 text-gray-600'}>
               {isPortrait ? (
                 <>
                   Esta aplicación está diseñada para verse en modo horizontal. Por
@@ -116,7 +118,10 @@ export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
             {!isFullscreenRequested && (
               <button
                 onClick={handleFullscreenClick}
-                className="w-full rounded-lg bg-gray-900 px-6 py-3 text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+                className={isLandscape
+                  ? "w-full rounded-lg bg-gray-900 px-4 py-2 text-sm text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+                  : "w-full rounded-lg bg-gray-900 px-6 py-3 text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+                }
               >
                 Activar pantalla completa
               </button>
