@@ -486,7 +486,7 @@ body {
 @media (orientation: landscape) and (max-height: 320px) {
   .contenedor #contenido {
     top: 50% !important;
-    width: 26% !important;
+    width: 32% !important;
     max-height: 60vh !important;
     overflow-y: visible !important;
   }
@@ -523,7 +523,7 @@ body {
 @media (orientation: landscape) and (min-height: 321px) and (max-height: 385px) {
   .contenedor #contenido {
     top: 50% !important;
-    width: 26% !important;
+    width: 32% !important;
     max-height: 62vh !important;
     overflow-y: visible !important;
   }
@@ -560,7 +560,7 @@ body {
 @media (orientation: landscape) and (min-height: 386px) and (max-height: 435px) {
   .contenedor #contenido {
     top: 50% !important;
-    width: 26% !important;
+    width: 32% !important;
     max-height: 64vh !important;
     overflow-y: visible !important;
   }
@@ -778,19 +778,19 @@ body {
 /* Ajustes específicos por altura de pantalla en landscape */
 @media (orientation: landscape) and (max-height: 320px) {
   .imagen-mapa {
-    max-height: 69vh !important;
+    max-height: 83vh !important;
   }
 }
 
 @media (orientation: landscape) and (min-height: 321px) and (max-height: 385px) {
   .imagen-mapa {
-    max-height: 70vh !important;
+    max-height: 84vh !important;
   }
 }
 
 @media (orientation: landscape) and (min-height: 386px) and (max-height: 435px) {
   .imagen-mapa {
-    max-height: 73vh !important;
+    max-height: 88vh !important;
   }
 }
 
