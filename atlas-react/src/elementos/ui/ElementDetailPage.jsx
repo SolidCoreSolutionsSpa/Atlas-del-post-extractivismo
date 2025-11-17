@@ -289,7 +289,8 @@ export function ElementDetailPage() {
                         x: rect.left + rect.width / 2,
                         y: rect.top + rect.height / 2,
                       }
-                      zoomNavigate(`/elementos/${item.element.id}`, { origin })
+                      // Navegar al escenario del elemento con highlight
+                      zoomNavigate(`/escenas/${item.element.sceneId}?highlight=${item.element.id}`, { origin })
                     }}
                     className="element-recommendation-image aspect-square overflow-hidden border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
                     title={item.element.name}

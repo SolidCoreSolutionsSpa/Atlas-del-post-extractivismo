@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import clsx from 'clsx'
 
@@ -66,6 +66,8 @@ const caseIndex = new Map(
 
 export function EscenaDetailPage() {
   const { sceneId } = useParams()
+  const [searchParams] = useSearchParams()
+  const highlightedElementId = searchParams.get('highlight')
   const zoomNavigate = useZoomNavigation()
   const { setTheme } = useTheme()
   const service = useMemo(
@@ -197,6 +199,7 @@ export function EscenaDetailPage() {
       >
         {scene.map.hotspots.map((hotspot) => {
           const isActive = !activeFilter || hotspot.category === activeFilter
+          const isHighlighted = highlightedElementId && hotspot.elementId === highlightedElementId
           return (
             <MapIconHotspot
               key={hotspot.id}
@@ -207,6 +210,7 @@ export function EscenaDetailPage() {
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
+              backgroundColor={isHighlighted ? 'bg-red-500/80' : undefined}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {

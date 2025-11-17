@@ -376,6 +376,7 @@ export function MapIconHotspot({
   active = true,
   iconPadding = 'p-1.5', // padding personalizable por ícono
   backgroundShape = 'circle', // forma del fondo: 'circle', 'square', 'diamond', 'triangle'
+  backgroundColor, // color de fondo personalizado para el ShapeBackground
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
@@ -414,6 +415,7 @@ export function MapIconHotspot({
           iconPadding={iconPadding}
           pulsate={pulsate}
           active={active}
+          backgroundColor={backgroundColor}
         >
           <img
             src={iconSrc}
