@@ -1,16 +1,52 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 /**
  * Modal que bloquea la interfaz cuando un dispositivo móvil
- * está en orientación vertical (portrait)
+ * está en orientación vertical (portrait) o cuando está en landscape
+ * pero no ha activado fullscreen
  *
  * @param {Object} props
  * @param {boolean} props.isOpen - Si el modal debe mostrarse
+ * @param {boolean} props.isPortrait - Si está en modo portrait
+ * @param {boolean} props.isLandscape - Si está en modo landscape
  *
  * @example
- * <OrientationModal isOpen={isMobile && isPortrait} />
+ * <OrientationModal isOpen={shouldShow} isPortrait={isPortrait} isLandscape={isLandscape} />
  */
-export function OrientationModal({ isOpen }) {
+export function OrientationModal({ isOpen, isPortrait, isLandscape }) {
+  const [isFullscreenRequested, setIsFullscreenRequested] = useState(false)
+
+  // Escuchar cambios en el estado de fullscreen
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      // Si el usuario salió de fullscreen, resetear el estado
+      if (!document.fullscreenElement) {
+        setIsFullscreenRequested(false)
+      } else {
+        // Si está en fullscreen, marcar como solicitado
+        setIsFullscreenRequested(true)
+      }
+    }
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [])
+
+  const handleFullscreenClick = async () => {
+    try {
+      if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen()
+        setIsFullscreenRequested(true)
+      }
+    } catch (err) {
+      console.warn('No se pudo activar fullscreen:', err.message)
+    }
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -27,7 +63,9 @@ export function OrientationModal({ isOpen }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ delay: 0.1, duration: 0.3 }}
-            className="mx-4 max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl"
+            className={`mx-4 max-w-md rounded-2xl bg-white text-center shadow-2xl ${
+              isLandscape ? 'p-4' : 'p-8'
+            }`}
           >
             {/* Icono de rotación animado */}
             <motion.div
@@ -37,10 +75,10 @@ export function OrientationModal({ isOpen }) {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="mb-6 flex justify-center"
+              className={isLandscape ? 'mb-3 flex justify-center' : 'mb-6 flex justify-center'}
             >
               <svg
-                className="h-24 w-24 text-gray-700"
+                className={isLandscape ? 'h-12 w-12 text-gray-700' : 'h-24 w-24 text-gray-700'}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -55,17 +93,47 @@ export function OrientationModal({ isOpen }) {
               </svg>
             </motion.div>
 
-            {/* Título */}
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">
-              Rota tu dispositivo
+            {/* Título dinámico según orientación */}
+            <h2 className={isLandscape ? 'mb-2 text-lg font-bold text-gray-900' : 'mb-4 text-2xl font-bold text-gray-900'}>
+              {isPortrait ? 'Rota tu dispositivo' : 'Activa pantalla completa'}
             </h2>
 
-            {/* Descripción */}
-            <p className="text-gray-600">
-              Esta aplicación está diseñada para verse en modo horizontal. Por
-              favor, rota tu dispositivo para continuar explorando el Atlas del
-              (Post) Extractivismo.
+            {/* Descripción dinámica */}
+            <p className={isLandscape ? 'mb-3 text-sm text-gray-600' : 'mb-6 text-gray-600'}>
+              {isPortrait ? (
+                <>
+                  Esta aplicación está diseñada para verse en modo horizontal. Por
+                  favor, rota tu dispositivo para continuar explorando el Atlas del
+                  (Post) Extractivismo.
+                </>
+              ) : (
+                <>
+                  Para una mejor experiencia y ver toda la interfaz sin las barras
+                  del navegador, activa la pantalla completa.
+                </>
+              )}
             </p>
+
+            {/* Botón de Fullscreen */}
+            {!isFullscreenRequested && (
+              <button
+                onClick={handleFullscreenClick}
+                className={isLandscape
+                  ? "w-full rounded-lg bg-gray-900 px-4 py-2 text-sm text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+                  : "w-full rounded-lg bg-gray-900 px-6 py-3 text-white font-medium transition-colors hover:bg-gray-800 active:bg-gray-700"
+                }
+              >
+                Activar pantalla completa
+              </button>
+            )}
+
+            {isFullscreenRequested && (
+              <p className="text-sm text-gray-500">
+                {isPortrait
+                  ? 'Ahora rota tu dispositivo para ver en pantalla completa'
+                  : '¡Perfecto! Ya estás en pantalla completa'}
+              </p>
+            )}
           </motion.div>
         </motion.div>
       )}

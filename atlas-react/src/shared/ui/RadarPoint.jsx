@@ -60,19 +60,19 @@ export function RadarPoint({
   const colors = colorVariants[variant] || colorVariants.default
 
   // Configuración de animación para cada anillo
+  // IMPORTANTE: No animamos borderWidth porque causa problemas en producción
+  // El borde se define con clase CSS y solo animamos scale y opacity
   const ringAnimation = useMemo(() => {
     if (prefersReducedMotion) {
       return {
         scale: 1,
         opacity: 0.4,
-        borderWidth: '2px',
       }
     }
 
     return {
       scale: [0.1, 1, 1],
       opacity: [0.9, 0.3, 0],
-      borderWidth: ['3px', '2px', '1px'],
     }
   }, [prefersReducedMotion])
 
@@ -118,51 +118,89 @@ export function RadarPoint({
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
       {/* Contenedor de anillos - no clickeable */}
-      <div className="absolute inset-0">
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          pointerEvents: 'none',
+        }}
+      >
         {/* Anillo 1 - delay 0s */}
-        <motion.span
-          className="absolute inset-0 rounded-full"
+        <div
           style={{
-            borderColor: colors.ring,
-            borderStyle: 'solid',
-          }}
-          initial={false}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 0,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
+            animation: prefersReducedMotion
+              ? 'none'
+              : 'pulseRing 2.4s ease-out infinite',
+            animationDelay: '0s',
+            animationFillMode: 'both',
           }}
         />
 
         {/* Anillo 2 - delay 0.6s */}
-        <motion.span
-          className="absolute inset-0 rounded-full"
+        <div
           style={{
-            borderColor: colors.ring,
-            borderStyle: 'solid',
-          }}
-          initial={false}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 0.6,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
+            animation: prefersReducedMotion
+              ? 'none'
+              : 'pulseRing 2.4s ease-out infinite',
+            animationDelay: '0.6s',
+            animationFillMode: 'both',
           }}
         />
 
         {/* Anillo 3 - delay 1.2s */}
-        <motion.span
-          className="absolute inset-0 rounded-full"
+        <div
           style={{
-            borderColor: colors.ring,
-            borderStyle: 'solid',
-          }}
-          initial={false}
-          animate={ringAnimation}
-          transition={{
-            ...ringTransition,
-            delay: 1.2,
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            borderRadius: '50%',
+            border: `2px solid ${colors.ring}`,
+            transform: 'scale(0.1)',
+            opacity: 0.9,
+            animation: prefersReducedMotion
+              ? 'none'
+              : 'pulseRing 2.4s ease-out infinite',
+            animationDelay: '1.2s',
+            animationFillMode: 'both',
           }}
         />
+
+        {/* Definición de la animación CSS */}
+        <style>{`
+          @keyframes pulseRing {
+            0% {
+              transform: scale(0.1);
+              opacity: 0.9;
+            }
+            70% {
+              opacity: 0.3;
+            }
+            100% {
+              transform: scale(1);
+              opacity: 0;
+            }
+          }
+        `}</style>
       </div>
 
       {/* Botón clickeable - solo el núcleo */}
