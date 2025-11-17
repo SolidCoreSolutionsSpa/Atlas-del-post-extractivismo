@@ -60,19 +60,19 @@ export function RadarPoint({
   const colors = colorVariants[variant] || colorVariants.default
 
   // Configuración de animación para cada anillo
+  // IMPORTANTE: No animamos borderWidth porque causa problemas en producción
+  // El borde se define con clase CSS y solo animamos scale y opacity
   const ringAnimation = useMemo(() => {
     if (prefersReducedMotion) {
       return {
         scale: 1,
         opacity: 0.4,
-        borderWidth: '2px',
       }
     }
 
     return {
       scale: [0.1, 1, 1],
       opacity: [0.9, 0.3, 0],
-      borderWidth: ['3px', '2px', '1px'],
     }
   }, [prefersReducedMotion])
 
@@ -121,11 +121,9 @@ export function RadarPoint({
       <div className="absolute inset-0">
         {/* Anillo 1 - delay 0s */}
         <motion.span
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full border-2"
           style={{
             borderColor: colors.ring,
-            borderStyle: 'solid',
-            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
@@ -137,11 +135,9 @@ export function RadarPoint({
 
         {/* Anillo 2 - delay 0.6s */}
         <motion.span
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full border-2"
           style={{
             borderColor: colors.ring,
-            borderStyle: 'solid',
-            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
@@ -153,11 +149,9 @@ export function RadarPoint({
 
         {/* Anillo 3 - delay 1.2s */}
         <motion.span
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 rounded-full border-2"
           style={{
             borderColor: colors.ring,
-            borderStyle: 'solid',
-            borderWidth: '3px',
           }}
           initial={false}
           animate={ringAnimation}
