@@ -20,15 +20,27 @@ const iconByCategory = {
 }
 
 const paddingByCategory = {
-  biotic: 'p-2', // Con más margen para consistencia
-  anthropic: 'p-1.5', // Tamaño medio
-  physical: 'p-3', // Más margen para mayor separación visual
+  biotic: 'p-2',
+  anthropic: 'p-0',
+  physical: 'p-3',
 }
 
 const shapeByCategory = {
   biotic: 'diamond',
   anthropic: 'square',
   physical: 'triangle',
+}
+
+const iconSizeByCategory = {
+  biotic: '95%',
+  anthropic: '70%',
+  physical: '95%',
+}
+
+const containerScaleByCategory = {
+  biotic: 1.0,
+  anthropic: 0.9,
+  physical: 1.0,
 }
 
 const filterDescriptions = {
@@ -194,6 +206,8 @@ export function ZonaDetailPage() {
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
+              iconSize={iconSizeByCategory[hotspot.category] ?? '95%'}
+              containerScale={containerScaleByCategory[hotspot.category] ?? 1.0}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {
