@@ -82,17 +82,24 @@ export function ShapeBackground({
     ? 'rounded-[4px]'
     : 'rounded-none'
 
-  // Combinar clip-path con scale si es necesario
-  const combinedStyle = containerScale !== 1.0
-    ? { ...clipPathStyle, transform: `scale(${containerScale})` }
-    : clipPathStyle
-
-  return (
+  // Si necesitamos escalar, envolver en un div con transform
+  const content = (
     <div
       className={clsx(baseClasses, shapeClass)}
-      style={combinedStyle}
+      style={clipPathStyle}
     >
       {children}
     </div>
   )
+
+  // Si containerScale es diferente de 1.0, envolver en un div con scale
+  if (containerScale !== 1.0) {
+    return (
+      <div style={{ transform: `scale(${containerScale})` }}>
+        {content}
+      </div>
+    )
+  }
+
+  return content
 }
