@@ -25,7 +25,7 @@ const iconByCategory = {
 
 const paddingByCategory = {
   biotic: 'p-2',
-  anthropic: 'p-1',
+  anthropic: 'p-0',
   physical: 'p-3',
 }
 
@@ -37,7 +37,7 @@ const shapeByCategory = {
 
 const iconSizeByCategory = {
   biotic: '95%',
-  anthropic: '85%',
+  anthropic: '70%',
   physical: '95%',
 }
 
