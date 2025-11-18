@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { SectionHeader } from '../../shared/design/components/SectionHeader'
 import { Button } from '../../shared/design/components/Button'
+import { usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useEscenasState } from '../hooks/useEscenasState'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
@@ -36,6 +37,9 @@ export function EscenasListPage() {
   )
 
   const { status, escenas } = useEscenasState({ escenasService: service })
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([escenas, status])
 
   return (
     <motion.section
@@ -75,7 +79,7 @@ export function EscenasListPage() {
                 {scene.title}
               </h2>
               <p className="text-xs uppercase tracking-wide text-token-muted">
-                Zona: {scene.zoneId} �- Tipo: {scene.sceneTypeId}
+                Zona: {scene.zoneId} �- Tipo: {scene.sceneTypeId}
               </p>
               <p className="text-sm text-token-muted">{scene.description}</p>
             </div>

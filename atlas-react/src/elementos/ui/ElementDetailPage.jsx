@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
@@ -100,6 +100,9 @@ export function ElementDetailPage() {
       setTheme('light')
     }
   }, [element, setTheme])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([element, status])
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },

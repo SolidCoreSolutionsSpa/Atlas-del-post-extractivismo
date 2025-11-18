@@ -7,7 +7,7 @@ import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'
@@ -92,6 +92,9 @@ export function ZonaDetailPage() {
       isMounted = false
     }
   }, [zoneId, service])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([zone, status])
 
   const caseStudy = zone ? caseIndex.get(zone.caseStudyId) : null
 

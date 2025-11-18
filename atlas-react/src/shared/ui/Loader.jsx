@@ -1,66 +1,28 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
-import { usePreloadImages } from '../hooks/usePreloadImage'
 
-export function Loader({ onLoadComplete }) {
-  const [isLoading, setIsLoading] = useState(true)
+/**
+ * Loader para transiciones entre páginas
+ * @param {boolean} isLoading - Estado de carga (controlado externamente)
+ */
+export function Loader({ isLoading }) {
   const [fadeOut, setFadeOut] = useState(false)
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  // Precargar imágenes críticas
-  const { isLoaded: imagesLoaded } = usePreloadImages([
-    '/img/fondo.jpg',
-    '/img/ISOTIPO-blanco.png',
-  ])
-
   useEffect(() => {
-    // Solo proceder cuando las imágenes críticas estén cargadas
-    if (!imagesLoaded) {
-      return
-    }
-
-    // Función para verificar si todos los recursos están cargados
-    const checkResourcesLoaded = () => {
-      // Verificar si el documento está completamente cargado
-      if (document.readyState === 'complete') {
-        return true
-      }
-      return false
-    }
-
-    // Función que se ejecuta cuando todo está listo
-    const handleLoadComplete = () => {
-      // Esperar un poco más para asegurar que todo esté renderizado
-      setTimeout(() => {
-        setFadeOut(true)
-
-        // Después del fade out, notificar que se completó la carga
-        setTimeout(() => {
-          setIsLoading(false)
-          if (onLoadComplete) {
-            onLoadComplete()
-          }
-        }, 800) // Duración del fade out
-      }, 500) // Pequeña pausa antes de empezar el fade out
-    }
-
-    // Si ya está cargado, ejecutar inmediatamente
-    if (checkResourcesLoaded()) {
-      handleLoadComplete()
+    if (!isLoading) {
+      // Cuando isLoading cambia a false, iniciar fade out
+      setFadeOut(true)
+      const timer = setTimeout(() => {
+        setFadeOut(false)
+      }, 800)
+      return () => clearTimeout(timer)
     } else {
-      // Esperar al evento load
-      window.addEventListener('load', handleLoadComplete)
-
-      // Timeout de seguridad: si tarda más de 5 segundos, mostrar de todas formas
-      const timeoutId = setTimeout(handleLoadComplete, 5000)
-
-      return () => {
-        window.removeEventListener('load', handleLoadComplete)
-        clearTimeout(timeoutId)
-      }
+      // Cuando isLoading es true, asegurar que no estamos en fade out
+      setFadeOut(false)
     }
-  }, [onLoadComplete, imagesLoaded])
+  }, [isLoading])
 
   // Animación de pulsación para el isotipo
   const pulseAnimation = prefersReducedMotion
@@ -80,12 +42,12 @@ export function Loader({ onLoadComplete }) {
 
   return (
     <AnimatePresence>
-      {isLoading && (
+      {(isLoading || fadeOut) && (
         <motion.div
-          initial={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
           animate={{ opacity: fadeOut ? 0 : 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           className="fixed inset-0 z-[9999] flex items-center justify-center"
           style={{
             backgroundImage: 'url(/img/fondo.jpg)',

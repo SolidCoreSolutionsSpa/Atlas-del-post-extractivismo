@@ -2,11 +2,12 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
-import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
+import { TransitionProvider, usePageTransition } from '../hooks/useZoomNavigation.jsx'
 import { useTheme } from '../hooks/useTheme'
 import { useOrientation } from '../hooks/useOrientation'
 import { OrientationModal } from '../ui/OrientationModal'
 import { Navbar } from '../ui/Navbar'
+import { Loader } from '../ui/Loader'
 
 const navPlaceholders = [
   { label: 'Sobre el proyecto' },
@@ -14,7 +15,7 @@ const navPlaceholders = [
   { label: 'Glosario' },
 ]
 
-export function RootLayout({ children, isAppReady = true }) {
+export function RootLayout({ children }) {
   usePrefersReducedMotion()
   const { theme } = useTheme()
   const { isPortrait, isLandscape, isMobile } = useOrientation()
@@ -59,9 +60,7 @@ export function RootLayout({ children, isAppReady = true }) {
       />
 
       <TransitionProvider>
-        <main className="min-h-screen">
-          <OutletFallback isAppReady={isAppReady}>{children}</OutletFallback>
-        </main>
+        <RootLayoutContent>{children}</RootLayoutContent>
       </TransitionProvider>
 
       {/* Modal de orientación para dispositivos móviles */}
@@ -74,7 +73,22 @@ export function RootLayout({ children, isAppReady = true }) {
   )
 }
 
-function OutletFallback({ children, isAppReady }) {
+function RootLayoutContent({ children }) {
+  const transition = usePageTransition()
+
+  return (
+    <>
+      {/* Loader que se muestra durante las transiciones */}
+      <Loader isLoading={transition.isNavigating} />
+
+      <main className="min-h-screen">
+        <OutletFallback>{children}</OutletFallback>
+      </main>
+    </>
+  )
+}
+
+function OutletFallback({ children }) {
   if (children) {
     return children
   }

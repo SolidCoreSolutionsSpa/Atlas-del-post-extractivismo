@@ -9,7 +9,7 @@ import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
@@ -124,6 +124,9 @@ export function EscenaDetailPage() {
       setTheme('light')
     }
   }, [scene, setTheme])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([scene, status])
 
   const zone = scene ? zoneIndex.get(scene.zoneId) : null
   const caseStudy = zone ? caseIndex.get(zone.caseId) : null

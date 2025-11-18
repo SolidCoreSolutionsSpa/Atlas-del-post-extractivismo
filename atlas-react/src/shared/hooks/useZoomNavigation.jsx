@@ -50,6 +50,7 @@ function createDefaultTransition() {
     id: 0,
     direction: 'forward',
     origin: createOrigin(),
+    isNavigating: false,
   }
 }
 
@@ -73,6 +74,7 @@ export function TransitionProvider({ children }) {
       id: Date.now(),
       direction: payload.direction ?? 'forward',
       origin: payload.origin ?? createOrigin(),
+      isNavigating: payload.isNavigating ?? false,
     })
   }, [])
 
@@ -109,9 +111,11 @@ export function useZoomNavigation() {
         direction ??
         (animation === 'animar-zoom-out' ? 'backward' : 'forward')
 
+      // Activar el estado de navegación/loading
       setTransition({
         direction: resolvedDirection,
         origin: createOrigin(origin),
+        isNavigating: true,
       })
 
       navigate(to, navigateOptions)
@@ -131,4 +135,31 @@ export function useZoomOut() {
     },
     [setTransition],
   )
+}
+
+/**
+ * Hook para notificar cuando una página terminó de cargar
+ * Las páginas deben llamar a este hook para indicar que están listas
+ */
+export function usePageLoaded(dependencies = []) {
+  const { setTransition } = useTransitionController()
+  const { transition } = useTransitionController()
+
+  useEffect(() => {
+    // Solo proceder si estamos en estado de navegación
+    if (!transition.isNavigating) {
+      return
+    }
+
+    // Pequeño delay para asegurar que el DOM esté renderizado
+    const timer = setTimeout(() => {
+      setTransition({
+        ...transition,
+        isNavigating: false,
+      })
+    }, 100)
+
+    return () => clearTimeout(timer)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setTransition, ...dependencies])
 }
