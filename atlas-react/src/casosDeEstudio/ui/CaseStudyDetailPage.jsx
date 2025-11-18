@@ -12,6 +12,7 @@ import { FilterPanel } from "../../shared/ui/FilterPanel";
 import { useZoomNavigation, usePageLoaded } from "../../shared/hooks/useZoomNavigation.jsx";
 import { CaseStudiesService } from "../services/caseStudiesService";
 import { inMemoryCaseStudiesRepository } from "../repo/caseStudiesRepository";
+import { atlasContent } from "../../shared/data/newAtlasContent";
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -216,7 +217,7 @@ export function CaseStudyDetailPage() {
       />
 
       <FilterPanel
-        affectationTypes={detailMap.affectationTypes}
+        affectationTypes={atlasContent.affectationTypes}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         showDescriptionCard={true}

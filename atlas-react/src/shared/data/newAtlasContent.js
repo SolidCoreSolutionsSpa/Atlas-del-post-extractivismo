@@ -6,6 +6,23 @@ export const atlasContent = {
       "Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.",
     image_path: "/img/mapa-global.jpg",
   },
+  affectationTypes: {
+    biotic: {
+      title: "Paisajes bioticos",
+      description: "Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.",
+      icon: "/img/icono_biotico_negro.svg",
+    },
+    anthropic: {
+      title: "Paisajes antropicos",
+      description: "Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.",
+      icon: "/img/icono_antropico_negro.svg",
+    },
+    physical: {
+      title: "Paisajes fisicos",
+      description: "Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.",
+      icon: "/img/icono_fisico_negro.svg",
+    },
+  },
   caseOfStudies: [
     {
       id: "provincia-choapa",
@@ -18,23 +35,6 @@ export const atlasContent = {
       position_top: 65,
       color: "#d57a00",
       is_published: true,
-      affectationTypes: {
-        biotic: {
-          title: "Paisajes bioticos",
-          description: "Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.",
-          icon: "/img/icono_biotico_negro.svg",
-        },
-        anthropic: {
-          title: "Paisajes antropicos",
-          description: "Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.",
-          icon: "/img/icono_antropico_negro.svg",
-        },
-        physical: {
-          title: "Paisajes fisicos",
-          description: "Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.",
-          icon: "/img/icono_fisico_negro.svg",
-        },
-      },
       zones: [
         {
           id: "tranque-el-mauro",

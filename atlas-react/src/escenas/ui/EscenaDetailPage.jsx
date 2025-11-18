@@ -16,6 +16,7 @@ import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
+import { atlasContent } from '../../shared/data/newAtlasContent'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -47,23 +48,6 @@ const containerScaleByCategory = {
   physical: 1.0,
 }
 
-const affectationTypes = {
-  biotic: {
-    title: 'Paisajes bioticos',
-    description: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
-    icon: '/img/icono_biotico_negro.svg',
-  },
-  anthropic: {
-    title: 'Paisajes antropicos',
-    description: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
-    icon: '/img/icono_antropico_negro.svg',
-  },
-  physical: {
-    title: 'Paisajes fisicos',
-    description: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
-    icon: '/img/icono_fisico_negro.svg',
-  },
-}
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -248,7 +232,7 @@ export function EscenaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        affectationTypes={affectationTypes}
+        affectationTypes={atlasContent.affectationTypes}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"

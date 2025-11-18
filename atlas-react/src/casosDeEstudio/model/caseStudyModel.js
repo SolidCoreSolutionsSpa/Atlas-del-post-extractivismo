@@ -14,8 +14,7 @@
  * @property {{
  *    image: string,
  *    zones: Array<{ id: string, name: string, position: { left: string, top: string }}>,
- *    decorations: Array<{ id: string, image: string, widthVw: number, alt: string, left: string, top: string, category: string | null }>,
- *    affectationTypes: Record<string, { title: string, description: string, icon: string }>
+ *    decorations: Array<{ id: string, image: string, widthVw: number, alt: string, left: string, top: string, category: string | null }>
  * }} detailMap
  */
 
@@ -37,7 +36,6 @@ export function createCaseStudy(payload = {}) {
       image: '',
       hotspots: [],
       decorations: [],
-      affectationTypes: {},
     },
   }
 }

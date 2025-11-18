@@ -33,7 +33,6 @@ function buildDetailMap (caseStudy) {
     image: caseStudy.image_path,
     zones,
     decorations: allDecorations,
-    affectationTypes: caseStudy.affectationTypes
   }
 }
 
