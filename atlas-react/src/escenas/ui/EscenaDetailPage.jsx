@@ -43,7 +43,7 @@ const iconSizeByCategory = {
 
 const containerScaleByCategory = {
   biotic: 1.0,
-  anthropic: 0.8,
+  anthropic: 0.9,
   physical: 1.0,
 }
 

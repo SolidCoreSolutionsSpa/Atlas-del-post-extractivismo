@@ -81,13 +81,23 @@ export function FilterPanel({
             aria-label={info.title}
             title={!showDescriptionCard ? info.title : undefined}
           >
-            <img
-              src={filterIcons[category]}
-              alt=""
-              className="filter-icon-responsive"
-              style={category === 'anthropic' ? { width: '70%', height: '70%' } : undefined}
-              loading="lazy"
-            />
+            {category === 'anthropic' ? (
+              <div style={{ transform: 'scale(0.7)' }}>
+                <img
+                  src={filterIcons[category]}
+                  alt=""
+                  className="filter-icon-responsive"
+                  loading="lazy"
+                />
+              </div>
+            ) : (
+              <img
+                src={filterIcons[category]}
+                alt=""
+                className="filter-icon-responsive"
+                loading="lazy"
+              />
+            )}
           </button>
         ))}
       </div>
