@@ -12,7 +12,7 @@ export function Breadcrumbs({ items, className }) {
   return (
     <nav
       className={clsx(
-        'breadcrumb-nav inline-flex items-center rounded-xl bg-white/20 shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm dark:bg-[rgba(20,20,40,0.3)] dark:text-white',
+        'breadcrumb-nav inline-flex items-center rounded-xl bg-black/50 text-white shadow-[0_2px_6px_rgba(0,0,0,0.1)] backdrop-blur-sm',
         'font-normal',
         className,
       )}
@@ -46,8 +46,8 @@ function BreadcrumbItem({ label, to, isLast, zoomNavigate }) {
   if (!to) {
     return (
       <>
-        <span className="text-[#222] dark:text-white dark:font-medium">{label}</span>
-        {!isLast ? <span className="text-[#6f6f6f] dark:text-[#e9e9e9]">&gt;</span> : null}
+        <span className="text-white font-medium">{label}</span>
+        {!isLast ? <span className="text-white/70">&gt;</span> : null}
       </>
     )
   }
@@ -67,11 +67,11 @@ function BreadcrumbItem({ label, to, isLast, zoomNavigate }) {
       <a
         href={to}
         onClick={handleClick}
-        className="cursor-pointer text-[#6f6f6f] no-underline hover:underline dark:text-[#e9e9e9]"
+        className="cursor-pointer text-white/70 no-underline hover:underline hover:text-white"
       >
         {label}
       </a>
-      {!isLast ? <span className="text-[#6f6f6f] dark:text-[#e9e9e9]">&gt;</span> : null}
+      {!isLast ? <span className="text-white/70">&gt;</span> : null}
     </>
   )
 }

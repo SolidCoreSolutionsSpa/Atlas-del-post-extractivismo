@@ -5,7 +5,7 @@ import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
@@ -92,14 +92,19 @@ export function ElementDetailPage() {
   }, [element?.sceneId])
 
   // Apply theme based on element data (always night theme for immersive experience)
-  useMemo(() => {
+  useEffect(() => {
     if (element) {
       setTheme('night')
     }
+
+    // Cleanup: reset to light theme when unmounting
     return () => {
       setTheme('light')
     }
   }, [element, setTheme])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([element, status])
 
   const breadcrumbItems = [
     { label: 'Inicio', to: '/' },
@@ -181,7 +186,7 @@ export function ElementDetailPage() {
 
   return (
     <motion.section
-      className={clsx('relative min-h-screen overflow-hidden bg-[#050b1d] text-white')}
+      className={clsx('relative min-h-screen overflow-hidden text-white')}
       initial="hidden"
       animate="visible"
       variants={panelVariants}
@@ -289,7 +294,8 @@ export function ElementDetailPage() {
                         x: rect.left + rect.width / 2,
                         y: rect.top + rect.height / 2,
                       }
-                      zoomNavigate(`/elementos/${item.element.id}`, { origin })
+                      // Navegar al escenario del elemento con highlight
+                      zoomNavigate(`/escenas/${item.element.sceneId}?highlight=${item.element.id}`, { origin })
                     }}
                     className="element-recommendation-image aspect-square overflow-hidden border-2 border-white/20 bg-white/10 transition hover:border-white/60 hover:scale-105"
                     title={item.element.name}

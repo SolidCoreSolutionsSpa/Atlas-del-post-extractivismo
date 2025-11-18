@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 import { atlasContent } from '../../shared/data/newAtlasContent'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useImageCrossfade } from '../../shared/hooks/useImageCrossfade'
 import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
@@ -20,6 +20,9 @@ export function LandingPage() {
   // ViewModel para obtener casos de estudio siguiendo patrón MVVM
   const viewModel = useMemo(() => new LandingPageViewModel(), [])
   const territoriesConfig = useMemo(() => viewModel.getTerritoriesConfig(), [viewModel])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([territoriesConfig])
 
   // Hook de crossfade de imágenes
   const { currentImage, isFading, swapImage } = useImageCrossfade(

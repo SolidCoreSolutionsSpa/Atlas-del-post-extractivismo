@@ -14,6 +14,8 @@ import clsx from 'clsx'
  * @param {string} [props.iconPadding] - Padding para el ícono
  * @param {boolean} [props.pulsate] - Si debe tener animación de pulso
  * @param {boolean} [props.active] - Si está activo (afecta la animación)
+ * @param {string} [props.backgroundColor] - Color de fondo personalizado (ej: 'bg-white/80', 'bg-red-500/80')
+ * @param {number} [props.containerScale] - Escala del contenedor (0.0 - 1.0), ej: 0.6 para 60%
  */
 export function ShapeBackground({
   shape = 'circle',
@@ -22,6 +24,8 @@ export function ShapeBackground({
   iconPadding = 'p-1.5',
   pulsate = false,
   active = true,
+  backgroundColor = 'bg-white/80',
+  containerScale = 1.0,
 }) {
   // Tamaño responsivo - diferentes tamaños según la forma
   // Usa clases CSS responsivas definidas en legacy.css que escalan con viewport
@@ -34,7 +38,8 @@ export function ShapeBackground({
 
   // Clases base compartidas por todas las formas
   const baseClasses = clsx(
-    'pointer-events-auto flex items-center justify-center bg-white/80 backdrop-blur transition hover:scale-110',
+    'pointer-events-auto flex items-center justify-center backdrop-blur transition hover:scale-110',
+    backgroundColor,
     sizeClass,
     iconPadding,
     pulsate && active && 'animate-[pulse-soft_2s_ease-in-out_infinite]',
@@ -77,7 +82,8 @@ export function ShapeBackground({
     ? 'rounded-[4px]'
     : 'rounded-none'
 
-  return (
+  // Si necesitamos escalar, envolver en un div con transform
+  const content = (
     <div
       className={clsx(baseClasses, shapeClass)}
       style={clipPathStyle}
@@ -85,4 +91,15 @@ export function ShapeBackground({
       {children}
     </div>
   )
+
+  // Si containerScale es diferente de 1.0, envolver en un div con scale
+  if (containerScale !== 1.0) {
+    return (
+      <div style={{ transform: `scale(${containerScale})` }}>
+        {content}
+      </div>
+    )
+  }
+
+  return content
 }

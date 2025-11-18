@@ -17,7 +17,7 @@ import {
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { SmartTooltip } from './SmartTooltip'
-import { ShapeBackground } from './ShapeBackground'
+import { ShapeIcon } from './ShapeIcon'
 
 export const MapParallaxContext = createContext(null)
 
@@ -376,6 +376,9 @@ export function MapIconHotspot({
   active = true,
   iconPadding = 'p-1.5', // padding personalizable por ícono
   backgroundShape = 'circle', // forma del fondo: 'circle', 'square', 'diamond', 'triangle'
+  backgroundColor, // color de fondo personalizado para el ShapeBackground
+  iconSize, // tamaño del icono (ej: '95%', '90%')
+  containerScale, // escala del contenedor ShapeBackground (0.0 - 1.0)
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
@@ -409,19 +412,17 @@ export function MapIconHotspot({
       }}
     >
       <div className="relative">
-        <ShapeBackground
+        <ShapeIcon
           shape={backgroundShape}
+          iconSrc={iconSrc}
+          iconAlt={iconAlt}
           iconPadding={iconPadding}
           pulsate={pulsate}
           active={active}
-        >
-          <img
-            src={iconSrc}
-            alt={iconAlt}
-            className="h-full w-full object-contain"
-            loading="lazy"
-          />
-        </ShapeBackground>
+          backgroundColor={backgroundColor}
+          iconSize={iconSize}
+          containerScale={containerScale}
+        />
         <SmartTooltip text={label} isVisible={isHovered} />
       </div>
     </motion.button>

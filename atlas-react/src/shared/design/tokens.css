@@ -4,15 +4,16 @@
 }
 
 :root {
-  color-scheme: light dark;
-  --token-background: rgb(255 255 255);
-  --token-surface: rgb(255 255 255);
-  --token-primary: rgb(52 120 246);
-  --token-primary-strong: rgb(34 88 192);
-  --token-body: rgb(0 0 0);
-  --token-muted: rgb(111 111 111);
-  --token-divider: rgb(226 232 240);
-  --token-heading: rgb(145 145 145);
+  color-scheme: dark;
+  /* Colores fijos del modo oscuro - no dependen del tema del navegador */
+  --token-background: rgb(15 23 42);
+  --token-surface: rgb(30 41 59);
+  --token-primary: rgb(96 165 250);
+  --token-primary-strong: rgb(59 130 246);
+  --token-body: rgb(226 232 240);
+  --token-muted: rgb(148 163 184);
+  --token-divider: rgb(71 85 105);
+  --token-heading: rgb(148 163 184);
 }
 
 @theme {
@@ -24,18 +25,6 @@
   --color-token-muted: var(--token-muted);
   --color-token-divider: var(--token-divider);
   --color-token-heading: var(--token-heading);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --token-background: rgb(15 23 42);
-    --token-surface: rgb(30 41 59);
-    --token-primary: rgb(96 165 250);
-    --token-primary-strong: rgb(59 130 246);
-    --token-body: rgb(226 232 240);
-    --token-muted: rgb(148 163 184);
-    --token-divider: rgb(71 85 105);
-  }
 }
 
 body {

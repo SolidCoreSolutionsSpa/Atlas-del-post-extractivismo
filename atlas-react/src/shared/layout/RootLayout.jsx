@@ -2,11 +2,12 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
-import { TransitionProvider } from '../hooks/useZoomNavigation.jsx'
+import { TransitionProvider, usePageTransition } from '../hooks/useZoomNavigation.jsx'
 import { useTheme } from '../hooks/useTheme'
 import { useOrientation } from '../hooks/useOrientation'
 import { OrientationModal } from '../ui/OrientationModal'
 import { Navbar } from '../ui/Navbar'
+import { Loader } from '../ui/Loader'
 
 const navPlaceholders = [
   { label: 'Sobre el proyecto' },
@@ -41,7 +42,17 @@ export function RootLayout({ children }) {
   const shouldShowOrientationModal = isMobile && (isPortrait || (isLandscape && !isFullscreen))
 
   return (
-    <div className="min-h-screen bg-[#f9fafc] text-token-body">
+    <div
+      className="min-h-screen text-token-body"
+      style={{
+        // Imagen de fondo global que siempre está cargada
+        backgroundImage: 'url(/img/fondo.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
       <Navbar
         logoSrc={logoSrc}
         navItems={navPlaceholders}
@@ -49,9 +60,7 @@ export function RootLayout({ children }) {
       />
 
       <TransitionProvider>
-        <main className="min-h-screen">
-          <OutletFallback>{children}</OutletFallback>
-        </main>
+        <RootLayoutContent>{children}</RootLayoutContent>
       </TransitionProvider>
 
       {/* Modal de orientación para dispositivos móviles */}
@@ -61,6 +70,21 @@ export function RootLayout({ children }) {
         isLandscape={isLandscape}
       />
     </div>
+  )
+}
+
+function RootLayoutContent({ children }) {
+  const transition = usePageTransition()
+
+  return (
+    <>
+      {/* Loader que se muestra durante las transiciones */}
+      <Loader isLoading={transition.isNavigating} />
+
+      <main className="min-h-screen">
+        <OutletFallback>{children}</OutletFallback>
+      </main>
+    </>
   )
 }
 

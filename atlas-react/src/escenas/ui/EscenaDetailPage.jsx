@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import clsx from 'clsx'
 
@@ -9,12 +9,12 @@ import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
-import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
+import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
 const iconByCategory = {
@@ -25,7 +25,7 @@ const iconByCategory = {
 
 const paddingByCategory = {
   biotic: 'p-2',
-  anthropic: 'p-1.5',
+  anthropic: 'p-0',
   physical: 'p-3',
 }
 
@@ -33,6 +33,18 @@ const shapeByCategory = {
   biotic: 'diamond',
   anthropic: 'square',
   physical: 'triangle',
+}
+
+const iconSizeByCategory = {
+  biotic: '95%',
+  anthropic: '70%',
+  physical: '95%',
+}
+
+const containerScaleByCategory = {
+  biotic: 1.0,
+  anthropic: 0.9,
+  physical: 1.0,
 }
 
 const filterDescriptions = {
@@ -66,6 +78,8 @@ const caseIndex = new Map(
 
 export function EscenaDetailPage() {
   const { sceneId } = useParams()
+  const [searchParams] = useSearchParams()
+  const highlightedElementId = searchParams.get('highlight')
   const zoomNavigate = useZoomNavigation()
   const { setTheme } = useTheme()
   const service = useMemo(
@@ -110,6 +124,9 @@ export function EscenaDetailPage() {
       setTheme('light')
     }
   }, [scene, setTheme])
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([scene, status])
 
   const zone = scene ? zoneIndex.get(scene.zoneId) : null
   const caseStudy = zone ? caseIndex.get(zone.caseId) : null
@@ -197,6 +214,7 @@ export function EscenaDetailPage() {
       >
         {scene.map.hotspots.map((hotspot) => {
           const isActive = !activeFilter || hotspot.category === activeFilter
+          const isHighlighted = highlightedElementId && hotspot.elementId === highlightedElementId
           return (
             <MapIconHotspot
               key={hotspot.id}
@@ -207,6 +225,9 @@ export function EscenaDetailPage() {
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
+              backgroundColor={isHighlighted ? 'bg-[#ff0000]' : undefined}
+              iconSize={iconSizeByCategory[hotspot.category] ?? '95%'}
+              containerScale={containerScaleByCategory[hotspot.category] ?? 1.0}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {

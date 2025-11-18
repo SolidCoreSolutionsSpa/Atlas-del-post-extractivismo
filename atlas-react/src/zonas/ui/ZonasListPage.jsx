@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 import { SectionHeader } from '../../shared/design/components/SectionHeader'
 import { Button } from '../../shared/design/components/Button'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useZonasState } from '../hooks/useZonasState'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'
@@ -37,6 +37,9 @@ export function ZonasListPage() {
 
   const zoomNavigate = useZoomNavigation()
   const { status, zonas } = useZonasState({ zonasService: service })
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([zonas, status])
 
   return (
     <motion.section
