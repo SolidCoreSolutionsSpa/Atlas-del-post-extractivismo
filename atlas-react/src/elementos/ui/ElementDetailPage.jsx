@@ -186,7 +186,7 @@ export function ElementDetailPage() {
 
   return (
     <motion.section
-      className={clsx('relative min-h-screen overflow-hidden bg-[#050b1d] text-white')}
+      className={clsx('relative min-h-screen overflow-hidden text-white')}
       initial="hidden"
       animate="visible"
       variants={panelVariants}
