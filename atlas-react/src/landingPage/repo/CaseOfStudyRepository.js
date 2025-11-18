@@ -26,7 +26,6 @@ export class CaseOfStudyRepository {
       return {
         entity: dto.toEntity(),
         navigateTo: dto.navigateTo,
-        variant: dto.variant, // También incluimos variant para el componente RadarPoint
       }
     })
   }
@@ -47,7 +46,6 @@ export class CaseOfStudyRepository {
     return {
       entity: dto.toEntity(),
       navigateTo: dto.navigateTo,
-      variant: dto.variant,
     }
   }
 }

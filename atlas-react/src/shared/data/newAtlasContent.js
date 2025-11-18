@@ -17,7 +17,6 @@ export const atlasContent = {
       position_left: 29,
       position_top: 65,
       color: "#d57a00",
-      variant: "default",
       navigateTo: "/casos-de-estudio/provincia-choapa",
       filterDescriptions: {
         biotic: {
@@ -449,7 +448,6 @@ export const atlasContent = {
       position_left: 29.5,
       position_top: 43,
       color: "#443ad4ff",
-      variant: "blue",
       navigateTo: null,
       zones: [],
     },
@@ -463,7 +461,6 @@ export const atlasContent = {
       position_left: 35.7,
       position_top: 42,
       color: "#e4db66ff",
-      variant: "yellow",
       navigateTo: null,
       zones: [],
     },
@@ -477,7 +474,6 @@ export const atlasContent = {
       position_left: 27.5,
       position_top: 34,
       color: "#1a1a1a",
-      variant: "black",
       navigateTo: null,
       zones: [],
     },

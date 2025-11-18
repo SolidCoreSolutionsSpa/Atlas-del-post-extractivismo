@@ -18,7 +18,6 @@ export class CaseOfStudyDTO {
     this.position_top = data.position_top
     this.position_left = data.position_left
     this.color = data.color
-    this.variant = data.variant
     this.navigateTo = data.navigateTo
     this.zones = data.zones
   }

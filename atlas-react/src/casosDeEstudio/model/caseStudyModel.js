@@ -5,7 +5,6 @@
  * @property {string} location
  * @property {string} summary
  * @property {string} color
- * @property {string} variant
  * @property {string|null} navigateTo
  * @property {string[]} zoneIds
  * @property {{
@@ -31,7 +30,6 @@ export function createCaseStudy(payload = {}) {
     location: payload.location ?? '',
     summary: payload.summary ?? 'Resumen pendiente de migracion.',
     color: payload.color ?? '#000000',
-    variant: payload.variant ?? 'default',
     navigateTo: payload.navigateTo ?? null,
     zoneIds: payload.zoneIds ?? [],
     globalMap: payload.globalMap ?? { image: '', points: [] },

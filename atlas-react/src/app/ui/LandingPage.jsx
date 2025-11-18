@@ -190,7 +190,7 @@ export function LandingPage() {
                   left={territory.position.left}
                   top={territory.position.top}
                   label={territory.name}
-                  variant={territory.variant}
+                  color={territory.color}
                   state={getPointState(key)}
                   isHovered={hoveredTerritory === key}
                   parallaxOffset={pointOffset}
