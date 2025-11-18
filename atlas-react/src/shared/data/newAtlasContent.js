@@ -319,13 +319,13 @@ export const atlasContent = {
                   position_left: 52,
                   position_top: 78,
                   affectation_type: {
-                    id: "afectacion-antropica",
-                    name: "Afectacion antropica",
+                    id: "afectacion-fisica",
+                    name: "Afectacion fisica",
                   },
                   keywords: [
                     { id: "tag-flora", name: "flora" },
                     { id: "tag-infraestructura", name: "infraestructura" },
-                    { id: "tag-antropico", name: "antropico" },
+                    { id: "tag-fisico", name: "fisico" },
                   ],
                 },
                 {
