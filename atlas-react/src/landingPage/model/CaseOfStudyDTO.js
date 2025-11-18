@@ -18,8 +18,18 @@ export class CaseOfStudyDTO {
     this.position_top = data.position_top
     this.position_left = data.position_left
     this.color = data.color
-    this.navigateTo = data.navigateTo
+    this.is_published = data.is_published
     this.zones = data.zones
+  }
+
+  /**
+   * Deriva la ruta de navegación basándose en el ID y el estado de publicación
+   * @returns {string|null} Ruta de navegación o null si no está publicado
+   */
+  getNavigateTo() {
+    return this.is_published !== false
+      ? `/casos-de-estudio/${this.id}`
+      : null
   }
 
   /**

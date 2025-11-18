@@ -17,7 +17,7 @@ export const atlasContent = {
       position_left: 29,
       position_top: 65,
       color: "#d57a00",
-      navigateTo: "/casos-de-estudio/provincia-choapa",
+      is_published: true,
       filterDescriptions: {
         biotic: {
           title: "Paisajes bioticos",
@@ -448,7 +448,7 @@ export const atlasContent = {
       position_left: 29.5,
       position_top: 43,
       color: "#443ad4ff",
-      navigateTo: null,
+      is_published: false,
       zones: [],
     },
     {
@@ -461,7 +461,7 @@ export const atlasContent = {
       position_left: 35.7,
       position_top: 42,
       color: "#e4db66ff",
-      navigateTo: null,
+      is_published: false,
       zones: [],
     },
     {
@@ -474,7 +474,7 @@ export const atlasContent = {
       position_left: 27.5,
       position_top: 34,
       color: "#1a1a1a",
-      navigateTo: null,
+      is_published: false,
       zones: [],
     },
   ],
