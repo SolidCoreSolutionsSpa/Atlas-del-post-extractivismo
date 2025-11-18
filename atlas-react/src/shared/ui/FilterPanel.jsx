@@ -82,7 +82,7 @@ export function FilterPanel({
             title={!showDescriptionCard ? info.title : undefined}
           >
             {category === 'anthropic' ? (
-              <div style={{ transform: 'scale(0.7)' }}>
+              <div style={{ transform: 'scale(0.9)' }}>
                 <img
                   src={filterIcons[category]}
                   alt=""
