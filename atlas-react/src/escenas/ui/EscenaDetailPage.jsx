@@ -47,18 +47,21 @@ const containerScaleByCategory = {
   physical: 1.0,
 }
 
-const filterDescriptions = {
+const affectationTypes = {
   biotic: {
     title: 'Paisajes bioticos',
-    text: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
+    description: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
+    icon: '/img/icono_biotico_negro.svg',
   },
   anthropic: {
     title: 'Paisajes antropicos',
-    text: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
+    description: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
+    icon: '/img/icono_antropico_negro.svg',
   },
   physical: {
     title: 'Paisajes fisicos',
-    text: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
+    description: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
+    icon: '/img/icono_fisico_negro.svg',
   },
 }
 
@@ -245,7 +248,7 @@ export function EscenaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        filterDescriptions={filterDescriptions}
+        affectationTypes={affectationTypes}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"

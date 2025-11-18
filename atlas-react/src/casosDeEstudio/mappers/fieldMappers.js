@@ -16,9 +16,8 @@ export function mapCaseStudyFields (raw) {
     position_left: raw.position_left,
     position_top: raw.position_top,
     color: raw.color,
-    variant: raw.variant,
-    navigateTo: raw.navigateTo,
-    filterDescriptions: raw.filterDescriptions
+    is_published: raw.is_published,
+    affectationTypes: raw.affectationTypes
   }
 }
 

@@ -216,7 +216,7 @@ export function CaseStudyDetailPage() {
       />
 
       <FilterPanel
-        filterDescriptions={detailMap.filterDescriptions}
+        affectationTypes={detailMap.affectationTypes}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         showDescriptionCard={true}

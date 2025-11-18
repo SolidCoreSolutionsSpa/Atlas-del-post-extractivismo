@@ -9,27 +9,25 @@ import { CaseOfStudyDTO } from '../model/CaseOfStudyDTO'
  */
 export class CaseOfStudyRepository {
   /**
-   * Obtiene todos los casos de estudio publicados
-   * @returns {Array<{entity: CaseOfStudyEntity, navigateTo: string}>}
+   * Obtiene todos los casos de estudio
+   * @returns {Array<{entity: CaseOfStudyEntity, navigateTo: string|null}>}
    */
   getAllCasesOfStudy() {
     // Obtener casos de estudio desde la fuente de datos (simulando DB)
     const casesData = atlasContent.caseOfStudies || []
 
-    // Filtrar solo casos publicados y convertir a DTOs y Entities
-    return casesData
-      .filter((caseData) => caseData.is_published !== false)
-      .map((caseData) => {
-        const dto = CaseOfStudyDTO.fromAtlasContent(caseData)
+    // Convertir datos crudos a DTOs y luego a Entities
+    return casesData.map((caseData) => {
+      const dto = CaseOfStudyDTO.fromAtlasContent(caseData)
 
-        // Retornamos tanto la Entity como navigateTo
-        // navigateTo se deriva del ID, no es parte del modelo de dominio
-        // pero es necesario para la navegación en la vista
-        return {
-          entity: dto.toEntity(),
-          navigateTo: dto.getNavigateTo(),
-        }
-      })
+      // Retornamos tanto la Entity como navigateTo
+      // navigateTo se deriva del ID y is_published, no es parte del modelo de dominio
+      // pero es necesario para la navegación en la vista
+      return {
+        entity: dto.toEntity(),
+        navigateTo: dto.getNavigateTo(),
+      }
+    })
   }
 
   /**
