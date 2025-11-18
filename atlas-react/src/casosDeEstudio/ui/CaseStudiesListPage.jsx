@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap, MapMarker } from '../../shared/ui/InteractiveMap'
-import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
+import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { caseStudies as fallbackCaseStudies } from '../repo/caseStudiesRepository'
 import { useCaseStudiesState } from '../hooks/useCaseStudiesState'
 import { CaseStudiesService } from '../services/caseStudiesService'
@@ -21,6 +21,9 @@ export function CaseStudiesListPage() {
     caseStudiesService: service,
   })
   const zoomNavigate = useZoomNavigation()
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([caseStudies, status])
 
   const isLoading = status === 'loading'
   const fallbackImage = fallbackCaseStudies[0]?.globalMap.image ?? null

@@ -9,7 +9,7 @@ import { RotatingHotspot } from "../../shared/ui/RotatingHotspot";
 import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
 import { DescriptionModal } from "../../shared/ui/DescriptionModal";
 import { FilterPanel } from "../../shared/ui/FilterPanel";
-import { useZoomNavigation } from "../../shared/hooks/useZoomNavigation.jsx";
+import { useZoomNavigation, usePageLoaded } from "../../shared/hooks/useZoomNavigation.jsx";
 import { CaseStudiesService } from "../services/caseStudiesService";
 import { inMemoryCaseStudiesRepository } from "../repo/caseStudiesRepository";
 
@@ -54,6 +54,9 @@ export function CaseStudyDetailPage() {
       isMounted = false;
     };
   }, [caseStudyId, service]);
+
+  // Notificar cuando la página terminó de cargar
+  usePageLoaded([caseStudy, status]);
 
   const breadcrumbItems = [
     { label: "Inicio", to: "/" },
