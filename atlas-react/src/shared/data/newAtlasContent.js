@@ -58,10 +58,6 @@ export const atlasContent = {
                 type: "anthropic",
                 tooltip: "Arraigo y terrateniencia",
               },
-              escene_type: {
-                id: 1,
-                name: "anthropic",
-              },
               elements: [],
             },
             {
@@ -79,10 +75,6 @@ export const atlasContent = {
                 type: "biotic",
                 tooltip: "Santuario de la naturaleza",
               },
-              escene_type: {
-                id: 1,
-                name: "biotic",
-              },
               elements: [],
             },
             {
@@ -99,10 +91,6 @@ export const atlasContent = {
                 widthVw: 9.5,
                 type: "anthropic",
                 tooltip: "Ecosistema Tranque",
-              },
-              escene_type: {
-                id: 1,
-                name: "biotic",
               },
               elements: [],
             },
@@ -129,10 +117,6 @@ export const atlasContent = {
               type: "anthropic",
               tooltip: "Área Chacay",
             },
-            escene_type: {
-              id: 1,
-              name: "anthropic",
-            },
             elements: [],
           },
           {
@@ -150,10 +134,6 @@ export const atlasContent = {
               type: "biotic",
               tooltip: "Botadero las Hualtatas",
             },
-            escene_type: {
-              id: 1,
-              name: "biotic",
-            },
             elements: [],
           },
           {
@@ -170,10 +150,6 @@ export const atlasContent = {
               widthVw: 12,
               type: "physical",
               tooltip: "Glaciares",
-            },
-            escene_type: {
-              id: 1,
-              name: "biotic",
             },
             elements: [
               {
@@ -240,10 +216,6 @@ export const atlasContent = {
                 widthVw: 10,
                 type: "anthropic",
                 tooltip: "Perturbación aérea",
-              },
-              escene_type: {
-                id: 1,
-                name: "anthropic",
               },
               elements: [
                 {
@@ -389,10 +361,6 @@ export const atlasContent = {
                 type: "anthropic",
                 tooltip: "Salmuera",
               },
-              escene_type: {
-                id: 1,
-                name: "anthropic",
-              },
               elements: [],
             },
             {
@@ -410,10 +378,6 @@ export const atlasContent = {
                 type: "biotic",
                 tooltip: "Isla Huevo",
               },
-              escene_type: {
-                id: 1,
-                name: "biotic",
-              },
               elements: [],
             },
             {
@@ -430,10 +394,6 @@ export const atlasContent = {
                 widthVw: 9,
                 type: "biotic",
                 tooltip: "Santuario de la naturaleza",
-              },
-              escene_type: {
-                id: 1,
-                name: "biotic",
               },
               elements: [],
             },

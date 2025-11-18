@@ -42,7 +42,6 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
             id: sceneEntity.id,
             zoneId: sceneEntity.zoneId,
             name: sceneEntity.name,
-            theme: sceneEntity.theme,
             map: sceneEntity.map,
           })
           seedScenes.push(createdScene)

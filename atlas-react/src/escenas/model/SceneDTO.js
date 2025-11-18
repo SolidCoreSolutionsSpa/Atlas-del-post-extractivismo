@@ -15,7 +15,6 @@ export class SceneDTO {
     this.image_path = data.image_path
     this.position_left = data.position_left
     this.position_top = data.position_top
-    this.escene_type = data.escene_type
     this.elements = data.elements || []
   }
 
@@ -42,7 +41,6 @@ export class SceneDTO {
       this.id,
       zoneId,
       this.title,
-      'night', // theme por defecto
       {
         image: this.image_path,
         hotspots: hotspots,

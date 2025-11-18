@@ -10,7 +10,6 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
@@ -68,7 +67,6 @@ export function EscenaDetailPage() {
   const [searchParams] = useSearchParams()
   const highlightedElementId = searchParams.get('highlight')
   const zoomNavigate = useZoomNavigation()
-  const { setTheme } = useTheme()
   const service = useMemo(
     () =>
       new EscenasService({
@@ -97,20 +95,6 @@ export function EscenaDetailPage() {
       isMounted = false
     }
   }, [sceneId, service])
-
-  // Apply theme based on scene data
-  useEffect(() => {
-    if (scene && scene.theme === 'night') {
-      setTheme('night')
-    } else if (scene) {
-      setTheme('light')
-    }
-
-    // Cleanup: reset to light theme when unmounting
-    return () => {
-      setTheme('light')
-    }
-  }, [scene, setTheme])
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([scene, status])

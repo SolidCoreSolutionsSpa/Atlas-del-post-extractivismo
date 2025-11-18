@@ -6,7 +6,6 @@ import clsx from 'clsx'
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
@@ -52,7 +51,6 @@ const caseIndex = new Map(
 export function ElementDetailPage() {
   const { elementId } = useParams()
   const zoomNavigate = useZoomNavigation()
-  const { setTheme } = useTheme()
   const [sceneElements, setSceneElements] = useState([])
 
   const seed = useMemo(
@@ -90,18 +88,6 @@ export function ElementDetailPage() {
     }
     loadSceneElements()
   }, [element?.sceneId])
-
-  // Apply theme based on element data (always night theme for immersive experience)
-  useEffect(() => {
-    if (element) {
-      setTheme('night')
-    }
-
-    // Cleanup: reset to light theme when unmounting
-    return () => {
-      setTheme('light')
-    }
-  }, [element, setTheme])
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([element, status])

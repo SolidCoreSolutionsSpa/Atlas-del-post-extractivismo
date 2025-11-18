@@ -51,7 +51,6 @@ export function mapSceneFields (raw) {
     title: raw.title,
     image: raw.image_path, // ← Transform
     position: mapPosition(raw.position_left, raw.position_top),
-    theme: raw.escene_type?.name || null // Extract from nested object
   }
 }
 
