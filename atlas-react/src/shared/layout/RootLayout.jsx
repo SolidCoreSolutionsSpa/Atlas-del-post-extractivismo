@@ -14,7 +14,7 @@ const navPlaceholders = [
   { label: 'Glosario' },
 ]
 
-export function RootLayout({ children }) {
+export function RootLayout({ children, isAppReady = true }) {
   usePrefersReducedMotion()
   const { theme } = useTheme()
   const { isPortrait, isLandscape, isMobile } = useOrientation()
@@ -41,7 +41,17 @@ export function RootLayout({ children }) {
   const shouldShowOrientationModal = isMobile && (isPortrait || (isLandscape && !isFullscreen))
 
   return (
-    <div className="min-h-screen bg-[#f9fafc] text-token-body">
+    <div
+      className="min-h-screen text-token-body"
+      style={{
+        // Imagen de fondo global que siempre está cargada
+        backgroundImage: 'url(/img/fondo.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+      }}
+    >
       <Navbar
         logoSrc={logoSrc}
         navItems={navPlaceholders}
@@ -50,7 +60,7 @@ export function RootLayout({ children }) {
 
       <TransitionProvider>
         <main className="min-h-screen">
-          <OutletFallback>{children}</OutletFallback>
+          <OutletFallback isAppReady={isAppReady}>{children}</OutletFallback>
         </main>
       </TransitionProvider>
 
@@ -64,7 +74,7 @@ export function RootLayout({ children }) {
   )
 }
 
-function OutletFallback({ children }) {
+function OutletFallback({ children, isAppReady }) {
   if (children) {
     return children
   }
