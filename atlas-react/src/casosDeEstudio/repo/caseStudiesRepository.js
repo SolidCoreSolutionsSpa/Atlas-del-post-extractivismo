@@ -103,7 +103,6 @@ function transformElements () {
           elements.push({
             ...mapElementFields(rawElement),
             sceneId: scene.id,
-            subtitle: rawElement.title,
             body: rawElement.description
           })
         }

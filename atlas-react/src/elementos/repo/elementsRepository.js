@@ -78,7 +78,6 @@ const seedElements = allElements.map((item) =>
     id: item.id,
     sceneId: item.sceneId,
     name: item.title,
-    subtitle: item.title,
     image: item.image_path,
     detailImagePath: item.detail_image_path ?? null,
     body: item.description,

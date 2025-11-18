@@ -220,13 +220,6 @@ export function ElementDetailPage() {
             {element.name}
           </h1>
 
-          {/* Subtítulo si existe */}
-          {element.subtitle && (
-            <p className="element-subtitle italic text-white/80">
-              {element.subtitle}
-            </p>
-          )}
-
           {/* Descripción */}
           <p className="leading-relaxed text-white/90">
             {element.body}

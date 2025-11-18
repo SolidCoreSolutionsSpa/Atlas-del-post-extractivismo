@@ -82,11 +82,6 @@ export function ElementRecommendationsPanel() {
               <h2 className="text-lg font-semibold text-token-primary">
                 {entry.element.name}
               </h2>
-              {entry.element.subtitle ? (
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-token-muted">
-                  {entry.element.subtitle}
-                </p>
-              ) : null}
               <p className="text-xs uppercase tracking-wide text-token-muted">
                 {entry.affectationType?.name ?? 'Afectacion por definir'}
               </p>
