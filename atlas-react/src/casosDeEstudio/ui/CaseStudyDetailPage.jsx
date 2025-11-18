@@ -8,7 +8,7 @@ import { InteractiveMap } from "../../shared/ui/InteractiveMap";
 import { RotatingHotspot } from "../../shared/ui/RotatingHotspot";
 import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
 import { DescriptionModal } from "../../shared/ui/DescriptionModal";
-import { FilterPanel } from "./FilterPanel";
+import { FilterPanel } from "../../shared/ui/FilterPanel";
 import { useZoomNavigation } from "../../shared/hooks/useZoomNavigation.jsx";
 import { CaseStudiesService } from "../services/caseStudiesService";
 import { inMemoryCaseStudiesRepository } from "../repo/caseStudiesRepository";

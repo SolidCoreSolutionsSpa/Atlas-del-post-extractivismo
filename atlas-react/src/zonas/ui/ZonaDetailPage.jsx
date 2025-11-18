@@ -11,7 +11,7 @@ import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
 import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { ZonasService } from '../services/zonasService'
 import { inMemoryZonasRepository } from '../repo/zonasRepository'
-import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
+import { FilterPanel } from '../../shared/ui/FilterPanel'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',

@@ -14,7 +14,7 @@ import { useTheme } from '../../shared/hooks/useTheme'
 import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { EscenasService } from '../services/escenasService'
 import { inMemoryEscenasRepository } from '../repo/escenasRepository'
-import { FilterPanel } from '../../casosDeEstudio/ui/FilterPanel'
+import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
 const iconByCategory = {
