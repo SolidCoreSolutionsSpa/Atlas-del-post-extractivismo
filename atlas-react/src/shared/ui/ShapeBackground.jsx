@@ -15,6 +15,7 @@ import clsx from 'clsx'
  * @param {boolean} [props.pulsate] - Si debe tener animación de pulso
  * @param {boolean} [props.active] - Si está activo (afecta la animación)
  * @param {string} [props.backgroundColor] - Color de fondo personalizado (ej: 'bg-white/80', 'bg-red-500/80')
+ * @param {number} [props.containerScale] - Escala del contenedor (0.0 - 1.0), ej: 0.6 para 60%
  */
 export function ShapeBackground({
   shape = 'circle',
@@ -24,6 +25,7 @@ export function ShapeBackground({
   pulsate = false,
   active = true,
   backgroundColor = 'bg-white/80',
+  containerScale = 1.0,
 }) {
   // Tamaño responsivo - diferentes tamaños según la forma
   // Usa clases CSS responsivas definidas en legacy.css que escalan con viewport
@@ -80,10 +82,15 @@ export function ShapeBackground({
     ? 'rounded-[4px]'
     : 'rounded-none'
 
+  // Combinar clip-path con scale si es necesario
+  const combinedStyle = containerScale !== 1.0
+    ? { ...clipPathStyle, transform: `scale(${containerScale})` }
+    : clipPathStyle
+
   return (
     <div
       className={clsx(baseClasses, shapeClass)}
-      style={clipPathStyle}
+      style={combinedStyle}
     >
       {children}
     </div>

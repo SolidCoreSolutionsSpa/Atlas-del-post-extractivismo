@@ -378,6 +378,7 @@ export function MapIconHotspot({
   backgroundShape = 'circle', // forma del fondo: 'circle', 'square', 'diamond', 'triangle'
   backgroundColor, // color de fondo personalizado para el ShapeBackground
   iconSize, // tamaño del icono (ej: '95%', '90%')
+  containerScale, // escala del contenedor ShapeBackground (0.0 - 1.0)
 }) {
   const { translateX, translateY } = useParallaxTransforms(factor)
   const { left: leftResuelto, top: topResuelto } = useMapCoordinates(left, top)
@@ -420,6 +421,7 @@ export function MapIconHotspot({
           active={active}
           backgroundColor={backgroundColor}
           iconSize={iconSize}
+          containerScale={containerScale}
         />
         <SmartTooltip text={label} isVisible={isHovered} />
       </div>

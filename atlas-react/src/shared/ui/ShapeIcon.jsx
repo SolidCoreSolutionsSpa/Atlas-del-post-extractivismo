@@ -15,6 +15,7 @@ import { ShapeBackground } from './ShapeBackground'
  * @param {boolean} [props.active] - Si está activo (afecta la animación)
  * @param {string} [props.backgroundColor] - Color de fondo personalizado
  * @param {string} [props.iconSize] - Tamaño del icono como porcentaje (ej: '95%', '90%')
+ * @param {number} [props.containerScale] - Escala del contenedor ShapeBackground (0.0 - 1.0)
  * @param {string} [props.className] - Clases adicionales para el contenedor
  */
 export function ShapeIcon({
@@ -26,6 +27,7 @@ export function ShapeIcon({
   active = true,
   backgroundColor,
   iconSize = '95%',
+  containerScale,
   className = '',
 }) {
   return (
@@ -35,6 +37,7 @@ export function ShapeIcon({
       pulsate={pulsate}
       active={active}
       backgroundColor={backgroundColor}
+      containerScale={containerScale}
       className={className}
     >
       <img

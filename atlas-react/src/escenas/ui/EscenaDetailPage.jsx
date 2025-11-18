@@ -41,6 +41,12 @@ const iconSizeByCategory = {
   physical: '95%',
 }
 
+const containerScaleByCategory = {
+  biotic: 1.0,
+  anthropic: 0.6,
+  physical: 1.0,
+}
+
 const filterDescriptions = {
   biotic: {
     title: 'Paisajes bioticos',
@@ -218,6 +224,7 @@ export function EscenaDetailPage() {
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
               backgroundColor={isHighlighted ? 'bg-[#ff0000]' : undefined}
               iconSize={iconSizeByCategory[hotspot.category] ?? '95%'}
+              containerScale={containerScaleByCategory[hotspot.category] ?? 1.0}
               pulsate={hotspot.pulsate}
               active={isActive}
               onClick={(event) => {
