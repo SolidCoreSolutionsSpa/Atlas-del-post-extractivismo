@@ -92,10 +92,12 @@ export function ElementDetailPage() {
   }, [element?.sceneId])
 
   // Apply theme based on element data (always night theme for immersive experience)
-  useMemo(() => {
+  useEffect(() => {
     if (element) {
       setTheme('night')
     }
+
+    // Cleanup: reset to light theme when unmounting
     return () => {
       setTheme('light')
     }
