@@ -85,6 +85,7 @@ export function FilterPanel({
               src={filterIcons[category]}
               alt=""
               className="filter-icon-responsive"
+              style={category === 'anthropic' ? { width: '70%', height: '70%' } : undefined}
               loading="lazy"
             />
           </button>

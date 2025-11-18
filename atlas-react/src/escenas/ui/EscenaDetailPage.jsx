@@ -37,13 +37,13 @@ const shapeByCategory = {
 
 const iconSizeByCategory = {
   biotic: '95%',
-  anthropic: '60%',
+  anthropic: '70%',
   physical: '95%',
 }
 
 const containerScaleByCategory = {
   biotic: 1.0,
-  anthropic: 0.6,
+  anthropic: 0.8,
   physical: 1.0,
 }
 
