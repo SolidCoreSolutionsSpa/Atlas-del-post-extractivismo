@@ -11,6 +11,7 @@ export function AtlasDataProvider({ children }) {
   useEffect(() => {
     async function fetchAtlasData() {
       try {
+        console.log('[AtlasDataContext] Fetching from /api/atlas-data...')
         const response = await fetch('/api/atlas-data')
 
         if (!response.ok) {
@@ -18,12 +19,15 @@ export function AtlasDataProvider({ children }) {
         }
 
         const data = await response.json()
+        console.log('[AtlasDataContext] Data received:', data)
+        console.log('[AtlasDataContext] caseOfStudies count:', data?.caseOfStudies?.length || 0)
         setAtlasData(data)
         setError(null)
       } catch (err) {
-        console.error('Error fetching atlas data:', err)
+        console.error('[AtlasDataContext] Error fetching atlas data:', err)
         setError(err.message)
         // Fall back to static data in development or if API fails
+        console.log('[AtlasDataContext] Using fallback static data')
         setAtlasData(staticAtlasContent)
       } finally {
         setIsLoading(false)
