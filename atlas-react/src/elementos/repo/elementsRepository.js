@@ -146,7 +146,7 @@ export class ElementsRepository {
   }
 }
 
-class InMemoryElementsRepository extends ElementsRepository {
+export class InMemoryElementsRepository extends ElementsRepository {
   constructor({
     elements = seedElements,
     tags = seedTags,
