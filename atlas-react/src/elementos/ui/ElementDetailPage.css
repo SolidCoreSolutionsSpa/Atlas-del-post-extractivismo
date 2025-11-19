@@ -22,11 +22,12 @@
 
   .element-card-main h1 {
     font-size: clamp(20.8px, 1.44vw, 28px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(17.6px, 1.22vw, 22px);
+    font-size: clamp(19.4px, 1.34vw, 24.2px);
   }
 
   .element-affectation-badge {
@@ -34,7 +35,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(10px, 0.69vw, 12px);
+    font-size: clamp(11px, 0.76vw, 13.2px);
     padding: clamp(1px, 0.07vw, 2px) clamp(6px, 0.42vw, 8px);
   }
 
@@ -97,11 +98,12 @@
 
   .element-card-main h1 {
     font-size: clamp(18px, 1.25vw, 24px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(15px, 1.05vw, 18px);
+    font-size: clamp(16.5px, 1.16vw, 19.8px);
   }
 
   .element-affectation-badge {
@@ -109,7 +111,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(9px, 0.6vw, 11px);
+    font-size: clamp(9.9px, 0.66vw, 12.1px);
     padding: clamp(1px, 0.06vw, 2px) clamp(4px, 0.3vw, 6px);
   }
 
@@ -175,11 +177,12 @@
 
   .element-card-main h1 {
     font-size: clamp(16px, 1.1vw, 20px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(13px, 0.9vw, 16px);
+    font-size: clamp(14.3px, 0.99vw, 17.6px);
   }
 
   .element-affectation-badge {
@@ -187,7 +190,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(8px, 0.55vw, 10px);
+    font-size: clamp(8.8px, 0.61vw, 11px);
     padding: clamp(0px, 0.05vw, 1px) clamp(4px, 0.28vw, 6px);
   }
 
@@ -255,11 +258,12 @@
 
   .element-card-main h1 {
     font-size: 1.8vw;
+    margin-bottom: 0;
   }
 
   .element-subtitle {
     margin-top: 0;
-    font-size: 1.5vw;
+    font-size: 1.65vw;
   }
 
   .element-affectation-badge {
@@ -267,7 +271,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: 0.9vw;
+    font-size: 0.99vw;
     padding: 0.1vw 0.4vw;
   }
 
@@ -342,11 +346,12 @@
 
   .element-card-main h1 {
     font-size: 2.8vh; /* ~11.9px at 425px height */
+    margin-bottom: 0;
   }
 
   .element-subtitle {
     margin-top: 0;
-    font-size: 2.4vh; /* ~10.2px at 425px height */
+    font-size: 2.64vh; /* ~11.2px at 425px height */
   }
 
   .element-affectation-badge {
@@ -354,7 +359,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: 1.6vh;
+    font-size: 1.76vh;
     padding: 0.1vh 0.5vh;
   }
 
