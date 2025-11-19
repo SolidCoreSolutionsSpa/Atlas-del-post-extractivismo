@@ -21,7 +21,7 @@ function buildDetailMap (caseStudy) {
   // Extract decorations from scenes instead of zones
   const allDecorations = (caseStudy.zones || [])
     .flatMap(zone =>
-      (zone.escenes || [])
+      (zone.scenes || [])
         .filter(scene => scene.decoration_image_path) // Only scenes with decoration
         .map(scene => ({
           ...mapDecorationFields(scene),
@@ -71,7 +71,7 @@ function transformZones () {
         caseId: caseStudy.slug,
         mapImage: rawZone.image_path,
         name: rawZone.title,
-        sceneIds: rawZone.escenes?.map(s => s.slug) || []
+        sceneIds: rawZone.scenes?.map(s => s.slug) || []
       })
     }
   }
@@ -82,7 +82,7 @@ function transformScenes () {
   const scenes = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const rawScene of zone.escenes || []) {
+      for (const rawScene of zone.scenes || []) {
         scenes.push({
           ...mapSceneFields(rawScene),
           id: rawScene.slug,
@@ -101,7 +101,7 @@ function transformElements () {
   const elements = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const scene of zone.escenes || []) {
+      for (const scene of zone.scenes || []) {
         for (const rawElement of scene.elements || []) {
           elements.push({
             ...mapElementFields(rawElement),

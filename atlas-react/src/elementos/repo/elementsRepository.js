@@ -20,8 +20,8 @@ const allElements = []
 newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
-      if (zone.escenes && Array.isArray(zone.escenes)) {
-        zone.escenes.forEach((scene) => {
+      if (zone.scenes && Array.isArray(zone.scenes)) {
+        zone.scenes.forEach((scene) => {
           if (scene.elements && Array.isArray(scene.elements)) {
             scene.elements.forEach((element) => {
               allElements.push({

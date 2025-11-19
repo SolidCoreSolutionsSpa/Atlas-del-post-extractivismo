@@ -16,7 +16,7 @@ export class ZoneDTO {
     this.image_path = data.image_path
     this.position_left = data.position_left
     this.position_top = data.position_top
-    this.escenes = data.escenes || []
+    this.scenes = data.scenes || []
     // decorations removed - now each scene has its own decoration field
   }
 
@@ -27,13 +27,13 @@ export class ZoneDTO {
    */
   toEntity(caseStudySlug) {
     // Mapear escenas a hotspots
-    const hotspots = this.escenes.map((escene) => ({
-      id: escene.slug,
-      left: `${escene.position_left}%`,
-      top: `${escene.position_top}%`,
-      label: escene.title,
-      sceneId: escene.slug,
-      category: escene.affectation_type_id || 'anthropic',
+    const hotspots = this.scenes.map((scene) => ({
+      id: scene.slug,
+      left: `${scene.position_left}%`,
+      top: `${scene.position_top}%`,
+      label: scene.title,
+      sceneId: scene.slug,
+      category: scene.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
@@ -42,7 +42,7 @@ export class ZoneDTO {
       caseStudySlug,
       this.title,
       '', // description - puede agregarse después
-      this.escenes.map(e => e.slug), // sceneIds
+      this.scenes.map(e => e.slug), // sceneIds
       {
         image: this.image_path,
         hotspots: hotspots,

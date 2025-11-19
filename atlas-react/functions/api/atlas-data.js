@@ -106,7 +106,7 @@ export async function onRequestGet(context) {
         image_path: zone.image_path,
         position_left: zone.position_left,
         position_top: zone.position_top,
-        escenes: scenesByZoneId.get(zone.id) || [],
+        scenes: scenesByZoneId.get(zone.id) || [],
       });
     }
 
