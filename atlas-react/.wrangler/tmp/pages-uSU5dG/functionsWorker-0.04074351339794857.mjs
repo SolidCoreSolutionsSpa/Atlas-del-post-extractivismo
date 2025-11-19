@@ -404,6 +404,7 @@ async function onRequestGet(context) {
       throw new Error("D1 binding 'atlas-db' not found in context.env");
     }
     const [
+      atlasOverviewResult,
       caseStudiesResult,
       zonesResult,
       scenesResult,
@@ -412,7 +413,10 @@ async function onRequestGet(context) {
       tagsResult,
       elementTagsResult
     ] = await Promise.all([
-      db.prepare("SELECT * FROM CaseOfStudies WHERE is_published = 1").all(),
+      db.prepare(
+        "SELECT * FROM AtlasOverview ORDER BY id DESC LIMIT 1"
+      ).all(),
+      db.prepare("SELECT * FROM CaseOfStudies").all(),
       db.prepare("SELECT * FROM Zones").all(),
       db.prepare("SELECT * FROM Scenes").all(),
       db.prepare("SELECT * FROM Elements").all(),
@@ -420,6 +424,7 @@ async function onRequestGet(context) {
       db.prepare("SELECT * FROM Tags").all(),
       db.prepare("SELECT * FROM ElementTags").all()
     ]);
+    const atlasOverview = atlasOverviewResult.results;
     const caseStudies = caseStudiesResult.results;
     const zones = zonesResult.results;
     const scenes = scenesResult.results;
@@ -499,13 +504,15 @@ async function onRequestGet(context) {
         scenes: scenesByZoneId.get(zone.id) || []
       });
     }
+    const overviewHero = atlasOverview?.[0];
+    const hero = overviewHero ? {
+      title: overviewHero.title,
+      subtitle: overviewHero.subtitle,
+      description: overviewHero.description,
+      image_path: overviewHero.image_path
+    } : atlasContent.hero;
     const atlasContent2 = {
-      hero: {
-        title: "Atlas del (Post) Extractivismo",
-        subtitle: "Entre norte y sur global",
-        description: "Explora esta plataforma digital, recorre paisajes y din\xE1micas marcadas por la extracci\xF3n de materias primas, descubre c\xF3mo estas pr\xE1cticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.",
-        image_path: "/img/mapa-global.jpg"
-      },
+      hero,
       affectationTypes: affectationTypes.map((at) => ({
         id: at.id,
         slug: at.slug,
@@ -1045,7 +1052,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// ../.wrangler/tmp/bundle-OUntdy/middleware-insertion-facade.js
+// ../.wrangler/tmp/bundle-irTsHv/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1077,7 +1084,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// ../.wrangler/tmp/bundle-OUntdy/middleware-loader.entry.ts
+// ../.wrangler/tmp/bundle-irTsHv/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

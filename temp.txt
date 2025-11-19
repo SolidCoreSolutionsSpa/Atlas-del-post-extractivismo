@@ -11,7 +11,6 @@ export async function onRequestGet(context) {
 
     // Query all tables in parallel
     const [
-      atlasOverviewResult,
       caseStudiesResult,
       zonesResult,
       scenesResult,
@@ -20,9 +19,6 @@ export async function onRequestGet(context) {
       tagsResult,
       elementTagsResult,
     ] = await Promise.all([
-      db.prepare(
-        "SELECT * FROM AtlasOverview ORDER BY id DESC LIMIT 1"
-      ).all(),
       db.prepare("SELECT * FROM CaseOfStudies").all(),
       db.prepare("SELECT * FROM Zones").all(),
       db.prepare("SELECT * FROM Scenes").all(),
@@ -32,7 +28,6 @@ export async function onRequestGet(context) {
       db.prepare("SELECT * FROM ElementTags").all(),
     ]);
 
-    const atlasOverview = atlasOverviewResult.results;
     const caseStudies = caseStudiesResult.results;
     const zones = zonesResult.results;
     const scenes = scenesResult.results;
@@ -124,18 +119,14 @@ export async function onRequestGet(context) {
     }
 
     // Build the final atlasContent structure
-    const overviewHero = atlasOverview?.[0];
-    const hero = overviewHero
-      ? {
-          title: overviewHero.title,
-          subtitle: overviewHero.subtitle,
-          description: overviewHero.description,
-          image_path: overviewHero.image_path,
-        }
-      : staticAtlasContent.hero;
-
     const atlasContent = {
-      hero,
+      hero: {
+        title: "Atlas del (Post) Extractivismo",
+        subtitle: "Entre norte y sur global",
+        description:
+          "Explora esta plataforma digital, recorre paisajes y dinámicas marcadas por la extracción de materias primas, descubre cómo estas prácticas han reconfigurado ecosistemas terrestres y marinos. Te invitamos a comprender el extractivismo desde la experiencia y el territorio.",
+        image_path: "/img/mapa-global.jpg",
+      },
       affectationTypes: affectationTypes.map((at) => ({
         id: at.id,
         slug: at.slug,
@@ -178,3 +169,4 @@ export async function onRequestGet(context) {
     });
   }
 }
+
