@@ -8,40 +8,44 @@ export const atlasContent = {
   },
   affectationTypes: [
     {
-      id: "biotic",
+      id: 1,
+      slug: "biotic",
       name: "Paisajes bioticos",
       description: "Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.",
       icon_path: "/img/icono_biotico_negro.svg",
     },
     {
-      id: "anthropic",
+      id: 2,
+      slug: "anthropic",
       name: "Paisajes antropicos",
       description: "Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.",
       icon_path: "/img/icono_antropico_negro.svg",
     },
     {
-      id: "physical",
+      id: 3,
+      slug: "physical",
       name: "Paisajes fisicos",
       description: "Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.",
       icon_path: "/img/icono_fisico_negro.svg",
     },
   ],
   tags: [
-    { id: "fauna", name: "fauna" },
-    { id: "flora", name: "flora" },
-    { id: "aves", name: "aves" },
-    { id: "biotico", name: "biotico" },
-    { id: "antropico", name: "antropico" },
-    { id: "fisico", name: "fisico" },
-    { id: "infraestructura", name: "infraestructura" },
-    { id: "energia", name: "energia" },
-    { id: "glaciar", name: "glaciar" },
-    { id: "suelo", name: "suelo" },
-    { id: "erosion", name: "erosion" },
+    { id: 1, name: "fauna" },
+    { id: 2, name: "flora" },
+    { id: 3, name: "aves" },
+    { id: 4, name: "biotico" },
+    { id: 5, name: "antropico" },
+    { id: 6, name: "fisico" },
+    { id: 7, name: "infraestructura" },
+    { id: 8, name: "energia" },
+    { id: 9, name: "glaciar" },
+    { id: 10, name: "suelo" },
+    { id: 11, name: "erosion" },
   ],
   caseOfStudies: [
     {
-      id: "provincia-choapa",
+      id: 1,
+      slug: "provincia-choapa",
       title: "Provincia de Choapa",
       summary:
         'La minería en el norte de Chile enfrenta una crisis hídrica que ha llevado una nueva era de plantas desalinizadoras que extraen agua del océano Pacífico. Aunque la desalinización ofrece una propuesta "verde", mira como su sostenimiento puede generar controversias socio-ecológicas.',
@@ -53,14 +57,16 @@ export const atlasContent = {
       is_published: true,
       zones: [
         {
-          id: "tranque-el-mauro",
+          id: 1,
+          slug: "tranque-el-mauro",
           title: "Tranque el Mauro",
           image_path: null,
           position_left: 70,
           position_top: 55,
           escenes: [
             {
-              id: "arraigo-y-terrateniencia",
+              id: 1,
+              slug: "arraigo-y-terrateniencia",
               title: "Arraigo y terrateniencia",
               image_path: null,
               position_left: 86,
@@ -74,7 +80,8 @@ export const atlasContent = {
               elements: [],
             },
             {
-              id: "quebrada",
+              id: 2,
+              slug: "quebrada",
               title: "Quebrada",
               image_path: null,
               position_left: 75.5,
@@ -88,7 +95,8 @@ export const atlasContent = {
               elements: [],
             },
             {
-              id: "petroglifos",
+              id: 3,
+              slug: "petroglifos",
               title: "Petroglifos",
               image_path: null,
               position_left: 17,
@@ -104,13 +112,15 @@ export const atlasContent = {
           ],
         },
         {
-          id: "yacimiento-minero",
+          id: 2,
+          slug: "yacimiento-minero",
           title: "Yacimiento Minero",
           image_path: null,
           position_left: 37,
           position_top: 26,
           escenes: [{
-            id: "area-chacay",
+            id: 4,
+            slug: "area-chacay",
             title: "Área Chacay",
             image_path: null,
             position_left: 86,
@@ -124,7 +134,8 @@ export const atlasContent = {
             elements: [],
           },
           {
-            id: "botadero-las-hualtatas",
+            id: 5,
+            slug: "botadero-las-hualtatas",
             title: "Botadero las Hualtatas",
             image_path: null,
             position_left: 75.5,
@@ -138,7 +149,8 @@ export const atlasContent = {
             elements: [],
           },
           {
-            id: "glaciares",
+            id: 6,
+            slug: "glaciares",
             title: "Glaciares",
             image_path: null,
             position_left: 17,
@@ -151,7 +163,8 @@ export const atlasContent = {
             decoration_tooltip: "Glaciares",
             elements: [
               {
-                id: "retroceso-glaciar",
+                id: 1,
+                slug: "retroceso-glaciar",
                 title: "Retroceso glaciar",
                 description:
                   "El retroceso de los glaciares en la zona es una consecuencia directa de las actividades extractivas que alteran el relieve y la hidrología local. La transformación física del territorio afecta los flujos de agua y la estabilidad del suelo glaciar.",
@@ -164,7 +177,8 @@ export const atlasContent = {
                 tags: ["glaciar", "fisico", "suelo"],
               },
               {
-                id: "erosion-suelo",
+                id: 2,
+                slug: "erosion-suelo",
                 title: "Erosión del suelo",
                 description:
                   "Las operaciones mineras generan una transformación profunda del relieve, causando erosión acelerada del suelo. La remoción de vegetación y la exposición de materiales geológicos alteran permanentemente la morfología del terreno.",
@@ -180,14 +194,16 @@ export const atlasContent = {
           },],
         },
         {
-          id: "puerto-punta-chungo",
+          id: 3,
+          slug: "puerto-punta-chungo",
           title: "Puerto Punta Chungo",
           image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/puerto-punta-chungo.jpg",
           position_left: 50,
           position_top: 81,
           escenes: [
             {
-              id: "perturbacion-aerea",
+              id: 7,
+              slug: "perturbacion-aerea",
               title: "Perturbacion aerea",
               image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/ecosistema-aereo.png",
               position_left: 59.5,
@@ -200,7 +216,8 @@ export const atlasContent = {
               decoration_tooltip: "Perturbación aérea",
               elements: [
                 {
-                  id: "jilguero",
+                  id: 3,
+                  slug: "jilguero",
                   title: "Jilguero (Sicalis luteola)",
                   description:
                     "El jilguero destaca dentro de la zona como una de las especies mas abundantes y distribuidas en diversos ambientes. Se encuentra mayormente en matorral costero (6,11 ind/ha), pradera costera (4,81 ind/ha) y plantaciones (2,11 ind/ha).",
@@ -214,7 +231,8 @@ export const atlasContent = {
                   tags: ["fauna", "aves", "biotico"],
                 },
                 {
-                  id: "jote",
+                  id: 4,
+                  slug: "jote",
                   title: "Jote de cabeza negra (Coragyps atratus)",
                   description:
                     "En el area de Puerto Punta Chungo, las lineas electricas de 220 kV afectan a las aves por riesgo de electrocucion y colision, interrumpiendo sus rutas de vuelo. Una de las especies mas afectadas es el jote de cabeza negra, con 67 individuos registrados (8,21 %). Para mitigar el impacto se instalan dispositivos anticolision visibles incluso para aves nocturnas.",
@@ -228,7 +246,8 @@ export const atlasContent = {
                   tags: ["fauna", "aves", "infraestructura"],
                 },
                 {
-                  id: "diuca",
+                  id: 5,
+                  slug: "diuca",
                   title: "Diuca",
                   description:
                     "Aunque no es una especie directamente impactada segun los estudios evaluados, su presencia en zonas intervenidas por infraestructura extractiva como luminarias o tendido electrico indica familiaridad con ambientes tecnificados. Esta ave se registra como una de las especies con mayor presencia en la zona.",
@@ -242,7 +261,8 @@ export const atlasContent = {
                   tags: ["fauna", "aves", "biotico"],
                 },
                 {
-                  id: "eucalipto",
+                  id: 6,
+                  slug: "eucalipto",
                   title: "Bosques de evapotranspiracion",
                   description:
                     "En Puerto Punta Chungo las plantaciones de Eucalyptus globulus cubren 109,13 hectareas (43,8 % del area de influencia), siendo la vegetacion dominante, con un indice de artificializacion de 9,4. Su riego por microaspersor en primavera-verano intensifica la evapotranspiracion junto al puerto.",
@@ -256,7 +276,8 @@ export const atlasContent = {
                   tags: ["flora", "infraestructura", "fisico"],
                 },
                 {
-                  id: "luminaria",
+                  id: 7,
+                  slug: "luminaria",
                   title: "Luz del puerto",
                   description:
                     "Se reemplazaron 1.912 luminarias distribuidas en varias areas del proyecto, incluyendo Puerto Punta Chungo. La potencia total instalada en esta zona es de 27,15 kW. La iluminacion en el puerto genera impacto visual nocturno y contribuye a la contaminacion luminica que altera patrones de fauna local.",
@@ -270,7 +291,8 @@ export const atlasContent = {
                   tags: ["infraestructura", "energia", "antropico"],
                 },
                 {
-                  id: "electricidad",
+                  id: 8,
+                  slug: "electricidad",
                   title: "Lineas de transmision electrica",
                   description:
                     "El tendido electrico en Puerto Punta Chungo incluye lineas de transmision de 220 kV en doble circuito, esenciales para operar la planta desaladora. Su instalacion afecta rutas de vuelo de aves marinas y genera campos electromagneticos de baja intensidad en zonas ecologicas.",
@@ -286,7 +308,8 @@ export const atlasContent = {
               ],
             },
             {
-              id: "contaminacion-por-desalacion",
+              id: 8,
+              slug: "contaminacion-por-desalacion",
               title: "Contaminacion por desalacion",
               image_path: null,
               position_left: 86,
@@ -300,7 +323,8 @@ export const atlasContent = {
               elements: [],
             },
             {
-              id: "vibraciones-submarinas",
+              id: 9,
+              slug: "vibraciones-submarinas",
               title: "Vibraciones submarinas",
               image_path: null,
               position_left: 75.5,
@@ -314,7 +338,8 @@ export const atlasContent = {
               elements: [],
             },
             {
-              id: "santuario-de-la-naturaleza",
+              id: 10,
+              slug: "santuario-de-la-naturaleza",
               title: "Santuario de la naturaleza",
               image_path: null,
               position_left: 17,
@@ -332,7 +357,8 @@ export const atlasContent = {
       ],
     },
     {
-      id: "congo",
+      id: 2,
+      slug: "congo",
       title: "Kolwezi - Congo",
       summary:
         "En las últimas dos décadas, Kolwezi, ciudad minera de la República Democrática del Congo, enfrenta tensiones entre la minería, la degradación ambiental y la rápida urbanización que reconfigura los paisajes como rastros extractivos, minas expuestas, escombreras y sitios abandonados.",
@@ -345,7 +371,8 @@ export const atlasContent = {
       zones: [],
     },
     {
-      id: "indonesia",
+      id: 3,
+      slug: "indonesia",
       title: "Sumatera Utara - Indonesia",
       summary:
         "Una de las regiones de aceite de palma más productivas del mundo ha configurado un paisaje de extracción agroindustrial, donde los ciclos de siembra y resiembra desplazan comunidades, reordenan los ecosistemas y consolidan un régimen de monocultivo.",
@@ -358,7 +385,8 @@ export const atlasContent = {
       zones: [],
     },
     {
-      id: "charleroi",
+      id: 4,
+      slug: "charleroi",
       title: "Charleroi - Bélgica",
       summary:
         "El carbón en la década de los 90 era líder mundial en Bélgica. Hoy en día, Charleroi es un territorio post-extractivista en transición, donde el patrimonio industrial se cruza con la reconversión económica y social.",

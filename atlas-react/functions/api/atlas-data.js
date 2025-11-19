@@ -55,7 +55,8 @@ export async function onRequestGet(context) {
       }
       const affectationType = affectationTypeById.get(element.affectation_type_id);
       elementsBySceneId.get(element.scene_id).push({
-        id: element.slug,
+        id: element.id,
+        slug: element.slug,
         title: element.title,
         description: element.description,
         source: element.source,
@@ -76,7 +77,8 @@ export async function onRequestGet(context) {
       }
       const affectationType = affectationTypeById.get(scene.affectation_type_id);
       scenesByZoneId.get(scene.zone_id).push({
-        id: scene.slug,
+        id: scene.id,
+        slug: scene.slug,
         title: scene.title,
         image_path: scene.image_path,
         position_left: scene.position_left,
@@ -98,7 +100,8 @@ export async function onRequestGet(context) {
         zonesByCaseStudyId.set(zone.case_study_id, []);
       }
       zonesByCaseStudyId.get(zone.case_study_id).push({
-        id: zone.slug,
+        id: zone.id,
+        slug: zone.slug,
         title: zone.title,
         image_path: zone.image_path,
         position_left: zone.position_left,
@@ -117,17 +120,19 @@ export async function onRequestGet(context) {
         image_path: "/img/mapa-global.jpg",
       },
       affectationTypes: affectationTypes.map((at) => ({
-        id: at.slug,
+        id: at.id,
+        slug: at.slug,
         name: at.name,
         description: at.description,
         icon_path: at.icon_path,
       })),
       tags: tags.map((t) => ({
-        id: t.name,
+        id: t.id,
         name: t.name,
       })),
       caseOfStudies: caseStudies.map((cs) => ({
-        id: cs.slug,
+        id: cs.id,
+        slug: cs.slug,
         title: cs.title,
         summary: cs.summary,
         image_path: cs.image_path,

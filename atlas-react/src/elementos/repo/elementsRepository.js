@@ -26,7 +26,7 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
             scene.elements.forEach((element) => {
               allElements.push({
                 ...element,
-                sceneId: scene.id,
+                sceneId: scene.slug,
               })
             })
           }
@@ -39,7 +39,7 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
 // Build affectation types from newAtlasContent
 const seedAffectationTypes = newAtlasContent.affectationTypes.map((type) =>
   createAffectationType({
-    id: type.id,
+    id: type.slug,
     name: type.name,
     description: type.description,
   }),
@@ -72,7 +72,7 @@ const seedTags = Array.from(tagMap.values())
 
 const seedElements = allElements.map((item) =>
   createElement({
-    id: item.id,
+    id: item.slug,
     sceneId: item.sceneId,
     name: item.title,
     image: item.image_path,
@@ -89,7 +89,7 @@ const seedElementTags = allElements.flatMap((item) => {
   }
   return item.tags.map((tagName) =>
     createElementTag({
-      elementId: item.id,
+      elementId: item.slug,
       tagId: slugify(tagName),
     }),
   )

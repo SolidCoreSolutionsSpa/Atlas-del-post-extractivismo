@@ -11,6 +11,7 @@ export class SceneDTO {
    */
   constructor(data) {
     this.id = data.id
+    this.slug = data.slug
     this.title = data.title
     this.image_path = data.image_path
     this.position_left = data.position_left
@@ -20,24 +21,24 @@ export class SceneDTO {
 
   /**
    * Convierte el DTO a una entidad de dominio (SceneEntity)
-   * @param {string} zoneId - ID de la zona a la que pertenece la escena
+   * @param {string} zoneSlug - Slug de la zona a la que pertenece la escena
    * @returns {SceneEntity} Entidad de escena
    */
-  toEntity(zoneId) {
+  toEntity(zoneSlug) {
     // Mapear elementos a hotspots
     const hotspots = this.elements.map((element) => ({
-      id: element.id,
+      id: element.slug,
       left: `${element.position_left}%`,
       top: `${element.position_top}%`,
       label: element.title,
-      elementId: element.id,
+      elementId: element.slug,
       category: element.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
     return new SceneEntity(
-      this.id,
-      zoneId,
+      this.slug,
+      zoneSlug,
       this.title,
       {
         image: this.image_path,

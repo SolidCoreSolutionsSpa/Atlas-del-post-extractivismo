@@ -13,7 +13,7 @@ import { createCaseStudy } from '../model/caseStudyModel'
 
 function buildDetailMap (caseStudy) {
   const zones = (caseStudy.zones || []).map(zone => ({
-    id: zone.id,
+    id: zone.slug,
     name: zone.title,
     position: mapPosition(zone.position_left, zone.position_top)
   }))
@@ -25,7 +25,7 @@ function buildDetailMap (caseStudy) {
         .filter(scene => scene.decoration_image_path) // Only scenes with decoration
         .map(scene => ({
           ...mapDecorationFields(scene),
-          zoneId: zone.id // Keep zone association for hover functionality
+          zoneId: zone.slug // Keep zone association for hover functionality
         }))
     )
 
@@ -43,7 +43,7 @@ function transformCaseStudies () {
     const globalMap = {
       image: mapped.image_path,
       points: [{
-        id: `punto-${mapped.id}`,
+        id: `punto-${mapped.slug}`,
         ...mapPosition(mapped.position_left, mapped.position_top),
         label: mapped.title,
         zoneId: null
@@ -52,8 +52,9 @@ function transformCaseStudies () {
 
     return createCaseStudy({
       ...mapped,
+      id: mapped.slug,
       location: mapped.title,
-      zoneIds: raw.zones?.map(z => z.id) || [],
+      zoneIds: raw.zones?.map(z => z.slug) || [],
       globalMap,
       detailMap
     })
@@ -66,10 +67,11 @@ function transformZones () {
     for (const rawZone of caseStudy.zones || []) {
       zones.push({
         ...mapZoneFields(rawZone),
-        caseId: caseStudy.id,
+        id: rawZone.slug,
+        caseId: caseStudy.slug,
         mapImage: rawZone.image_path,
         name: rawZone.title,
-        sceneIds: rawZone.escenes?.map(s => s.id) || []
+        sceneIds: rawZone.escenes?.map(s => s.slug) || []
       })
     }
   }
@@ -83,10 +85,11 @@ function transformScenes () {
       for (const rawScene of zone.escenes || []) {
         scenes.push({
           ...mapSceneFields(rawScene),
-          zoneId: zone.id,
+          id: rawScene.slug,
+          zoneId: zone.slug,
           mapImage: rawScene.image_path,
           name: rawScene.title,
-          elementIds: rawScene.elements?.map(e => e.id) || []
+          elementIds: rawScene.elements?.map(e => e.slug) || []
         })
       }
     }
@@ -102,7 +105,8 @@ function transformElements () {
         for (const rawElement of scene.elements || []) {
           elements.push({
             ...mapElementFields(rawElement),
-            sceneId: scene.id,
+            id: rawElement.slug,
+            sceneId: scene.slug,
             body: rawElement.description
           })
         }

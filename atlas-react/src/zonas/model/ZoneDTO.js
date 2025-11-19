@@ -11,6 +11,7 @@ export class ZoneDTO {
    */
   constructor(data) {
     this.id = data.id
+    this.slug = data.slug
     this.title = data.title
     this.image_path = data.image_path
     this.position_left = data.position_left
@@ -21,27 +22,27 @@ export class ZoneDTO {
 
   /**
    * Convierte el DTO a una entidad de dominio (ZoneEntity)
-   * @param {string} caseStudyId - ID del caso de estudio al que pertenece la zona
+   * @param {string} caseStudySlug - Slug del caso de estudio al que pertenece la zona
    * @returns {ZoneEntity} Entidad de zona
    */
-  toEntity(caseStudyId) {
+  toEntity(caseStudySlug) {
     // Mapear escenas a hotspots
     const hotspots = this.escenes.map((escene) => ({
-      id: escene.id,
+      id: escene.slug,
       left: `${escene.position_left}%`,
       top: `${escene.position_top}%`,
       label: escene.title,
-      sceneId: escene.id,
+      sceneId: escene.slug,
       category: escene.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
     const entity = new ZoneEntity(
-      this.id,
-      caseStudyId,
+      this.slug,
+      caseStudySlug,
       this.title,
       '', // description - puede agregarse después
-      this.escenes.map(e => e.id), // sceneIds
+      this.escenes.map(e => e.slug), // sceneIds
       {
         image: this.image_path,
         hotspots: hotspots,

@@ -10,6 +10,7 @@ export function mapPosition (positionLeft, positionTop) {
 export function mapCaseStudyFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     summary: raw.summary,
     image_path: raw.image_path, // Keep underscore for now (used by query layer)
@@ -23,7 +24,7 @@ export function mapCaseStudyFields (raw) {
 // Decoration fields from flattened scene structure
 export function mapDecorationFields (scene) {
   return {
-    id: `decoration-${scene.id}`,
+    id: `decoration-${scene.slug}`,
     image: scene.decoration_image_path,
     position: mapPosition(scene.decoration_position_left, scene.decoration_position_top),
     widthVw: scene.decoration_width_vw || 9, // Default 9vw if not specified
@@ -37,6 +38,7 @@ export function mapDecorationFields (scene) {
 export function mapZoneFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     image: raw.image_path, // ← Transform here
     position: mapPosition(raw.position_left, raw.position_top)
@@ -48,6 +50,7 @@ export function mapZoneFields (raw) {
 export function mapSceneFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     image: raw.image_path, // ← Transform
     position: mapPosition(raw.position_left, raw.position_top),
@@ -58,6 +61,7 @@ export function mapSceneFields (raw) {
 export function mapElementFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     description: raw.description,
     source: raw.source,

@@ -10,8 +10,8 @@ import { motion, AnimatePresence } from 'framer-motion'
  * Reutilizable para cualquier provincia/caso de estudio que tenga elementos categorizados.
  *
  * @component
- * @param {Array<{id: string, name: string, description: string, icon_path: string}>} affectationTypes - Tipos de afectación con sus iconos
- * @param {string | null} activeFilter - Filtro actualmente activo
+ * @param {Array<{id: number, slug: string, name: string, description: string, icon_path: string}>} affectationTypes - Tipos de afectación con sus iconos
+ * @param {string | null} activeFilter - Filtro actualmente activo (slug)
  * @param {Function} onFilterChange - Callback cuando cambia el filtro
  * @param {'horizontal' | 'vertical'} [orientation='horizontal'] - Orientación del panel
  * @param {boolean} [showDescriptionCard=false] - Si true, muestra tarjeta con descripción; si false, muestra solo tooltip
@@ -31,7 +31,7 @@ export function FilterPanel({
   )
 
   const activeFilterInfo = activeFilter
-    ? affectationTypes.find((type) => type.id === activeFilter)
+    ? affectationTypes.find((type) => type.slug === activeFilter)
     : null
 
   return (
@@ -39,22 +39,22 @@ export function FilterPanel({
       <div className={containerClasses}>
         {affectationTypes.map((type) => (
           <button
-            key={type.id}
+            key={type.slug}
             type="button"
-            onMouseEnter={() => onFilterChange(type.id)}
-            onFocus={() => onFilterChange(type.id)}
+            onMouseEnter={() => onFilterChange(type.slug)}
+            onFocus={() => onFilterChange(type.slug)}
             onMouseLeave={() => onFilterChange(null)}
             onBlur={() => onFilterChange(null)}
             className={clsx(
               'filter-button-responsive rounded-lg border-2 border-transparent bg-transparent transition-all duration-500',
-              activeFilter === type.id
+              activeFilter === type.slug
                 ? 'bg-white/60'
                 : 'hover:bg-white/60',
             )}
             aria-label={type.name}
             title={!showDescriptionCard ? type.name : undefined}
           >
-            {type.id === 'anthropic' ? (
+            {type.slug === 'anthropic' ? (
               <div style={{ transform: 'scale(0.9)' }}>
                 <img
                   src={type.icon_path}
