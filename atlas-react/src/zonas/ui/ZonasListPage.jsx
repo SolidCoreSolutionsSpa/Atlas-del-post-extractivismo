@@ -6,7 +6,7 @@ import { Button } from '../../shared/design/components/Button'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useZonasState } from '../hooks/useZonasState'
 import { ZonasService } from '../services/zonasService'
-import { inMemoryZonasRepository } from '../repo/zonasRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 
 const containerVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -27,16 +27,21 @@ const cardVariants = {
 }
 
 export function ZonasListPage() {
+  const { zonasRepository, isLoading: repositoriesLoading } = useRepositories()
+
   const service = useMemo(
     () =>
-      new ZonasService({
-        zonasRepository: inMemoryZonasRepository,
-      }),
-    [],
+      zonasRepository
+        ? new ZonasService({
+            zonasRepository,
+          })
+        : null,
+    [zonasRepository],
   )
 
   const zoomNavigate = useZoomNavigation()
   const { status, zonas } = useZonasState({ zonasService: service })
+  const isLoading = repositoriesLoading || status === 'loading'
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([zonas, status])
@@ -59,7 +64,7 @@ export function ZonasListPage() {
         className="grid gap-4 sm:grid-cols-2"
         variants={containerVariants}
       >
-        {status === 'loading' ? (
+        {isLoading ? (
           <motion.li
             className="rounded-2xl border border-dashed border-token-divider p-6 text-sm text-token-muted"
             variants={cardVariants}

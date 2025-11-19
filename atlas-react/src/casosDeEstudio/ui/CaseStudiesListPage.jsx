@@ -4,18 +4,21 @@ import { motion } from 'framer-motion'
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap, MapMarker } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { caseStudies as fallbackCaseStudies } from '../repo/caseStudiesRepository'
 import { useCaseStudiesState } from '../hooks/useCaseStudiesState'
 import { CaseStudiesService } from '../services/caseStudiesService'
-import { inMemoryCaseStudiesRepository } from '../repo/caseStudiesRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 
 export function CaseStudiesListPage() {
+  const { caseStudiesRepository, isLoading: repositoriesLoading } = useRepositories()
+
   const service = useMemo(
     () =>
-      new CaseStudiesService({
-        caseStudiesRepository: inMemoryCaseStudiesRepository,
-      }),
-    [],
+      caseStudiesRepository
+        ? new CaseStudiesService({
+            caseStudiesRepository,
+          })
+        : null,
+    [caseStudiesRepository],
   )
   const { status, caseStudies } = useCaseStudiesState({
     caseStudiesService: service,
@@ -25,9 +28,8 @@ export function CaseStudiesListPage() {
   // Notificar cuando la página terminó de cargar
   usePageLoaded([caseStudies, status])
 
-  const isLoading = status === 'loading'
-  const fallbackImage = fallbackCaseStudies[0]?.globalMap.image ?? null
-  const mapImage = caseStudies[0]?.globalMap.image ?? fallbackImage ?? null
+  const isLoading = repositoriesLoading || status === 'loading'
+  const mapImage = caseStudies[0]?.globalMap.image ?? null
 
   return (
     <motion.section
