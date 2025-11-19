@@ -166,7 +166,7 @@ export const atlasContent = {
                 id: 1,
                 slug: "retroceso-glaciar",
                 title: "Retroceso glaciar",
-                name: "Retroceso glaciar",
+                subtitle: "Retroceso glaciar",
                 description:
                   "El retroceso de los glaciares en la zona es una consecuencia directa de las actividades extractivas que alteran el relieve y la hidrología local. La transformación física del territorio afecta los flujos de agua y la estabilidad del suelo glaciar.",
                 source:
@@ -181,7 +181,7 @@ export const atlasContent = {
                 id: 2,
                 slug: "erosion-suelo",
                 title: "Erosión del suelo",
-                name: "Erosión del suelo",
+                subtitle: "Erosión del suelo",
                 description:
                   "Las operaciones mineras generan una transformación profunda del relieve, causando erosión acelerada del suelo. La remoción de vegetación y la exposición de materiales geológicos alteran permanentemente la morfología del terreno.",
                 source:
@@ -221,7 +221,7 @@ export const atlasContent = {
                   id: 3,
                   slug: "jilguero",
                   title: "Jilguero (Sicalis luteola)",
-                  name: "Jilguero",
+                  subtitle: "Jilguero",
                   description:
                     "El jilguero destaca dentro de la zona como una de las especies mas abundantes y distribuidas en diversos ambientes. Se encuentra mayormente en matorral costero (6,11 ind/ha), pradera costera (4,81 ind/ha) y plantaciones (2,11 ind/ha).",
                   source:
@@ -237,7 +237,7 @@ export const atlasContent = {
                   id: 4,
                   slug: "jote",
                   title: "Jote de cabeza negra (Coragyps atratus)",
-                  name: "Jote de cabeza negra",
+                  subtitle: "Jote de cabeza negra",
                   description:
                     "En el area de Puerto Punta Chungo, las lineas electricas de 220 kV afectan a las aves por riesgo de electrocucion y colision, interrumpiendo sus rutas de vuelo. Una de las especies mas afectadas es el jote de cabeza negra, con 67 individuos registrados (8,21 %). Para mitigar el impacto se instalan dispositivos anticolision visibles incluso para aves nocturnas.",
                   source:
@@ -253,7 +253,7 @@ export const atlasContent = {
                   id: 5,
                   slug: "diuca",
                   title: "Diuca",
-                  name: "Diuca",
+                  subtitle: "Diuca",
                   description:
                     "Aunque no es una especie directamente impactada segun los estudios evaluados, su presencia en zonas intervenidas por infraestructura extractiva como luminarias o tendido electrico indica familiaridad con ambientes tecnificados. Esta ave se registra como una de las especies con mayor presencia en la zona.",
                   source:
@@ -269,7 +269,7 @@ export const atlasContent = {
                   id: 6,
                   slug: "eucalipto",
                   title: "Bosques de evapotranspiracion",
-                  name: "Bosques de evapotranspiración",
+                  subtitle: "Bosques de evapotranspiración",
                   description:
                     "En Puerto Punta Chungo las plantaciones de Eucalyptus globulus cubren 109,13 hectareas (43,8 % del area de influencia), siendo la vegetacion dominante, con un indice de artificializacion de 9,4. Su riego por microaspersor en primavera-verano intensifica la evapotranspiracion junto al puerto.",
                   source:
@@ -285,7 +285,7 @@ export const atlasContent = {
                   id: 7,
                   slug: "luminaria",
                   title: "Luz del puerto",
-                  name: "Luz del puerto",
+                  subtitle: "Luz del puerto",
                   description:
                     "Se reemplazaron 1.912 luminarias distribuidas en varias areas del proyecto, incluyendo Puerto Punta Chungo. La potencia total instalada en esta zona es de 27,15 kW. La iluminacion en el puerto genera impacto visual nocturno y contribuye a la contaminacion luminica que altera patrones de fauna local.",
                   source:
@@ -301,7 +301,7 @@ export const atlasContent = {
                   id: 8,
                   slug: "electricidad",
                   title: "Lineas de transmision electrica",
-                  name: "Líneas de transmisión eléctrica",
+                  subtitle: "Líneas de transmisión eléctrica",
                   description:
                     "El tendido electrico en Puerto Punta Chungo incluye lineas de transmision de 220 kV en doble circuito, esenciales para operar la planta desaladora. Su instalacion afecta rutas de vuelo de aves marinas y genera campos electromagneticos de baja intensidad en zonas ecologicas.",
                   source:

@@ -58,6 +58,7 @@ export async function onRequestGet(context) {
         id: element.id,
         slug: element.slug,
         title: element.title,
+        subtitle: element.subtitle,
         description: element.description,
         source: element.source,
         image_path: element.image_path,
