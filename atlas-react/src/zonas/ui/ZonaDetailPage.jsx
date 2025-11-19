@@ -8,11 +8,10 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { ZonasService } from '../services/zonasService'
-import { inMemoryZonasRepository } from '../repo/zonasRepository'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
-import { atlasContent } from '../../shared/data/newAtlasContent'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -54,22 +53,25 @@ const detailVariants = {
   },
 }
 
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-const sceneIndex = new Map(
-  scenes.map((scene) => [scene.id, scene]),
-)
-
 export function ZonaDetailPage() {
   const { zoneId } = useParams()
   const zoomNavigate = useZoomNavigation()
+  const { zonasRepository, caseStudies, scenes, isLoading: repositoriesLoading } = useRepositories()
+  const { affectationTypes } = useAtlasData()
+
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
+
   const service = useMemo(
     () =>
-      new ZonasService({
-        zonasRepository: inMemoryZonasRepository,
-      }),
-    [],
+      zonasRepository
+        ? new ZonasService({
+            zonasRepository,
+          })
+        : null,
+    [zonasRepository],
   )
 
   const [zone, setZone] = useState(null)
@@ -77,6 +79,8 @@ export function ZonaDetailPage() {
   const [activeFilter, setActiveFilter] = useState(null)
 
   useEffect(() => {
+    if (!service) return
+
     let isMounted = true
     async function load() {
       setStatus('loading')
@@ -108,7 +112,7 @@ export function ZonaDetailPage() {
   }
   breadcrumbItems.push({ label: zone ? zone.name : 'Zona' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -212,7 +216,7 @@ export function ZonaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        affectationTypes={atlasContent.affectationTypes}
+        affectationTypes={affectationTypes || []}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"

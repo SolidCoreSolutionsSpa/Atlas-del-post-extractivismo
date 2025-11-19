@@ -10,12 +10,11 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { EscenasService } from '../services/escenasService'
-import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
-import { atlasContent } from '../../shared/data/newAtlasContent'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -57,22 +56,31 @@ const detailVariants = {
   },
 }
 
-const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-
 export function EscenaDetailPage() {
   const { sceneId } = useParams()
   const [searchParams] = useSearchParams()
   const highlightedElementId = searchParams.get('highlight')
   const zoomNavigate = useZoomNavigation()
+  const { escenasRepository, zones, caseStudies, isLoading: repositoriesLoading } = useRepositories()
+  const { affectationTypes } = useAtlasData()
+
+  const zoneIndex = useMemo(
+    () => new Map((zones || []).map((zone) => [zone.id, zone])),
+    [zones],
+  )
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
+
   const service = useMemo(
     () =>
-      new EscenasService({
-        escenasRepository: inMemoryEscenasRepository,
-      }),
-    [],
+      escenasRepository
+        ? new EscenasService({
+            escenasRepository,
+          })
+        : null,
+    [escenasRepository],
   )
 
   const [scene, setScene] = useState(null)
@@ -81,6 +89,8 @@ export function EscenaDetailPage() {
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
   useEffect(() => {
+    if (!service) return
+
     let isMounted = true
     async function load() {
       setStatus('loading')
@@ -116,7 +126,7 @@ export function EscenaDetailPage() {
   }
   breadcrumbItems.push({ label: scene ? scene.name : 'Escena' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -216,7 +226,7 @@ export function EscenaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        affectationTypes={atlasContent.affectationTypes}
+        affectationTypes={affectationTypes || []}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"
