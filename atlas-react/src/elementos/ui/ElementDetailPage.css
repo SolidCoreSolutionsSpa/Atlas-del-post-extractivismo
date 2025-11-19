@@ -27,7 +27,7 @@
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(19.4px, 1.34vw, 24.2px);
+    font-size: clamp(14px, 0.97vw, 17px);
   }
 
   .element-affectation-badge {
@@ -35,7 +35,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(11px, 0.76vw, 13.2px);
+    font-size: clamp(14px, 0.97vw, 17px);
     padding: clamp(1px, 0.07vw, 2px) clamp(6px, 0.42vw, 8px);
   }
 
@@ -103,7 +103,7 @@
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(16.5px, 1.16vw, 19.8px);
+    font-size: clamp(12px, 0.85vw, 15px);
   }
 
   .element-affectation-badge {
@@ -111,7 +111,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(9.9px, 0.66vw, 12.1px);
+    font-size: clamp(12px, 0.85vw, 15px);
     padding: clamp(1px, 0.06vw, 2px) clamp(4px, 0.3vw, 6px);
   }
 
@@ -182,7 +182,7 @@
 
   .element-subtitle {
     margin-top: 0;
-    font-size: clamp(14.3px, 0.99vw, 17.6px);
+    font-size: clamp(10px, 0.7vw, 13px);
   }
 
   .element-affectation-badge {
@@ -190,7 +190,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: clamp(8.8px, 0.61vw, 11px);
+    font-size: clamp(10px, 0.7vw, 13px);
     padding: clamp(0px, 0.05vw, 1px) clamp(4px, 0.28vw, 6px);
   }
 
@@ -263,7 +263,7 @@
 
   .element-subtitle {
     margin-top: 0;
-    font-size: 1.65vw;
+    font-size: 1.2vw;
   }
 
   .element-affectation-badge {
@@ -271,7 +271,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: 0.99vw;
+    font-size: 1.2vw;
     padding: 0.1vw 0.4vw;
   }
 
@@ -351,7 +351,7 @@
 
   .element-subtitle {
     margin-top: 0;
-    font-size: 2.64vh; /* ~11.2px at 425px height */
+    font-size: 2vh;
   }
 
   .element-affectation-badge {
@@ -359,7 +359,7 @@
   }
 
   .element-affectation-badge span {
-    font-size: 1.76vh;
+    font-size: 2vh;
     padding: 0.1vh 0.5vh;
   }
 
