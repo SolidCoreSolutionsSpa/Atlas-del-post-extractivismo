@@ -26,6 +26,19 @@ export const atlasContent = {
       icon_path: "/img/icono_fisico_negro.svg",
     },
   ],
+  tags: [
+    { id: "fauna", name: "fauna" },
+    { id: "flora", name: "flora" },
+    { id: "aves", name: "aves" },
+    { id: "biotico", name: "biotico" },
+    { id: "antropico", name: "antropico" },
+    { id: "fisico", name: "fisico" },
+    { id: "infraestructura", name: "infraestructura" },
+    { id: "energia", name: "energia" },
+    { id: "glaciar", name: "glaciar" },
+    { id: "suelo", name: "suelo" },
+    { id: "erosion", name: "erosion" },
+  ],
   caseOfStudies: [
     {
       id: "provincia-choapa",
