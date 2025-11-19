@@ -1,15 +1,13 @@
 import { useEffect, useState, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-import { atlasContent } from '../../shared/data/newAtlasContent'
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useImageCrossfade } from '../../shared/hooks/useImageCrossfade'
 import { useParallax } from '../../shared/hooks/useParallax'
 import { RadarPoint } from '../../shared/ui/RadarPoint'
 import { usePrefersReducedMotion } from '../../shared/design/hooks/usePrefersReducedMotion'
-import { LandingPageViewModel } from '../../landingPage/viewModel/LandingPageViewModel'
 
-const hero = atlasContent.hero
 const PARALLAX_FACTOR = 20
 
 export function LandingPage() {
@@ -17,17 +15,40 @@ export function LandingPage() {
   const prefersReducedMotion = usePrefersReducedMotion()
   const [isAnimating, setIsAnimating] = useState(false)
 
-  // ViewModel para obtener casos de estudio siguiendo patrón MVVM
-  const viewModel = useMemo(() => new LandingPageViewModel(), [])
-  const territoriesConfig = useMemo(() => viewModel.getTerritoriesConfig(), [viewModel])
+  const { hero, caseOfStudies, isLoading } = useAtlasData()
+
+  // Build territories config from caseOfStudies
+  const territoriesConfig = useMemo(() => {
+    if (!caseOfStudies) return {}
+
+    const config = {}
+    caseOfStudies.forEach((caseStudy) => {
+      const navigateTo = caseStudy.is_published ? `/casos-de-estudio/${caseStudy.slug}` : null
+      config[caseStudy.slug] = {
+        id: caseStudy.slug,
+        name: caseStudy.title,
+        description: caseStudy.summary,
+        backgroundImage: caseStudy.detail_image_path,
+        detailImagePath: caseStudy.image_path,
+        color: caseStudy.color,
+        position: {
+          left: `${caseStudy.position_left}%`,
+          top: `${caseStudy.position_top}%`,
+        },
+        navigateTo,
+      }
+    })
+    return config
+  }, [caseOfStudies])
 
   // Notificar cuando la página terminó de cargar
-  usePageLoaded([territoriesConfig])
+  usePageLoaded([territoriesConfig, isLoading])
+
+  // Default hero image
+  const heroImagePath = hero?.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
 
   // Hook de crossfade de imágenes
-  const { currentImage, isFading, swapImage } = useImageCrossfade(
-    hero.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg',
-  )
+  const { currentImage, isFading, swapImage } = useImageCrossfade(heroImagePath)
 
   // Hook de parallax
   const { offset, pointOffset } = useParallax({
@@ -39,7 +60,7 @@ export function LandingPage() {
   const [hoveredTerritory, setHoveredTerritory] = useState(null)
 
   // Texto e instrucción
-  const defaultDescription = hero.description
+  const defaultDescription = hero?.description || ''
   const defaultInstruction = 'SELECCIONA UN PUNTO DEL MAPA PARA COMENZAR'
 
   const currentDescription = hoveredTerritory
@@ -75,8 +96,7 @@ export function LandingPage() {
     if (!territoryKey) {
       // Mouse leave - volver a imagen original
       setHoveredTerritory(null)
-      const originalImage = hero.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
-      swapImage(originalImage)
+      swapImage(heroImagePath)
       return
     }
 
@@ -133,8 +153,8 @@ export function LandingPage() {
       <div className="contenedor">
         {/* Contenido a la derecha */}
         <motion.div id="contenido">
-          <h1>{hero.title.toUpperCase()}</h1>
-          <h2>{hero.subtitle}</h2>
+          <h1>{hero?.title?.toUpperCase() || ''}</h1>
+          <h2>{hero?.subtitle || ''}</h2>
 
           {/* Descripción con transición */}
           <AnimatePresence mode="wait">

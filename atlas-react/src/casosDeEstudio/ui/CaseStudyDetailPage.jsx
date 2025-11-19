@@ -10,9 +10,9 @@ import { ZoneDecoration } from "../../shared/ui/ZoneDecoration";
 import { DescriptionModal } from "../../shared/ui/DescriptionModal";
 import { FilterPanel } from "../../shared/ui/FilterPanel";
 import { useZoomNavigation, usePageLoaded } from "../../shared/hooks/useZoomNavigation.jsx";
+import { useRepositories } from "../../shared/data/AtlasRepositoriesContext";
+import { useAtlasData } from "../../shared/data/AtlasDataContext";
 import { CaseStudiesService } from "../services/caseStudiesService";
-import { inMemoryCaseStudiesRepository } from "../repo/caseStudiesRepository";
-import { atlasContent } from "../../shared/data/newAtlasContent";
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -26,12 +26,17 @@ const detailVariants = {
 export function CaseStudyDetailPage() {
   const { caseStudyId } = useParams();
   const zoomNavigate = useZoomNavigation();
+  const { caseStudiesRepository, isLoading: repositoriesLoading } = useRepositories();
+  const { affectationTypes } = useAtlasData();
+
   const service = useMemo(
     () =>
-      new CaseStudiesService({
-        caseStudiesRepository: inMemoryCaseStudiesRepository,
-      }),
-    []
+      caseStudiesRepository
+        ? new CaseStudiesService({
+            caseStudiesRepository,
+          })
+        : null,
+    [caseStudiesRepository]
   );
 
   const [caseStudy, setCaseStudy] = useState(null);
@@ -41,6 +46,8 @@ export function CaseStudyDetailPage() {
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false);
 
   useEffect(() => {
+    if (!service) return;
+
     let isMounted = true;
     async function load() {
       setStatus("loading");
@@ -64,7 +71,7 @@ export function CaseStudyDetailPage() {
     { label: caseStudy ? caseStudy.title : "Provincia" },
   ];
 
-  if (status === "loading") {
+  if (repositoriesLoading || status === "loading") {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -217,7 +224,7 @@ export function CaseStudyDetailPage() {
       />
 
       <FilterPanel
-        affectationTypes={atlasContent.affectationTypes}
+        affectationTypes={affectationTypes || []}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         showDescriptionCard={true}

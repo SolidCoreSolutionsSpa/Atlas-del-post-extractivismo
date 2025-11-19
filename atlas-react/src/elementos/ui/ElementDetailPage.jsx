@@ -7,8 +7,7 @@ import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
 import { AffectationBadge } from '../../shared/ui/AffectationBadge'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
-import { inMemoryElementsRepository } from '../repo/elementsRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
 import { NavigationArrows } from './NavigationArrows'
 import './ElementDetailPage.css'
@@ -41,18 +40,32 @@ function ResponsiveTagChip({ label }) {
   )
 }
 
-const sceneIndex = new Map(
-  scenes.map((scene) => [scene.id, scene]),
-)
-const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-
 export function ElementDetailPage() {
   const { elementId } = useParams()
   const zoomNavigate = useZoomNavigation()
   const [sceneElements, setSceneElements] = useState([])
+
+  const {
+    elementsRepository,
+    zones,
+    scenes,
+    caseStudies,
+    isLoading: repositoriesLoading,
+  } = useRepositories()
+
+  // Create lookup indexes
+  const sceneIndex = useMemo(
+    () => new Map((scenes || []).map((scene) => [scene.id, scene])),
+    [scenes],
+  )
+  const zoneIndex = useMemo(
+    () => new Map((zones || []).map((zone) => [zone.id, zone])),
+    [zones],
+  )
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
 
   const seed = useMemo(
     () => (elementId ? hashString(elementId) : undefined),
@@ -60,7 +73,7 @@ export function ElementDetailPage() {
   )
   const { status, base, recommendations } = useElementRecommendations({
     elementId,
-    elementsRepository: inMemoryElementsRepository,
+    elementsRepository,
     options: {
       limit: 5,
       seed,
@@ -78,8 +91,8 @@ export function ElementDetailPage() {
   // Obtener elementos de la escena actual
   useEffect(() => {
     async function loadSceneElements() {
-      if (element?.sceneId) {
-        const elements = await inMemoryElementsRepository.findBySceneId(
+      if (element?.sceneId && elementsRepository) {
+        const elements = await elementsRepository.findBySceneId(
           element.sceneId,
         )
         setSceneElements(elements)
@@ -88,7 +101,7 @@ export function ElementDetailPage() {
       }
     }
     loadSceneElements()
-  }, [element?.sceneId])
+  }, [element?.sceneId, elementsRepository])
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([element, status])
@@ -116,7 +129,7 @@ export function ElementDetailPage() {
   }
   breadcrumbItems.push({ label: element ? element.name : 'Elemento' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
