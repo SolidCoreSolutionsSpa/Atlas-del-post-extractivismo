@@ -5,6 +5,7 @@ import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
+import { AffectationBadge } from '../../shared/ui/AffectationBadge'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
 import { inMemoryElementsRepository } from '../repo/elementsRepository'
@@ -207,18 +208,27 @@ export function ElementDetailPage() {
       >
         {/* Ficha flotante con información del elemento */}
         <div className="element-card-main bg-black/50 shadow-2xl backdrop-blur">
-          {/* Categoría superior */}
-          <p
-            className="element-category font-bold uppercase text-white/70"
-            style={{ letterSpacing: '0.15em' }}
-          >
-            {affectationType?.name ?? 'Elemento'}
-          </p>
-
           {/* Título del elemento */}
           <h1 className="font-bold leading-tight text-white">
             {element.name}
           </h1>
+
+          {/* Subtítulo */}
+          {element.subtitle && (
+            <p
+              className="element-subtitle font-bold uppercase text-white/70"
+              style={{ letterSpacing: '0.15em' }}
+            >
+              {element.subtitle}
+            </p>
+          )}
+
+          {/* Tipo de afectación en badge */}
+          {affectationType && (
+            <div className="element-affectation-badge">
+              <AffectationBadge label={affectationType.name} />
+            </div>
+          )}
 
           {/* Descripción */}
           <p className="leading-relaxed text-white/90">

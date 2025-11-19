@@ -74,7 +74,8 @@ const seedElements = allElements.map((item) =>
   createElement({
     id: item.slug,
     sceneId: item.sceneId,
-    name: item.subtitle || item.title,
+    name: item.title,
+    subtitle: item.subtitle || null,
     image: item.image_path,
     detailImagePath: item.detail_image_path ?? null,
     body: item.description,
