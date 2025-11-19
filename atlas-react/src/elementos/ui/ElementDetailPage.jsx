@@ -215,11 +215,11 @@ export function ElementDetailPage() {
 
           {/* Subtítulo */}
           {element.subtitle && (
-            <p
+            <h2
               className="element-subtitle text-white/70"
             >
               {element.subtitle}
-            </p>
+            </h2>
           )}
 
           {/* Tipo de afectación en badge */}

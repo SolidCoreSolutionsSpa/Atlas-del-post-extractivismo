@@ -28,6 +28,8 @@
   .element-subtitle {
     margin-top: 0;
     font-style: italic;
+    font-size: clamp(17px, 1.18vw, 22px);
+    font-weight: normal;
   }
 
   .element-affectation-badge {
@@ -104,6 +106,8 @@
   .element-subtitle {
     margin-top: 0;
     font-style: italic;
+    font-size: clamp(14px, 1vw, 18px);
+    font-weight: normal;
   }
 
   .element-affectation-badge {
@@ -183,6 +187,8 @@
   .element-subtitle {
     margin-top: 0;
     font-style: italic;
+    font-size: clamp(12px, 0.85vw, 15px);
+    font-weight: normal;
   }
 
   .element-affectation-badge {
@@ -264,6 +270,8 @@
   .element-subtitle {
     margin-top: 0;
     font-style: italic;
+    font-size: 1.5vw;
+    font-weight: normal;
   }
 
   .element-affectation-badge {
@@ -352,6 +360,8 @@
   .element-subtitle {
     margin-top: 0;
     font-style: italic;
+    font-size: 2.4vh;
+    font-weight: normal;
   }
 
   .element-affectation-badge {
