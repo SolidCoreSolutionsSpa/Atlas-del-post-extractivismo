@@ -36,7 +36,7 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
       if (zone.escenes && Array.isArray(zone.escenes)) {
         zone.escenes.forEach((escene) => {
           const sceneDTO = SceneDTO.fromNewAtlasContent(escene)
-          const sceneEntity = sceneDTO.toEntity(zone.id)
+          const sceneEntity = sceneDTO.toEntity(zone.slug)
           // Convertir entity a formato del createScene
           const createdScene = createScene({
             id: sceneEntity.id,

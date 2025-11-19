@@ -33,7 +33,7 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
       const zoneDTO = ZoneDTO.fromNewAtlasContent(zone)
-      const zoneEntity = zoneDTO.toEntity(caseStudy.id)
+      const zoneEntity = zoneDTO.toEntity(caseStudy.slug)
       // Convertir entity a formato del createZone
       const createdZone = createZone({
         id: zoneEntity.id,
