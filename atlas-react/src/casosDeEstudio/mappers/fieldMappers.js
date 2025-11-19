@@ -21,14 +21,14 @@ export function mapCaseStudyFields (raw) {
 }
 
 // Decoration fields
-export function mapDecorationFields (raw) {
+export function mapDecorationFields (raw, sceneAffectationType) {
   return {
     id: raw.id,
     image: raw.image_path,
     position: mapPosition(raw.position_left, raw.position_top),
     widthVw: raw.widthVw || 9, // Default 9vw if not specified
     alt: raw.alt || '',
-    type: raw.type || null,
+    type: sceneAffectationType || null,
     tooltip: raw.tooltip || ''
   }
 }

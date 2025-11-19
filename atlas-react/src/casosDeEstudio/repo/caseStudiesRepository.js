@@ -24,7 +24,7 @@ function buildDetailMap (caseStudy) {
       (zone.escenes || [])
         .filter(scene => scene.decoration) // Only scenes with decoration
         .map(scene => ({
-          ...mapDecorationFields(scene.decoration),
+          ...mapDecorationFields(scene.decoration, scene.affectation_type),
           zoneId: zone.id // Keep zone association for hover functionality
         }))
     )

@@ -32,7 +32,7 @@ export class ZoneDTO {
       top: `${escene.position_top}%`,
       label: escene.title,
       sceneId: escene.id,
-      category: escene.decoration?.type || 'anthropic',
+      category: escene.affectation_type || 'anthropic',
       pulsate: true,
     }))
 
