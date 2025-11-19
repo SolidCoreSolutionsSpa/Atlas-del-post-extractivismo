@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useLocation, useRoutes } from 'react-router-dom'
+import { Navigate, useLocation, useRoutes } from 'react-router-dom'
 
 import { usePageTransition } from '../shared/hooks/useZoomNavigation.jsx'
 import { usePrefersReducedMotion } from '../shared/design/hooks/usePrefersReducedMotion'
@@ -21,7 +21,7 @@ const routeDefinitions = [
   ...elementosRoutes,
   {
     path: '*',
-    element: <LandingPage />,
+    element: <Navigate to="/" replace />,
   },
 ]
 
