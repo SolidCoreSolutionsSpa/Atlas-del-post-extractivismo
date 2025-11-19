@@ -25,7 +25,7 @@
   }
 
   .element-subtitle {
-    margin-top: clamp(4px, 0.28vw, 6px);
+    margin-top: 0;
     font-size: clamp(17.6px, 1.22vw, 22px);
   }
 
@@ -35,7 +35,7 @@
 
   .element-affectation-badge span {
     font-size: clamp(10px, 0.69vw, 12px);
-    padding: clamp(2px, 0.14vw, 4px) clamp(8px, 0.56vw, 12px);
+    padding: clamp(1px, 0.07vw, 2px) clamp(6px, 0.42vw, 8px);
   }
 
   .element-card-main p {
@@ -100,7 +100,7 @@
   }
 
   .element-subtitle {
-    margin-top: clamp(3px, 0.2vw, 4px);
+    margin-top: 0;
     font-size: clamp(15px, 1.05vw, 18px);
   }
 
@@ -110,7 +110,7 @@
 
   .element-affectation-badge span {
     font-size: clamp(9px, 0.6vw, 11px);
-    padding: clamp(2px, 0.12vw, 3px) clamp(6px, 0.4vw, 10px);
+    padding: clamp(1px, 0.06vw, 2px) clamp(4px, 0.3vw, 6px);
   }
 
   .element-card-main p {
@@ -178,7 +178,7 @@
   }
 
   .element-subtitle {
-    margin-top: clamp(2px, 0.15vw, 3px);
+    margin-top: 0;
     font-size: clamp(13px, 0.9vw, 16px);
   }
 
@@ -188,7 +188,7 @@
 
   .element-affectation-badge span {
     font-size: clamp(8px, 0.55vw, 10px);
-    padding: clamp(1px, 0.1vw, 2px) clamp(5px, 0.35vw, 8px);
+    padding: clamp(0px, 0.05vw, 1px) clamp(4px, 0.28vw, 6px);
   }
 
   .element-card-main p {
@@ -258,7 +258,7 @@
   }
 
   .element-subtitle {
-    margin-top: 0.3vw;
+    margin-top: 0;
     font-size: 1.5vw;
   }
 
@@ -268,7 +268,7 @@
 
   .element-affectation-badge span {
     font-size: 0.9vw;
-    padding: 0.15vw 0.6vw;
+    padding: 0.1vw 0.4vw;
   }
 
   .element-card-main p {
@@ -345,7 +345,7 @@
   }
 
   .element-subtitle {
-    margin-top: 0.5vh;
+    margin-top: 0;
     font-size: 2.4vh; /* ~10.2px at 425px height */
   }
 
@@ -355,7 +355,7 @@
 
   .element-affectation-badge span {
     font-size: 1.6vh;
-    padding: 0.2vh 0.8vh;
+    padding: 0.1vh 0.5vh;
   }
 
   .element-card-main p {
