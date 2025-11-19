@@ -31,9 +31,7 @@ export class SceneDTO {
       top: `${element.position_top}%`,
       label: element.title,
       elementId: element.id,
-      category: element.affectation_type?.name?.includes('biotica') ? 'biotic' :
-                element.affectation_type?.name?.includes('antropica') ? 'anthropic' :
-                'physical',
+      category: element.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
