@@ -1,17 +1,12 @@
 import { atlasContent as staticAtlasContent } from "../../src/shared/data/atlasContent.js";
 
 export async function onRequestGet(context) {
+  console.log("[atlas-data] env bindings:", Object.keys(context.env || {}));
   const db = context.env["atlas-db"];
-
+  console.log("[atlas-data] db binding:", !!db);
   try {
     if (!db) {
-      console.warn(
-        "[atlas-data] atlas-db binding not found. Serving static atlas data."
-      );
-      return Response.json(staticAtlasContent, {
-        status: 200,
-        headers: { "X-Atlas-Data-Source": "static" },
-      });
+      throw new Error("D1 binding 'atlas-db' not found in context.env");
     }
 
     // Query all tables in parallel

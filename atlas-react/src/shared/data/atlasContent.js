@@ -285,7 +285,7 @@ export const atlasContent = {
                   id: 7,
                   slug: "luminaria",
                   title: "Luz del puerto",
-                  subtitle: "Luz del puerto",
+                  subtitle: "Luminaria",
                   description:
                     "Se reemplazaron 1.912 luminarias distribuidas en varias areas del proyecto, incluyendo Puerto Punta Chungo. La potencia total instalada en esta zona es de 27,15 kW. La iluminacion en el puerto genera impacto visual nocturno y contribuye a la contaminacion luminica que altera patrones de fauna local.",
                   source:

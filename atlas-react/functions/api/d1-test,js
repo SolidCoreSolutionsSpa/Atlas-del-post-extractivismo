@@ -1,0 +1,21 @@
+export async function onRequestGet(context) {
+    const database = context.env["atlas-db"];
+
+    if (!database) {
+        return new Response("Sin binding atlas-db", { status: 500 });
+    }
+
+    try {
+        const tables = await database
+            .prepare("SELECT name FROM sqlite_master WHERE type = 'table'")
+            .all();
+
+        return Response.json({
+            ok: true,
+            tables: tables.results,
+        });
+    } catch (error) {
+        console.error("Error probando D1:", error);
+        return new Response("Error probando D1", { status: 500 });
+    }
+}

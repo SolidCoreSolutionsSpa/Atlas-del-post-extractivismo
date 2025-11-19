@@ -1,7 +1,7 @@
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
-// .wrangler/tmp/pages-wMTkgZ/functionsWorker-0.39733142654706266.mjs
+// .wrangler/tmp/pages-uSU5dG/functionsWorker-0.04074351339794857.mjs
 var __defProp2 = Object.defineProperty;
 var __name2 = /* @__PURE__ */ __name((target, value) => __defProp2(target, "name", { value, configurable: true }), "__name");
 var atlasContent = {
@@ -279,7 +279,7 @@ var atlasContent = {
                   id: 7,
                   slug: "luminaria",
                   title: "Luz del puerto",
-                  subtitle: "Luz del puerto",
+                  subtitle: "Luminaria",
                   description: "Se reemplazaron 1.912 luminarias distribuidas en varias areas del proyecto, incluyendo Puerto Punta Chungo. La potencia total instalada en esta zona es de 27,15 kW. La iluminacion en el puerto genera impacto visual nocturno y contribuye a la contaminacion luminica que altera patrones de fauna local.",
                   source: "Fuente: Minera Los Pelambres (2024). Estudio de Impacto Ambiental (Capitulo 3.5, p. 3-15). SEA, Chile.",
                   image_path: "/img/cases-of-study/provincia-choapa/zones/puerto-punta-chungo/escenes/perturbacion-aerea/elements/torres-iluminacion/luz-puerto.jpg",
@@ -396,16 +396,12 @@ var atlasContent = {
   ]
 };
 async function onRequestGet(context) {
+  console.log("[atlas-data] env bindings:", Object.keys(context.env || {}));
   const db = context.env["atlas-db"];
+  console.log("[atlas-data] db binding:", !!db);
   try {
     if (!db) {
-      console.warn(
-        "[atlas-data] atlas-db binding not found. Serving static atlas data."
-      );
-      return Response.json(atlasContent, {
-        status: 200,
-        headers: { "X-Atlas-Data-Source": "static" }
-      });
+      throw new Error("D1 binding 'atlas-db' not found in context.env");
     }
     const [
       caseStudiesResult,
@@ -1225,7 +1221,7 @@ var jsonError2 = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx
 }, "jsonError");
 var middleware_miniflare3_json_error_default2 = jsonError2;
 
-// .wrangler/tmp/bundle-basSCh/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-6x9u5Y/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__2 = [
   middleware_ensure_req_body_drained_default2,
   middleware_miniflare3_json_error_default2
@@ -1257,7 +1253,7 @@ function __facade_invoke__2(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__2, "__facade_invoke__");
 
-// .wrangler/tmp/bundle-basSCh/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-6x9u5Y/middleware-loader.entry.ts
 var __Facade_ScheduledController__2 = class ___Facade_ScheduledController__2 {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
@@ -1357,4 +1353,4 @@ export {
   __INTERNAL_WRANGLER_MIDDLEWARE__2 as __INTERNAL_WRANGLER_MIDDLEWARE__,
   middleware_loader_entry_default2 as default
 };
-//# sourceMappingURL=functionsWorker-0.39733142654706266.js.map
+//# sourceMappingURL=functionsWorker-0.04074351339794857.js.map
