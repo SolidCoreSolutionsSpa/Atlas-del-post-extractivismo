@@ -216,7 +216,7 @@ export function ElementDetailPage() {
           {/* Subtítulo */}
           {element.subtitle && (
             <p
-              className="element-subtitle italic text-white/70"
+              className="element-subtitle text-white/70"
             >
               {element.subtitle}
             </p>
