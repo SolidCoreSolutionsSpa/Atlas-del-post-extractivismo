@@ -1,4 +1,4 @@
-import { atlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import { CaseOfStudyDTO } from '../model/CaseOfStudyDTO'
 
 /**

@@ -1,7 +1,19 @@
+import { atlasContent as staticAtlasContent } from "../../src/shared/data/atlasContent.js";
+
 export async function onRequestGet(context) {
   const db = context.env["atlas-db"];
 
   try {
+    if (!db) {
+      console.warn(
+        "[atlas-data] atlas-db binding not found. Serving static atlas data."
+      );
+      return Response.json(staticAtlasContent, {
+        status: 200,
+        headers: { "X-Atlas-Data-Source": "static" },
+      });
+    }
+
     // Query all tables in parallel
     const [
       caseStudiesResult,
@@ -146,14 +158,19 @@ export async function onRequestGet(context) {
       })),
     };
 
-    return Response.json(atlasContent, { status: 200 });
+    console.log("[atlas-data] Successfully fetched atlas data from D1.");
+
+    return Response.json(atlasContent, {
+      status: 200,
+      headers: { "X-Atlas-Data-Source": "d1" },
+    });
   } catch (error) {
-    return Response.json(
-      {
-        error: "Error al cargar datos del atlas",
-        message: error.message,
-      },
-      { status: 500 }
-    );
+    console.error("[atlas-data] Error fetching atlas data from D1:", error);
+    console.warn("[atlas-data] Falling back to static atlasContent data.");
+
+    return Response.json(staticAtlasContent, {
+      status: 200,
+      headers: { "X-Atlas-Data-Source": "static-fallback" },
+    });
   }
 }

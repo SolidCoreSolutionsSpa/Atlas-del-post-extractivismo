@@ -1,4 +1,4 @@
-import { atlasContent as rawAtlasContent } from '../../shared/data/newAtlasContent.js'
+import { atlasContent as rawAtlasContent } from '../../shared/data/atlasContent.js'
 import {
   mapCaseStudyFields,
   mapZoneFields,

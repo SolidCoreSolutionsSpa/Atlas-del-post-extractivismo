@@ -1,4 +1,4 @@
-import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import { createScene } from '../model/sceneModel'
 import { SceneDTO } from '../model/SceneDTO'
 
@@ -28,9 +28,9 @@ export class EscenasRepository {
 
 }
 
-// Escenas desde newAtlasContent usando DTOs
+// Escenas desde atlasContent usando DTOs
 const seedScenes = []
-newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+atlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
       if (zone.scenes && Array.isArray(zone.scenes)) {

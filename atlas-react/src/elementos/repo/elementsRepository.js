@@ -1,4 +1,4 @@
-import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import {
   createAffectationType,
   createElement,
@@ -15,9 +15,9 @@ function slugify(value) {
     .replace(/^-|-$/g, '') || 'sin-clasificar'
 }
 
-// Extraer todos los elementos de la estructura jerárquica de newAtlasContent
+// Extraer todos los elementos de la estructura jerárquica de atlasContent
 const allElements = []
-newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+atlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
       if (zone.scenes && Array.isArray(zone.scenes)) {
@@ -36,8 +36,8 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   }
 })
 
-// Build affectation types from newAtlasContent
-const seedAffectationTypes = newAtlasContent.affectationTypes.map((type) =>
+// Build affectation types from atlasContent
+const seedAffectationTypes = atlasContent.affectationTypes.map((type) =>
   createAffectationType({
     id: type.slug,
     name: type.name,

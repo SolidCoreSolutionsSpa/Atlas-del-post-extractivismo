@@ -44,8 +44,16 @@ export function LandingPage() {
   // Notificar cuando la página terminó de cargar
   usePageLoaded([territoriesConfig, isLoading])
 
-  // Default hero image
-  const heroImagePath = hero?.image_path || '/img/GLOBAL HOME AZUL NEGRO-100.jpg'
+  // Default hero image (compatibilidad con datos legacy que usan hero.image)
+  const heroImagePath = hero?.image_path || hero?.image || '/img/mapa-global.jpg'
+
+  useEffect(() => {
+    console.log('[LandingPage] hero updated:', hero)
+  }, [hero])
+
+  useEffect(() => {
+    console.log('[LandingPage] heroImagePath recalculated:', heroImagePath)
+  }, [heroImagePath])
 
   // Hook de crossfade de imágenes
   const { currentImage, isFading, swapImage } = useImageCrossfade(heroImagePath)

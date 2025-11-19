@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react'
-import { atlasContent as staticAtlasContent } from './newAtlasContent'
+import { atlasContent as staticAtlasContent } from './atlasContent'
 
 const AtlasDataContext = createContext(null)
 
