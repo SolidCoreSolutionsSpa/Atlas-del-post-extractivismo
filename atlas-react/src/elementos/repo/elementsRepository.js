@@ -36,33 +36,31 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   }
 })
 
-const affectationTypeMap = new Map()
+// Build affectation types from newAtlasContent
+const seedAffectationTypes = newAtlasContent.affectationTypes.map((type) =>
+  createAffectationType({
+    id: type.id,
+    name: type.name,
+    description: type.description,
+  }),
+)
+
+const affectationTypeMap = new Map(
+  seedAffectationTypes.map((type) => [type.id, type]),
+)
+
+// Build tags from all elements
 const tagMap = new Map()
-
 allElements.forEach((item) => {
-  const affectationName = item.affectation_type?.name || 'Sin clasificar'
-  const typeSlug = slugify(affectationName)
-  if (!affectationTypeMap.has(typeSlug)) {
-    affectationTypeMap.set(
-      typeSlug,
-      createAffectationType({
-        id: typeSlug,
-        name: affectationName,
-        description: '',
-      }),
-    )
-  }
-
-  if (item.keywords && Array.isArray(item.keywords)) {
-    item.keywords.forEach((keyword) => {
-      const tagLabel = keyword.name
-      const tagSlug = slugify(tagLabel)
+  if (item.tags && Array.isArray(item.tags)) {
+    item.tags.forEach((tagName) => {
+      const tagSlug = slugify(tagName)
       if (!tagMap.has(tagSlug)) {
         tagMap.set(
           tagSlug,
           createTag({
             id: tagSlug,
-            label: tagLabel,
+            label: tagName,
           }),
         )
       }
@@ -70,7 +68,6 @@ allElements.forEach((item) => {
   }
 })
 
-const seedAffectationTypes = Array.from(affectationTypeMap.values())
 const seedTags = Array.from(tagMap.values())
 
 const seedElements = allElements.map((item) =>
@@ -82,18 +79,18 @@ const seedElements = allElements.map((item) =>
     detailImagePath: item.detail_image_path ?? null,
     body: item.description,
     source: item.source,
-    affectationTypeId: slugify(item.affectation_type?.name || 'Sin clasificar'),
+    affectationTypeId: item.affectation_type_id || 'anthropic',
   }),
 )
 
 const seedElementTags = allElements.flatMap((item) => {
-  if (!item.keywords || !Array.isArray(item.keywords)) {
+  if (!item.tags || !Array.isArray(item.tags)) {
     return []
   }
-  return item.keywords.map((keyword) =>
+  return item.tags.map((tagName) =>
     createElementTag({
       elementId: item.id,
-      tagId: slugify(keyword.name),
+      tagId: slugify(tagName),
     }),
   )
 })

@@ -20,16 +20,16 @@ export function mapCaseStudyFields (raw) {
   }
 }
 
-// Decoration fields
-export function mapDecorationFields (raw, sceneAffectationType) {
+// Decoration fields from flattened scene structure
+export function mapDecorationFields (scene) {
   return {
-    id: raw.id,
-    image: raw.image_path,
-    position: mapPosition(raw.position_left, raw.position_top),
-    widthVw: raw.widthVw || 9, // Default 9vw if not specified
-    alt: raw.alt || '',
-    type: sceneAffectationType || null,
-    tooltip: raw.tooltip || ''
+    id: `decoration-${scene.id}`,
+    image: scene.decoration_image_path,
+    position: mapPosition(scene.decoration_position_left, scene.decoration_position_top),
+    widthVw: scene.decoration_width_vw || 9, // Default 9vw if not specified
+    alt: '',
+    type: scene.affectation_type_id || null,
+    tooltip: scene.decoration_tooltip || ''
   }
 }
 
@@ -61,9 +61,10 @@ export function mapElementFields (raw) {
     title: raw.title,
     description: raw.description,
     source: raw.source,
-    image: raw.image_path, // ← Transform
+    image: raw.image_path,
+    detail_image_path: raw.detail_image_path,
     position: mapPosition(raw.position_left, raw.position_top),
-    affectationType: raw.affectation_type?.name || null,
-    tags: raw.keywords?.map(kw => kw.name) || [] // Extract names
+    affectation_type_id: raw.affectation_type_id || null,
+    tags: raw.tags || []
   }
 }

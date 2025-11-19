@@ -10,37 +10,11 @@ import { motion, AnimatePresence } from 'framer-motion'
  * Reutilizable para cualquier provincia/caso de estudio que tenga elementos categorizados.
  *
  * @component
- * @param {Record<string, {title: string, description: string, icon: string}>} affectationTypes - Tipos de afectación con sus iconos
+ * @param {Array<{id: string, name: string, description: string, icon_path: string}>} affectationTypes - Tipos de afectación con sus iconos
  * @param {string | null} activeFilter - Filtro actualmente activo
  * @param {Function} onFilterChange - Callback cuando cambia el filtro
  * @param {'horizontal' | 'vertical'} [orientation='horizontal'] - Orientación del panel
  * @param {boolean} [showDescriptionCard=false] - Si true, muestra tarjeta con descripción; si false, muestra solo tooltip
- * @example
- * const affectationTypes = {
- *   biotic: {
- *     title: 'Paisajes Bióticos',
- *     description: 'Transformaciones que impactan seres vivos...',
- *     icon: '/img/icono_biotico_negro.svg'
- *   },
- *   anthropic: {
- *     title: 'Paisajes Antropicos',
- *     description: 'Consecuencias generadas por la intervención humana...',
- *     icon: '/img/icono_antropico_negro.svg'
- *   },
- *   physical: {
- *     title: 'Paisajes Físicos',
- *     description: 'Transformaciones del suelo y relieve...',
- *     icon: '/img/icono_fisico_negro.svg'
- *   }
- * };
- *
- * <FilterPanel
- *   affectationTypes={affectationTypes}
- *   activeFilter={activeFilter}
- *   onFilterChange={setActiveFilter}
- *   orientation="horizontal"
- *   showDescriptionCard={true}
- * />
  */
 export function FilterPanel({
   affectationTypes,
@@ -56,32 +30,34 @@ export function FilterPanel({
       : 'filter-panel-vertical-responsive top-1/2 -translate-y-1/2 flex-col items-center'
   )
 
-  const activeFilterInfo = activeFilter ? affectationTypes[activeFilter] : null
+  const activeFilterInfo = activeFilter
+    ? affectationTypes.find((type) => type.id === activeFilter)
+    : null
 
   return (
     <>
       <div className={containerClasses}>
-        {Object.entries(affectationTypes).map(([category, info]) => (
+        {affectationTypes.map((type) => (
           <button
-            key={category}
+            key={type.id}
             type="button"
-            onMouseEnter={() => onFilterChange(category)}
-            onFocus={() => onFilterChange(category)}
+            onMouseEnter={() => onFilterChange(type.id)}
+            onFocus={() => onFilterChange(type.id)}
             onMouseLeave={() => onFilterChange(null)}
             onBlur={() => onFilterChange(null)}
             className={clsx(
               'filter-button-responsive rounded-lg border-2 border-transparent bg-transparent transition-all duration-500',
-              activeFilter === category
+              activeFilter === type.id
                 ? 'bg-white/60'
                 : 'hover:bg-white/60',
             )}
-            aria-label={info.title}
-            title={!showDescriptionCard ? info.title : undefined}
+            aria-label={type.name}
+            title={!showDescriptionCard ? type.name : undefined}
           >
-            {category === 'anthropic' ? (
+            {type.id === 'anthropic' ? (
               <div style={{ transform: 'scale(0.9)' }}>
                 <img
-                  src={info.icon}
+                  src={type.icon_path}
                   alt=""
                   className="filter-icon-responsive"
                   loading="lazy"
@@ -89,7 +65,7 @@ export function FilterPanel({
               </div>
             ) : (
               <img
-                src={info.icon}
+                src={type.icon_path}
                 alt=""
                 className="filter-icon-responsive"
                 loading="lazy"
@@ -111,7 +87,7 @@ export function FilterPanel({
               className="filter-description-card-responsive pointer-events-none absolute z-[300] rounded-[10px] bg-white/90 font-sans leading-relaxed shadow-[0_4px_10px_rgba(0,0,0,0.2)]"
             >
               <strong className="filter-description-title-responsive block font-bold text-black">
-                {activeFilterInfo.title}
+                {activeFilterInfo.name}
               </strong>
               <p className="filter-description-text-responsive text-black">
                 {activeFilterInfo.description}

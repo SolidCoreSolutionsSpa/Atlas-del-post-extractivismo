@@ -22,9 +22,9 @@ function buildDetailMap (caseStudy) {
   const allDecorations = (caseStudy.zones || [])
     .flatMap(zone =>
       (zone.escenes || [])
-        .filter(scene => scene.decoration) // Only scenes with decoration
+        .filter(scene => scene.decoration_image_path) // Only scenes with decoration
         .map(scene => ({
-          ...mapDecorationFields(scene.decoration, scene.affectation_type),
+          ...mapDecorationFields(scene),
           zoneId: zone.id // Keep zone association for hover functionality
         }))
     )
