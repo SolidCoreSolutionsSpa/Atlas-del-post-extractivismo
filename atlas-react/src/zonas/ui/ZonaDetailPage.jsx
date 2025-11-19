@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
+import { InfoButton } from '../../shared/ui/InfoButton'
 import {
   InteractiveMap,
   MapIconHotspot,
@@ -12,6 +13,7 @@ import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { ZonasService } from '../services/zonasService'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
+import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -77,6 +79,7 @@ export function ZonaDetailPage() {
   const [zone, setZone] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
   useEffect(() => {
     if (!service) return
@@ -225,6 +228,22 @@ export function ZonaDetailPage() {
       <Breadcrumbs
         className="absolute left-4 sm:left-10 breadcrumb-responsive-top"
         items={breadcrumbItems}
+      />
+
+      <InfoButton
+        onClick={() => setIsDescriptionModalOpen(true)}
+        ariaLabel="Ver descripción de la zona"
+        title="Ver descripción"
+      />
+
+      <DescriptionModal
+        isOpen={isDescriptionModalOpen}
+        onClose={() => setIsDescriptionModalOpen(false)}
+        title={zone.name}
+        description={
+          zone.summary ||
+          'Explora las escenas disponibles para comprender las afectaciones presentes en esta zona.'
+        }
       />
     </motion.section>
   )

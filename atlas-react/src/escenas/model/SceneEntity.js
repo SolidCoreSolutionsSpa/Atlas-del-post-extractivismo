@@ -1,26 +1,22 @@
 /**
- * SceneEntity - Entidad de dominio para escenas
- * Representa la estructura de datos que se usará en toda la aplicación
- * Alineada con el modelo Scene existente en sceneModel.js
+ * SceneEntity - Domain entity for scenes
+ * Mirrors the structure defined in sceneModel.js
  */
 export class SceneEntity {
   /**
-   * @param {string} id - Identificador único de la escena
-   * @param {string} zoneId - ID de la zona a la que pertenece
-   * @param {string} name - Nombre de la escena
-   * @param {Object} map - Configuración del mapa
-   * @param {string} map.image - Ruta de la imagen del mapa
-   * @param {Array} map.hotspots - Puntos interactivos en el mapa
+   * @param {string} id - Scene unique ID
+   * @param {string} zoneId - Parent zone ID/slug
+   * @param {string} name - Scene name
+   * @param {string} summary - Scene summary/description
+   * @param {Object} map - Map configuration
+   * @param {string} map.image - Background image path
+   * @param {Array} map.hotspots - Interactive hotspots inside the map
    */
-  constructor(
-    id,
-    zoneId,
-    name,
-    map
-  ) {
+  constructor(id, zoneId, name, summary, map) {
     this.id = id
     this.zoneId = zoneId
     this.name = name
+    this.summary = summary
     this.map = map
   }
 }

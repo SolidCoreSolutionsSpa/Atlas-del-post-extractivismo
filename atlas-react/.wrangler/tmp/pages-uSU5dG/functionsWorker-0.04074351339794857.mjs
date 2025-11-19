@@ -477,6 +477,7 @@ async function onRequestGet(context) {
         id: scene.id,
         slug: scene.slug,
         title: scene.title,
+        summary: scene.summary,
         image_path: scene.image_path,
         position_left: scene.position_left,
         position_top: scene.position_top,
@@ -498,6 +499,7 @@ async function onRequestGet(context) {
         id: zone.id,
         slug: zone.slug,
         title: zone.title,
+        summary: zone.summary,
         image_path: zone.image_path,
         position_left: zone.position_left,
         position_top: zone.position_top,
@@ -1052,7 +1054,7 @@ var jsonError = /* @__PURE__ */ __name(async (request, env, _ctx, middlewareCtx)
 }, "jsonError");
 var middleware_miniflare3_json_error_default = jsonError;
 
-// ../.wrangler/tmp/bundle-irTsHv/middleware-insertion-facade.js
+// ../.wrangler/tmp/bundle-3dFk3j/middleware-insertion-facade.js
 var __INTERNAL_WRANGLER_MIDDLEWARE__ = [
   middleware_ensure_req_body_drained_default,
   middleware_miniflare3_json_error_default
@@ -1084,7 +1086,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
 }
 __name(__facade_invoke__, "__facade_invoke__");
 
-// ../.wrangler/tmp/bundle-irTsHv/middleware-loader.entry.ts
+// ../.wrangler/tmp/bundle-3dFk3j/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class ___Facade_ScheduledController__ {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;

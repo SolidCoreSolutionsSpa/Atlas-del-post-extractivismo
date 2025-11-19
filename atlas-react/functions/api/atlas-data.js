@@ -86,17 +86,18 @@ export async function onRequestGet(context) {
     const scenesByZoneId = new Map();
     for (const scene of scenes) {
       if (!scenesByZoneId.has(scene.zone_id)) {
-        scenesByZoneId.set(scene.zone_id, []);
-      }
-      const affectationType = affectationTypeById.get(scene.affectation_type_id);
-      scenesByZoneId.get(scene.zone_id).push({
-        id: scene.id,
-        slug: scene.slug,
-        title: scene.title,
-        image_path: scene.image_path,
-        position_left: scene.position_left,
-        position_top: scene.position_top,
-        affectation_type_id: affectationType ? affectationType.slug : null,
+      scenesByZoneId.set(scene.zone_id, []);
+    }
+    const affectationType = affectationTypeById.get(scene.affectation_type_id);
+    scenesByZoneId.get(scene.zone_id).push({
+      id: scene.id,
+      slug: scene.slug,
+      title: scene.title,
+      summary: scene.summary,
+      image_path: scene.image_path,
+      position_left: scene.position_left,
+      position_top: scene.position_top,
+      affectation_type_id: affectationType ? affectationType.slug : null,
         decoration_image_path: scene.decoration_image_path,
         decoration_position_left: scene.decoration_position_left,
         decoration_position_top: scene.decoration_position_top,
@@ -110,17 +111,18 @@ export async function onRequestGet(context) {
     const zonesByCaseStudyId = new Map();
     for (const zone of zones) {
       if (!zonesByCaseStudyId.has(zone.case_study_id)) {
-        zonesByCaseStudyId.set(zone.case_study_id, []);
-      }
-      zonesByCaseStudyId.get(zone.case_study_id).push({
-        id: zone.id,
-        slug: zone.slug,
-        title: zone.title,
-        image_path: zone.image_path,
-        position_left: zone.position_left,
-        position_top: zone.position_top,
-        scenes: scenesByZoneId.get(zone.id) || [],
-      });
+      zonesByCaseStudyId.set(zone.case_study_id, []);
+    }
+    zonesByCaseStudyId.get(zone.case_study_id).push({
+      id: zone.id,
+      slug: zone.slug,
+      title: zone.title,
+      summary: zone.summary,
+      image_path: zone.image_path,
+      position_left: zone.position_left,
+      position_top: zone.position_top,
+      scenes: scenesByZoneId.get(zone.id) || [],
+    });
     }
 
     // Build the final atlasContent structure

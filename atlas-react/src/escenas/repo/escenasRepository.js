@@ -42,6 +42,7 @@ atlasContent.caseOfStudies.forEach((caseStudy) => {
             id: sceneEntity.id,
             zoneId: sceneEntity.zoneId,
             name: sceneEntity.name,
+            summary: sceneEntity.summary,
             map: sceneEntity.map,
           })
           seedScenes.push(createdScene)

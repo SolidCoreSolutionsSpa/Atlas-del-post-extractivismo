@@ -4,6 +4,7 @@
  * @property {string} caseStudyId
  * @property {string} name
  * @property {string} description
+ * @property {string} summary
  * @property {string[]} sceneIds
  * @property {{
  *    image: string,
@@ -21,6 +22,7 @@ export function createZone(payload = {}) {
     caseStudyId: payload.caseStudyId ?? 'unknown',
     name: payload.name ?? 'Zona sin nombre',
     description: payload.description ?? 'Descripcion pendiente de migracion.',
+    summary: payload.summary ?? '',
     sceneIds: payload.sceneIds ?? [],
     map: payload.map ?? { image: '', hotspots: [] },
   }

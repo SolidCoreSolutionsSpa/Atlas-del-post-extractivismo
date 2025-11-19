@@ -40,6 +40,7 @@ atlasContent.caseOfStudies.forEach((caseStudy) => {
         caseStudyId: zoneEntity.caseStudyId,
         name: zoneEntity.name,
         description: zoneEntity.description,
+        summary: zoneEntity.summary,
         sceneIds: zoneEntity.sceneIds,
         map: zoneEntity.map,
       })

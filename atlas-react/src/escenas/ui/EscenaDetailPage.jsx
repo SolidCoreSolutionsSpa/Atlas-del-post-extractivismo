@@ -16,12 +16,6 @@ import { EscenasService } from '../services/escenasService'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
-const iconByCategory = {
-  biotic: '/img/icono_biotico_negro.svg',
-  anthropic: '/img/icono_antropico_negro.svg',
-  physical: '/img/icono_fisico_negro.svg',
-}
-
 const paddingByCategory = {
   biotic: 'p-2',
   anthropic: 'p-0',
@@ -64,6 +58,18 @@ export function EscenaDetailPage() {
   const { escenasRepository, zones, caseStudies, isLoading: repositoriesLoading } = useRepositories()
   const { affectationTypes } = useAtlasData()
 
+  const iconByCategory = useMemo(() => {
+    const entries = (affectationTypes || [])
+      .filter((type) => type.slug && type.icon_path)
+      .map((type) => [type.slug, type.icon_path])
+    return Object.fromEntries(entries)
+  }, [affectationTypes])
+
+  const defaultAffectationIcon =
+    iconByCategory.anthropic ||
+    affectationTypes?.[0]?.icon_path ||
+    '/img/icono_antropico_negro.svg'
+
   const zoneIndex = useMemo(
     () => new Map((zones || []).map((zone) => [zone.id, zone])),
     [zones],
@@ -77,8 +83,8 @@ export function EscenaDetailPage() {
     () =>
       escenasRepository
         ? new EscenasService({
-            escenasRepository,
-          })
+          escenasRepository,
+        })
         : null,
     [escenasRepository],
   )
@@ -202,7 +208,7 @@ export function EscenaDetailPage() {
               left={hotspot.left}
               top={hotspot.top}
               label={hotspot.label}
-              iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
+              iconSrc={iconByCategory?.[hotspot.category] ?? defaultAffectationIcon}
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
@@ -247,7 +253,10 @@ export function EscenaDetailPage() {
         isOpen={isDescriptionModalOpen}
         onClose={() => setIsDescriptionModalOpen(false)}
         title={scene.name}
-        description="Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura en el territorio."
+        description={
+          scene.summary ||
+          'Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura en el territorio.'
+        }
       />
     </motion.section>
   )

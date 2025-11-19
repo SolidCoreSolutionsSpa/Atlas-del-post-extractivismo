@@ -136,6 +136,7 @@ function buildZonesData(atlasData) {
           caseStudyId: zoneEntity.caseStudyId,
           name: zoneEntity.name,
           description: zoneEntity.description,
+          summary: zoneEntity.summary,
           sceneIds: zoneEntity.sceneIds,
           map: zoneEntity.map,
         })
@@ -158,13 +159,14 @@ function buildScenesData(atlasData) {
         if (zone.scenes && Array.isArray(zone.scenes)) {
           zone.scenes.forEach((scene) => {
             const sceneDTO = SceneDTO.fromNewAtlasContent(scene)
-            const sceneEntity = sceneDTO.toEntity(zone.slug)
-            const createdScene = createScene({
-              id: sceneEntity.id,
-              zoneId: sceneEntity.zoneId,
-              name: sceneEntity.name,
-              map: sceneEntity.map,
-            })
+          const sceneEntity = sceneDTO.toEntity(zone.slug)
+          const createdScene = createScene({
+            id: sceneEntity.id,
+            zoneId: sceneEntity.zoneId,
+            name: sceneEntity.name,
+            summary: sceneEntity.summary,
+            map: sceneEntity.map,
+          })
             scenes.push(createdScene)
           })
         }
@@ -239,6 +241,7 @@ function buildCaseStudiesData(atlasData) {
         caseId: caseStudy.slug,
         mapImage: rawZone.image_path,
         name: rawZone.title,
+        summary: rawZone.summary ?? '',
         position: mapPosition(rawZone.position_left, rawZone.position_top),
         sceneIds: rawZone.scenes?.map((s) => s.slug) || [],
       })
@@ -249,6 +252,7 @@ function buildCaseStudiesData(atlasData) {
           zoneId: rawZone.slug,
           mapImage: rawScene.image_path,
           name: rawScene.title,
+           summary: rawScene.summary ?? '',
           position: mapPosition(rawScene.position_left, rawScene.position_top),
           elementIds: rawScene.elements?.map((e) => e.slug) || [],
         })

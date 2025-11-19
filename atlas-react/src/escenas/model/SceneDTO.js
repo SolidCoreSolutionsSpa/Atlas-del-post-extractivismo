@@ -13,6 +13,7 @@ export class SceneDTO {
     this.id = data.id
     this.slug = data.slug
     this.title = data.title
+    this.summary = data.summary ?? ''
     this.image_path = data.image_path
     this.position_left = data.position_left
     this.position_top = data.position_top
@@ -36,15 +37,10 @@ export class SceneDTO {
       pulsate: true,
     }))
 
-    return new SceneEntity(
-      this.slug,
-      zoneSlug,
-      this.title,
-      {
-        image: this.image_path,
-        hotspots: hotspots,
-      }
-    )
+    return new SceneEntity(this.slug, zoneSlug, this.title, this.summary, {
+      image: this.image_path,
+      hotspots: hotspots,
+    })
   }
 
   /**
