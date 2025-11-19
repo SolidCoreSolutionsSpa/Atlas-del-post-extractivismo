@@ -11,6 +11,7 @@ export class CaseOfStudyDTO {
    */
   constructor(data) {
     this.id = data.id
+    this.slug = data.slug
     this.title = data.title
     this.summary = data.summary
     this.image_path = data.image_path
@@ -23,12 +24,12 @@ export class CaseOfStudyDTO {
   }
 
   /**
-   * Deriva la ruta de navegación basándose en el ID y el estado de publicación
+   * Deriva la ruta de navegación basándose en el slug y el estado de publicación
    * @returns {string|null} Ruta de navegación o null si no está publicado
    */
   getNavigateTo() {
     return this.is_published !== false
-      ? `/casos-de-estudio/${this.id}`
+      ? `/casos-de-estudio/${this.slug}`
       : null
   }
 
