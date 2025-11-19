@@ -10,18 +10,11 @@ import {
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { useTheme } from '../../shared/hooks/useTheme'
-import { zones, caseStudies } from '../../casosDeEstudio/repo/caseStudiesRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { EscenasService } from '../services/escenasService'
-import { inMemoryEscenasRepository } from '../repo/escenasRepository'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
 import { DescriptionModal } from '../../shared/ui/DescriptionModal'
-
-const iconByCategory = {
-  biotic: '/img/icono_biotico_negro.svg',
-  anthropic: '/img/icono_antropico_negro.svg',
-  physical: '/img/icono_fisico_negro.svg',
-}
 
 const paddingByCategory = {
   biotic: 'p-2',
@@ -47,20 +40,6 @@ const containerScaleByCategory = {
   physical: 1.0,
 }
 
-const filterDescriptions = {
-  biotic: {
-    title: 'Paisajes bioticos',
-    text: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
-  },
-  anthropic: {
-    title: 'Paisajes antropicos',
-    text: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
-  },
-  physical: {
-    title: 'Paisajes fisicos',
-    text: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
-  },
-}
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -71,23 +50,43 @@ const detailVariants = {
   },
 }
 
-const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-
 export function EscenaDetailPage() {
   const { sceneId } = useParams()
   const [searchParams] = useSearchParams()
   const highlightedElementId = searchParams.get('highlight')
   const zoomNavigate = useZoomNavigation()
-  const { setTheme } = useTheme()
+  const { escenasRepository, zones, caseStudies, isLoading: repositoriesLoading } = useRepositories()
+  const { affectationTypes } = useAtlasData()
+
+  const iconByCategory = useMemo(() => {
+    const entries = (affectationTypes || [])
+      .filter((type) => type.slug && type.icon_path)
+      .map((type) => [type.slug, type.icon_path])
+    return Object.fromEntries(entries)
+  }, [affectationTypes])
+
+  const defaultAffectationIcon =
+    iconByCategory.anthropic ||
+    affectationTypes?.[0]?.icon_path ||
+    '/img/icono_antropico_negro.svg'
+
+  const zoneIndex = useMemo(
+    () => new Map((zones || []).map((zone) => [zone.id, zone])),
+    [zones],
+  )
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
+
   const service = useMemo(
     () =>
-      new EscenasService({
-        escenasRepository: inMemoryEscenasRepository,
-      }),
-    [],
+      escenasRepository
+        ? new EscenasService({
+          escenasRepository,
+        })
+        : null,
+    [escenasRepository],
   )
 
   const [scene, setScene] = useState(null)
@@ -96,6 +95,8 @@ export function EscenaDetailPage() {
   const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
   useEffect(() => {
+    if (!service) return
+
     let isMounted = true
     async function load() {
       setStatus('loading')
@@ -110,20 +111,6 @@ export function EscenaDetailPage() {
       isMounted = false
     }
   }, [sceneId, service])
-
-  // Apply theme based on scene data
-  useEffect(() => {
-    if (scene && scene.theme === 'night') {
-      setTheme('night')
-    } else if (scene) {
-      setTheme('light')
-    }
-
-    // Cleanup: reset to light theme when unmounting
-    return () => {
-      setTheme('light')
-    }
-  }, [scene, setTheme])
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([scene, status])
@@ -145,7 +132,7 @@ export function EscenaDetailPage() {
   }
   breadcrumbItems.push({ label: scene ? scene.name : 'Escena' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -201,7 +188,7 @@ export function EscenaDetailPage() {
 
   return (
     <motion.section
-      className={clsx('relative min-h-screen overflow-hidden bg-[#050b1d] text-white')}
+      className={clsx('relative min-h-screen overflow-hidden text-white')}
       initial="hidden"
       animate="visible"
       variants={detailVariants}
@@ -221,7 +208,7 @@ export function EscenaDetailPage() {
               left={hotspot.left}
               top={hotspot.top}
               label={hotspot.label}
-              iconSrc={iconByCategory[hotspot.category] ?? iconByCategory.anthropic}
+              iconSrc={iconByCategory?.[hotspot.category] ?? defaultAffectationIcon}
               iconAlt={hotspot.category ?? 'Hotspot'}
               iconPadding={paddingByCategory[hotspot.category] ?? 'p-1.5'}
               backgroundShape={shapeByCategory[hotspot.category] ?? 'circle'}
@@ -245,7 +232,7 @@ export function EscenaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        filterDescriptions={filterDescriptions}
+        affectationTypes={affectationTypes || []}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"
@@ -266,7 +253,10 @@ export function EscenaDetailPage() {
         isOpen={isDescriptionModalOpen}
         onClose={() => setIsDescriptionModalOpen(false)}
         title={scene.name}
-        description="Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura en el territorio."
+        description={
+          scene.summary ||
+          'Explora los elementos vinculados a esta escena para comprender las afectaciones sobre fauna e infraestructura en el territorio.'
+        }
       />
     </motion.section>
   )

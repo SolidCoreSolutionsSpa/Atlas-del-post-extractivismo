@@ -5,7 +5,7 @@ import { SectionHeader } from '../../shared/design/components/SectionHeader'
 import { Button } from '../../shared/design/components/Button'
 import { TagChip } from '../../shared/ui/TagChip'
 import { useZoomNavigation } from '../../shared/hooks/useZoomNavigation.jsx'
-import { inMemoryElementsRepository } from '../repo/elementsRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 
 const listVariants = {
   hidden: { opacity: 0 },
@@ -25,25 +25,31 @@ const cardVariants = {
 }
 
 export function ElementRecommendationsPanel() {
+  const { elementsRepository, isLoading: repositoriesLoading } = useRepositories()
   const [elements, setElements] = useState([])
+  const [loading, setLoading] = useState(true)
   const zoomNavigate = useZoomNavigation()
 
   useEffect(() => {
+    if (!elementsRepository) return
+
     let isMounted = true
 
     async function load() {
-      const { items } = await inMemoryElementsRepository.listPaginated({
+      setLoading(true)
+      const { items } = await elementsRepository.listPaginated({
         limit: 6,
       })
 
       const enriched = await Promise.all(
         items.map((item) =>
-          inMemoryElementsRepository.getElementWithTags(item.id),
+          elementsRepository.getElementWithTags(item.id),
         ),
       )
 
       if (isMounted) {
         setElements(enriched.filter(Boolean))
+        setLoading(false)
       }
     }
 
@@ -52,7 +58,9 @@ export function ElementRecommendationsPanel() {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [elementsRepository])
+
+  const isLoading = repositoriesLoading || loading
 
   return (
     <motion.section
@@ -82,11 +90,6 @@ export function ElementRecommendationsPanel() {
               <h2 className="text-lg font-semibold text-token-primary">
                 {entry.element.name}
               </h2>
-              {entry.element.subtitle ? (
-                <p className="text-xs font-medium uppercase tracking-[0.2em] text-token-muted">
-                  {entry.element.subtitle}
-                </p>
-              ) : null}
               <p className="text-xs uppercase tracking-wide text-token-muted">
                 {entry.affectationType?.name ?? 'Afectacion por definir'}
               </p>

@@ -12,7 +12,7 @@ export class LandingPageViewModel {
 
   /**
    * Obtiene todos los casos de estudio para mostrar en el mapa
-   * @returns {Array<{entity: CaseOfStudyEntity, navigateTo: string|null, variant: string}>}
+   * @returns {Array<{entity: CaseOfStudyEntity, navigateTo: string|null}>}
    */
   getCasesOfStudy() {
     return this.repository.getAllCasesOfStudy()
@@ -21,7 +21,7 @@ export class LandingPageViewModel {
   /**
    * Obtiene un caso de estudio específico por ID
    * @param {string} id - ID del caso de estudio
-   * @returns {{entity: CaseOfStudyEntity, navigateTo: string|null, variant: string}|null}
+   * @returns {{entity: CaseOfStudyEntity, navigateTo: string|null}|null}
    */
   getCaseOfStudyById(id) {
     return this.repository.getCaseOfStudyById(id)
@@ -31,10 +31,9 @@ export class LandingPageViewModel {
    * Formatea los datos del caso de estudio para ser consumidos por RadarPoint
    * @param {CaseOfStudyEntity} entity - Entidad del caso de estudio
    * @param {string|null} navigateTo - Ruta de navegación
-   * @param {string} variant - Variante de estilo del punto
    * @returns {Object} Configuración formateada para RadarPoint
    */
-  formatCaseForRadarPoint(entity, navigateTo, variant) {
+  formatCaseForRadarPoint(entity, navigateTo) {
     return {
       id: entity.id,
       name: entity.title,
@@ -42,7 +41,6 @@ export class LandingPageViewModel {
       backgroundImage: entity.detail_image_path, // Imagen mostrada en hover
       detailImagePath: entity.image_path, // Imagen de la página de detalle
       color: entity.button_color,
-      variant: variant,
       position: {
         left: `${entity.position_left}%`,
         top: `${entity.position_top}%`,
@@ -60,8 +58,8 @@ export class LandingPageViewModel {
     const cases = this.getCasesOfStudy()
     const config = {}
 
-    cases.forEach(({ entity, navigateTo, variant }) => {
-      config[entity.id] = this.formatCaseForRadarPoint(entity, navigateTo, variant)
+    cases.forEach(({ entity, navigateTo }) => {
+      config[entity.id] = this.formatCaseForRadarPoint(entity, navigateTo)
     })
 
     return config

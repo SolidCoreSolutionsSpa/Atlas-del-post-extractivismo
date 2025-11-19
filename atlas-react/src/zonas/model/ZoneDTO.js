@@ -1,60 +1,53 @@
 import { ZoneEntity } from './ZoneEntity'
 
 /**
- * ZoneDTO - Data Transfer Object para zonas
- * Representa la estructura de datos recibida desde newAtlasContent
- * y proporciona métodos para convertir a la entidad de dominio
+ * ZoneDTO - lightweight mapper for raw zone data
  */
 export class ZoneDTO {
   /**
-   * @param {Object} data - Datos crudos de la zona desde newAtlasContent
+   * @param {Object} data - Raw zone payload coming from atlas data
    */
   constructor(data) {
     this.id = data.id
+    this.slug = data.slug
     this.title = data.title
+    this.summary = data.summary ?? ''
     this.image_path = data.image_path
     this.position_left = data.position_left
     this.position_top = data.position_top
-    this.escenes = data.escenes || []
-    // decorations removed - now each scene has its own decoration field
+    this.scenes = data.scenes || []
   }
 
   /**
-   * Convierte el DTO a una entidad de dominio (ZoneEntity)
-   * @param {string} caseStudyId - ID del caso de estudio al que pertenece la zona
-   * @returns {ZoneEntity} Entidad de zona
+   * Converts the DTO to a ZoneEntity
+   * @param {string} caseStudySlug - Identifier of the parent case study
+   * @returns {ZoneEntity}
    */
-  toEntity(caseStudyId) {
-    // Mapear escenas a hotspots
-    const hotspots = this.escenes.map((escene) => ({
-      id: escene.id,
-      left: `${escene.position_left}%`,
-      top: `${escene.position_top}%`,
-      label: escene.title,
-      sceneId: escene.id,
-      category: escene.escene_type?.name || 'anthropic',
+  toEntity(caseStudySlug) {
+    const hotspots = this.scenes.map((scene) => ({
+      id: scene.slug,
+      left: `${scene.position_left}%`,
+      top: `${scene.position_top}%`,
+      label: scene.title,
+      sceneId: scene.slug,
+      category: scene.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
-    const entity = new ZoneEntity(
-      this.id,
-      caseStudyId,
+    return new ZoneEntity(
+      this.slug,
+      caseStudySlug,
       this.title,
-      '', // description - puede agregarse después
-      this.escenes.map(e => e.id), // sceneIds
+      '', // full description pending migration
+      this.summary,
+      this.scenes.map((scene) => scene.slug),
       {
         image: this.image_path,
-        hotspots: hotspots,
-      }
+        hotspots,
+      },
     )
-    return entity
   }
 
-  /**
-   * Crea un DTO desde los datos crudos de newAtlasContent
-   * @param {Object} data - Datos crudos de la zona
-   * @returns {ZoneDTO} Instancia de ZoneDTO
-   */
   static fromNewAtlasContent(data) {
     return new ZoneDTO(data)
   }

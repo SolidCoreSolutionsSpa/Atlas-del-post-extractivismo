@@ -22,11 +22,23 @@
 
   .element-card-main h1 {
     font-size: clamp(20.8px, 1.44vw, 28px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
-    margin-top: clamp(4px, 0.28vw, 6px);
-    font-size: clamp(17.6px, 1.22vw, 22px);
+    margin-top: 0;
+    font-style: italic;
+    font-size: clamp(17px, 1.18vw, 22px);
+    font-weight: normal;
+  }
+
+  .element-affectation-badge {
+    margin-top: clamp(8px, 0.56vw, 12px);
+  }
+
+  .element-affectation-badge span {
+    font-size: clamp(14px, 0.97vw, 17px);
+    padding: clamp(1px, 0.07vw, 2px) clamp(6px, 0.42vw, 8px);
   }
 
   .element-card-main p {
@@ -88,11 +100,23 @@
 
   .element-card-main h1 {
     font-size: clamp(18px, 1.25vw, 24px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
-    margin-top: clamp(3px, 0.2vw, 4px);
-    font-size: clamp(15px, 1.05vw, 18px);
+    margin-top: 0;
+    font-style: italic;
+    font-size: clamp(14px, 1vw, 18px);
+    font-weight: normal;
+  }
+
+  .element-affectation-badge {
+    margin-top: clamp(6px, 0.4vw, 10px);
+  }
+
+  .element-affectation-badge span {
+    font-size: clamp(12px, 0.85vw, 15px);
+    padding: clamp(1px, 0.06vw, 2px) clamp(4px, 0.3vw, 6px);
   }
 
   .element-card-main p {
@@ -157,11 +181,23 @@
 
   .element-card-main h1 {
     font-size: clamp(16px, 1.1vw, 20px);
+    margin-bottom: 0;
   }
 
   .element-subtitle {
-    margin-top: clamp(2px, 0.15vw, 3px);
-    font-size: clamp(13px, 0.9vw, 16px);
+    margin-top: 0;
+    font-style: italic;
+    font-size: clamp(12px, 0.85vw, 15px);
+    font-weight: normal;
+  }
+
+  .element-affectation-badge {
+    margin-top: clamp(4px, 0.3vw, 8px);
+  }
+
+  .element-affectation-badge span {
+    font-size: clamp(10px, 0.7vw, 13px);
+    padding: clamp(0px, 0.05vw, 1px) clamp(4px, 0.28vw, 6px);
   }
 
   .element-card-main p {
@@ -228,11 +264,23 @@
 
   .element-card-main h1 {
     font-size: 1.8vw;
+    margin-bottom: 0;
   }
 
   .element-subtitle {
-    margin-top: 0.3vw;
+    margin-top: 0;
+    font-style: italic;
     font-size: 1.5vw;
+    font-weight: normal;
+  }
+
+  .element-affectation-badge {
+    margin-top: 0.6vw;
+  }
+
+  .element-affectation-badge span {
+    font-size: 1.2vw;
+    padding: 0.1vw 0.4vw;
   }
 
   .element-card-main p {
@@ -306,11 +354,23 @@
 
   .element-card-main h1 {
     font-size: 2.8vh; /* ~11.9px at 425px height */
+    margin-bottom: 0;
   }
 
   .element-subtitle {
-    margin-top: 0.5vh;
-    font-size: 2.4vh; /* ~10.2px at 425px height */
+    margin-top: 0;
+    font-style: italic;
+    font-size: 2.4vh;
+    font-weight: normal;
+  }
+
+  .element-affectation-badge {
+    margin-top: 0.8vh;
+  }
+
+  .element-affectation-badge span {
+    font-size: 2vh;
+    padding: 0.1vh 0.5vh;
   }
 
   .element-card-main p {

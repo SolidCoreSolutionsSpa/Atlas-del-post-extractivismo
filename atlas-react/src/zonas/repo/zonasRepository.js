@@ -1,4 +1,4 @@
-import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import { createZone } from '../model/zoneModel'
 import { ZoneDTO } from '../model/ZoneDTO'
 
@@ -27,19 +27,20 @@ export class ZonasRepository {
   }
 }
 
-// Zonas desde newAtlasContent usando DTOs
+// Zonas desde atlasContent usando DTOs
 const seedZones = []
-newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+atlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
       const zoneDTO = ZoneDTO.fromNewAtlasContent(zone)
-      const zoneEntity = zoneDTO.toEntity(caseStudy.id)
+      const zoneEntity = zoneDTO.toEntity(caseStudy.slug)
       // Convertir entity a formato del createZone
       const createdZone = createZone({
         id: zoneEntity.id,
         caseStudyId: zoneEntity.caseStudyId,
         name: zoneEntity.name,
         description: zoneEntity.description,
+        summary: zoneEntity.summary,
         sceneIds: zoneEntity.sceneIds,
         map: zoneEntity.map,
       })

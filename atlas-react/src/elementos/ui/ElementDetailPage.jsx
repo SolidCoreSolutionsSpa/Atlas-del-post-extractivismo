@@ -5,10 +5,9 @@ import clsx from 'clsx'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
 import { InteractiveMap } from '../../shared/ui/InteractiveMap'
+import { AffectationBadge } from '../../shared/ui/AffectationBadge'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { useTheme } from '../../shared/hooks/useTheme'
-import { zones, caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
-import { inMemoryElementsRepository } from '../repo/elementsRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 import { useElementRecommendations } from '../hooks/useElementRecommendations'
 import { NavigationArrows } from './NavigationArrows'
 import './ElementDetailPage.css'
@@ -41,19 +40,32 @@ function ResponsiveTagChip({ label }) {
   )
 }
 
-const sceneIndex = new Map(
-  scenes.map((scene) => [scene.id, scene]),
-)
-const zoneIndex = new Map(zones.map((zone) => [zone.id, zone]))
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-
 export function ElementDetailPage() {
   const { elementId } = useParams()
   const zoomNavigate = useZoomNavigation()
-  const { setTheme } = useTheme()
   const [sceneElements, setSceneElements] = useState([])
+
+  const {
+    elementsRepository,
+    zones,
+    scenes,
+    caseStudies,
+    isLoading: repositoriesLoading,
+  } = useRepositories()
+
+  // Create lookup indexes
+  const sceneIndex = useMemo(
+    () => new Map((scenes || []).map((scene) => [scene.id, scene])),
+    [scenes],
+  )
+  const zoneIndex = useMemo(
+    () => new Map((zones || []).map((zone) => [zone.id, zone])),
+    [zones],
+  )
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
 
   const seed = useMemo(
     () => (elementId ? hashString(elementId) : undefined),
@@ -61,7 +73,7 @@ export function ElementDetailPage() {
   )
   const { status, base, recommendations } = useElementRecommendations({
     elementId,
-    elementsRepository: inMemoryElementsRepository,
+    elementsRepository,
     options: {
       limit: 5,
       seed,
@@ -79,8 +91,8 @@ export function ElementDetailPage() {
   // Obtener elementos de la escena actual
   useEffect(() => {
     async function loadSceneElements() {
-      if (element?.sceneId) {
-        const elements = await inMemoryElementsRepository.findBySceneId(
+      if (element?.sceneId && elementsRepository) {
+        const elements = await elementsRepository.findBySceneId(
           element.sceneId,
         )
         setSceneElements(elements)
@@ -89,19 +101,7 @@ export function ElementDetailPage() {
       }
     }
     loadSceneElements()
-  }, [element?.sceneId])
-
-  // Apply theme based on element data (always night theme for immersive experience)
-  useEffect(() => {
-    if (element) {
-      setTheme('night')
-    }
-
-    // Cleanup: reset to light theme when unmounting
-    return () => {
-      setTheme('light')
-    }
-  }, [element, setTheme])
+  }, [element?.sceneId, elementsRepository])
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([element, status])
@@ -129,7 +129,7 @@ export function ElementDetailPage() {
   }
   breadcrumbItems.push({ label: element ? element.name : 'Elemento' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -221,24 +221,25 @@ export function ElementDetailPage() {
       >
         {/* Ficha flotante con información del elemento */}
         <div className="element-card-main bg-black/50 shadow-2xl backdrop-blur">
-          {/* Categoría superior */}
-          <p
-            className="element-category font-bold uppercase text-white/70"
-            style={{ letterSpacing: '0.15em' }}
-          >
-            {affectationType?.name ?? 'Elemento'}
-          </p>
-
           {/* Título del elemento */}
           <h1 className="font-bold leading-tight text-white">
             {element.name}
           </h1>
 
-          {/* Subtítulo si existe */}
+          {/* Subtítulo */}
           {element.subtitle && (
-            <p className="element-subtitle italic text-white/80">
+            <h2
+              className="element-subtitle text-white/70"
+            >
               {element.subtitle}
-            </p>
+            </h2>
+          )}
+
+          {/* Tipo de afectación en badge */}
+          {affectationType && (
+            <div className="element-affectation-badge">
+              <AffectationBadge label={affectationType.name} />
+            </div>
           )}
 
           {/* Descripción */}

@@ -1,4 +1,4 @@
-import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import {
   createAffectationType,
   createElement,
@@ -15,18 +15,18 @@ function slugify(value) {
     .replace(/^-|-$/g, '') || 'sin-clasificar'
 }
 
-// Extraer todos los elementos de la estructura jerárquica de newAtlasContent
+// Extraer todos los elementos de la estructura jerárquica de atlasContent
 const allElements = []
-newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+atlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
-      if (zone.escenes && Array.isArray(zone.escenes)) {
-        zone.escenes.forEach((scene) => {
+      if (zone.scenes && Array.isArray(zone.scenes)) {
+        zone.scenes.forEach((scene) => {
           if (scene.elements && Array.isArray(scene.elements)) {
             scene.elements.forEach((element) => {
               allElements.push({
                 ...element,
-                sceneId: scene.id,
+                sceneId: scene.slug,
               })
             })
           }
@@ -36,33 +36,31 @@ newAtlasContent.caseOfStudies.forEach((caseStudy) => {
   }
 })
 
-const affectationTypeMap = new Map()
+// Build affectation types from atlasContent
+const seedAffectationTypes = atlasContent.affectationTypes.map((type) =>
+  createAffectationType({
+    id: type.slug,
+    name: type.name,
+    description: type.description,
+  }),
+)
+
+const affectationTypeMap = new Map(
+  seedAffectationTypes.map((type) => [type.id, type]),
+)
+
+// Build tags from all elements
 const tagMap = new Map()
-
 allElements.forEach((item) => {
-  const affectationName = item.affectation_type?.name || 'Sin clasificar'
-  const typeSlug = slugify(affectationName)
-  if (!affectationTypeMap.has(typeSlug)) {
-    affectationTypeMap.set(
-      typeSlug,
-      createAffectationType({
-        id: typeSlug,
-        name: affectationName,
-        description: '',
-      }),
-    )
-  }
-
-  if (item.keywords && Array.isArray(item.keywords)) {
-    item.keywords.forEach((keyword) => {
-      const tagLabel = keyword.name
-      const tagSlug = slugify(tagLabel)
+  if (item.tags && Array.isArray(item.tags)) {
+    item.tags.forEach((tagName) => {
+      const tagSlug = slugify(tagName)
       if (!tagMap.has(tagSlug)) {
         tagMap.set(
           tagSlug,
           createTag({
             id: tagSlug,
-            label: tagLabel,
+            label: tagName,
           }),
         )
       }
@@ -70,31 +68,30 @@ allElements.forEach((item) => {
   }
 })
 
-const seedAffectationTypes = Array.from(affectationTypeMap.values())
 const seedTags = Array.from(tagMap.values())
 
 const seedElements = allElements.map((item) =>
   createElement({
-    id: item.id,
+    id: item.slug,
     sceneId: item.sceneId,
     name: item.title,
-    subtitle: item.title,
+    subtitle: item.subtitle || null,
     image: item.image_path,
     detailImagePath: item.detail_image_path ?? null,
     body: item.description,
     source: item.source,
-    affectationTypeId: slugify(item.affectation_type?.name || 'Sin clasificar'),
+    affectationTypeId: item.affectation_type_id || 'anthropic',
   }),
 )
 
 const seedElementTags = allElements.flatMap((item) => {
-  if (!item.keywords || !Array.isArray(item.keywords)) {
+  if (!item.tags || !Array.isArray(item.tags)) {
     return []
   }
-  return item.keywords.map((keyword) =>
+  return item.tags.map((tagName) =>
     createElementTag({
-      elementId: item.id,
-      tagId: slugify(keyword.name),
+      elementId: item.slug,
+      tagId: slugify(tagName),
     }),
   )
 })
@@ -149,7 +146,7 @@ export class ElementsRepository {
   }
 }
 
-class InMemoryElementsRepository extends ElementsRepository {
+export class InMemoryElementsRepository extends ElementsRepository {
   constructor({
     elements = seedElements,
     tags = seedTags,

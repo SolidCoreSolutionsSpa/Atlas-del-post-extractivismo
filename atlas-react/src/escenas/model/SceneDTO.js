@@ -11,43 +11,36 @@ export class SceneDTO {
    */
   constructor(data) {
     this.id = data.id
+    this.slug = data.slug
     this.title = data.title
+    this.summary = data.summary ?? ''
     this.image_path = data.image_path
     this.position_left = data.position_left
     this.position_top = data.position_top
-    this.escene_type = data.escene_type
     this.elements = data.elements || []
   }
 
   /**
    * Convierte el DTO a una entidad de dominio (SceneEntity)
-   * @param {string} zoneId - ID de la zona a la que pertenece la escena
+   * @param {string} zoneSlug - Slug de la zona a la que pertenece la escena
    * @returns {SceneEntity} Entidad de escena
    */
-  toEntity(zoneId) {
+  toEntity(zoneSlug) {
     // Mapear elementos a hotspots
     const hotspots = this.elements.map((element) => ({
-      id: element.id,
+      id: element.slug,
       left: `${element.position_left}%`,
       top: `${element.position_top}%`,
       label: element.title,
-      elementId: element.id,
-      category: element.affectation_type?.name?.includes('biotica') ? 'biotic' :
-                element.affectation_type?.name?.includes('antropica') ? 'anthropic' :
-                'physical',
+      elementId: element.slug,
+      category: element.affectation_type_id || 'anthropic',
       pulsate: true,
     }))
 
-    return new SceneEntity(
-      this.id,
-      zoneId,
-      this.title,
-      'night', // theme por defecto
-      {
-        image: this.image_path,
-        hotspots: hotspots,
-      }
-    )
+    return new SceneEntity(this.slug, zoneSlug, this.title, this.summary, {
+      image: this.image_path,
+      hotspots: hotspots,
+    })
   }
 
   /**

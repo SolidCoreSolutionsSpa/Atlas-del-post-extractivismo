@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 import { TransitionProvider, usePageTransition } from '../hooks/useZoomNavigation.jsx'
-import { useTheme } from '../hooks/useTheme'
 import { useOrientation } from '../hooks/useOrientation'
 import { OrientationModal } from '../ui/OrientationModal'
 import { Navbar } from '../ui/Navbar'
@@ -17,7 +16,6 @@ const navPlaceholders = [
 
 export function RootLayout({ children }) {
   usePrefersReducedMotion()
-  const { theme } = useTheme()
   const { isPortrait, isLandscape, isMobile } = useOrientation()
   const location = useLocation()
   const [isFullscreen, setIsFullscreen] = useState(false)

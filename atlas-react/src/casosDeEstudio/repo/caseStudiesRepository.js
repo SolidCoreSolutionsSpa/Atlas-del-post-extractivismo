@@ -1,4 +1,4 @@
-import { atlasContent as rawAtlasContent } from '../../shared/data/newAtlasContent.js'
+import { atlasContent as rawAtlasContent } from '../../shared/data/atlasContent.js'
 import {
   mapCaseStudyFields,
   mapZoneFields,
@@ -13,7 +13,7 @@ import { createCaseStudy } from '../model/caseStudyModel'
 
 function buildDetailMap (caseStudy) {
   const zones = (caseStudy.zones || []).map(zone => ({
-    id: zone.id,
+    id: zone.slug,
     name: zone.title,
     position: mapPosition(zone.position_left, zone.position_top)
   }))
@@ -21,11 +21,11 @@ function buildDetailMap (caseStudy) {
   // Extract decorations from scenes instead of zones
   const allDecorations = (caseStudy.zones || [])
     .flatMap(zone =>
-      (zone.escenes || [])
-        .filter(scene => scene.decoration) // Only scenes with decoration
+      (zone.scenes || [])
+        .filter(scene => scene.decoration_image_path) // Only scenes with decoration
         .map(scene => ({
-          ...mapDecorationFields(scene.decoration),
-          zoneId: zone.id // Keep zone association for hover functionality
+          ...mapDecorationFields(scene),
+          zoneId: zone.slug // Keep zone association for hover functionality
         }))
     )
 
@@ -33,7 +33,6 @@ function buildDetailMap (caseStudy) {
     image: caseStudy.image_path,
     zones,
     decorations: allDecorations,
-    filterDescriptions: caseStudy.filterDescriptions
   }
 }
 
@@ -44,7 +43,7 @@ function transformCaseStudies () {
     const globalMap = {
       image: mapped.image_path,
       points: [{
-        id: `punto-${mapped.id}`,
+        id: `punto-${mapped.slug}`,
         ...mapPosition(mapped.position_left, mapped.position_top),
         label: mapped.title,
         zoneId: null
@@ -53,8 +52,9 @@ function transformCaseStudies () {
 
     return createCaseStudy({
       ...mapped,
+      id: mapped.slug,
       location: mapped.title,
-      zoneIds: raw.zones?.map(z => z.id) || [],
+      zoneIds: raw.zones?.map(z => z.slug) || [],
       globalMap,
       detailMap
     })
@@ -67,10 +67,11 @@ function transformZones () {
     for (const rawZone of caseStudy.zones || []) {
       zones.push({
         ...mapZoneFields(rawZone),
-        caseId: caseStudy.id,
+        id: rawZone.slug,
+        caseId: caseStudy.slug,
         mapImage: rawZone.image_path,
         name: rawZone.title,
-        sceneIds: rawZone.escenes?.map(s => s.id) || []
+        sceneIds: rawZone.scenes?.map(s => s.slug) || []
       })
     }
   }
@@ -81,13 +82,14 @@ function transformScenes () {
   const scenes = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const rawScene of zone.escenes || []) {
+      for (const rawScene of zone.scenes || []) {
         scenes.push({
           ...mapSceneFields(rawScene),
-          zoneId: zone.id,
+          id: rawScene.slug,
+          zoneId: zone.slug,
           mapImage: rawScene.image_path,
           name: rawScene.title,
-          elementIds: rawScene.elements?.map(e => e.id) || []
+          elementIds: rawScene.elements?.map(e => e.slug) || []
         })
       }
     }
@@ -99,12 +101,12 @@ function transformElements () {
   const elements = []
   for (const caseStudy of rawAtlasContent.caseOfStudies) {
     for (const zone of caseStudy.zones || []) {
-      for (const scene of zone.escenes || []) {
+      for (const scene of zone.scenes || []) {
         for (const rawElement of scene.elements || []) {
           elements.push({
             ...mapElementFields(rawElement),
-            sceneId: scene.id,
-            subtitle: rawElement.title,
+            id: rawElement.slug,
+            sceneId: scene.slug,
             body: rawElement.description
           })
         }

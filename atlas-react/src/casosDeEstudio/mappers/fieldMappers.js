@@ -10,28 +10,27 @@ export function mapPosition (positionLeft, positionTop) {
 export function mapCaseStudyFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     summary: raw.summary,
     image_path: raw.image_path, // Keep underscore for now (used by query layer)
     position_left: raw.position_left,
     position_top: raw.position_top,
     color: raw.color,
-    variant: raw.variant,
-    navigateTo: raw.navigateTo,
-    filterDescriptions: raw.filterDescriptions
+    is_published: raw.is_published,
   }
 }
 
-// Decoration fields
-export function mapDecorationFields (raw) {
+// Decoration fields from flattened scene structure
+export function mapDecorationFields (scene) {
   return {
-    id: raw.id,
-    image: raw.image_path,
-    position: mapPosition(raw.position_left, raw.position_top),
-    widthVw: raw.widthVw || 9, // Default 9vw if not specified
-    alt: raw.alt || '',
-    type: raw.type || null,
-    tooltip: raw.tooltip || ''
+    id: `decoration-${scene.slug}`,
+    image: scene.decoration_image_path,
+    position: mapPosition(scene.decoration_position_left, scene.decoration_position_top),
+    widthVw: scene.decoration_width_vw || 9, // Default 9vw if not specified
+    alt: '',
+    type: scene.affectation_type_id || null,
+    tooltip: scene.decoration_tooltip || ''
   }
 }
 
@@ -39,6 +38,7 @@ export function mapDecorationFields (raw) {
 export function mapZoneFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     image: raw.image_path, // ← Transform here
     position: mapPosition(raw.position_left, raw.position_top)
@@ -50,10 +50,10 @@ export function mapZoneFields (raw) {
 export function mapSceneFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     image: raw.image_path, // ← Transform
     position: mapPosition(raw.position_left, raw.position_top),
-    theme: raw.escene_type?.name || null // Extract from nested object
   }
 }
 
@@ -61,12 +61,14 @@ export function mapSceneFields (raw) {
 export function mapElementFields (raw) {
   return {
     id: raw.id,
+    slug: raw.slug,
     title: raw.title,
     description: raw.description,
     source: raw.source,
-    image: raw.image_path, // ← Transform
+    image: raw.image_path,
+    detail_image_path: raw.detail_image_path,
     position: mapPosition(raw.position_left, raw.position_top),
-    affectationType: raw.affectation_type?.name || null,
-    tags: raw.keywords?.map(kw => kw.name) || [] // Extract names
+    affectation_type_id: raw.affectation_type_id || null,
+    tags: raw.tags || []
   }
 }

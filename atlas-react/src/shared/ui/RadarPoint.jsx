@@ -3,25 +3,6 @@ import { useMemo } from 'react'
 import clsx from 'clsx'
 import { usePrefersReducedMotion } from '../design/hooks/usePrefersReducedMotion'
 
-const colorVariants = {
-  default: {
-    ring: '#d57a00', // naranja
-    core: '#d57a00',
-  },
-  blue: {
-    ring: '#1f43e8', // azul
-    core: '#1f43e8',
-  },
-  yellow: {
-    ring: '#bfad46', // amarillo
-    core: '#bfad46',
-  },
-  black: {
-    ring: '#1a1a1a', // negro
-    core: '#1a1a1a',
-  },
-}
-
 /**
  * RadarPoint - Punto radar animado con anillos pulsantes concéntricos
  *
@@ -38,7 +19,7 @@ const colorVariants = {
  * @param {Function} props.onFocus - Callback al recibir focus
  * @param {Function} props.onBlur - Callback al perder focus
  * @param {Object} props.parallaxOffset - Offset de parallax { x, y }
- * @param {string} props.variant - Variante de color: 'default' | 'blue' | 'yellow' | 'black'
+ * @param {string} props.color - Color hex del punto (ej: '#d57a00')
  * @param {string} props.state - Estado visual: 'visible' | 'hidden' | 'soft'
  * @param {boolean} props.isHovered - Si está en hover (acelera animación)
  */
@@ -52,12 +33,11 @@ export function RadarPoint({
   onFocus,
   onBlur,
   parallaxOffset = { x: 0, y: 0 },
-  variant = 'default',
+  color = '#d57a00',
   state = 'visible',
   isHovered = false,
 }) {
   const prefersReducedMotion = usePrefersReducedMotion()
-  const colors = colorVariants[variant] || colorVariants.default
 
   // Configuración de animación para cada anillo
   // IMPORTANTE: No animamos borderWidth porque causa problemas en producción
@@ -134,7 +114,7 @@ export function RadarPoint({
             right: 0,
             bottom: 0,
             borderRadius: '50%',
-            border: `2px solid ${colors.ring}`,
+            border: `2px solid ${color}`,
             transform: 'scale(0.1)',
             opacity: 0.9,
             animation: prefersReducedMotion
@@ -154,7 +134,7 @@ export function RadarPoint({
             right: 0,
             bottom: 0,
             borderRadius: '50%',
-            border: `2px solid ${colors.ring}`,
+            border: `2px solid ${color}`,
             transform: 'scale(0.1)',
             opacity: 0.9,
             animation: prefersReducedMotion
@@ -174,7 +154,7 @@ export function RadarPoint({
             right: 0,
             bottom: 0,
             borderRadius: '50%',
-            border: `2px solid ${colors.ring}`,
+            border: `2px solid ${color}`,
             transform: 'scale(0.1)',
             opacity: 0.9,
             animation: prefersReducedMotion
@@ -235,8 +215,8 @@ export function RadarPoint({
             width: '0.9vw',
             minWidth: '10px',
             aspectRatio: '1',
-            backgroundColor: colors.core,
-            boxShadow: `0 0 0 2px #fff inset, 0 0 0 1px ${colors.core}`,
+            backgroundColor: color,
+            boxShadow: `0 0 0 2px #fff inset, 0 0 0 1px ${color}`,
           }}
           initial={false}
           animate={{ scale: coreScale }}

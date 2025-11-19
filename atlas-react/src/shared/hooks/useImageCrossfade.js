@@ -21,7 +21,12 @@ export function useImageCrossfade(initialImage, fadeDuration = 300) {
   const swapImage = useCallback(
     (newSrc) => {
       // Si es la misma imagen, no hacer nada
-      if (newSrc === currentImage) return
+      if (!newSrc || newSrc === currentImage) return
+
+      console.log('[useImageCrossfade] swapImage called', {
+        from: currentImage,
+        to: newSrc,
+      })
 
       // Cancelar timeout anterior si existe (para permitir interrumpir fades)
       if (fadeTimeoutRef.current) {
@@ -41,6 +46,21 @@ export function useImageCrossfade(initialImage, fadeDuration = 300) {
     },
     [currentImage, fadeDuration],
   )
+
+  // Actualizar imagen cuando cambia la fuente inicial (por ejemplo, al recibir datos del API)
+  useEffect(() => {
+    if (!initialImage) return
+
+    // Cancelar cualquier fade pendiente y sincronizar la imagen inicial
+    if (fadeTimeoutRef.current) {
+      clearTimeout(fadeTimeoutRef.current)
+      fadeTimeoutRef.current = null
+    }
+
+    console.log('[useImageCrossfade] initialImage changed:', initialImage)
+    setCurrentImage(initialImage)
+    setIsFading(false)
+  }, [initialImage])
 
   // Cleanup: cancelar timeout si el componente se desmonta
   useEffect(() => {

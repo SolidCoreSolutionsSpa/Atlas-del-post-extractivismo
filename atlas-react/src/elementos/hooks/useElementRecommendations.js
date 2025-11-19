@@ -25,13 +25,12 @@ export function useElementRecommendations({
   const [recommendations, setRecommendations] = useState([])
   const [cursor, setCursor] = useState(null)
 
-  const service = useMemo(
-    () =>
-      new RecommendationsService({
-        elementsRepository,
-      }),
-    [elementsRepository],
-  )
+  const service = useMemo(() => {
+    if (!elementsRepository) return null
+    return new RecommendationsService({
+      elementsRepository,
+    })
+  }, [elementsRepository])
 
   const optionsKey = useMemo(() => JSON.stringify(options), [options])
 
@@ -39,7 +38,7 @@ export function useElementRecommendations({
     let isMounted = true
 
     async function load() {
-      if (!elementId) {
+      if (!elementId || !service) {
         setBase(null)
         setRecommendations([])
         setCursor(null)

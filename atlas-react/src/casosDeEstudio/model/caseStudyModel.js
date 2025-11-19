@@ -5,8 +5,7 @@
  * @property {string} location
  * @property {string} summary
  * @property {string} color
- * @property {string} variant
- * @property {string|null} navigateTo
+ * @property {boolean} isPublished
  * @property {string[]} zoneIds
  * @property {{
  *    image: string,
@@ -15,8 +14,7 @@
  * @property {{
  *    image: string,
  *    zones: Array<{ id: string, name: string, position: { left: string, top: string }}>,
- *    decorations: Array<{ id: string, image: string, widthVw: number, alt: string, left: string, top: string, category: string | null }>,
- *    filterDescriptions: Record<string, { title: string, text: string }>
+ *    decorations: Array<{ id: string, image: string, widthVw: number, alt: string, left: string, top: string, category: string | null }>
  * }} detailMap
  */
 
@@ -31,15 +29,13 @@ export function createCaseStudy(payload = {}) {
     location: payload.location ?? '',
     summary: payload.summary ?? 'Resumen pendiente de migracion.',
     color: payload.color ?? '#000000',
-    variant: payload.variant ?? 'default',
-    navigateTo: payload.navigateTo ?? null,
+    isPublished: payload.isPublished ?? false,
     zoneIds: payload.zoneIds ?? [],
     globalMap: payload.globalMap ?? { image: '', points: [] },
     detailMap: payload.detailMap ?? {
       image: '',
       hotspots: [],
       decorations: [],
-      filterDescriptions: {},
     },
   }
 }

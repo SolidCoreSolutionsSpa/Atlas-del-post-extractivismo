@@ -3,15 +3,17 @@ import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 import { Breadcrumbs } from '../../shared/ui/Breadcrumbs'
+import { InfoButton } from '../../shared/ui/InfoButton'
 import {
   InteractiveMap,
   MapIconHotspot,
 } from '../../shared/ui/InteractiveMap'
 import { useZoomNavigation, usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
-import { caseStudies, scenes } from '../../casosDeEstudio/repo/caseStudiesRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 import { ZonasService } from '../services/zonasService'
-import { inMemoryZonasRepository } from '../repo/zonasRepository'
 import { FilterPanel } from '../../shared/ui/FilterPanel'
+import { DescriptionModal } from '../../shared/ui/DescriptionModal'
 
 const iconByCategory = {
   biotic: '/img/icono_biotico_negro.svg',
@@ -43,20 +45,6 @@ const containerScaleByCategory = {
   physical: 1.0,
 }
 
-const filterDescriptions = {
-  biotic: {
-    title: 'Paisajes bioticos',
-    text: 'Transformaciones que impactan seres vivos del ecosistema como flora, fauna, microorganismos o comunidades mas que humanas.',
-  },
-  anthropic: {
-    title: 'Paisajes antropicos',
-    text: 'Consecuencias generadas por la intervencion humana en el territorio, ya sea por accion directa o indirecta.',
-  },
-  physical: {
-    title: 'Paisajes fisicos',
-    text: 'Transformaciones del suelo y relieve originadas por la accion extractiva sobre el territorio.',
-  },
-}
 
 const detailVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -67,29 +55,35 @@ const detailVariants = {
   },
 }
 
-const caseIndex = new Map(
-  caseStudies.map((caseStudy) => [caseStudy.id, caseStudy]),
-)
-const sceneIndex = new Map(
-  scenes.map((scene) => [scene.id, scene]),
-)
-
 export function ZonaDetailPage() {
   const { zoneId } = useParams()
   const zoomNavigate = useZoomNavigation()
+  const { zonasRepository, caseStudies, scenes, isLoading: repositoriesLoading } = useRepositories()
+  const { affectationTypes } = useAtlasData()
+
+  const caseIndex = useMemo(
+    () => new Map((caseStudies || []).map((caseStudy) => [caseStudy.id, caseStudy])),
+    [caseStudies],
+  )
+
   const service = useMemo(
     () =>
-      new ZonasService({
-        zonasRepository: inMemoryZonasRepository,
-      }),
-    [],
+      zonasRepository
+        ? new ZonasService({
+            zonasRepository,
+          })
+        : null,
+    [zonasRepository],
   )
 
   const [zone, setZone] = useState(null)
   const [status, setStatus] = useState('loading')
   const [activeFilter, setActiveFilter] = useState(null)
+  const [isDescriptionModalOpen, setIsDescriptionModalOpen] = useState(false)
 
   useEffect(() => {
+    if (!service) return
+
     let isMounted = true
     async function load() {
       setStatus('loading')
@@ -121,7 +115,7 @@ export function ZonaDetailPage() {
   }
   breadcrumbItems.push({ label: zone ? zone.name : 'Zona' })
 
-  if (status === 'loading') {
+  if (repositoriesLoading || status === 'loading') {
     return (
       <motion.section
         className="relative min-h-screen"
@@ -225,7 +219,7 @@ export function ZonaDetailPage() {
       </InteractiveMap>
 
       <FilterPanel
-        filterDescriptions={filterDescriptions}
+        affectationTypes={affectationTypes || []}
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
         orientation="vertical"
@@ -234,6 +228,22 @@ export function ZonaDetailPage() {
       <Breadcrumbs
         className="absolute left-4 sm:left-10 breadcrumb-responsive-top"
         items={breadcrumbItems}
+      />
+
+      <InfoButton
+        onClick={() => setIsDescriptionModalOpen(true)}
+        ariaLabel="Ver descripción de la zona"
+        title="Ver descripción"
+      />
+
+      <DescriptionModal
+        isOpen={isDescriptionModalOpen}
+        onClose={() => setIsDescriptionModalOpen(false)}
+        title={zone.name}
+        description={
+          zone.summary ||
+          'Explora las escenas disponibles para comprender las afectaciones presentes en esta zona.'
+        }
       />
     </motion.section>
   )

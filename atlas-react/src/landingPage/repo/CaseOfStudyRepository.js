@@ -1,4 +1,4 @@
-import { atlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import { CaseOfStudyDTO } from '../model/CaseOfStudyDTO'
 
 /**
@@ -21,12 +21,11 @@ export class CaseOfStudyRepository {
       const dto = CaseOfStudyDTO.fromAtlasContent(caseData)
 
       // Retornamos tanto la Entity como navigateTo
-      // navigateTo se mantiene separado porque no es parte del modelo de dominio
+      // navigateTo se deriva del ID y is_published, no es parte del modelo de dominio
       // pero es necesario para la navegación en la vista
       return {
         entity: dto.toEntity(),
-        navigateTo: dto.navigateTo,
-        variant: dto.variant, // También incluimos variant para el componente RadarPoint
+        navigateTo: dto.getNavigateTo(),
       }
     })
   }
@@ -46,8 +45,7 @@ export class CaseOfStudyRepository {
 
     return {
       entity: dto.toEntity(),
-      navigateTo: dto.navigateTo,
-      variant: dto.variant,
+      navigateTo: dto.getNavigateTo(),
     }
   }
 }

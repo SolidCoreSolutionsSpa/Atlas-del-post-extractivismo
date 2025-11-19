@@ -7,7 +7,7 @@ import { Button } from '../../shared/design/components/Button'
 import { usePageLoaded } from '../../shared/hooks/useZoomNavigation.jsx'
 import { useEscenasState } from '../hooks/useEscenasState'
 import { EscenasService } from '../services/escenasService'
-import { inMemoryEscenasRepository } from '../repo/escenasRepository'
+import { useRepositories } from '../../shared/data/AtlasRepositoriesContext'
 
 const containerVariants = {
   hidden: { opacity: 0, y: 16 },
@@ -28,15 +28,20 @@ const cardVariants = {
 }
 
 export function EscenasListPage() {
+  const { escenasRepository, isLoading: repositoriesLoading } = useRepositories()
+
   const service = useMemo(
     () =>
-      new EscenasService({
-        escenasRepository: inMemoryEscenasRepository,
-      }),
-    [],
+      escenasRepository
+        ? new EscenasService({
+            escenasRepository,
+          })
+        : null,
+    [escenasRepository],
   )
 
   const { status, escenas } = useEscenasState({ escenasService: service })
+  const isLoading = repositoriesLoading || status === 'loading'
 
   // Notificar cuando la página terminó de cargar
   usePageLoaded([escenas, status])
@@ -59,7 +64,7 @@ export function EscenasListPage() {
         className="grid gap-4 sm:grid-cols-2"
         variants={containerVariants}
       >
-        {status === 'loading' ? (
+        {isLoading ? (
           <motion.li
             className="rounded-2xl border border-dashed border-token-divider p-6 text-sm text-token-muted"
             variants={cardVariants}

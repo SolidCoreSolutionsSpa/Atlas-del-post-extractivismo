@@ -3,7 +3,7 @@
  * @property {string} id
  * @property {string} sceneId
  * @property {string} name
- * @property {string} subtitle
+ * @property {string|null} subtitle
  * @property {string} image
  * @property {string|null} detailImagePath
  * @property {string} body
@@ -39,7 +39,7 @@ export function createElement(payload = {}) {
     id: payload.id ?? crypto.randomUUID(),
     sceneId: payload.sceneId ?? 'unknown',
     name: payload.name ?? 'Elemento sin nombre',
-    subtitle: payload.subtitle ?? '',
+    subtitle: payload.subtitle ?? null,
     image: payload.image ?? '',
     detailImagePath: payload.detailImagePath ?? null,
     body: payload.body ?? 'Descripcion pendiente de migracion.',

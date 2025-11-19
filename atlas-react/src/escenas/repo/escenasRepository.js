@@ -1,4 +1,4 @@
-import { atlasContent as newAtlasContent } from '../../shared/data/newAtlasContent'
+import { atlasContent } from '../../shared/data/atlasContent'
 import { createScene } from '../model/sceneModel'
 import { SceneDTO } from '../model/SceneDTO'
 
@@ -28,21 +28,21 @@ export class EscenasRepository {
 
 }
 
-// Escenas desde newAtlasContent usando DTOs
+// Escenas desde atlasContent usando DTOs
 const seedScenes = []
-newAtlasContent.caseOfStudies.forEach((caseStudy) => {
+atlasContent.caseOfStudies.forEach((caseStudy) => {
   if (caseStudy.zones && Array.isArray(caseStudy.zones)) {
     caseStudy.zones.forEach((zone) => {
-      if (zone.escenes && Array.isArray(zone.escenes)) {
-        zone.escenes.forEach((escene) => {
+      if (zone.scenes && Array.isArray(zone.scenes)) {
+        zone.scenes.forEach((escene) => {
           const sceneDTO = SceneDTO.fromNewAtlasContent(escene)
-          const sceneEntity = sceneDTO.toEntity(zone.id)
+          const sceneEntity = sceneDTO.toEntity(zone.slug)
           // Convertir entity a formato del createScene
           const createdScene = createScene({
             id: sceneEntity.id,
             zoneId: sceneEntity.zoneId,
             name: sceneEntity.name,
-            theme: sceneEntity.theme,
+            summary: sceneEntity.summary,
             map: sceneEntity.map,
           })
           seedScenes.push(createdScene)
