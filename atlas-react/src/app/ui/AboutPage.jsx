@@ -11,7 +11,7 @@ const teamSections = [
     members: [
       {
         name: 'Valentina Leiva',
-        role: 'Diseño web, ilustraciones, estilo gráfico de atlas',
+        role: 'Diseño web, ilustraciones, estilo gráfico',
         imageSrc: '/img/sobre-el-proyecto/Valentina-Leiva.jpg',
       },
       {
@@ -21,7 +21,7 @@ const teamSections = [
       },
       {
         name: 'Michèle Wilkomirsky',
-        role: 'Directora de diseño del atlas',
+        role: 'Directora de diseño de atlas',
         imageSrc: '/img/sobre-el-proyecto/Michele-wilkomirsky.jpg',
       },
     ],
@@ -60,7 +60,7 @@ const teamSections = [
       },
       {
         name: 'SolidCore Solutions',
-        role: 'Desarrollo web de sitio',
+        role: 'Desarrollo web',
         imageSrc: '/img/sobre-el-proyecto/logo_solidcore.png',
         isLogo: false,
       },
@@ -114,7 +114,7 @@ export function AboutPage() {
           <h2
             className={`mt-4 text-3xl text-slate-900 lg:text-4xl ${serifHeadingClass}`}
           >
-            Prácticas colaborativas para un atlas vivo
+            Proyecto de creación interdisciplinaria
           </h2>
         </section>
 
@@ -166,8 +166,8 @@ function TeamMemberCard({ member }) {
           </div>
         )}
       </div>
-      <p className="mt-4 text-lg font-semibold text-slate-900">{member.name}</p>
-      <p className="mt-2 text-sm leading-relaxed text-slate-600">
+      <p className="mt-4 text-base font-semibold text-slate-900">{member.name}</p>
+      <p className="mt-2 text-xs leading-relaxed text-slate-600">
         {member.role}
       </p>
     </article>
