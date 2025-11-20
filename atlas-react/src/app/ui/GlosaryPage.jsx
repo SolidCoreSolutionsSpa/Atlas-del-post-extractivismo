@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import { useAtlasData } from '../../shared/data/AtlasDataContext'
 
@@ -143,22 +144,33 @@ export function GlosaryPage() {
             }}
           >
             {visibleElements.map((item) => (
-              <figure
+              <Link
                 key={item.id}
-                className="relative aspect-square overflow-hidden rounded-xl transition shadow-sm"
-                style={{
-                  backgroundImage: 'url(/img/fondo.jpg)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
+                to={`/elementos/${item.id}`}
+                className="group block"
               >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="relative z-10 h-full w-full object-contain opacity-100 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.25)]"
-                  loading="lazy"
-                />
-              </figure>
+                <figure
+                  className="relative aspect-square overflow-hidden rounded-xl transition shadow-sm ring-0 ring-slate-300/0 hover:shadow-md group-focus-visible:ring-2 group-focus-visible:ring-slate-400"
+                  style={{
+                    backgroundImage: 'url(/img/fondo.jpg)',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="relative z-10 h-full w-full object-contain opacity-100 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.35)]"
+                    loading="lazy"
+                  />
+                  <figcaption
+                    className="pointer-events-none absolute inset-x-1 bottom-2 z-20 rounded-md bg-black/90 px-2 py-[6px] text-center text-[10px] uppercase tracking-[0.3em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    style={{ wordBreak: 'break-word', hyphens: 'auto', lineHeight: 1.1 }}
+                  >
+                    {item.name}
+                  </figcaption>
+                </figure>
+              </Link>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
               <div
