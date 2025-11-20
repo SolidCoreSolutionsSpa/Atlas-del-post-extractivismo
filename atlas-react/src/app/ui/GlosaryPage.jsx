@@ -164,7 +164,7 @@ export function GlosaryPage() {
                     loading="lazy"
                   />
                   <figcaption
-                    className="pointer-events-none absolute inset-x-1 bottom-2 z-20 rounded-md bg-black/90 px-2 py-[6px] text-center text-[10px] uppercase tracking-[0.3em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
+                    className="pointer-events-none absolute inset-x-1 bottom-2 z-20 rounded-md bg-black/90 px-2 py-[6px] text-center text-[10px] tracking-[0.15em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
                     style={{ wordBreak: 'break-word', hyphens: 'auto', lineHeight: 1.1 }}
                   >
                     {item.name}
