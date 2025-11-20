@@ -9,11 +9,26 @@ import { zonasRoutes } from '../zonas/routes/zonasRoutes.jsx'
 import { escenasRoutes } from '../escenas/routes/escenasRoutes.jsx'
 import { elementosRoutes } from '../elementos/routes/elementosRoutes.jsx'
 import { LandingPage } from './ui/LandingPage'
+import { AboutPage } from './ui/AboutPage.jsx'
+import { ColaboratePage } from './ui/ColaboratePage.jsx'
+import { GlosaryPage } from './ui/GlosaryPage.jsx'
 
 const routeDefinitions = [
   {
     path: '/',
     element: <LandingPage />,
+  },
+  {
+    path: '/sobre-el-proyecto',
+    element: <AboutPage />,
+  },
+  {
+    path: '/colabora',
+    element: <ColaboratePage />,
+  },
+  {
+    path: '/glosario',
+    element: <GlosaryPage />,
   },
   ...casosDeEstudioRoutes,
   ...zonasRoutes,
@@ -65,9 +80,9 @@ function createPageVariants(prefersReducedMotion) {
       const exitTransition = prefersReducedMotion
         ? { duration: 0 }
         : {
-            duration: isForward ? 0.65 : 0.58,
-            ease: isForward ? [0.65, 0, 0.35, 1] : [0.17, 0.84, 0.44, 1],
-          }
+          duration: isForward ? 0.65 : 0.58,
+          ease: isForward ? [0.65, 0, 0.35, 1] : [0.17, 0.84, 0.44, 1],
+        }
 
       return {
         opacity: 0,

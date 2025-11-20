@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const DEFAULT_NAV_ITEMS = [
-  { label: 'Sobre el proyecto' },
-  { label: 'Colabora al atlas' },
-  { label: 'Glosario' },
+  { label: 'Sobre el proyecto', path: '/sobre-el-proyecto' },
+  { label: 'Colabora al atlas', path: '/colabora' },
+  { label: 'Glosario', path: '/glosario' },
 ]
 
 /**
@@ -13,13 +13,13 @@ const DEFAULT_NAV_ITEMS = [
  * @param {Object} props
  * @param {string} props.logoSrc - Source URL for the logo image
  * @param {Array} props.navItems - Navigation items with label property
- * @param {boolean} props.isLandingPage - Whether this is the landing page (affects text color)
+ * @param {boolean} props.isLightNav - Whether the navbar should render with dark text/logo
  * @param {string} props.className - Additional CSS classes
  */
 export function Navbar({
   logoSrc,
   navItems = DEFAULT_NAV_ITEMS,
-  isLandingPage = false,
+  isLightNav = false,
   className = '',
 }) {
   return (
@@ -35,13 +35,13 @@ export function Navbar({
       </div>
       <div className="nav-right ml-auto flex items-center navbar-links">
         {navItems.map((item) => (
-          <a
+          <NavLink
             key={item.label}
-            href="#"
-            className={isLandingPage ? '' : '!text-white'}
+            to={item.path ?? '#'}
+            className={isLightNav ? '' : '!text-white'}
           >
             {item.label}
-          </a>
+          </NavLink>
         ))}
       </div>
     </nav>
