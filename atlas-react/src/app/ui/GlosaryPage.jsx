@@ -1,266 +1,217 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+
+import { useAtlasData } from '../../shared/data/AtlasDataContext'
 
 const serifHeadingClass = 'font-["Baskervville",serif]'
+const PAGE_SIZE = 36
+const GRID_COLUMNS = 6
 
-const glossaryTerms = [
-  {
-    term: 'Afectación socio-ecológica',
-    category: 'Impactos',
-    definition:
-      'Relaciones de daño o transformación que operan simultáneamente sobre sistemas ecológicos y tejidos sociales, generando reconfiguraciones materiales, simbólicas y políticas.',
-    tags: ['impacto', 'territorio', 'conflicto'],
-    related: ['Post-extractivismo', 'Comunidades de cuidado'],
-  },
-  {
-    term: 'Comunidades de cuidado',
-    category: 'Prácticas',
-    definition:
-      'Redes de colaboración entre comunidades humanas y más-que-humanas que movilizan estrategias para sostener la vida frente a procesos extractivos.',
-    tags: ['comunidad', 'justicia climática'],
-    related: ['Afectación socio-ecológica'],
-  },
-  {
-    term: 'Desalinización',
-    category: 'Tecnología',
-    definition:
-      'Proceso industrial que extrae sales y minerales del agua de mar para hacerla utilizable. En el atlas se observa como infraestructura que desplaza conflictos hídricos hacia ecosistemas costeros y marinos.',
-    tags: ['agua', 'infraestructura', 'energía'],
-    related: ['Infraestructura crítica'],
-  },
-  {
-    term: 'Ensamblaje',
-    category: 'Metodología',
-    definition:
-      'Dispositivo analítico que reconoce la interdependencia de materiales, cuerpos, infraestructuras y relatos. Permite describir cómo se componen las redes de vida en contextos extractivos.',
-    tags: ['metodología', 'redes'],
-    related: ['Paisaje operacional'],
-  },
-  {
-    term: 'Gobernanza multiescalar',
-    category: 'Política',
-    definition:
-      'Articulación de normativas, acuerdos y actores que operan desde lo local a lo global para regular territorios extractivos, muchas veces reproduciendo asimetrías entre Norte y Sur Global.',
-    tags: ['política', 'regulación'],
-    related: ['Regímenes de poder'],
-  },
-  {
-    term: 'Infraestructura crítica',
-    category: 'Territorio',
-    definition:
-      'Conjunto de obras, redes o dispositivos tecnológicos indispensables para sostener operaciones extractivas, como ductos, puertos, plantas desalinizadoras o tranques de relave.',
-    tags: ['infraestructura', 'riesgo'],
-    related: ['Paisaje operacional'],
-  },
-  {
-    term: 'Línea base comunitaria',
-    category: 'Metodología',
-    definition:
-      'Proceso participativo que registra las condiciones del territorio desde el punto de vista de sus habitantes para contrastarlo con los relatos oficiales de impacto.',
-    tags: ['comunidad', 'documentación'],
-    related: ['Observatorio territorial'],
-  },
-  {
-    term: 'Más-que-humano',
-    category: 'Ecologías',
-    definition:
-      'Perspectiva que incorpora organismos, paisajes y materialidades no humanas como agentes activos en la construcción de territorios y resistencias.',
-    tags: ['ecología', 'agencia'],
-    related: ['Ensamblaje'],
-  },
-  {
-    term: 'Observatorio territorial',
-    category: 'Metodología',
-    definition:
-      'Espacio colaborativo de monitoreo que levanta datos, testimonios y visualizaciones para dar seguimiento a las transformaciones de un territorio.',
-    tags: ['datos', 'cartografía'],
-    related: ['Línea base comunitaria'],
-  },
-  {
-    term: 'Paisaje operacional',
-    category: 'Territorio',
-    definition:
-      'Paisaje extendido mediante el cual operan las industrias extractivas, integrando puertos, campamentos, rutas y sistemas digitales que exceden el área de concesión.',
-    tags: ['territorio', 'logística'],
-    related: ['Infraestructura crítica'],
-  },
-  {
-    term: 'Post-extractivismo',
-    category: 'Marco conceptual',
-    definition:
-      'Horizonte político y cultural que busca superar la dependencia de economías basadas en la extracción intensiva de recursos, proponiendo transiciones socio-ecológicas justas.',
-    tags: ['transición', 'economía', 'justicia'],
-    related: ['Afectación socio-ecológica', 'Regímenes de poder'],
-  },
-  {
-    term: 'Regímenes de poder',
-    category: 'Política',
-    definition:
-      'Estructuras de decisión y financiamiento que configuran quién define el uso del territorio, qué cuerpos se exponen al riesgo y quién se beneficia de la extracción.',
-    tags: ['política', 'desigualdad'],
-    related: ['Gobernanza multiescalar'],
-  },
-  {
-    term: 'Sensorías del territorio',
-    category: 'Tecnología',
-    definition:
-      'Dispositivos comunitarios o artesanales que capturan sonidos, vibraciones y texturas para evidenciar impactos no visibles de la extracción.',
-    tags: ['sensorialidad', 'comunidad'],
-    related: ['Observatorio territorial'],
-  },
-]
+function buildElements(caseOfStudies = []) {
+  const items = []
 
-const totalTerms = glossaryTerms.length
-const categoriesCount = new Set(glossaryTerms.map((t) => t.category)).size
+  caseOfStudies.forEach((cs) => {
+    cs.zones?.forEach((zone) => {
+      zone.scenes?.forEach((scene) => {
+        scene.elements?.forEach((el) => {
+          items.push({
+            id: el.slug,
+            name: el.title,
+            caseStudySlug: cs.slug,
+            caseStudyTitle: cs.title,
+            affectationTypeId: el.affectation_type_id || 'anthropic',
+            image: el.detail_image_path || el.image_path || '',
+          })
+        })
+      })
+    })
+  })
+
+  return items
+}
 
 export function GlosaryPage() {
-  const [query, setQuery] = useState('')
+  const { caseOfStudies = [], affectationTypes = [] } = useAtlasData()
+  const [caseStudyFilter, setCaseStudyFilter] = useState('all')
+  const [affectationFilter, setAffectationFilter] = useState('all')
+  const [page, setPage] = useState(0)
 
-  const filteredTerms = useMemo(() => {
-    if (!query.trim()) {
-      return glossaryTerms
+  const allElements = useMemo(() => buildElements(caseOfStudies), [caseOfStudies])
+
+  const filteredElements = useMemo(() => {
+    let list = allElements
+
+    if (caseStudyFilter !== 'all') {
+      list = list.filter((item) => item.caseStudySlug === caseStudyFilter)
     }
-    const normalized = query.toLowerCase()
-    return glossaryTerms.filter((item) => {
-      return (
-        item.term.toLowerCase().includes(normalized) ||
-        item.definition.toLowerCase().includes(normalized) ||
-        item.tags.some((tag) => tag.toLowerCase().includes(normalized)) ||
-        (item.related?.some((rel) => rel.toLowerCase().includes(normalized)) ??
-          false)
-      )
+
+    if (affectationFilter !== 'all') {
+      list = list.filter((item) => item.affectationTypeId === affectationFilter)
+    }
+
+    return list
+  }, [allElements, caseStudyFilter, affectationFilter])
+
+  const totalPages = Math.max(1, Math.ceil(filteredElements.length / PAGE_SIZE))
+  const currentPage = Math.min(page, totalPages - 1)
+  const start = currentPage * PAGE_SIZE
+  const visibleElements = filteredElements.slice(start, start + PAGE_SIZE)
+
+  useEffect(() => {
+    console.log('[GlosaryPage] elementos', {
+      total: allElements.length,
+      filtrados: filteredElements.length,
+      paginaActual: currentPage + 1,
+      totalPaginas: totalPages,
+      caso: caseStudyFilter,
+      afectacion: affectationFilter,
+      visibles: visibleElements.map((el) => el.id),
     })
-  }, [query])
+  }, [
+    allElements.length,
+    filteredElements.length,
+    visibleElements,
+    currentPage,
+    totalPages,
+    caseStudyFilter,
+    affectationFilter,
+  ])
 
-  const groupedTerms = useMemo(() => {
-    const groups = filteredTerms
-      .slice()
-      .sort((a, b) => a.term.localeCompare(b.term))
-      .reduce((acc, item) => {
-        const letter = item.term.charAt(0).toUpperCase()
-        if (!acc[letter]) {
-          acc[letter] = []
-        }
-        acc[letter].push(item)
-        return acc
-      }, {})
+  const emptySlots = Math.max(0, PAGE_SIZE - visibleElements.length)
 
-    return Object.keys(groups)
-      .sort()
-      .map((letter) => ({ letter, terms: groups[letter] }))
-  }, [filteredTerms])
+  const caseStudyOptions = useMemo(
+    () => [
+      { value: 'all', label: 'Selecciona caso de estudio' },
+      ...caseOfStudies.map((cs) => ({ value: cs.slug, label: cs.title })),
+    ],
+    [caseOfStudies],
+  )
+
+  const affectationOptions = useMemo(
+    () => [
+      { value: 'all', label: 'Selecciona tipo de afectación' },
+      ...affectationTypes.map((type) => ({
+        value: type.slug,
+        label: type.name,
+      })),
+    ],
+    [affectationTypes],
+  )
+
+  const handlePrev = () => setPage((prev) => Math.max(0, prev - 1))
+  const handleNext = () => setPage((prev) => Math.min(totalPages - 1, prev + 1))
+
+  // Reset page when filters change
+  const resetOnFilterChange = () => setPage(0)
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <section className="mx-auto max-w-6xl px-6 pb-24 pt-36 lg:px-12">
-        <header className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div>
-            <p className="uppercase tracking-[0.55em] text-xs text-slate-400">
-              Glosario
-            </p>
-            <h1
-              className={`mt-4 text-4xl leading-tight text-slate-900 lg:text-5xl ${serifHeadingClass}`}
-            >
-              Conceptos para navegar el atlas
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-slate-700">
-              Este glosario reúne términos clave que emergen del trabajo
-              colaborativo entre investigación, comunidades y diseño. Usa el
-              buscador para filtrar conceptos y comprender mejor cada caso de
-              estudio.
-            </p>
-          </div>
-          <div className="rounded-[32px] border border-slate-100 bg-white/70 p-6 shadow-lg shadow-slate-100/60">
-            <p className="text-sm uppercase tracking-[0.35em] text-slate-400">
-              Búsqueda
-            </p>
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Impactos, paisajes, metodologías..."
-              className="mt-4 w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 focus:border-slate-400 focus:outline-none"
+        <header className="space-y-6">
+          <p className="uppercase tracking-[0.55em] text-xs text-slate-400">
+            Inventario de afectaciones
+          </p>
+          <h1
+            className={`text-3xl leading-tight text-slate-900 sm:text-4xl ${serifHeadingClass}`}
+          >
+            Explora elementos por caso y afectación
+          </h1>
+          <div className="flex flex-wrap gap-4">
+            <Select
+              options={caseStudyOptions}
+              value={caseStudyFilter}
+              onChange={(value) => {
+                setCaseStudyFilter(value)
+                resetOnFilterChange()
+              }}
             />
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <GlossaryStat label="Términos" value={totalTerms} />
-              <GlossaryStat label="Categorías" value={categoriesCount} />
-            </div>
+            <Select
+              options={affectationOptions}
+              value={affectationFilter}
+              onChange={(value) => {
+                setAffectationFilter(value)
+                resetOnFilterChange()
+              }}
+            />
           </div>
         </header>
 
-        <div className="mt-14 space-y-10">
-          {groupedTerms.length === 0 ? (
-            <div className="rounded-[32px] border border-slate-100 bg-white/60 p-10 text-center shadow-sm">
-              <p className="text-lg font-semibold text-slate-900">
-                Sin resultados para “{query}”
-              </p>
-              <p className="mt-2 text-sm text-slate-500">
-                Ajusta tu búsqueda o revisa otra palabra clave relacionada con
-                el territorio, la investigación o las afectaciones.
-              </p>
-            </div>
-          ) : (
-            groupedTerms.map((group) => (
-              <div key={group.letter}>
-                <div className="flex items-center gap-4">
-                  <div className="text-3xl font-semibold text-slate-300">
-                    {group.letter}
-                  </div>
-                  <div className="h-px flex-1 bg-slate-200" />
-                </div>
-                <div className="mt-6 grid gap-6 sm:grid-cols-2">
-                  {group.terms.map((item) => (
-                    <GlossaryCard key={item.term} item={item} />
-                  ))}
-                </div>
-              </div>
-            ))
-          )}
+        <div className="mt-12">
+          <div
+            className="grid gap-6"
+            style={{
+              gridTemplateColumns: `repeat(${GRID_COLUMNS}, minmax(0, 1fr))`,
+            }}
+          >
+            {visibleElements.map((item) => (
+              <figure
+                key={item.id}
+                className="relative aspect-square overflow-hidden rounded-xl transition shadow-sm"
+                style={{
+                  backgroundImage: 'url(/img/fondo.jpg)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="relative z-10 h-full w-full object-contain opacity-100 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.25)]"
+                  loading="lazy"
+                />
+              </figure>
+            ))}
+            {Array.from({ length: emptySlots }).map((_, idx) => (
+              <div
+                key={`empty-${idx}`}
+                className="aspect-square rounded-xl border border-dashed border-slate-100 bg-white/50"
+              />
+            ))}
+          </div>
+
+          <div className="mt-6 flex items-center justify-end gap-3">
+            <span className="text-xs uppercase tracking-[0.35em] text-slate-400">
+              Página {currentPage + 1} / {totalPages}
+            </span>
+            <button
+              type="button"
+              onClick={handlePrev}
+              disabled={currentPage === 0}
+              className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs uppercase tracking-[0.25em] text-slate-600 disabled:opacity-40"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={handleNext}
+              disabled={currentPage >= totalPages - 1}
+              className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs uppercase tracking-[0.25em] text-slate-600 disabled:opacity-40"
+            >
+              →
+            </button>
+          </div>
         </div>
       </section>
     </div>
   )
 }
 
-function GlossaryCard({ item }) {
+function Select({ options, value, onChange }) {
   return (
-    <article className="rounded-[32px] border border-slate-100 bg-white/70 p-6 shadow-sm shadow-slate-100/70">
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-        <h3 className={`text-2xl text-slate-900 ${serifHeadingClass}`}>
-          {item.term}
-        </h3>
-        <span className="text-xs uppercase tracking-[0.4em] text-slate-400">
-          {item.category}
-        </span>
-      </div>
-      <p className="mt-4 text-sm leading-relaxed text-slate-600">
-        {item.definition}
-      </p>
-      {item.related && item.related.length > 0 && (
-        <p className="mt-4 text-xs uppercase tracking-[0.3em] text-slate-400">
-          Relacionado: {item.related.join(', ')}
-        </p>
-      )}
-      <div className="mt-4 flex flex-wrap gap-2">
-        {item.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-slate-200 px-3 py-1 text-xs uppercase tracking-[0.3em] text-slate-500"
-          >
-            {tag}
-          </span>
+    <div className="relative inline-block">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="appearance-none rounded-full border border-slate-200 bg-white px-4 py-2 pr-10 text-sm text-slate-700 shadow-sm focus:border-slate-400 focus:outline-none"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
         ))}
-      </div>
-    </article>
-  )
-}
-
-function GlossaryStat({ label, value }) {
-  return (
-    <div className="rounded-2xl border border-slate-100 bg-white/80 px-4 py-3 text-center shadow-sm">
-      <p className="text-3xl font-semibold text-slate-900">{value}</p>
-      <p className="text-xs uppercase tracking-[0.35em] text-slate-400">
-        {label}
-      </p>
+      </select>
+      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-400">
+        ▾
+      </span>
     </div>
   )
 }
